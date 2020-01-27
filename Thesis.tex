@@ -1,0 +1,217 @@
+\documentclass[11pt,a4paper,twoside]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{xfrac}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[backend=bibtex,style=nature,autocite=superscript,citestyle=numeric-comp,sorting=none, url=false, doi=false]{biblatex}
+\addbibresource{./References/Renal_Imaging.bib}
+\usepackage[british]{babel}
+\usepackage{listings}
+\usepackage[numbered]{matlab-prettifier}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+%\usepackage[nolist]{acronym}
+\usepackage{acronym}
+\usepackage{afterpage}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{pdfpages}
+\usepackage{lipsum}
+\raggedbottom
+\fancypagestyle{mystyle}{%
+  \fancyhf{}%
+  \fancyfoot[LE,RO]{\thepage~}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+\fancypagestyle{plain}{%
+	\fancyhf{}%
+	\fancyfoot[LE,RO]{\thepage~}%
+	\renewcommand{\headrulewidth}{0pt}%
+}
+\renewcommand{\baselinestretch}{1.5}
+\newcommand\blankpage{
+    \null
+    \thispagestyle{empty}
+    \addtocounter{page}{-1}
+    \newpage}
+\pagenumbering{roman}
+\usepackage[colorlinks=true,hidelinks]{hyperref}
+\graphicspath{ {./Images/} }
+\author{Alexander James Daniel}
+
+\begin{document}
+{\setstretch{1}
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\center
+ 
+\textsc{\LARGE The University of Nottingham}\\[0.5cm]
+\textsc{\Large Sir Peter Mansfield Imaging Centre}\\[0.5cm]
+\textsc{\large School of Physics and Astronomy}\\[0.5cm]
+
+\HRule \\[0.4cm]
+{ \Large \bfseries Developing Techniques for Quantitative Renal Magnetic Resonance Imaging}\\[0.2cm]
+%{ \large Subtitle}\\
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+Alexander James \textsc{Daniel}
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+Prof. Susan \textsc{Francis}
+\end{flushright}
+\end{minipage}\\[4cm]
+{\large \today}\\[2cm]
+
+\includegraphics[width=0.5\textwidth]{UoN_Primary_Logo_CMYK.eps}\\[1cm]
+ Thesis submitted to the University of Nottingham for the degree of Doctor of Philosophy
+\vfill
+\afterpage{\blankpage}
+\end{titlepage}
+}
+\pagestyle{mystyle}
+
+
+
+\begin{abstract}
+\thispagestyle{plain}
+%\lipsum[1]
+%Renal MRI's primary use in the clinic is to provide structural information about the kidneys. Presented below is a quantitative method for measuring the rate at which the kidneys are using oxygen. This method, known as $T_2$ Relaxation Under Spin Tagging (TRUST) has previously been used in the brain and here is successfully used to measure oxygen saturation in the renal vein. A key step in enabling the use of quantitative MRI in the clinic is understanding the interplay between the current histological analysis and the novel MR measures. Outlined here are the first stages of a project to better understand these correlations by scanning samples in-vivo, ex-vivo and carrying out volume matched histology.
+
+Renal MRI's primary use in the clinic is to provide basic structural information about the kidneys. There is a wealth of quantitative methodology that has been developed for use in other areas of the body that remains largely unadopted by the clinical renal community. Here, multiple quantitative techniques are transferred to the kidneys and compared to the standard clinical pipeline. 
+
+\end{abstract}
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+%\listoftodos
+\newpage
+\pagenumbering{arabic}
+\acresetall
+\setcounter{page}{1}
+\input{Nephrectomy}
+
+\newpage
+
+\input{TRUST}
+
+\newpage
+
+\input{ML}
+
+\newpage
+
+%\input{Layers}
+\input{Other}
+
+\newpage
+
+\chapter*{Acknowledgements}
+
+We thank Hanzhang Lu for sharing the TRUST methodology.\\
+
+We gratefully acknowledge the support of NVIDIA Corporation with the donation of the Titan Xp GPU used for this research.\\
+
+We are grateful for access to the University of Nottingham's Augusta high performance computing service.
+
+\chapter{References}
+\defbibheading{bibliography}[\refname]{}
+\printbibliography
+
+\newpage
+\section{List of Acronyms Used}
+\begin{acronym}
+\acro{ADC}{Apparent Diffusion Coefficient}
+\acro{AKI}{Acute Kidney Injury}
+\acro{AM}{Additive Manufacturing}
+\acro{ASL}{Arterial Spin Labelling}
+\acro{BOLD}{Blood Oxygen Level Dependent}
+\acro{CBF}{Cerebral Blood Flow}
+\acro{CFD}{Computational Fluid Dynamics}
+\acro{CKD}{Chronic Kidney Disease}
+\acro{CMRO$_2$}{Cerebral Metabolic Rate of Oxygen}
+\acro{DTI}{Diffusion Tensor Imaging}
+\acro{DWI}{Diffusion Weighted Imaging}
+\acro{EPI}{Echo Planar Imaging}
+\acro{eTE}{Effective Echo Time}
+\acro{FA}{Flip Angle}
+\acro{FAIR}{Flow-sensitive Alternating Inversion Recovery}
+\acro{FCN}{Fully Convolutional Network}
+\acro{FFE}{Fast Field Echo}
+\acro{FOV}{Field Of View}
+\acro{FSL}{fMRIB Software Library}
+\acro{GFR}{Glomerular Filtration Rate}
+\acro{GPU}{Graphical Processing Unit}
+\acro{GraSE}{Gradient Spin Echo}
+\acro{GUI}{Graphical User Interface}
+\acro{H and E}{Haematoxylin and Eosin}
+\acro{HASTE}{Half-Fourier Single-shot Turbo spin Echo}
+\acro{ISMRM}{International Society of Magnetic Resonance in Medicine}
+\acro{LSTM}{Long Short-Term Memory}
+\acro{ME-TSE}{Multi-Echo Turbo Spin Echo}
+\acro{MRI}{Magnetic Resonance Imaging}
+\acro{NBF}{Neutral Buffered Formalin}
+\acro{PBS}{Phosphate-buffered Saline}
+\acro{PC}{Phase Contrast}
+\acro{PLD}{Post Label Delay}
+\acro{PRELUDE}{Phase Region Expanding Labeller for Unwrapping Discrete Estimates}
+\acro{RBF}{Renal Blood Flow}
+\acro{RNN}{Recursive Neural Network}
+\acro{ReLU}{Rectified Linear Unit}
+\acro{RF}{Radio Frequency}
+\acro{RMRO$_2$}{Renal Metabolic Rate of Oxygen}
+\acro{ROI}{Region Of Interest}
+\acro{SE}{Spin Echo}
+\acro{SENSE}{SENSetivity Encoding}
+\acro{SNR}{Signal to Noise Ratio}
+\acro{SPMIC}{Sir Peter Mansfield Imaging Centre}
+\acro{TE}{Echo Time}
+\acro{TFE}{Turbo Field Echo}
+\acro{TFEPI}{Turbo Field Echo Planar Imaging}
+\acro{TI}{Inversion Time}
+\acro{TILT}{Transfer Insensitive Labelling Technique}
+\acro{TKV}{Total Kidney Volume}
+\acro{TLCO}{Twelve Layer Concentric Objects}
+\acro{TR}{Repetition Time}
+\acro{True-FISP}{True Fast Imaging with Steady Precession}
+\acro{TRUST}{$T_2$ Relaxation Under Spin Tagging}
+\acro{TSE}{Turbo Spin Echo}
+\acro{vNavs}{Volume Navigators}
+\acro{WET}{Water suppression Enhanced through $T_1$ effects}
+\end{acronym}
+
+%\appendix
+%\input{Publications}
+
+%\chapter{Quantitative Phantom Designs}
+%\label{app:phantom_designs}
+%\section{Anisotropic Diffusion Phantom}
+%\label{app:fa_phantom}
+%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}, angle=90]{Files/AM_Designs/50um_Hexagonal.pdf}
+%
+%\section{Fibre Crossing Phantom}
+%\label{app:fiber_crossing_phantom}
+%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}, angle=90]{Files/AM_Designs/Fiber_Cross_Variable.pdf}
+%
+%\section{Flow Phantom}
+%\label{app:flow_phantom}
+%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}, angle=90]{Files/AM_Designs/Four_Branch.pdf}
+
+\end{document}
