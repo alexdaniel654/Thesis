@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,twoside]{report}
+\documentclass[11pt,a4paper,oneside]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -10,6 +10,15 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{float}
+%\usepackage[T1]{fontenc}
+%\usepackage{accanthis}
+%\usepackage[math]{anttor}
+\usepackage[T1]{fontenc}
+\usepackage{baskervillef}
+\usepackage[varqu,varl,var0]{inconsolata}
+\usepackage[scale=.95,type1]{cabin}
+\usepackage[baskerville,vvarbb]{newtxmath}
+\usepackage[cal=boondoxo]{mathalfa}
 \usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage[backend=bibtex,style=nature,autocite=superscript,citestyle=numeric-comp,sorting=none, url=false, doi=false]{biblatex}
 \addbibresource{./References/Renal_Imaging.bib}
@@ -27,6 +36,7 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{pdfpages}
 \usepackage{lipsum}
+\usepackage[nodayofweek]{datetime}
 \raggedbottom
 \fancypagestyle{mystyle}{%
   \fancyhf{}%
@@ -45,6 +55,7 @@
     \addtocounter{page}{-1}
     \newpage}
 \pagenumbering{roman}
+\newdateformat{mydate}{\twodigit{\THEDAY}{ }\shortmonthname[\THEMONTH], \THEYEAR}
 \usepackage[colorlinks=true,hidelinks]{hyperref}
 \graphicspath{ {./Images/} }
 \author{Alexander James Daniel}
@@ -68,7 +79,7 @@
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Author:}\\
-Alexander James \textsc{Daniel}
+Alexander James \textsc{Daniel} MSci
 \end{flushleft}
 \end{minipage}
 ~
@@ -88,7 +99,7 @@ Prof. Susan \textsc{Francis}
 }
 \pagestyle{mystyle}
 
-
+\newgeometry{left=4cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
 \begin{abstract}
 \thispagestyle{plain}
