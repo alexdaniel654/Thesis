@@ -1,6 +1,11 @@
 \chapter{Automated Segmentation of Kidneys using Machine Learning}
 \label{chap:ML}
 
+\begin{abstract}
+\lipsum[1]
+\end{abstract}
+\newpage
+
 \section{Introduction}
 
 Segmentation of the kidneys in \ac{MRI} images is a vital, yet time consuming, aspect of many renal studies \cite{cohen_mri_2009, van_den_dool_functional_2005, cox_multiparametric_2017}. \ac{TKV} is used as a biomarker for a variety of renal pathologies; autosomal dominant polycystic disease is characterised by an increase in \ac{TKV} \cite{chapman_kidney_2012, tangri_total_2017}, while a decrease in \ac{TKV} is associated with a decrease in real function \cite{gong_relationship_2012}. In addition to \ac{TKV} measurements, renal segmentation is an important first step for many other processing pipelines, be that to increase accuracy of automated cortical-medullary segmentations or reduce computation times by only carrying out calculations for a relevant \ac{ROI}. The gold standard of segmentation is manual \ac{ROI} definition by an experienced and skilled professional, this manual process is highly time consuming and difficult due to similar signal intensities between the kidneys and other organs, anatomical differences between subjects and imaging artefacts. These factors mean that developing a fully automated method of renal segmentation is highly desirable. Such methods have been proposed with varied successes \cite{zollner_assessment_2012, seuss_development_2017} however the techniques used differ between diseases. The fact that each technique is highly optimised for a specific dataset means that it needs to be re-written to be applied to different a pathology, another time consuming and highly skilled process.\\

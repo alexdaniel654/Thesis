@@ -52,6 +52,19 @@
     \thispagestyle{empty}
     \addtocounter{page}{-1}
     \newpage}
+\makeatletter
+\renewenvironment{abstract}{%
+	\if@twocolumn
+	\section*{\abstractname}%
+	\else
+	\small
+	\begin{center}%
+		{\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
+	\end{center}%
+	\quotation
+	\fi}
+{\if@twocolumn\else\endquotation\fi}
+\makeatother
 \pagenumbering{roman}
 \newdateformat{mydate}{\twodigit{\THEDAY}{ }\shortmonthname[\THEMONTH], \THEYEAR}
 \usepackage[colorlinks=true,hidelinks]{hyperref}
@@ -90,7 +103,7 @@ Prof. Susan \textsc{Francis}
 {\large \today}\\[2cm]
 
 \includegraphics[width=0.5\textwidth]{UoN_Primary_Logo_CMYK.eps}\\[1cm]
- Thesis submitted to the University of Nottingham for the degree of Doctor of Philosophy
+Thesis submitted to the University of Nottingham for the degree of Doctor of Philosophy
 \vfill
 \afterpage{\blankpage}
 \end{titlepage}
@@ -99,15 +112,6 @@ Prof. Susan \textsc{Francis}
 
 \newgeometry{left=4cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
-\begin{abstract}
-\thispagestyle{plain}
-%\lipsum[1]
-%Renal MRI's primary use in the clinic is to provide structural information about the kidneys. Presented below is a quantitative method for measuring the rate at which the kidneys are using oxygen. This method, known as $T_2$ Relaxation Under Spin Tagging (TRUST) has previously been used in the brain and here is successfully used to measure oxygen saturation in the renal vein. A key step in enabling the use of quantitative MRI in the clinic is understanding the interplay between the current histological analysis and the novel MR measures. Outlined here are the first stages of a project to better understand these correlations by scanning samples in-vivo, ex-vivo and carrying out volume matched histology.
-
-Renal MRI's primary use in the clinic is to provide basic structural information about the kidneys. There is a wealth of quantitative methodology that has been developed for use in other areas of the body that remains largely unadopted by the clinical renal community. Here, multiple quantitative techniques are transferred to the kidneys and compared to the standard clinical pipeline. 
-
-\end{abstract}
-
 \setcounter{tocdepth}{2}
 \tableofcontents
 %\listoftodos
@@ -115,6 +119,7 @@ Renal MRI's primary use in the clinic is to provide basic structural information
 \pagenumbering{arabic}
 \acresetall
 \setcounter{page}{1}
+
 \input{Nephrectomy}
 
 \newpage
