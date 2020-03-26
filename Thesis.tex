@@ -36,15 +36,18 @@
 \usepackage{lipsum}
 \usepackage[nodayofweek]{datetime}
 \raggedbottom
-\fancypagestyle{mystyle}{%
-  \fancyhf{}%
-  \fancyfoot[LE,RO]{\thepage~}%
-  \renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\chaptermark}[1]{\markboth{}{}}
+\fancypagestyle{body}{
+  \fancyhf{}
+  \fancyhead[RE,LO]{\nouppercase\rightmark}
+  \fancyfoot[LE,RO]{\thepage~}
+  \renewcommand{\headrulewidth}{0.5pt}
+  \renewcommand{\footrulewidth}{0.5pt}
 }
-\fancypagestyle{plain}{%
-	\fancyhf{}%
-	\fancyfoot[LE,RO]{\thepage~}%
-	\renewcommand{\headrulewidth}{0pt}%
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyfoot[LE,RO]{\thepage~}
+	\renewcommand{\headrulewidth}{0pt}
 }
 \renewcommand{\baselinestretch}{1.5}
 \newcommand\blankpage{
@@ -53,14 +56,14 @@
     \addtocounter{page}{-1}
     \newpage}
 \makeatletter
-\renewenvironment{abstract}{%
+\renewenvironment{abstract}{
 	\if@twocolumn
-	\section*{\abstractname}%
+	\section*{\abstractname}
 	\else
 	\small
-	\begin{center}%
+	\begin{center}
 		{\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
-	\end{center}%
+	\end{center}
 	\quotation
 	\fi}
 {\if@twocolumn\else\endquotation\fi}
@@ -108,7 +111,7 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 \afterpage{\blankpage}
 \end{titlepage}
 }
-\pagestyle{mystyle}
+\pagestyle{plain}
 
 \newgeometry{left=4cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
@@ -116,6 +119,7 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 \tableofcontents
 %\listoftodos
 \newpage
+\pagestyle{body}
 \pagenumbering{arabic}
 \acresetall
 \setcounter{page}{1}
