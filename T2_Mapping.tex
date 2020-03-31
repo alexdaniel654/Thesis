@@ -10,10 +10,21 @@
 \section{Introduction}
 \label{sec:t2_intro}
 
+
+
 \section{Methods}
 \label{sec:t2_methods}
 
+\subsection{Theory}
+
 There are multiple methods for acquiring $T_2$ maps in the kidneys, \ac{SE}-\ac{EPI}, \ac{ME-TSE}, \ac{GraSE} and $T_2$ preparation. We wish to compare each of these methods in-vivo and verify their accuracy using a calibrated phantom. A QalibreMD System Standard Model 130 \cite{noauthor_system_nodate} is used for verification. All data is collected on a Philips 3T Ingenia system. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{T2_Mapping/Phantom_Example/T2_Spheres.eps}
+	\caption{A schematic of the $T_2$ spheres in the QalibreMD phantom.}
+	\label{fig:t2_phantom_schematic}	
+\end{figure}
 
 \subsection{Spin Echo-Echo Planar Imaging}
 A series of volumes are collected at a range of echo times using a multi-slice spin echo acquisition with \ac{EPI} readout. Acquisition parameters are \ac{FOV} = 288 $\times$ 288 $\times$ 25 mm, voxel size = 3 $\times$ 3 $\times$ 5 mm$^3$, \ac{TR} = 5000 ms, \ac{FA} = $90\degree$, \ac{SENSE} = 2.55, halfscan = 0.844 and the sequence is respiratory triggered for in-vivo use and has an acquisition time of approximately 9 minutes depending on breathing rate. Volumes are acquired at \ac{TE} between 20 ms and 70 ms in 5 ms steps with four volumes being acquired at each echo time. 
