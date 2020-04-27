@@ -11,12 +11,13 @@
 \section{Introduction}
 \label{sec:t2_intro}
 
+\subsection{Theory}
 
 
 \section{Methods}
 \label{sec:t2_methods}
 
-\subsection{Theory}
+\subsection{Acquisition Schemes}
 
 There are multiple methods for acquiring $T_2$ maps in the kidneys, \ac{SE}-\ac{EPI}, \ac{ME-TSE}, \ac{GraSE} and $T_2$ preparation. We wish to compare each of these methods in-vivo and verify their accuracy using a calibrated phantom. A QalibreMD System Standard Model 130 \cite{noauthor_system_nodate} is used for verification. All data is collected on a Philips 3T Ingenia system. 
 
@@ -27,7 +28,7 @@ There are multiple methods for acquiring $T_2$ maps in the kidneys, \ac{SE}-\ac{
 	\label{fig:t2_phantom_schematic}	
 \end{figure}
 
-\subsection{Spin Echo-Echo Planar Imaging}
+\subsubsection{Spin Echo-Echo Planar Imaging}
 A series of volumes are collected at a range of echo times using a multi-slice spin echo acquisition with \ac{EPI} readout. Acquisition parameters are \ac{FOV} = 288 $\times$ 288 $\times$ 25 mm, voxel size = 3 $\times$ 3 $\times$ 5 mm$^3$, \ac{TR} = 5000 ms, \ac{FA} = $90\degree$, \ac{SENSE} = 2.55, halfscan = 0.844 and the sequence is respiratory triggered for in-vivo use and has an acquisition time of approximately 9 minutes depending on breathing rate. Volumes are acquired at \ac{TE} between 20 ms and 70 ms in 5 ms steps with four volumes being acquired at each echo time. 
 
 \begin{figure}[H]
@@ -37,7 +38,7 @@ A series of volumes are collected at a range of echo times using a multi-slice s
 	\label{fig:t2_se-epi_seq}	
 \end{figure}
 
-\subsection{Multi-Echo Turbo Spin Echo}
+\subsubsection{Multi-Echo Turbo Spin Echo}
 
 This method also uses a multi-slice spin echo acquisition however unlike the simple spin echo method, uses a multishot \ac{TSE} readout. Acquisition parameters for in-vivo scanning are \ac{FOV} = 288 $\times$ 288 $\times$ 25 mm, voxel size = 3 $\times$ 3 $\times$ 5 mm$^3$, \ac{TR} = 3000 ms, \ac{FA} = $90\degree$, \ac{SENSE} = 2.55 and \ac{TSE} factor = 10; the sequence is respiratory triggered and has an acquisition time of approximately 4 minutes depending on breathing rate. For phantom scanning, the following parameters are modified \ac{FOV} = 250 $\times$ 250 $\times$ 6 mm, voxel size = 0.9 $\times$ 0.9 $\times$ 6 mm$^3$ and respiratory triggering is removed. Volumes are collected with \ac{TE} between 13 ms and 130 ms in 13 ms steps.
 
@@ -48,7 +49,7 @@ This method also uses a multi-slice spin echo acquisition however unlike the sim
 	\label{fig:t2_me-tse_seq}	
 \end{figure}
 
-\subsection{Gradient Spin Echo}
+\subsubsection{Gradient Spin Echo}
 
 This method also uses a multi-slice spin echo acquisition but with a \ac{GraSE} readout. Acquisition parameters for in-vivo scanning are \ac{FOV} = 288 $\times$ 288 $\times$ 25 mm, voxel size = 3 $\times$ 3 $\times$ 5 mm$^3$, \ac{TR} = 3000 ms, \ac{FA} = $90\degree$, \ac{SENSE} = 2.55 and \ac{TSE} factor = 30, startup echoes = 1; the sequence is respiratory triggered and has an acquisition time of approximately 5 minutes depending on breathing rate. For phantom scanning, the following parameters are modified \ac{FOV} = 250 $\times$ 250 $\times$ 6 mm, voxel size = 0.9 $\times$ 0.9 $\times$ 6 mm$^3$ and respiratory triggering is removed. Volumes are collected with \ac{TE} between 11.2 ms and 173.3 ms in 5.6 ms steps.
 
@@ -59,9 +60,9 @@ This method also uses a multi-slice spin echo acquisition but with a \ac{GraSE} 
 	\label{fig:t2_grase_seq}	
 \end{figure}
 
-\subsection{$T_2$ Preperation}
+\subsubsection{$T_2$ Preperation}
 
-\subsubsection{Basic $T_2$ Preperation}
+\paragraph{Basic $T_2$ Preperation}
 
 \begin{figure}[H]
 	\centering
@@ -70,7 +71,7 @@ This method also uses a multi-slice spin echo acquisition but with a \ac{GraSE} 
 	\label{fig:t2_t2prep_seq}	
 \end{figure}
 
-\subsubsection{CPMG $T_2$ Preparation}
+\paragraph{CPMG $T_2$ Preparation}
 
 This technique uses a multi-slice \ac{FFE} acquisition with a \ac{TFEPI} readout. Varying degrees of $T_2$ weighting are applied as a series of $180\degree$ preparation pulses for a variable \ac{eTE}, this is similar to the sequence used in Section \ref{sec:TRUST_MRI}. Acquisition parameters for in-vivo scanning are \ac{FOV} = 288 $\times$ 288 $\times$ 25 mm, voxel size = 3 $\times$ 5.65 $\times$ 5 mm$^3$ (voxel size is limited by the \ac{EPI} factor), \ac{TR} = 3000 ms, \ac{TE} = 5.3, \ac{FA} = $90\degree$, \ac{EPI} factor = 17, \ac{SENSE} = 3 and halfscan = 0.733; the sequence is respiratory triggered and has an acquisition time of approximately 6 minutes depending on breathing rate. As the voxel size is already at its minimum, the only modifications made for scanning the phantom are to decrease the \ac{FOV} to 250 $\times$ 250 $\times$ 6 mm and remove respiratory triggering. \ac{eTE}s of 0, 40, 80 and 160 ms are used with three volumes acquired at each \ac{eTE}
 
@@ -81,20 +82,26 @@ This technique uses a multi-slice \ac{FFE} acquisition with a \ac{TFEPI} readout
 	\label{fig:t2_cpmg_t2prep_seq}	
 \end{figure}
 
-\subsection{Adaptations for In-Vivo Use}
 
-\subsection{Analysis}
+\subsection{Post Processing}
 
-The data is fit on a voxel by voxel basis using a least squares trust region reflective method to fit the data to Equation \eqref{eq:T2} to estimate $T_2$ and $S_0$ with an uncertainty in the fit \cite{branch_subspace_1999}. For methods where multiple volumes are acquired at an \ac{TE}, individual volumes are used for the fit e.g. four points at each \ac{TE} for the \ac{SE}-\ac{EPI} method rather than taking the mean of the volumes for each \ac{TE}, this makes potential data discarding easier. This post-processing is performed by an in-house Python package. Once the $T_2$ maps have been generated, \ac{ROI} can be defined for different tissue types or phantom compositions.
+\subsubsection{Generating $T_2$ Maps}
+The data is fit on a voxel by voxel basis using a least squares trust region reflective method to fit the data to Equation \eqref{eq:T2} to estimate $T_2$ and $S_0$ with an uncertainty in the fit \cite{branch_subspace_1999}. For methods where multiple volumes are acquired at an \ac{TE}, individual volumes are used for the fit e.g. four points at each \ac{TE} for the \ac{SE}-\ac{EPI} method rather than taking the mean of the volumes for each \ac{TE}, this makes potential data discarding easier. This post-processing is performed by an in-house Python package. Once the $T_2$ maps have been generated, \ac{ROI} can be defined for different tissue types or phantom components.
 
 \begin{equation}
 S(t) = S_0 \cdot e^{-t/T_2}
 \label{eq:T2}
 \end{equation}
 
+\subsubsection{Quantifying $T_2$ Accuracy}
+
+\subsubsection{Quantifying Image Quality}
+
+\subsubsection{Assessment of In-Vivo Feasability}
+
 \section{Results}
 
-\subsubsection{Quantitative Phantom}
+\subsection{Sequence Accuracy}
 
 We began by comparing the quantitative accuracy of each of the proposed $T_2$ mapping methods (spin echo \ac{EPI}, multi-echo \ac{TSE}, \ac{GraSE} and $T_2$ preparation).  The QalibreMD System Standard Model 130 phantom used has fourteen spheres with $T_2$ between 5.35 ms and 645.8 ms spanning the range of $T_2$ expected in the kidneys, Figure \ref{fig:t2_phantom_eg}. This phantom was scanned using each of the methods outlined in \ref{sec:t2_methods} and a \ac{ROI} defined for each sphere. 
 
@@ -198,8 +205,9 @@ The data collected using the $T_2$ prep method (Figures \ref{fig:t2_phantom_t2pr
 	\label{fig:t2_phantom}
 \end{figure}
 
+\subsection{Image Quality}
 
-\subsubsection{In-Vivo}
+\subsection{In-Vivo}
 
 $T_2$ maps using all four methods were collected on the same subject in the same scanning session to allow for a direct comparison of the in-vivo data.\\ 
 
@@ -329,6 +337,7 @@ The map made using the $T_2$ preparation method (Figure \ref{fig:t2_t2_t2prep}) 
 
 The two methods that have delivered the highest image quality, \ac{SE}-\ac{EPI} and \ac{GraSE}, produce substantially different values of $T_2$ in-vivo. Even when the data from the 20 ms volume is omitted from the \ac{SE}-\ac{EPI} fit, the $T_2$ is far lower. This is surprising give that when deployed on the phantom, this protocol delivered accurate results over the range of $T_2$ we see in the kidneys. This disparity is due to the additional confounding factors of diffusion and flow that are present in the body. These factors do not affect the \ac{GraSE} sequence to the same degree as the \ac{SE}-\ac{EPI} sequence.\\
 
+\section{Discussion}
 Of the methods explored, the \ac{GraSE} sequence produced the most accurate results on the phantom and superior image quality in-vivo, we will use this sequence in $T_2$ mapping going forward.
 
 \section{Conclusion}
