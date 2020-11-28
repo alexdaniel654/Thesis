@@ -18,7 +18,7 @@
 \label{sec:t2_methods}
 
 \subsection{Acquisition Schemes}
-
+\label{subsec:t2_acq_schemes}
 There are multiple methods for acquiring $T_2$ maps in the kidneys, \ac{SE}-\ac{EPI}, \ac{ME-TSE}, \ac{GraSE} and $T_2$ preparation. We wish to compare each of these methods in-vivo and verify their accuracy using a calibrated phantom. A QalibreMD System Standard Model 130 \cite{noauthor_system_nodate} is used for verification. All data is collected on a Philips 3T Ingenia system. 
 
 \begin{figure}[H]
@@ -86,7 +86,7 @@ This technique uses a multi-slice \ac{FFE} acquisition with a \ac{TFEPI} readout
 \subsection{Post Processing}
 
 \subsubsection{Generating $T_2$ Maps}
-The data is fit on a voxel by voxel basis using a least squares trust region reflective method to fit the data to Equation \eqref{eq:T2} to estimate $T_2$ and $S_0$ with an uncertainty in the fit \cite{branch_subspace_1999}. For methods where multiple volumes are acquired at an \ac{TE}, individual volumes are used for the fit e.g. four points at each \ac{TE} for the \ac{SE}-\ac{EPI} method rather than taking the mean of the volumes for each \ac{TE}, this makes potential data discarding easier. This post-processing is performed by an in-house Python package. Once the $T_2$ maps have been generated, \ac{ROI} can be defined for different tissue types or phantom components.
+The data is fit on a voxel by voxel basis using a least squares trust region reflective method to fit the data to Equation \eqref{eq:T2} to estimate $T_2$ and $S_0$ with an uncertainty in the fit \cite{branch_subspace_1999}. For methods where multiple volumes are acquired at an \ac{TE}, individual volumes are used for the fit e.g. four points at each \ac{TE} for the \ac{SE}-\ac{EPI} method rather than taking  mean of the volumes for each \ac{TE}, this makes potential datathe discarding easier. This post-processing is performed by an in-house Python package. Once the $T_2$ maps have been generated, \ac{ROI} can be defined for different tissue types or phantom components.
 
 \begin{equation}
 S(t) = S_0 \cdot e^{-t/T_2}
@@ -94,8 +94,25 @@ S(t) = S_0 \cdot e^{-t/T_2}
 \end{equation}
 
 \subsubsection{Quantifying $T_2$ Accuracy}
+To access the accuracy of each method, the sequences were performed on the calibrated phantom with spheres of known \ttwo. By calculating the mean \ttwo for each sphere and comparing to the known \ttwo it is possible to quantify the accuracy across a range of \ttwo and summarise the overall accuracy by Pearsons correlation coefficient, \eqref{eq:pearson_cc}.
+
+\begin{equation}
+\label{eq:pearson_cc}
+r = \frac{\sum^{n}_{i=1}\left(x_i - \bar{x}\right )\left(y_i - \bar{y}\right )}{\sqrt{\sum^{n}_{i=1}\left(x_i - \bar{x}\right )^2}\sqrt{\sum^{n}_{i=1}\left(y_i - \bar{y}\right )^2}}
+\end{equation}
 
 \subsubsection{Quantifying Image Quality}
+Unfortuanately \ac{MRI} doesn't produce perfect images, every signal is subject to a degree of bluring or spreading out into surrounding voxels. The amount of this blurring is different for each sequence and can dramatically effect the readability of an image and ultimately its clinical utility. In \ac{MRI} the amount and charecteristics of the blur are usually spatialy inveriant, that is to say, if a voxel in the centre of an image is blurred over its five neighbouring voxels in the phase encode direction in the centre of the image, a voxel at the edge of the image would have the same five voxel blur applied to it. We wish to quantify the amount of bluring produced by each of the sequences outlined in \ref{subsec:t2_acq_schemes}.\\
+
+The observed image, $h$, can be moddeled as a the ideal, unblured signal, $f$ distorted by a filter, $g$, figure \ref{fig:t2_1d_blur}. This distorting filter is known as the \ac{PSF} and is the theoredical signal produced by an infinitely small point source object or, in practice, the blurring observed in the imaging system produced when an object much smaller than the systems resolving power is imaged. In a spatially invariant system such as \ac{MRI} the recorded signal is simply a convolution of the true signal and the \ac{PSF} i.e. $f \ast g = h$. By fitting a gaussian to the \ac{PSF} we can quantify the degree of bluring in the image. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{T2_Mapping/1D_Blur/1d_conv.eps}
+	\caption{The convolution of the ideal signal, $f$, and the \ac{PSF}, $g$, produces the measured signal, $h$.}
+	\label{fig:t2_1d_blur}	
+\end{figure}
+
+To estimate the \ac{PSF} we acquire an image of the \ac{NIST} phantom at a much higher resolution than the standard $T_2$ mapping sequence to approximate the ideal signal. The phantom coutains lots of clearly defined structures with high contrast edges, therefore, for the 3 $\times$ 3 $mm^2$ in plane resolution of the sequences, the edges of the structures inside the phantom are smaller than the resolving power of the sequence
 
 \subsubsection{Assessment of In-Vivo Feasability}
 

@@ -1,4 +1,5 @@
 \documentclass[11pt,a4paper,oneside]{report}
+% Import packages
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -36,7 +37,11 @@
 \usepackage{pdfpages}
 \usepackage{lipsum}
 \usepackage[nodayofweek]{datetime}
+\usepackage{xspace}
+\usepackage[colorlinks=true,hidelinks]{hyperref}
 \raggedbottom
+
+% Define page styles
 \renewcommand{\chaptermark}[1]{\markboth{}{}}
 \fancypagestyle{body}{
   \fancyhf{}
@@ -71,7 +76,14 @@
 \makeatother
 \pagenumbering{roman}
 \newdateformat{mydate}{\twodigit{\THEDAY}{ }\shortmonthname[\THEMONTH], \THEYEAR}
-\usepackage[colorlinks=true,hidelinks]{hyperref}
+
+
+% Shortcuts
+\newcommand*{\tone}{\ensuremath{T_1}\xspace}
+\newcommand*{\ttwo}{\ensuremath{T_2}\xspace}
+\newcommand*{\ttwostar}{\ensuremath{T_2^*}\xspace}
+
+% Document setup
 \graphicspath{ {./Images/} }
 \author{Alexander James Daniel}
 
