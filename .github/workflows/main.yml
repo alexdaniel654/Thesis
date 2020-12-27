@@ -23,11 +23,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: Setup Python
-      - uses: actions/setup-python@v2
+        uses: actions/setup-python@v2
         with:
-          python-version: "3.8"
+          python-version: "3.6"
       - name: Get wordcount script
         run: |
           git clone https://github.com/scivision/texcounts.git
