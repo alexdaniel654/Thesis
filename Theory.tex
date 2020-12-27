@@ -11,7 +11,7 @@
 
 \subsection{Nuclear Spin}
 \label{subsec:theory_nuclear_spin}
-The \ac{NMR} signal arises from the interraction between the atomic nucleus and an external magnetic field. These atomic nuclei poses intrinsic properties, mass ($m$), charge ($q$) and spin ($I$). Spin is a quantum mechanical property and as such, can only take values of half integers or integers. Nuclear spin is dictated by the sum of the constituent particles of the nucleus, protons and neutrons, each of which posses their own spin of either $\sfrac{1}{2}$ or $-\sfrac{1}{2}$. The additive nature of nuclear spin means that pairs of neucleons can cancel out leaivng the nucleus with zero net spin, this happens when the nuclei contains and even number of protons and neutrons. If the nuclei contains an odd number of both protons and neutrons, it will have a positive integer nuclear spin whereas if the nuclei has an odd number of protons or neutrons, it will have a half integer spin. 
+The \ac{NMR} signal arises from the interaction between the atomic nucleus and an external magnetic field. These atomic nuclei poses intrinsic properties, mass ($m$), charge ($q$) and spin ($I$). Spin is a quantum mechanical property and as such, can only take values of half integers or integers. Nuclear spin is dictated by the sum of the constituent particles of the nucleus, protons and neutrons, each of which posses their own spin of either $\sfrac{1}{2}$ or $-\sfrac{1}{2}$. The additive nature of nuclear spin means that pairs of nucleons can cancel out leaving the nucleus with zero net spin, this happens when the nuclei contains and even number of protons and neutrons. If the nuclei contains an odd number of both protons and neutrons, it will have a positive integer nuclear spin whereas if the nuclei has an odd number of protons or neutrons, it will have a half integer spin. 
 
 %\subsection{Nuclear Magnetisation}
 
@@ -20,12 +20,12 @@ The spin angular momentum, $\mathbf{J}$ of a nucleus of spin $I$ is given by
 \left|\mathbf{J}\right| = \hbar \sqrt{I\left(I+1\right)}
 \label{eq:theory_angular_momentum}
 \end{equation}
-where $\hbar$ is the reduced Plank's constant, $\sfrac{h}{2\pi}$. As the neucleus is charged and rotating, it gives rise to a current and therefore a magnetic moment $\mathbf{\mu}$,
+where $\hbar$ is the reduced Plank's constant, $\sfrac{h}{2\pi}$. As the nucleus is charged and rotating, it gives rise to a current and therefore a magnetic moment $\mathbf{\mu}$,
 \begin{equation}
 \mathbf{\mu}=\gamma \mathbf{J}
 \label{eq:theory_magnetic_moment}
 \end{equation}
-where $\gamma$ is the gyromagnetic ration for the nucleus, a constant which depends on the charge and mass of the nucleus. Table \ref{tab:theory_isotope_spin_gmr} shows the gyromagneitc ratio ($\gamma$) and nuclear spin ($I$) of common \ac{NMR} sensetive isotopes \cite{harris_n.m.r._1976, bernstein_handbook_2004}. Due to its relatively high gyromagnetic ratio, compared to other nuclei used for \ac{NMR}, and relativel abundance in the body, \ce{^{1}H}, a single proton, is most commanly used for \ac{MRI}.
+where $\gamma$ is the gyromagnetic ration for the nucleus, a constant which depends on the charge and mass of the nucleus. Table \ref{tab:theory_isotope_spin_gmr} shows the gyromagnetic ratio ($\gamma$) and nuclear spin ($I$) of common \ac{NMR} sensitive isotopes \cite{harris_n.m.r._1976, bernstein_handbook_2004, westbrook_mri_2015}. Due to its relatively high gyromagnetic ratio, compared to other nuclei used for \ac{NMR}, and relative abundance in the body, \ce{^{1}H}, a single proton, is most commonly used for \ac{MRI}.
 
 \begin{table}[H]
 	\centering
@@ -44,21 +44,32 @@ where $\gamma$ is the gyromagnetic ration for the nucleus, a constant which depe
 \end{table}
 
 \subsection{Application of an External Magnetic Field}
-If we conside the hydrogen nuclei in a sample of tissue, the number of possible eigenstates for a nucleus of nuclear spin $I$ is $\left(2I + 1\right)$. This means that for the \ce{^{1}H} nuclei in our sample where $I=\sfrac{1}{2}$, we can observe two possible eigenstates, $\left| + \sfrac{1}{2} \right \rangle$ and $\left| - \sfrac{1}{2} \right \rangle$ often written as $\left|  \uparrow \right \rangle$ and $\left|  \downarrow \right \rangle$. In the absence of an external magnetic field, these states are degenerate as they have the same energy, however, if we move our sample into a static external magnetic field along the $z$-axis, $B_0$ the energy levels separate.\\
-
-The $z$-componnent of the magnetic moment is defined by,
+If we consider the hydrogen nuclei in a sample of tissue, the number of possible eigenstates for a nucleus of nuclear spin $I$ is $\left(2I + 1\right)$. This means that for the \ce{^{1}H} nuclei in our sample, where $I=\sfrac{1}{2}$, we can observe two possible eigenstates, $\left| + \sfrac{1}{2} \right \rangle$ and $\left| - \sfrac{1}{2} \right \rangle$ often written as $\left|  \uparrow \right \rangle$ and $\left|  \downarrow \right \rangle$. In the absence of an external magnetic field, these states are degenerate as they have the same energy, however, if we move our sample into a static external magnetic field along the $z$-axis, $B_0$, the energy levels separate.\\
+The $z$-component of the magnetic moment is defined by,
 \begin{equation}
 \mu_z=\gamma \hbar \mu_I
 \label{eq:theory_longitudinal_magnetic_moment}
 \end{equation}
 where $m_I$ are the possible spin quantum numbers of the nucleus. For our proton system with spin $\sfrac{1}{2}$, $\mu_z$ is given by
 \begin{equation}
-\mu_z = \pm \frac{1}{2}\gamma\hbar
+\mu_z = \pm \frac{1}{2}\gamma\hbar.
 \end{equation}
+The spins can either be aligned parallel to the external magnetic field in the lower energy of the two eigenstates, also known as spin up, or anti-parallel to the magnetic field in the higher energy eigenstate, spin down. The energy difference between these two eigenstates is given by,
+\begin{equation}
+\Delta E = \gamma \hbar B_0.
+\end{equation}
+For an ensemble of spins in an external magnetic field, there will be an imbalance between the populations of each state with more spins occupying the lower of the two energy states. The net magnetisation of the sample is simply the sum of the constituent spins and as such, the application of an external magnetic field leads to the sample gaining a net magnetisation vector aligned with $B_0$. This effect is very small, the magnitude of the imbalance between eigenstates can be derived from Boltzmann statistics and is given by,
+\begin{equation}
+\frac{N_{\uparrow}}{N_{\downarrow}} = \exp \left(\frac{\Delta E}{k_B T}\right),
+\end{equation}
+where $N_{\downarrow}$ and $N_{\uparrow}$ are the the number of spins aligned with and against $B0$ respectively, $k_B$ is Boltzmann's constant and $T$ is the temperature of the system. This means that for a sample of biological tissue at body temperature in a 3T magnetic field, the population difference is very small at approximately three parts per million. Although this measurable proportion is very small, it can be detected due to the high density of protons in the tissue. The signal can also be increased by the application of a stronger $B_0$.
 
 \subsection{Precession}
-The nuclear magnetic moment always has a transverse component as from equations \eqref{eq:theory_angular_momentum}, \eqref{eq:theory_magnetic_moment} and \eqref{eq:theory_longitudinal_magnetic_moment} we can see $\left| \mathbf{\mu} \right| > \mu_z$, and therefore the magnetic moment cannot exactly align along the $z$-axis.
-
+The nuclear magnetic moment always has a transverse component as from equations \eqref{eq:theory_angular_momentum}, \eqref{eq:theory_magnetic_moment} and \eqref{eq:theory_longitudinal_magnetic_moment} we can see $\left| \mathbf{\mu} \right| > \mu_z$, and therefore the magnetic moment cannot exactly align along the $z$-axis. This misalignment between $\mathbf{\mu}$ and $B_0$ causes $\mathbf{\mu}$ to precess around $B_0$ at an angular frequency $\omega_0$, known as the Larmor frequency and is given by,
+\begin{equation}
+\omega_0=\gamma B_0.
+\end{equation}
+Nuclei with a positive gyromagnetic ratio precess clockwise, whereas nuclei (and the electron) with a negative gyromagnetic ratio precess anti-clockwise. This procession occurs
 \section{Relaxation to Contrast}
 
 \section{Forming an Image}

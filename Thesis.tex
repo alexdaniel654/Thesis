@@ -39,6 +39,7 @@
 \usepackage[nodayofweek]{datetime}
 \usepackage{xspace}
 \usepackage[colorlinks=true,hidelinks]{hyperref}
+\usepackage{etoolbox}
 \raggedbottom
 
 % Define page styles
@@ -127,7 +128,10 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 \pagestyle{plain}
 
 \newgeometry{left=4cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
-
+\begin{abstract}
+	\addcontentsline{toc}{chapter}{Abstract}
+	Science will happen, but this bit can be read by muggles on `tinterweb.
+\end{abstract}
 \setcounter{tocdepth}{2}
 \tableofcontents
 %\listoftodos
