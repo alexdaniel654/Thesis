@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "count"
-  count:
+  Count:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -32,6 +32,7 @@ jobs:
         run: |
           git clone https://github.com/scivision/texcounts.git
           python -m pip install --upgrade pip
+          pip install paramiko
           pip install -e texcounts
       - name: Count words
         run: |
