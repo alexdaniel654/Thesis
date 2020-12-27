@@ -32,7 +32,7 @@ jobs:
         run: |
           git clone https://github.com/scivision/texcounts.git
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e texcounts
       - name: Count words
         run: |
           python texcounts/TexCount.py Thesis.tex -v
