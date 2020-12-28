@@ -57,19 +57,66 @@ where $m_I$ are the possible spin quantum numbers of the nucleus. For our proton
 The spins can either be aligned parallel to the external magnetic field in the lower energy of the two eigenstates, also known as spin up, or anti-parallel to the magnetic field in the higher energy eigenstate, spin down. The energy difference between these two eigenstates is given by,
 \begin{equation}
 \Delta E = \gamma \hbar B_0.
+\label{eq:theory_zeeman}
 \end{equation}
 For an ensemble of spins in an external magnetic field, there will be an imbalance between the populations of each state with more spins occupying the lower of the two energy states. The net magnetisation of the sample is simply the sum of the constituent spins and as such, the application of an external magnetic field leads to the sample gaining a net magnetisation vector aligned with $B_0$. This effect is very small, the magnitude of the imbalance between eigenstates can be derived from Boltzmann statistics and is given by,
 \begin{equation}
 \frac{N_{\uparrow}}{N_{\downarrow}} = \exp \left(\frac{\Delta E}{k_B T}\right),
+\label{eq:theory_boltzman}
 \end{equation}
 where $N_{\downarrow}$ and $N_{\uparrow}$ are the the number of spins aligned with and against $B0$ respectively, $k_B$ is Boltzmann's constant and $T$ is the temperature of the system. This means that for a sample of biological tissue at body temperature in a 3T magnetic field, the population difference is very small at approximately three parts per million. Although this measurable proportion is very small, it can be detected due to the high density of protons in the tissue. The signal can also be increased by the application of a stronger $B_0$.
 
 \subsection{Precession}
-The nuclear magnetic moment always has a transverse component as from equations \eqref{eq:theory_angular_momentum}, \eqref{eq:theory_magnetic_moment} and \eqref{eq:theory_longitudinal_magnetic_moment} we can see $\left| \mathbf{\mu} \right| > \mu_z$, and therefore the magnetic moment cannot exactly align along the $z$-axis. This misalignment between $\mathbf{\mu}$ and $B_0$ causes $\mathbf{\mu}$ to precess around $B_0$ at an angular frequency $\omega_0$, known as the Larmor frequency and is given by,
+%The nuclear magnetic moment always has a transverse component as from equations \eqref{eq:theory_angular_momentum}, \eqref{eq:theory_magnetic_moment} and \eqref{eq:theory_longitudinal_magnetic_moment} we can see $\left| \mathbf{\mu} \right| > \mu_z$, and therefore the magnetic moment cannot exactly align along the $z$-axis. This misalignment between $\mathbf{\mu}$ and $B_0$ causes $\mathbf{\mu}$ to precess around $B_0$ at an angular frequency $\omega_0$, known as the Larmor frequency and is given by,
+%\begin{equation}
+%\omega_0=\gamma B_0.
+%\end{equation}
+
+Classically, if a magnetic moment, M, is placed into an external magnetic field, B, it will experience a torque, $\tau$, proportional to change in angular momentum and thus induce a rotation.
 \begin{equation}
-\omega_0=\gamma B_0.
+\mathbf{M \times B} = \frac{d\mathbf{J}}{dt} = \tau
+\label{eq:theory_classical_torque}
 \end{equation}
-Nuclei with a positive gyromagnetic ratio precess clockwise, whereas nuclei (and the electron) with a negative gyromagnetic ratio precess anti-clockwise. This procession occurs
+From \eqref{eq:theory_magnetic_moment} the quantum equivalent of \eqref{eq:theory_classical_torque} is the standard form of the Bloch equation\cite{bloch_nuclear_1946},
+\begin{equation}
+\frac{d\mathbf{\mu}}{dt} = \gamma \mathbf{\mu \times B}
+\label{eq:theory_bloch_standard}
+\end{equation}
+This equation states that if the magnetic moment, $\mu$ is not aligned with the external magnetic field, $\mathbf{B}$, it will precess about $\mathbf{B}$. The frequency of this precession, $\omega_0$ is known as the Larmor frequency and is given by substituting Plank's law ($\Delta E = \hbar \omega $) into \eqref{eq:theory_zeeman},
+\begin{equation}
+\omega_0=\gamma B_0,
+\label{eq:theory_larmor}
+\end{equation}
+Nuclei with a positive gyromagnetic ratio precess clockwise, whereas nuclei (and the electron) with a negative gyromagnetic ratio precess anti-clockwise. For a proton in a 3T magnetic field, the Larmor frequency is 128 MHz.
+
+\subsection{Resonance}
+
+Resonance is the process of energy transfer into a system by the application of energy at the natural frequency of the system. In the case of \ac{NMR} this is the application of an \ac{RF} pulse near the Larmor frequency. Before the \ac{RF} pulse is applied, the spins are at equilibrium, aligned with $B_0$. Upon the application of a $B_1$ field close to the Larmor frequency of the target nucleus and perpendicular to $B_0$, the spins aligned with $B_0$ will be displaced from equilibrium and thus precession is induced. The longer the $B_1$ field is applied, the more the net magnetisation vector is displaced, or tipped, away from $B_0$, this allows arbitrary flip angles, $\alpha$, to be achieved, \eqref{eq:theory_flip_angle}. 
+\begin{equation}
+\alpha = \int_{0}^{T} \gamma B_1\left(t\right) dt
+\label{eq:theory_flip_angle}
+\end{equation}
+In addition to displacing the spins, the $B_1$ field also induces phase coherence within the ensemble making up the net magnetisation vector. When considering the effects of \ac{RF} pulses, it can often be simpler to imagine the system from a reference frame rotating about the z-axis at the Larmor frequency. This has the effect of making $B_1$ stationary along the x-axis. Figure \ref{fig:theory_reference_frames} shows the evolution of a spin in both the laboratory and rotating frame after the application of a 90\degree  \ac{RF} pulse. In both figures the spin is tipped into the transverse plane, $M_{xy}$.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/Rotating_Frame/lab_frame.eps}
+		\caption{Laboratory Frame}
+		\label{fig:thoery_lab_frame}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/Rotating_Frame/rotating_frame.eps}
+		\caption{Rotating Frame}
+		\label{fig:theory_rotating_frame}
+	\end{subfigure}
+	\caption{The laboratory frame of reference shows the procession of the spin about $B_0$ while in the rotating frame, the spin simply rotates about the $x'$-axis}
+	\label{fig:theory_reference_frames}
+\end{figure}
+
 \section{Relaxation to Contrast}
 
 \section{Forming an Image}
