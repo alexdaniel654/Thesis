@@ -82,7 +82,7 @@ From \eqref{eq:theory_magnetic_moment} the quantum equivalent of \eqref{eq:theor
 \frac{d\mathbf{\mu}}{dt} = \gamma \mathbf{\mu \times B}
 \label{eq:theory_bloch_standard}
 \end{equation}
-This equation states that if the magnetic moment, $\mu$ is not aligned with the external magnetic field, $\mathbf{B}$, it will precess about $\mathbf{B}$. The frequency of this precession, $\omega_0$ is known as the Larmor frequency and is given by substituting Plank's law ($\Delta E = \hbar \omega $) into \eqref{eq:theory_zeeman},
+This equation states that if the magnetic moment, $\mu$ is not aligned with the external magnetic field, $\mathbf{B}$, it will precess about $\mathbf{B}$. The frequency of this precession, $\omega_0$ is known as the Larmor frequency and is given by substituting Bohr's frequency condition of the Planck relation ($\Delta E = \hbar \omega $) into \eqref{eq:theory_zeeman},
 \begin{equation}
 \omega_0=\gamma B_0,
 \label{eq:theory_larmor}
@@ -96,7 +96,7 @@ Resonance is the process of energy transfer into a system by the application of 
 \alpha = \int_{0}^{T} \gamma B_1\left(t\right) dt
 \label{eq:theory_flip_angle}
 \end{equation}
-In addition to displacing the spins, the $B_1$ field also induces phase coherence within the ensemble making up the net magnetisation vector. When considering the effects of \ac{RF} pulses, it can often be simpler to imagine the system from a reference frame rotating about the z-axis at the Larmor frequency. This has the effect of making $B_1$ stationary along the x-axis. Figure \ref{fig:theory_reference_frames} shows the evolution of a spin in both the laboratory and rotating frame after the application of a 90\degree  \ac{RF} pulse. In both figures the spin is tipped into the transverse plane, $M_{xy}$.
+In addition to displacing the spins, the $B_1$ field also induces phase coherence within the ensemble making up the net magnetisation vector. When considering the effects of \ac{RF} pulses, it can often be simpler to imagine the system from a reference frame rotating about the z-axis at the Larmor frequency. This has the effect of making $B_1$ stationary along the x-axis. Figure \ref{fig:theory_reference_frames} shows the evolution of a spin in both the laboratory and rotating frame after the application of a 90\degree{ }  \ac{RF} pulse. In both figures the spin is tipped into the transverse plane, $M_{xy}$.
 
 \begin{figure}[H]
 	\centering
@@ -118,6 +118,46 @@ In addition to displacing the spins, the $B_1$ field also induces phase coherenc
 \end{figure}
 
 \section{Relaxation to Contrast}
+If disturbed from equilibrium by an \ac{RF} pulse, the net magnetisation vector will not remain in this new state ad infinitum, instead, once the \ac{RF} pulse has finished, it will transition back to its equilibrium state in a process known as relaxation. The time constants characterising the relaxation process vary depending on the environment the spins are in and as such, can vary between different biological tissues. These relaxation constants are the principle source of contrast in \ac{MRI}. Mathematically, this relaxation is described by the fill form of the Bloch equation, \eqref{eq:theory_bloch_full}.
+
+\begin{equation}
+\frac{d\mathbf{M}}{dt} = \gamma \left( \mathbf{M \times B} \right) - \frac{\left( M_z - M_0 \right)}{T_1}\mathbf{\hat{z}} - \frac{M_x \mathbf{\hat{x}} + M_y \mathbf{\hat{y}}}{T_2}
+\label{eq:theory_bloch_full}
+\end{equation}
+
+\subsection{Longitudinal Relaxation (\tone)}
+Upon excitation, energy is exchanged between the spin system and the surrounding environment. The result of this energy exchange is that the energy of the spin system decreases and the longitudinal magnetisation exponentially decays to its equilibrium position. The time constant of this exponential decay returning to equilibrium, $M_0$ is known as the longitudinal relaxation time or \tone and is dictated by the efficiency of energy transfer between the spin system and the surrounding lattice, hence its historical name, spin-lattice relaxation. 
+
+The efficiency of this energy transfer is primarily dictated by the motion of the surrounding lattice. As nearby molecules undergo rotation and translation they cause variations in the local magnetic field. If these fluctuations are at a similar frequency to the Larmor frequency then energy transfer via dipole-dipole interactions will be relatively efficient. The rate of energy transfer can also be increased if the molecules are more closely coupled for example, tissues with a lower molecular mobility tend to have a shorter \tone than those with a high molecular mobility.
+
+\subsubsection{Measuring \tone}
+The longitudinal component of the Bloch equation, \eqref{eq:theory_bloch_full}, is given by \eqref{eq:theory_bloch_longitudinal}.
+\begin{equation}
+\frac{d\mathbf{M}_z}{dt} = - \frac{\left( M_z - M_0 \right)}{T_1}
+\label{eq:theory_bloch_longitudinal}
+\end{equation}
+Solving this equation for $M_z$ gives,
+\begin{equation}
+M_z = M_0 \left[1 - \exp\left(-\frac{t}{T_1}\right) \right] + M_z\left( 0 \right) \exp \left(-\frac{t}{T_1}\right) 
+\label{eq:theory_bloch_longitudinal_mz}
+\end{equation}
+The gold standard method for quantification of \tone is the inversion recovery pulse sequence in which a 180\degree{ }pulse is used to fully invert the magnetisation, such that $M_z(0) = -M_0$ and as such \eqref{eq:theory_bloch_longitudinal_mz} reduces to,
+\begin{equation}
+M_z = M_0 \left[1 - 2\exp\left(-\frac{t}{T_1}\right) \right].
+\label{eq:theory_bloch_longitudinal_mz_inversion}
+\end{equation}
+To measure \tone, the experiment is repeated multiple times, with measurements of $M_z$ taken at different times after the 180\degree{ } inversion pulse, \ac{TI}. The magnetisation must have fully recovered to $M_0$ between each inversion pulse, as such the minimum time between inversions, \ac{TR} is five times \tone.  Curve fitting can then be used to estimate $M_0$ and \tone, Figure \ref{fig:theory_inversion_recovery}.
+This method is expanded upon when it is used in Chapter \ref{chap:Neph}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/Inversion_Recovery/ir.eps}
+	\caption{The longitudinal magnetisation for a sample of \tone = 1000 ms in an inversion recovery experiment.}
+	\label{fig:theory_inversion_recovery}	
+\end{figure}
+\subsection{Transverse Relaxation (\ttwo and \ttwostar)}
+
+\subsubsection{Measuring \ttwo and \ttwostar}
 
 \section{Forming an Image}
 
