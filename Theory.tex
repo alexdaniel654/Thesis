@@ -126,7 +126,7 @@ If disturbed from equilibrium by an \ac{RF} pulse, the net magnetisation vector 
 \end{equation}
 
 \subsection{Longitudinal Relaxation (\tone)}
-Upon excitation, energy is exchanged between the spin system and the surrounding environment. The result of this energy exchange is that the energy of the spin system decreases and the longitudinal magnetisation exponentially decays to its equilibrium position. The time constant of this exponential decay returning to equilibrium, $M_0$ is known as the longitudinal relaxation time or \tone and is dictated by the efficiency of energy transfer between the spin system and the surrounding lattice, hence its historical name, spin-lattice relaxation. 
+Upon excitation, energy is exchanged between the spin system and the surrounding environment. The result of this energy exchange is that the energy of the spin system decreases and the longitudinal magnetisation exponentially decays to its equilibrium position. The time constant of this exponential decay returning to equilibrium, $M_0$ is known as the longitudinal relaxation time or \tone and is dictated by the efficiency of energy transfer between the spin system and the surrounding lattice, hence its historical name, spin-lattice relaxation. \\
 
 The efficiency of this energy transfer is primarily dictated by the motion of the surrounding lattice. As nearby molecules undergo rotation and translation they cause variations in the local magnetic field. If these fluctuations are at a similar frequency to the Larmor frequency then energy transfer via dipole-dipole interactions will be relatively efficient. The rate of energy transfer can also be increased if the molecules are more closely coupled for example, tissues with a lower molecular mobility tend to have a shorter \tone than those with a high molecular mobility.
 
@@ -146,7 +146,7 @@ The gold standard method for quantification of \tone is the inversion recovery p
 M_z = M_0 \left[1 - 2\exp\left(-\frac{t}{T_1}\right) \right].
 \label{eq:theory_bloch_longitudinal_mz_inversion}
 \end{equation}
-To measure \tone, the experiment is repeated multiple times, with measurements of $M_z$ taken at different times after the 180\degree{ } inversion pulse, \ac{TI}. The magnetisation must have fully recovered to $M_0$ between each inversion pulse, as such the minimum time between inversions, \ac{TR} is five times \tone.  Curve fitting can then be used to estimate $M_0$ and \tone, Figure \ref{fig:theory_inversion_recovery}.
+To measure \tone, the experiment is repeated multiple times, with measurements of $M_z$ taken at different times after the 180\degree{ } inversion pulse, \ac{TI}. The magnetisation must have fully recovered to $M_0$ between each inversion pulse, as such the minimum time between inversions, \ac{TR} is five times \tone. Curve fitting can then be used to estimate $M_0$ and \tone, Figure \ref{fig:theory_inversion_recovery}.
 This method is expanded upon when it is used in Chapter \ref{chap:Neph}.
 
 \begin{figure}[H]
@@ -156,9 +156,58 @@ This method is expanded upon when it is used in Chapter \ref{chap:Neph}.
 	\label{fig:theory_inversion_recovery}	
 \end{figure}
 \subsection{Transverse Relaxation (\ttwo and \ttwostar)}
+Upon the application of a 90\degree{ } \ac{RF} pulse, the net magnetisation vector has tipped in the $y'$ direction resulting in phase coherence and creating transverse magnetisation, $M_{x'y'}$. The spins then precess about the $z$-axis at their Larmor frequency, dictated by the magnetic field they are in. This magnetic field is not perfectly homogenous over the whole ensemble though, random dipole-dipole interaction with neighbouring spins produce short-lived fluctuations in the local magnetic field and thus the Larmor frequency of each spin varies. As the spins process at different frequencies, they de-phase, resulting an the transverse magnetisation decaying to zero as phase coherence is lost. This mechanism is driven by energy transfer between the spins within the system so is sometimes termed, spin-spin relaxation. The rate at which this loss of phase coherence due to spin-spin interactions occurs is characterised by the time constant \ttwo.\\
 
+The local magnetic field is not just influenced by spin-spin interactions. Local inhomogeneities in the static $B_0$ field can be caused by susceptibility differences within the sample and hardware imperfections. These $B_0$  inhomogeneities result in additional perturbation to the local magnetic field and therefore results in additional de-phasing of the system. The rate at which this de-phasing due to static $B_0$ inhomogeneities occurs is characterised by the time constant $T_2'$. The measured decay in transverse magnetisation is therefore dictated by \ttwostar, which is related to \ttwo and $T_2'$ by
+\begin{equation}
+\frac{1}{T_2^*} = \frac{1}{T_2} + \frac{1}{T_2'}.
+\end{equation}
 \subsubsection{Measuring \ttwo and \ttwostar}
+The transverse component of the Bloch equation, \eqref{eq:theory_bloch_full}, is given by \eqref{eq:theory_bloch_transverse}.
+\begin{equation}
+\frac{dM_{xy}}{dt} = - \frac{M_{xy}}{T_2}
+\label{eq:theory_bloch_transverse}
+\end{equation}
+Solving the differential equation for $M_{xy}$ with respect to $t$ gives,
+\begin{equation}
+M_{xy}\left(t\right) = M_{xy}\left(0\right)\exp\left(-\frac{t}{T_2}\right),
+\label{eq:theory_bloch_transverse_mxy}
+\end{equation}
+It should be noted that \eqref{eq:theory_bloch_transverse_mxy} is an idealised equation and thus does not include static field inhomogeneities that contribute to $T_2'$ and thus the magnetisation of a real signal will decay with \ttwostar.\\
 
+After a 90\degree{ } \ac{RF} pulse the envelope of the signal will decay with \ttwostar, known as an \ac{FID}. As such, by measuring the amplitude of the signal at different time points, $t$, the decay can be sampled and fit to estimate \ttwostar.\\
+
+To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogeneities that lead to $T_2'$ must be negated. Because the de-phasing effects leading to $T_2'$ are constant over time, the refocussing effects of a \ac{SE} sequence can be utilised to reform this de-phasing component. In a \ac{SE} sequence, an initial 90\degree{ } pulse shifts $M$ into the transverse plane and induces phase coherence, Figure \ref{fig:theory_se_spins_t0}. $T_2'$ effects will then cause some spins to precess quickly and others more slowly and thus de-phase with $T_2'$, Figure \ref{fig:theory_se_spins_t_te}. At time, \ac{TE}, later a 180\degree{ } pulse is used to flip the spin ensemble, reversing the phase shift meaning those spins that had accrued the largest positive phase shift will now have the largest negative phase shift and vice versa, Figure \ref{fig:theory_se_spins_t_te_inverted}. Because the $B_0$ inhomogeneities that lead to $T_2'$ are static, they will still be acting to the same degree on each spin. This leads to an echo forming at $t =$ 2\ac{TE} as those spins with the highest Larmor frequency, and largest negative phase shift, refocus or ``catch up'' with those spins with a lower Larmor frequency, Figure \ref{fig:theory_se_spins_t_2te}.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.24\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/SE/se_spins_t0.eps}
+		\caption{$t$ = 0}
+		\label{fig:theory_se_spins_t0}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.24\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/SE/se_spins_t_te.eps}
+		\caption{$t$ = TE}
+		\label{fig:theory_se_spins_t_te}
+	\end{subfigure}
+	\begin{subfigure}[c]{0.24\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/SE/se_spins_t_te_inverted.eps}
+		\caption{After 180\degree{ } pulse}
+		\label{fig:theory_se_spins_t_te_inverted}
+	\end{subfigure}
+	\begin{subfigure}[c]{0.24\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/SE/se_spins_t_2te.eps}
+		\caption{$t$ = 2TE}
+		\label{fig:theory_se_spins_t_2te}
+	\end{subfigure}
+	\caption{Spins evolving in a spin echo sequence showing the de-phasing, (\subref{fig:theory_se_spins_t_te}), refocusing pulse, (\subref{fig:theory_se_spins_t_te_inverted}), and subsequent refocusing, (\subref{fig:theory_se_spins_t_2te}).}
+	\label{fig:theory_se_spins}
+\end{figure}
 \section{Forming an Image}
 
 \newpage
