@@ -177,7 +177,15 @@ It should be noted that \eqref{eq:theory_bloch_transverse_mxy} is an idealised e
 
 After a 90\degree{ } \ac{RF} pulse the envelope of the signal will decay with \ttwostar, known as an \ac{FID}. As such, by measuring the amplitude of the signal at different time points, $t$, the decay can be sampled and fit to estimate \ttwostar.\\
 
-To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogeneities that lead to $T_2'$ must be negated. Because the de-phasing effects leading to $T_2'$ are constant over time, the refocussing effects of a \ac{SE} sequence can be utilised to reform this de-phasing component. In a \ac{SE} sequence, an initial 90\degree{ } pulse shifts $M$ into the transverse plane and induces phase coherence, Figure \ref{fig:theory_se_spins_t0}. $T_2'$ effects will then cause some spins to precess quickly and others more slowly and thus de-phase with $T_2'$, Figure \ref{fig:theory_se_spins_t_te}. At time, \ac{TE}, later a 180\degree{ } pulse is used to flip the spin ensemble, reversing the phase shift meaning those spins that had accrued the largest positive phase shift will now have the largest negative phase shift and vice versa, Figure \ref{fig:theory_se_spins_t_te_inverted}. Because the $B_0$ inhomogeneities that lead to $T_2'$ are static, they will still be acting to the same degree on each spin. This leads to an echo forming at $t =$ 2\ac{TE} as those spins with the highest Larmor frequency, and largest negative phase shift, refocus or ``catch up'' with those spins with a lower Larmor frequency, Figure \ref{fig:theory_se_spins_t_2te}.
+To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogeneities that lead to $T_2'$ must be negated. Because the processes driving the de-phasing that lead to $T_2'$ are constant over time, the refocussing effects of a \ac{SE} sequence, outlined in Figure \ref{fig:theory_se_signal}, can be utilised to reform this de-phasing component. In a \ac{SE} sequence, an initial 90\degree{ } excitation pulse shifts $M$ into the transverse plane and induces phase coherence, Figure \ref{fig:theory_se_spins_t0}. $T_2'$ effects will then cause some spins to precess quickly and others more slowly and thus de-phase with $T_2'$, Figure \ref{fig:theory_se_spins_t_te_by_2}. At time, \ac{TE}/2, later a 180\degree{ } pulse is used to flip the spin ensemble, reversing the phase shift meaning those spins that had accrued the largest positive phase shift will now have the largest negative phase shift and vice versa, Figure \ref{fig:theory_se_spins_t_te_by_2_inverted}. Because the $B_0$ inhomogeneities that lead to $T_2'$ are static, they will still be acting to the same degree on each spin. This leads to an echo forming at $t =$ \ac{TE} as those spins with the highest Larmor frequency, and largest negative phase shift, refocus or ``catch up'' with those spins with a lower Larmor frequency, Figure \ref{fig:theory_se_spins_t_te}. The processes leading to \ttwo are not constant over time and as such are not refocussed by the 180\degree{ } pulse, hence the echo in Figure \ref{fig:theory_se_spins_t_te} is not perfectly refocussed and the signal will be attenuated at a rate dictated by \ttwo.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/SE/se_signal.eps}
+	\caption{The signal produced in a spin-echo sequence used to measure \ttwo.}
+	\label{fig:theory_se_signal}	
+\end{figure}
+
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[c]{0.24\textwidth}
@@ -191,23 +199,25 @@ To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogenei
 		\centering
 		\includegraphics[width=1\textwidth]{Theory/SE/se_spins_t_te.eps}
 		\caption{$t$ = TE}
-		\label{fig:theory_se_spins_t_te}
+		\label{fig:theory_se_spins_t_te_by_2}
 	\end{subfigure}
 	\begin{subfigure}[c]{0.24\textwidth}
 		\centering
 		\includegraphics[width=1\textwidth]{Theory/SE/se_spins_t_te_inverted.eps}
 		\caption{After 180\degree{ } pulse}
-		\label{fig:theory_se_spins_t_te_inverted}
+		\label{fig:theory_se_spins_t_te_by_2_inverted}
 	\end{subfigure}
 	\begin{subfigure}[c]{0.24\textwidth}
 		\centering
 		\includegraphics[width=1\textwidth]{Theory/SE/se_spins_t_2te.eps}
 		\caption{$t$ = 2TE}
-		\label{fig:theory_se_spins_t_2te}
+		\label{fig:theory_se_spins_t_te}
 	\end{subfigure}
-	\caption{Spins evolving in a spin echo sequence showing the de-phasing, (\subref{fig:theory_se_spins_t_te}), refocusing pulse, (\subref{fig:theory_se_spins_t_te_inverted}), and subsequent refocusing, (\subref{fig:theory_se_spins_t_2te}).}
+	\caption{Spins evolving in a spin echo sequence showing the de-phasing, (\subref{fig:theory_se_spins_t_te_by_2}), refocusing pulse, (\subref{fig:theory_se_spins_t_te_by_2_inverted}), and subsequent refocusing, (\subref{fig:theory_se_spins_t_te}).}
 	\label{fig:theory_se_spins}
 \end{figure}
+
+By repeating this sequence over a range of \ac{TE} the \ttwo curve can be samples and fit to \eqref{eq:theory_bloch_transverse_mxy} to estimate \ttwo and $M_{xy0}$. The \ac{SE} sequence is the most basic form of \ttwo mapping, more methods are explored and compared in Chapter \ref{chap:t2_mapping}.
 \section{Forming an Image}
 
 \newpage

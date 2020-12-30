@@ -72,11 +72,12 @@ fig3.savefig('se_spins_t_te_inverted.eps', bbox_inches='tight', dpi=300, transpa
 
 #%% t = 2TE
 spins = 11
-spread = 0
+spread = np.pi/16
 origin = np.zeros(spins)
-theta = np.linspace(-spread, spread, origin.shape[0])
+np.random.shuffle(theta)
 u = np.cos(theta)
 v = np.sin(theta)
+theta = np.linspace(-spread, spread, origin.shape[0])
 
 theta_full = np.linspace(0, np.pi*2, 100)
 fig4, ax4 = plt.subplots()
