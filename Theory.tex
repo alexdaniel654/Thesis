@@ -218,6 +218,18 @@ To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogenei
 \end{figure}
 
 By repeating this sequence over a range of \ac{TE} the \ttwo curve can be samples and fit to \eqref{eq:theory_bloch_transverse_mxy} to estimate \ttwo and $M_{xy0}$. The \ac{SE} sequence is the most basic form of \ttwo mapping, more methods are explored and compared in Chapter \ref{chap:t2_mapping}.
+
+\subsection{Optimisation of Tissue Contrast}
+Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process due to the number of acquisitions required at different time points to sample relaxation curves. Often it is more desirable to acquire a volume at a single time with the intensity difference between tissues of interest maximised. Although the voxel intensities do not directly represent any quantitative underlying physical properties of the tissue, the contrast between tissues is sufficient for diagnosis or further analysis.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/Tissue_Contrast/tissue_contrast.eps}
+	\caption{The signal generated from renal cortical and medullary tissues \cite{cox_multiparametric_2017} and difference between signals. This shows that the contrast between the two tissues is optimal if the \acf{TI} is 1500 ms.}
+	\label{fig:theorgy_tissue_contrast}	
+\end{figure}
+\subsection{Diffusion Imaging}
+
+
 \section{Forming an Image}
 
 \newpage
