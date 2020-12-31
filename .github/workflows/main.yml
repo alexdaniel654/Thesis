@@ -22,17 +22,17 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Get TexCount
+        run: |
+          wget http://alexdaniel.info/renalmri/data/texcount.zip
+          unzip texcount.zip
+          chmod +x texcount.pl
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: "3.6"
-      - name: Get TexCount
-        run: |
-          wget http://alexdaniel.info/renalmri/data/texcount.zip
-          unsip texcount.zip
-          chmod +x texcount.pl
       - name: Get wordcount script
         run: |
           git clone https://github.com/scivision/texcounts.git
