@@ -30,9 +30,8 @@ jobs:
           python-version: "3.6"
       - name: Get TexCount
         run: |
-          wget https://app.uio.no/ifi/texcount/download.php?file=texcount_3_2_0_41.zip
-          zip -FFv "download.php?file=texcount_3_2_0_41.zip" --out fixed.zip
-          unsip fixed.zip
+          wget http://alexdaniel.info/renalmri/data/texcount.zip
+          unsip texcount.zip
           chmod +x texcount.pl
       - name: Get wordcount script
         run: |
