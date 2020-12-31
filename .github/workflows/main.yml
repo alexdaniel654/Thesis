@@ -31,7 +31,8 @@ jobs:
       - name: Get TexCount
         run: |
           wget https://app.uio.no/ifi/texcount/download.php?file=texcount_3_2_0_41.zip
-          unzip "download.php?file=texcount_3_2_0_41.zip"
+          zip -FFv "download.php?file=texcount_3_2_0_41.zip" --out fixed.zip
+          unsip fixed.zip
           chmod +x texcount.pl
       - name: Get wordcount script
         run: |
