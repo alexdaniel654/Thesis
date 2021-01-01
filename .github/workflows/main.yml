@@ -22,13 +22,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Get TexCount
-        run: |
-          wget http://alexdaniel.info/renalmri/data/texcount.zip
-          unzip texcount.zip
-          echo $PATH
-          sudo mv texcount.pl /usr/bin/texcount
-          sudo chmod +x /usr/bin/texcount
+      - name: Get TexLive
+        uses: xu-cheng/texlive-action/full@v1
+        with:
+          run: |
+            apk add make
+            make
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
