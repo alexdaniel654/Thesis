@@ -117,7 +117,8 @@ In addition to displacing the spins, the $B_1$ field also induces phase coherenc
 	\label{fig:theory_reference_frames}
 \end{figure}
 
-\section{Relaxation to Contrast}
+\newpage
+\section{Relaxation and Contrast Mechanisms}
 If disturbed from equilibrium by an \ac{RF} pulse, the net magnetisation vector will not remain in this new state ad infinitum, instead, once the \ac{RF} pulse has finished, it will transition back to its equilibrium state in a process known as relaxation. The time constants characterising the relaxation process vary depending on the environment the spins are in and as such, can vary between different biological tissues. These relaxation constants are the principle source of contrast in \ac{MRI}. Mathematically, this relaxation is described by the fill form of the Bloch equation, \eqref{eq:theory_bloch_full}.
 
 \begin{equation}
@@ -177,6 +178,7 @@ It should be noted that \eqref{eq:theory_bloch_transverse_mxy} is an idealised e
 
 After a 90\degree{ } \ac{RF} pulse the envelope of the signal will decay with \ttwostar, known as an \ac{FID}. As such, by measuring the amplitude of the signal at different time points, $t$, the decay can be sampled and fit to estimate \ttwostar.\\
 
+\subsubsection{Spin Echoes}
 To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogeneities that lead to $T_2'$ must be negated. Because the processes driving the de-phasing that lead to $T_2'$ are constant over time, the refocussing effects of a \ac{SE} sequence, outlined in Figure \ref{fig:theory_se_signal}, can be utilised to reform this de-phasing component. In a \ac{SE} sequence, an initial 90\degree{ } excitation pulse shifts $M$ into the transverse plane and induces phase coherence, Figure \ref{fig:theory_se_spins_t0}. $T_2'$ effects will then cause some spins to precess quickly and others more slowly and thus de-phase with $T_2'$, Figure \ref{fig:theory_se_spins_t_te_by_2}. At time, \ac{TE}/2, later a 180\degree{ } pulse is used to flip the spin ensemble, reversing the phase shift meaning those spins that had accrued the largest positive phase shift will now have the largest negative phase shift and vice versa, Figure \ref{fig:theory_se_spins_t_te_by_2_inverted}. Because the $B_0$ inhomogeneities that lead to $T_2'$ are static, they will still be acting to the same degree on each spin. This leads to an echo forming at $t =$ \ac{TE} as those spins with the highest Larmor frequency, and largest negative phase shift, refocus or ``catch up'' with those spins with a lower Larmor frequency, Figure \ref{fig:theory_se_spins_t_te}. The processes leading to \ttwo are not constant over time and as such are not refocussed by the 180\degree{ } pulse, hence the echo in Figure \ref{fig:theory_se_spins_t_te} is not perfectly refocussed and the signal will be attenuated at a rate dictated by \ttwo.
 
 \begin{figure}[H]
@@ -219,6 +221,20 @@ To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogenei
 
 By repeating this sequence over a range of \ac{TE} the \ttwo curve can be samples and fit to \eqref{eq:theory_bloch_transverse_mxy} to estimate \ttwo and $M_{xy0}$. The \ac{SE} sequence is the most basic form of \ttwo mapping, more methods are explored and compared in Chapter \ref{chap:t2_mapping}.
 
+\subsubsection{Gradient Echoes}
+Echoes can be generated via another mechanism, the \ac{GE}. In addition to the homogenous $B_0$ field and \ac{RF} fields encountered thus far, \ac{MRI} scanners can produce additional fields known as gradients. These switchable fields can induce linearly varying spatially dependent magnetic fields to perturb $B_0$. They are used for image formation, explained in \ref{sec:theory_forming_an_image} but can also be used to form an echo. The \ac{GE} pulse sequence uses a single 90\degree{ }\ac{RF} excitation pulse to tip the net magnetisation vector into the transverse plane. A gradient is then applied to the sample causing areas of higher field to de-phase quickly whereas areas with a relatively lower field will de-phase slower. At time \ac{TE}/2 the polarity of the gradient is reversed thus causing the spins to refocus and an echo to be formed at time \ac{TE}. An overview of the sequence is shown in Figure \ref{fig:theory_ge_signal}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/GE/ge_signal.eps}
+	\caption{A schematic of a basic \acf{GE} sequence.}
+	\label{fig:theory_ge_signal}	
+\end{figure}
+
+\subsection{Diffusion Imaging}
+Spins have been considered stationary until how, however, in biological tissues, they are often undergoing Brownian motion leading to diffusion. The signal from a sample can be made sensitive to the degree of diffusion taking place using diffusion gradients applied between excitation and echo. If a spin undergoes a translation while the gradient is being applied, it will be in a different magnetic field and thus at a different Larmor frequency while rephasing, resulting in additional signal attenuation. The degree of signal attenuation is proportional to the rate at which diffusion is occurring i.e. how far the spin has moved while the diffusion gradient was being applied. These diffusion gradients can either be bipolar, as seen in \ref{fig:theory_ge_signal} or monopolar if a \ac{SE} sequence is used.\\
+
+Not all diffusion is isotropic (occurs to the the same degree in all directions), often the motion of the spins is restricted e.g. within tissue fibres. The amount of restriction is known as the fractional anisotropy where 0 represents isotropic diffusion e.g. a large vial of water, and 1 represents diffusion being constrained to a single dimension. By applying the diffusion gradients in different directions (and strengths) the preferred direction of diffusion and fractional anisotropy can be calculated. These techniques are used in Chapter \ref{chap:Neph}.
+
 \subsection{Optimisation of Tissue Contrast}
 Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process due to the number of acquisitions required at different time points to sample relaxation curves. Often it is more desirable to acquire a volume at a single time with the intensity difference between tissues of interest maximised. Although the voxel intensities do not directly represent any quantitative underlying physical properties of the tissue, the contrast between tissues is sufficient for diagnosis or further analysis.
 \begin{figure}[H]
@@ -227,10 +243,10 @@ Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process d
 	\caption{The signal generated from renal cortical and medullary tissues \cite{cox_multiparametric_2017} and difference between signals. This shows that the contrast between the two tissues is optimal if the \acf{TI} is 1500 ms.}
 	\label{fig:theorgy_tissue_contrast}	
 \end{figure}
-\subsection{Diffusion Imaging}
 
-
+\newpage
 \section{Forming an Image}
+\label{sec:theory_forming_an_image}
 
 \newpage
 \section{References}
