@@ -27,8 +27,8 @@ jobs:
           wget http://alexdaniel.info/renalmri/data/texcount.zip
           unzip texcount.zip
           echo $PATH
-          mv texcount.pl /usr/bin/texcount
-          chmod +x /usr/bin/texcount
+          sudo mv texcount.pl /usr/bin/texcount
+          sudo chmod +x /usr/bin/texcount
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
