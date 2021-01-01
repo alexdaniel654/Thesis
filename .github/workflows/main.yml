@@ -27,6 +27,7 @@ jobs:
           wget http://alexdaniel.info/renalmri/data/texcount.zip
           unzip texcount.zip
           chmod +x texcount.pl
+          alias texcount="~/texcount.pl"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
