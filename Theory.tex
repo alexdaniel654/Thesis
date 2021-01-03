@@ -25,7 +25,7 @@ where $\hbar$ is the reduced Plank's constant, $\sfrac{h}{2\pi}$. As the nucleus
 \mathbf{\mu}=\gamma \mathbf{J}
 \label{eq:theory_magnetic_moment}
 \end{equation}
-where $\gamma$ is the gyromagnetic ration for the nucleus, a constant which depends on the charge and mass of the nucleus. Table \ref{tab:theory_isotope_spin_gmr} shows the gyromagnetic ratio ($\gamma$) and nuclear spin ($I$) of common \ac{NMR} sensitive isotopes \cite{harris_n.m.r._1976, bernstein_handbook_2004, westbrook_mri_2015}. Due to its relatively high gyromagnetic ratio, compared to other nuclei used for \ac{NMR}, and relative abundance in the body, \ce{^{1}H}, a single proton, is most commonly used for \ac{MRI}.
+where $\gamma$ is the gyromagnetic ration for the nucleus, a constant which depends on the charge and mass of the nucleus. Table \ref{tab:theory_isotope_spin_gmr} shows the gyromagnetic ratio ($\gamma$) and nuclear spin ($I$) of common \ac{NMR} sensitive isotopes \cite{harris_nmr_1976, bernstein_handbook_2004, westbrook_mri_2015}. Due to its relatively high gyromagnetic ratio, compared to other nuclei used for \ac{NMR}, and relative abundance in the body, \ce{^{1}H}, a single proton, is most commonly used for \ac{MRI}.
 
 \begin{table}[H]
 	\centering
@@ -250,18 +250,33 @@ Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process d
 \subsection{Signal Localisation}
 So far, \ac{NMR} has been applied to measure signals from the entire sample, gaining no information about the spatial variation within it. \ac{MRI} applies the techniques of \ac{NMR} to spatially resolve the location of the signal.\\
 
-The key concepts of \ac{MRI} were developed by multiple groups in the 1970s. Lauterbur used magnetic field gradients and a back-projection reconstruction technique to generate 2D images in 1973 \cite{lauterbur_image_1973}. Simultaneously Mansfield was worked on ``\ac{NMR} diffraction'' introducing the mathematical framework of reciprocal $k$-space \cite{mansfield_nmr_1973} and later slice selective excitation \cite{garroway_image_1974}. The final key insight was provided by Ernst who published the first Fourier imaging method \cite{kumar_nmr_1975}, this used non-selective excitations and linear gradients to generate 2D Fourier encoded images. These techniques are still the basis of \ac{MRI} today.
+The key concepts of \ac{MRI} were developed by multiple groups in the 1970s. Lauterbur used magnetic field gradients and a back-projection reconstruction technique to generate 2D images in 1973 \cite{lauterbur_image_1973}. Simultaneously Mansfield was worked on ``\ac{NMR} diffraction'' introducing the mathematical framework of reciprocal $k$-space \cite{mansfield_nmr_1973} and later slice selective excitation \cite{garroway_image_1974}. The final key insight was provided by Ernst who published the first Fourier imaging method \cite{kumar_nmr_1975}, this used non-selective excitations and linear gradients to generate 2D Fourier encoded images. These techniques are still the basis of \ac{MRI} today.\\
 
-\subsubsection{Slice Selection}
-The initial step in localisation is to measure the signal from a single, spatially defined, slice. This is achieved using gradient fields. These produce small linear perturbations in $B_0$ and are applied in a combination of the $x$, $y$ and $z$ direction to enable arbitrary gradient directions. The resulting $B_0$ field leads to the resonant frequency varying as a function of position. \\
-
-If a gradient is applied along the $z$ direction, $G_z$, the magnetic field experiences by the spins at position $z$ will be
+The concepts of signal localisation will be introduced through the example of an axial acquisition, Figure \ref{fig:theory_axial_planning}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/Signal_Localisation/signal_localisation_planning.eps}
+	\caption{Planning used in the signal localisation example.}
+	\label{fig:theory_axial_planning}	
+\end{figure}
+\subsubsection{Gradient Fields}
+Signal localisation makes use of gradient fields. These produce small linear perturbations in $B_0$ and are applied in a combination of the $x$, $y$ and $z$ direction to enable arbitrary gradient directions and result in $B_0$ varying with position, $\mathbf{r}$,
 \begin{equation}
-B = B_0 + G_zz.
+B_z\left( r\right) =\left( B_0 + \mathbf{G \cdot r}\right) \hat{k}.
 \end{equation}
-As such, the Larmor frequency becomes
+As such, the resonant frequency of the spins can also be described as a function of position and, because the gradients are not static, time,
 \begin{equation}
-\omega = \gamma\left( B_0 + G_zz\right).
+\omega\left( x, y, z, t \right) = \gamma \left( B_0 + G_x(t)x + G_y(t)y + G_z(t)z \right) 
+\label{eq:theory_localisation_gradients}
+\end{equation}
+\subsubsection{Slice Selection}
+The initial step in localisation is to measure the signal from a single, spatially defined, slice. If a gradient is applied along the $z$ direction, $G_z$, the magnetic field experiences by the spins at position $z$ will be
+\begin{equation}
+B\left( z\right)  = B_0 + G_zz.
+\end{equation}
+As such, from the simplification of \eqref{eq:theory_localisation_gradients}, the Larmor frequency becomes
+\begin{equation}
+\omega\left( z\right)  = \gamma\left( B_0 + G_zz\right).
 \end{equation}
 If a frequency selective \ac{RF} pulse is applied to the sample, it will only excite spins within the corresponding bandwidth and thus only a slice of desired thickness. This slice-selective thickness, $\Delta z$, can be changed by either adjusting $G_z$ or the bandwidth of the excitation pulse, $\Delta \omega$.
 \begin{equation}
@@ -287,15 +302,76 @@ The gradient applied will result in de-phasing of the spins as in a \ac{GE} sequ
 		\caption{}
 		\label{fig:theory_slice_select_profile}
 	\end{subfigure}
-	\caption{(\subref{fig:theory_slice_select_rephasing}) A truncated sinc pulse of bandwidth $\Delta \omega$ being applied over a slice selective gradient followed by the negative re-phasing gradient lobe. Note that here the area under the re-phasing gradient is half of that of the slice selective gradient. (\subref{fig:theory_slice_select_profile}) Example slices of thickness $\Delta z$ being excited by \ac{RF} pulses of bandwidth $\Delta \omega$ showing that excitation pulses of larger bandwidth result in thicker slice profiles.}
+	\caption{(\subref{fig:theory_slice_select_rephasing}) A truncated sinc pulse of bandwidth $\Delta \omega$ being applied over a slice selective gradient followed by the negative re-phasing gradient lobe. Note that the area under the re-phasing gradient is half of that of the slice selective gradient. (\subref{fig:theory_slice_select_profile}) Example slices of thickness $\Delta z$ being excited by \ac{RF} pulses of bandwidth $\Delta \omega$ showing that excitation pulses of larger bandwidth result in thicker slice profiles.}
 	\label{fig:theory_slice_select}
 \end{figure}
-\subsubsection{Frequency Encoding}
-
 \subsubsection{Phase Encoding}
+The signal has been localised from a full 3D volume to a defined 2D volumetric slice. To localise the signal in the next dimension, phase encoding is used. This technique uses a gradient in the $y$ direction applied for time $T$. For the duration of $G_y$ the spins precess with a frequency according to their position in the $y$ direction
+\begin{equation}
+\omega \left( y\right) = \gamma\left( B_0 + G_yy\right),
+\end{equation}
+and as such accrue a phase shift relative to if no gradient was applied, given by 
+\begin{equation}
+\phi\left( y\right)  = \gamma y \int_{0}^{T} G_y\left( t\right) dt.
+\end{equation}
+Acquisitions must be repeated with different amplitudes/durations of $G_y$ to fully sample in the $y$ direction.
+
+\subsubsection{Frequency Encoding}
+Finally, the signal needs to be localised in the $x$ direction. This is achieved using frequency encoding.
+Here the gradient, $G_x$ is applied during the acquisition section of the sequence i.e. when the signal is being sampled. As the gradient is being applied during readout, those spins in the centre of the gradient (at field $B_0$) will be precessing at the Larmor frequency while those in a stronger field will be precessing faster. By sampling the signal generated and applying a Fourier transform to separate components of the signal at each frequency, the signal is spatially resolved in all three dimensions.\\
+
+An overview of a basic signal localisation scheme is shown in Figure \ref{fig:theory_signal_loc}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/Signal_Localisation/signal_localisation_psd.eps}
+	\caption{}
+	\label{fig:theory_signal_loc}	
+\end{figure}
 
 \subsubsection{$k$-space}
+$k$-space, sometimes known as Fourier space, is a useful concept for interpreting \ac{MRI} pulse sequences and represents the spatial frequencies of the image. Immediately after an excitation pulse and rewind gradient, the signal being sampled is at the origin of $k$-space, corresponding to low spatial frequencies, or the low resolution aspects of the image e.g. which voxels are inside or outside the body. As gradients are applied to the sample, sampling moves out from the centre of $k$-space to higher spatial frequencies corresponding to finer detail within the image. For a 2D acquisition, as above, the location in $k$-space is defined by \eqref{eq:theory_k_space_x} and \eqref{eq:theory_k_space_y} where $G_x$ and $G_y$ are the gradients in the frequency encode and phase encode directions respectively and $t_x$ and $t_y$ are the duration the gradient is applied for.
+\begin{eqnarray}
+k_x &=& \gamma G_x t_x
+\label{eq:theory_k_space_x} \\
+k_y &=& \gamma G_y t_y
+\label{eq:theory_k_space_y}
+\end{eqnarray}\\
 
+When recording \ac{MRI} data, the continuous signal must be discretised. The higher the sampling frequency i.e. the closer together in $k$-space the samples are, $\Delta k$, the wider the \ac{FOV} and the further out from the origin of $k$-space is samples, the higher resolution the image will be. Examples of $k$-space sampling patterns and their corresponding image are shown in Figure \ref{fig:theory_kspace}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.8\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/kspace/kspace_full_sample.eps}
+		\caption{}
+		\label{fig:theory_kspace_full}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.8\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/kspace/kspace_centre.eps}
+		\caption{}
+		\label{fig:theory_kspace_centre}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.8\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/kspace/kspace_wrap.eps}
+		\caption{}
+		\label{fig:theory_kspace_wrap}
+	\end{subfigure}
+	\caption{(\subref{fig:theory_kspace_full}) Fully samples $k$-space and the corresponding image. (\subref{fig:theory_kspace_centre}) Centre sampling of $k$-space produces a lower resolution image. (\subref{fig:theory_kspace_wrap}) Sampling with a larger $\Delta k$ resulting in a decreased \ac{FOV} and aliasing.}
+	\label{fig:theory_kspace}
+\end{figure}
+\subsubsection{Coordinate Systems}
+The above example was chosen so that only one gradient is used at once however if the planning of the acquisition is more complicated, the nomencleture can become more confusing, as such, for clarity multiple coordinate systems are often used.
+\paragraph{Scanner Space}
+This coordinate system has its origin at isocentre of the scanner and is defined in terms of $x$, $y$ and $z$.
+\paragraph{Imaging Space}
+The coordinates of this system are defined by the directions used in signal localisation, $M$ for the frequency encode direction (also called magnitude), $P$ for the phase encode direction and $S$ for the slice select direction.
+\paragraph{Anatomical Space}
+Defined in terms of the subjects orientation in the scanner, this coordinate system has the axis, Right-Left (R-L), Anterior-Posterior (A-P) and Superior-Inferior (S-I).
 
 \subsection{Image Acquisition Acceleration}
 
