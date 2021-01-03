@@ -226,7 +226,7 @@ Echoes can be generated via another mechanism, the \ac{GE}. In addition to the h
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/GE/ge_signal.eps}
-	\caption{A schematic of a basic \acf{GE} sequence.}
+	\caption{A schematic of a basic \acf{GE} sequence with \ac{TE} 100 ms.}
 	\label{fig:theory_ge_signal}	
 \end{figure}
 
@@ -247,6 +247,68 @@ Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process d
 \newpage
 \section{Forming an Image}
 \label{sec:theory_forming_an_image}
+\subsection{Signal Localisation}
+So far, \ac{NMR} has been applied to measure signals from the entire sample, gaining no information about the spatial variation within it. \ac{MRI} applies the techniques of \ac{NMR} to spatially resolve the location of the signal.\\
+
+The key concepts of \ac{MRI} were developed by multiple groups in the 1970s. Lauterbur used magnetic field gradients and a back-projection reconstruction technique to generate 2D images in 1973 \cite{lauterbur_image_1973}. Simultaneously Mansfield was worked on ``\ac{NMR} diffraction'' introducing the mathematical framework of reciprocal $k$-space \cite{mansfield_nmr_1973} and later slice selective excitation \cite{garroway_image_1974}. The final key insight was provided by Ernst who published the first Fourier imaging method \cite{kumar_nmr_1975}, this used non-selective excitations and linear gradients to generate 2D Fourier encoded images. These techniques are still the basis of \ac{MRI} today.
+
+\subsubsection{Slice Selection}
+The initial step in localisation is to measure the signal from a single, spatially defined, slice. This is achieved using gradient fields. These produce small linear perturbations in $B_0$ and are applied in a combination of the $x$, $y$ and $z$ direction to enable arbitrary gradient directions. The resulting $B_0$ field leads to the resonant frequency varying as a function of position. \\
+
+If a gradient is applied along the $z$ direction, $G_z$, the magnetic field experiences by the spins at position $z$ will be
+\begin{equation}
+B = B_0 + G_zz.
+\end{equation}
+As such, the Larmor frequency becomes
+\begin{equation}
+\omega = \gamma\left( B_0 + G_zz\right).
+\end{equation}
+If a frequency selective \ac{RF} pulse is applied to the sample, it will only excite spins within the corresponding bandwidth and thus only a slice of desired thickness. This slice-selective thickness, $\Delta z$, can be changed by either adjusting $G_z$ or the bandwidth of the excitation pulse, $\Delta \omega$.
+\begin{equation}
+\Delta z = \frac{\Delta \omega}{\gamma G_z}
+\end{equation}
+
+The excitation profile achieved by a slice selective pulse can be approximated by a Fourier transform. Generally, a rectangular slice profile is wanted and as such, the \ac{RF} pulse takes the form of a sinc function. To achieve a perfect rectangular pulse, the sinc would have to be infinite in length. Given the lack of infinite time available during an \ac{MRI} examination, a truncated sinc pulse is used, generally including three or five lobes and a Gaussian filter.\\
+
+The gradient applied will result in de-phasing of the spins as in a \ac{GE} sequence, therefore a gradient of the opposite polarity and half the magnitude is applied after the \ac{RF} pulse to re-phase the spins, Figure \ref{fig:theory_slice_select_rephasing}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/Slice_Select/slice_select_rephasing.eps}
+		\caption{}
+		\label{fig:theory_slice_select_rephasing}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/Slice_Select/slice_select.eps}
+		\caption{}
+		\label{fig:theory_slice_select_profile}
+	\end{subfigure}
+	\caption{(\subref{fig:theory_slice_select_rephasing}) A truncated sinc pulse of bandwidth $\Delta \omega$ being applied over a slice selective gradient followed by the negative re-phasing gradient lobe. Note that here the area under the re-phasing gradient is half of that of the slice selective gradient. (\subref{fig:theory_slice_select_profile}) Example slices of thickness $\Delta z$ being excited by \ac{RF} pulses of bandwidth $\Delta \omega$ showing that excitation pulses of larger bandwidth result in thicker slice profiles.}
+	\label{fig:theory_slice_select}
+\end{figure}
+\subsubsection{Frequency Encoding}
+
+\subsubsection{Phase Encoding}
+
+\subsubsection{$k$-space}
+
+
+\subsection{Image Acquisition Acceleration}
+
+\subsubsection{Partial Fourier}
+
+\subsubsection{\ac*{SENSE}}
+
+
+\subsection{Image Acquisition Schemes}
+
+\subsubsection{Spin Warp Imaging}
+
+\subsubsection{\ac*{EPI}}
 
 \newpage
 \section{References}
