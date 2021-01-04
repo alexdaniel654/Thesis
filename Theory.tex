@@ -339,7 +339,7 @@ k_y &=& \gamma G_y t_y
 
 When recording \ac{MRI} data, the continuous signal must be discretised. The higher the sampling frequency i.e. the closer together in $k$-space the samples are, $\Delta k$, the wider the \ac{FOV} and the further out from the origin of $k$-space is samples, the higher resolution the image will be. Examples of $k$-space sampling patterns and their corresponding image are shown in Figure \ref{fig:theory_kspace}.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\begin{subfigure}[c]{0.8\textwidth}
 		\centering
@@ -364,6 +364,10 @@ When recording \ac{MRI} data, the continuous signal must be discretised. The hig
 	\caption{(\subref{fig:theory_kspace_full}) Fully samples $k$-space and the corresponding image. (\subref{fig:theory_kspace_centre}) Centre sampling of $k$-space produces a lower resolution image. (\subref{fig:theory_kspace_wrap}) Sampling with a larger $\Delta k$ resulting in a decreased \ac{FOV} and aliasing.}
 	\label{fig:theory_kspace}
 \end{figure}
+
+\subsubsection{From $k$-space to Image Space}
+The raw data sampled in $k$-space can be reconstructed to an image via a Fourier transform. When the quadrature data undergoes a 2D Fourier transform, it produces a complex image composed of a real and imaginary part. These constituent parts of the image can be converted into magnitude and phase images with the magnitude representing the spin density.
+
 \subsubsection{Coordinate Systems}
 The above example was chosen so that only one gradient is used at once however if the planning of the acquisition is more complicated, the nomencleture can become more confusing, as such, for clarity multiple coordinate systems are often used.
 \paragraph{Scanner Space}
@@ -374,13 +378,66 @@ The coordinates of this system are defined by the directions used in signal loca
 Defined in terms of the subjects orientation in the scanner, this coordinate system has the axis, Right-Left (R-L), Anterior-Posterior (A-P) and Superior-Inferior (S-I).
 
 \subsection{Image Acquisition Acceleration}
+One of the recurring limiting factors in \ac{MRI} is the acquisition time. For neuroimaging applications the relatively slow acquisition of \ac{MRI} limits subject throughput or the number of different measures that can be performed. In abdominal imaging, acquisition times can be even more of a hindrance given many scans are performed while the subject is holding their breadth on expiration. As such, image acquisition acceleration techniques have been developed. These techniques sacrifice a small amount of \ac{SNR} for a decrease in acquisition time.
 
 \subsubsection{Partial Fourier}
+Fully sampled $k$-space contains inherent redundancy as it contains its own complex conjugate; the real components of the signal are symmetric while the imaginary components are anti-symmetric. This means that no contrast information is lost if a reduced area of $k$-space is sampled e.g. only sample 66\% of $k$-space. This technique does impact phase information though so should not be used in acquisitions where downstream processing requires accurate phase. Known as partial Fourier or half-scan, this technique results in a decreased \ac{SNR} and can introduces image artefacts as the partial Fourier factor approaches 50\%, however, the acquisition time reduces by approximately the percentage of $k$-space sampled e.g. an acquisition that would take three minutes fully sampled will take two minutes if a partial Fourier factor of 66\% is used. An example of reconstructions of full, 75\% and 51\% of $k$-space are shown in Figure \ref{fig:theory_partial_fourier}
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/partial_fourier/kspace_full.eps}
+		\caption{}
+		\label{fig:theory_partial_fourier_full_k}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/partial_fourier/kspace_75.eps}
+		\caption{}
+		\label{fig:theory_partial_fourier_75_k}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/partial_fourier/kspace_51.eps}
+		\caption{}
+		\label{fig:theory_partial_fourier_51_k}
+	\end{subfigure}
+\vskip\baselineskip
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/partial_fourier/image_full.eps}
+		\caption{}
+		\label{fig:theory_partial_fourier_full_image}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/partial_fourier/image_75.eps}
+		\caption{}
+		\label{fig:theory_partial_fourier_75_image}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/partial_fourier/image_51.eps}
+		\caption{}
+		\label{fig:theory_partial_fourier_51_image}
+	\end{subfigure}
+	\caption{Full, (\subref{fig:theory_partial_fourier_full_k}), 75\%, (\subref{fig:theory_partial_fourier_75_k}), and 51\%, (\subref{fig:theory_partial_fourier_51_k}), $k$-space sampling and their corresponding reconstructions in image space, (\subref{fig:theory_partial_fourier_full_image}), (\subref{fig:theory_partial_fourier_75_image}) and (\subref{fig:theory_partial_fourier_51_image}) respectively.}
+	\label{fig:theory_partial_fourier}
+\end{figure}
 
 \subsubsection{\ac*{SENSE}}
+Most modern scanners use different coils for \ac{RF} transmission, and signal receiving. The transmission coil is usually built into the bore of the magnet while the receive coil is placed as close to the source of the signal as possible. These receive coils are usually composed of multiple smaller coils to make an array, each with its own signal sampling hardware. This means that it is possible to record signal from multiple coils simultaneously with a reduced \ac{FOV} before combining into a single volume and thus increase acquisition speed. As seen in Figure \ref{fig:theory_kspace_wrap}, a small \ac{FOV} can result in wrapping artefacts due to aliasing. To combat this, the spatial sensitivity profile of each element within the array i.e. the area it can measure signal from, is measured. Using this prior knowledge of signal locations, a reconstruction with minimal wrapping can be achieved.\\
 
+The \ac{SENSE} factor is the degree to which $k$-space is under-sampled and is limited to the number of elements in the receive array. Applying higher \ac{SENSE} factors increases acquisition speeds, however, reduces \ac{SNR}.
 
 \subsection{Image Acquisition Schemes}
+
+Many different acquisition schemes have been developed for sampling $k$-space. Outlined below are some of the key sequences used in this thesis.
 
 \subsubsection{Spin Warp Imaging}
 
