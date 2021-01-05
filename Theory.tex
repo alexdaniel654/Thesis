@@ -431,7 +431,7 @@ Fully sampled $k$-space contains inherent redundancy as it contains its own comp
 \end{figure}
 
 \subsubsection{\ac*{SENSE}}
-Most modern scanners use different coils for \ac{RF} transmission, and signal receiving. The transmission coil is usually built into the bore of the magnet while the receive coil is placed as close to the source of the signal as possible. These receive coils are usually composed of multiple smaller coils to make an array, each with its own signal sampling hardware. This means that it is possible to record signal from multiple coils simultaneously with a reduced \ac{FOV} before combining into a single volume and thus increase acquisition speed. As seen in Figure \ref{fig:theory_kspace_wrap}, a small \ac{FOV} can result in wrapping artefacts due to aliasing. To combat this, the spatial sensitivity profile of each element within the array i.e. the area it can measure signal from, is measured. Using this prior knowledge of signal locations, a reconstruction with minimal wrapping can be achieved.\\
+Most modern scanners use different coils for \ac{RF} transmission, and signal receiving. The transmission coil is usually built into the bore of the magnet while the receive coil is placed as close to the source of the signal as possible. These receive coils are usually composed of multiple smaller coils to make an array, each with its own signal sampling hardware. This means that it is possible to record signal from multiple coils simultaneously with different coils supplying data for each line of $k$-space e.g if the array has two coils, one coil will record the odd lines of $k$-space and the other, the even lines, thus resulting in an increase in acquisition speed. However, this parallel sampling technique reduces the lines of $k$-space sampled per coil and results in wrapping as seen in Figure \ref{fig:theory_kspace_wrap}, albeit only in the phase direction. To combat this, the spatial sensitivity profile of each element within the array i.e. the area it can measure signal from, is measured. Using this prior knowledge of signal locations, each coil elements data can be unwrapped before all elements data being combined into a single volume.\\
 
 The \ac{SENSE} factor is the degree to which $k$-space is under-sampled and is limited to the number of elements in the receive array. Applying higher \ac{SENSE} factors increases acquisition speeds, however, reduces \ac{SNR}.
 
@@ -442,6 +442,8 @@ Many different acquisition schemes have been developed for sampling $k$-space. O
 \subsubsection{Spin Warp Imaging}
 
 \subsubsection{\ac*{EPI}}
+
+\subsubsection{\ac*{TSE}}
 
 \newpage
 \section{References}

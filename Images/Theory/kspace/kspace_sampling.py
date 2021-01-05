@@ -130,3 +130,29 @@ ax42.imshow(np.abs(data_rs), cmap='gray')
 ax42.axis(False)
 
 fig4.savefig('kspace_wrap.eps', bbox_inches='tight', dpi=300)
+#%%
+n_spin = 32
+x_plot = np.linspace(0, 255, n_spin)
+y_plot = np.linspace(0, 255, n_spin)
+xx_plot, yy_plot = np.meshgrid(x_plot, y_plot)
+xx_plot = xx_plot.astype(int)
+yy_plot = yy_plot.astype(int)
+u = np.sin(np.linspace(0, np.pi*4, len(xx_plot)))
+v = np.cos(np.linspace(0, np.pi*4, len(xx_plot)))
+uu, vv = np.meshgrid(u, v)
+
+xx_plot_outside = xx_plot[np.reshape((data[xx_plot.reshape(-1), yy_plot.reshape(-1)]>10) & 
+                                     (xx_plot.reshape(-1)<(256 // 2 - fov//2)), (len(x_plot), len(y_plot)))]
+yy_plot_outside = yy_plot[np.reshape((data[xx_plot.reshape(-1), yy_plot.reshape(-1)]>10) & 
+                                     (xx_plot.reshape(-1)<(256 // 2 - fov//2)), (len(x_plot), len(y_plot)))]
+u_outside, v_outside = np.meshgrid(u, v)
+u_outside = u_outside[np.reshape((data[xx_plot.reshape(-1), yy_plot.reshape(-1)]>10) & 
+                         (xx_plot.reshape(-1)<(256 // 2 - fov//2)), (len(x_plot), len(y_plot)))]
+v_outside = v_outside[np.reshape((data[xx_plot.reshape(-1), yy_plot.reshape(-1)]>10) & 
+                         (xx_plot.reshape(-1)<(256 // 2 - fov//2)), (len(x_plot), len(y_plot)))]
+fig5, ax5 = plt.subplots(figsize=(6.4, 6.4))
+ax5.imshow(data, cmap='gray')
+ax5.quiver(yy_plot, xx_plot, vv, uu, scale=30, color='C2')
+ax5.quiver(yy_plot_outside, xx_plot_outside, v_outside, u_outside, scale=30, color='C0')
+fov = 128
+ax5.axvspan(256 // 2 - fov//2, 256 // 2 + fov//2, alpha=0.5, color='C3', label='FoV')
