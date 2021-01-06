@@ -449,6 +449,13 @@ Many different acquisition schemes have been developed for sampling $k$-space. O
 
 \subsubsection{Spin Warp Imaging}
 
+The simplest $k$-space sampling trajectory is spin warp imaging. This technique is based on the \ac{GE} scheme and samples one line of $k$-space per excitation, or shot, a schematic is shown in Figure \ref{fig:theory_spin_warp}. Each shot applies a different phase encode gradient to move a different amount in the $k_y$ direction. The signal is then sampled while a gradient is applied in the frequency direction, also known as the readout gradient. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{Theory/spin_warp/spin_warp.pdf}
+	\caption{}
+	\label{fig:theory_spin_warp}	
+\end{figure}
 \subsubsection{\ac*{EPI}}
 
 \subsubsection{\ac*{TSE}}
