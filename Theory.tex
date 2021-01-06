@@ -314,7 +314,15 @@ and as such accrue a phase shift relative to if no gradient was applied, given b
 \begin{equation}
 \phi\left( y\right)  = \gamma y \int_{0}^{T} G_y\left( t\right) dt.
 \end{equation}
-Acquisitions must be repeated with different amplitudes/durations of $G_y$ to fully sample in the $y$ direction.
+Acquisitions must be repeated with different amplitudes/durations of $G_y$ to fully sample in the $y$ direction.\\
+
+Phase aliasing occurs because the whole sample produces signal, whether it is in the \ac{FOV} or not. As there is a finite range of phase values ($0$ to $2\pi$) tissue outside the \ac{FOV} can have the same value as tissue within the \ac{FOV} this results in the two signals becoming combined in a process known as wrapping. This artefact is illustrated in Figure \ref{fig:theory_wrapping_spins}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Theory/kspace/wrapping_spins.pdf}
+	\caption{Spins outside the \ac{FOV} have the same phase value as those within the \ac{FOV} and thus wrapping occurs.}
+	\label{fig:theory_wrapping_spins}	
+\end{figure}
 
 \subsubsection{Frequency Encoding}
 Finally, the signal needs to be localised in the $x$ direction. This is achieved using frequency encoding.
@@ -437,7 +445,7 @@ The \ac{SENSE} factor is the degree to which $k$-space is under-sampled and is l
 
 \subsection{Image Acquisition Schemes}
 
-Many different acquisition schemes have been developed for sampling $k$-space. Outlined below are some of the key sequences used in this thesis.
+Many different acquisition schemes have been developed for sampling $k$-space. Outlined below are some of the key sequences.
 
 \subsubsection{Spin Warp Imaging}
 
