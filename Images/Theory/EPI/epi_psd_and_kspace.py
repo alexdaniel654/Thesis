@@ -11,16 +11,16 @@ import matplotlib
 import seaborn as sns
 sns.set()
 sns.set_context('talk')
-# matplotlib.rcParams.update({
-#     "pgf.texsystem": "pdflatex",
-#     'font.family': 'serif',
-#     'text.usetex': True,
-#     'pgf.rcfonts': False,
-# })
-t2 = 500 # ms
-t2star = 50 # ms
+matplotlib.rcParams.update({
+    "pgf.texsystem": "pdflatex",
+    'font.family': 'serif',
+    'text.usetex': True,
+    'pgf.rcfonts': False,
+})
+t2 = 5000 # ms
+t2star = 70 # ms
 te = 250 # ms
-f0 = 0.8
+f0 = 1#2.528
 t_step = 0.1 # ms
 t = np.around(np.arange(-5, te * 2, t_step), 1)
 t_readout = 35
@@ -31,7 +31,12 @@ t2_envelope = nt.T2eq(t_sig, t2, 1)
 t2star_envelope_te_by_2 = nt.T2eq(t_sig[t_sig<te], t2star, 1)
 t2star_envelope = np.concatenate((np.flip(t2star_envelope_te_by_2), t2star_envelope_te_by_2))
 envelope = t2star_envelope * t2_envelope
-sig = envelope * np.sin(f0 * t_sig)
+epi_echo = nt.T2eq(np.arange(0, t_readout/2, t_step), 7, 1) * np.sin(f0 * np.arange(0, t_readout/2, t_step))
+epi_echo = np.concatenate((np.flip(-epi_echo), epi_echo))
+sig = np.zeros(len(t_sig))
+t0 = int(92.4/t_step)
+sig[t0:t0+len(epi_echo)*9] = np.tile(epi_echo, 9)
+sig *= envelope
 
 fig, axs = plt.subplots(ncols=2, nrows=5, sharex=True, figsize=(14, 7))
 gs = axs[0, 1].get_gridspec()
@@ -70,7 +75,7 @@ grad_amp = -1
 blip_amp = 0.2
 grad = np.zeros(len(t_grad))
 grad[(t_grad>57.5) & (t_grad<92.5)] = grad_amp
-for n in np.arange(-5, 4, 1):
+for n in np.arange(-4, 4, 1):
     grad[(t_grad>(te-n*t_readout - t_readout/2)-t_blip/2) & (t_grad<(te-n*t_readout - t_readout/2)+t_blip/2)] = blip_amp
 gy_cm = matplotlib.cm.plasma
 trads = np.linspace(0, 1, 9)
@@ -87,7 +92,7 @@ grad_amp = 1
 grad = np.zeros(len(t_grad))
 # grad[(t_grad>te-t_readout/2) & (t_grad<te+t_readout/2)] = grad_amp
 pol = -1
-for n in np.arange(-5, 5, 1):
+for n in np.arange(-4, 5, 1):
     grad[(t_grad>(te-n*t_readout)-t_readout/2) & (t_grad<(te-n*t_readout)+t_readout/2)] = pol * grad_amp
     pol *= -1
 n=5
@@ -103,10 +108,11 @@ axgx.set_ylabel('$G_x$\nFreq')
 
 axsig.plot(t_sig, sig)
 axsig.plot([-50, 0], [0, 0], 'C0')
-axsig.axvspan(92.5, 442.4, color='C3', alpha=0.2) #Acquisition
+axsig.axvspan(92.5, 442.4-35, color='C3', alpha=0.2) #Acquisition
 axsig.set_xlabel('Time ($ms$)')
 axsig.set_xlim([-50, 500])
 axsig.set_yticklabels([])
+axsig.set_xticklabels([])
 axsig.set_ylabel('Signal')
 
 kx, ky = [[-1, 0], [0, -1]]

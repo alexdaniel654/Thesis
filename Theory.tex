@@ -463,9 +463,9 @@ A much faster technique than spin warp imaging is \ac{EPI} \cite{mansfield_nmr_1
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=0.8\textwidth]{}
-	\missingfigure{EPI PSD and k-space}
-	\caption{A schematic of the \ac{EPI} pulse sequence and $k$-space trajectory.}
+		\includegraphics[width=1\textwidth]{Theory/EPI/epi.pdf}
+%	\missingfigure{EPI PSD and k-space}
+	\caption{A schematic of the \ac{EPI} pulse sequence and $k$-space trajectory. Not this diagram is not to scale.}
 	\label{fig:theory_epi}	
 \end{figure}
 
@@ -493,12 +493,17 @@ While this sequence has a very quick acquisition time, it does have drawbacks. T
 		\caption{}
 		\label{fig:theory_epi_blip_corrected}
 	\end{subfigure}
-	\caption{Geometric distortions in \ac{EPI} caused by eddy currents when phase encode blips are (\subref{fig:theory_epi_blip_l}) positive, (\subref{fig:theory_epi_blip_r}) negative and (\subref{fig:theory_epi_blip_corrected}) corrected via post processing.}
+	\caption{Geometric distortions in \ac{EPI} when phase encode blips are (\subref{fig:theory_epi_blip_l}) positive, (\subref{fig:theory_epi_blip_r}) negative and (\subref{fig:theory_epi_blip_corrected}) corrected via post processing.}
 	\label{fig:theory_epi_eddy}
 \end{figure}
 
 
 \subsubsection{\ac*{TSE}}
+The \ac{TSE} sequence, also known as \ac{FSE} or \ac{RARE}, is an expansion on the conventional \ac{SE} sequence applying evenly spaced $180\degree${ }\ac{RF} refocusing pulses to generate multiple echo from a single excitation, these echoes are used to record multiple lines of $k$-space. The number of echoes is known as the \ac{ETL}, or `turbo factor' and is the factor by which the scan time is reduced compared to a conventional spin echo sequence and is usually between 2 and 30 per \ac{TR}; the time between echoes is known as the echo spacing.\\
+
+Each line of $k$-space is acquired at a different time after excitation, as such, they will have different \ttwo weightings, it is therefore important to ensure the centre of $k$-space is acquired at the desired \ac{TE} as this echo will dominate the image contrast.\\
+
+The decrease in acquisition time comes at the expense of \ac{RF} exposure, the large number of $180\degree{ }$ pulses leads to lots of energy in the form of heat being deposited in the tissue being imaged, this is known as \ac{SAR}. \ac{SAR} limits are imposed when scanning to avoid damaging any tissue and as such \ac{TSE} with its high \ac{RF} power can easily exceed these limits. Modern \ac{TSE} sequences can reduce the angle of the refocusing pulse, however this can come at the expense of quantitative accuracy.
 
 \newpage
 \section{References}
