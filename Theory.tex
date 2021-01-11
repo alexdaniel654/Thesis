@@ -508,10 +508,38 @@ The decrease in acquisition time comes at the expense of \ac{RF} exposure, the l
 
 \begin{figure}[H]
 	\centering
-%	\includegraphics[width=0.8\textwidth]{}
-	\missingfigure{TSE Sequence}
+	\includegraphics[width=0.8\textwidth]{Theory/TSE/tse.pdf}
+%	\missingfigure{TSE Sequence}
+	\caption{A schematic of the \ac{TSE} pulse sequence and $k$-space trajectory. The coloured bands on the \ac{PSD} correspond to the colours of the $k$-space trajectories. Not this diagram is not to scale.}
+	\label{fig:theory_tse}	
+\end{figure}
+
+\subsubsection{\ac*{HASTE}}
+The \ac{HASTE} sequence uses a combination of the techniques above. A single excitation is followed by a very long echo train with short echo spacing. This allows a large proportion of $k$-space to be sampled within a single \ac{TR} and thus a whole slice is acquired. To minimise the number of lines of $k$-space acquired and thus the \ac{ETL}, partial Fourier techniques are utilised. The relatively long \ac{TE} required for a \ac{HASTE} sequence means images are normally \ttwo weighted.\\
+
+The advantage of \ac{HASTE} is its rapid acquisition. It can be used to minimise the effects of motion when scanning uncooperative patients, fetuses or structures the subject has no control over such as the bowel. Alternatively it can be used to capture a large \ac{FOV} in a single breath hold, thus minimising the effects of inconsistent expiration level, as in Chapter \ref{chap:ML}. The very long \ac{ETL} can cause significant blurring of the image, thus reducing its clinical readability.
+
+\subsubsection{\ac*{TFE}}
+\ac{TFE}, also known as ulatrafast \ac{GE}, is designed to speed up acquisition of \ac{GE} images by reducing the \ac{TR} between excitations. The flip angle used in this sequence is much smaller than the sequences explored so far, usually approximately 10$\degree${ } thus leaving a large component of the magnetisation in the longitudinal direction. Between each excitation, the transverse magnetisation is spoiled to ensure the images are only \tone weighted.\\
+
+After a train of equally spaced \ac{RF} pulses of \ac{FA}, $\alpha$, and period, \ac{TR}, the longitudinal magnetisation reaches a steady state, $S_{TFE}$, after a sufficient number of pulses. This steady state signal depends on the \tone of the tissue and the \ac{FA} and \ac{TR} of the sequence and is given by,
+
+\begin{equation}
+	S_{TFE} = M_0 \frac{\sin \left( \alpha \right) \left[ 1 - \exp \left( -\sfrac{TR}{T_1}\right) \right]}{1-\cos \left( \alpha \right) \exp \left( -\sfrac{TR}{T_1}\right)} \exp \left( - \frac{TE}{T_2^*}\right).
+	\label{eq:tfe_signal}
+\end{equation}
+
+The angle that produces the maximum signal known as the Ernst angle is given by,
+\begin{equation}
+	\alpha = \arccos \left[ \exp \left( -\frac{TR}{T_1}\right)\right]
+	\label{eq:theory_ernst}
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Theory/TFE/ernst.pdf}
 	\caption{}
-	\label{fig:}	
+	\label{fig:theory_ernst}	
 \end{figure}
 
 \newpage
