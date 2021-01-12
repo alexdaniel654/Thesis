@@ -520,27 +520,30 @@ The \ac{HASTE} sequence uses a combination of the techniques above. A single exc
 The advantage of \ac{HASTE} is its rapid acquisition. It can be used to minimise the effects of motion when scanning uncooperative patients, fetuses or structures the subject has no control over such as the bowel. Alternatively it can be used to capture a large \ac{FOV} in a single breath hold, thus minimising the effects of inconsistent expiration level, as in Chapter \ref{chap:ML}. The very long \ac{ETL} can cause significant blurring of the image, thus reducing its clinical readability.
 
 \subsubsection{\ac*{TFE}}
-\ac{TFE}, also known as ulatrafast \ac{GE}, is designed to speed up acquisition of \ac{GE} images by reducing the \ac{TR} between excitations. The flip angle used in this sequence is much smaller than the sequences explored so far, usually approximately 10$\degree${ } thus leaving a large component of the magnetisation in the longitudinal direction. Between each excitation, the transverse magnetisation is spoiled to ensure the images are only \tone weighted.\\
+\ac{TFE}, also known as ulatrafast \ac{GE}, is designed to speed up acquisition of \ac{GE} images by reducing the \ac{TR} between excitations. Typical basic \ac{GE} sequences have relatively long \ac{TR} to allow the recovery of longitudinal magnetisation. The flip angle used in the \ac{TFE} sequence is much smaller than the examples explored so far, usually approximately 10$\degree${ } thus leaving a large component of the magnetisation in the longitudinal direction while tipping enough magnetisation into the transverse plane to record a signal at an acceptable \ac{SNR}. Between each excitation, the transverse magnetisation is spoiled to ensure the images are only \tone weighted.\\
 
-After a train of equally spaced \ac{RF} pulses of \ac{FA}, $\alpha$, and period, \ac{TR}, the longitudinal magnetisation reaches a steady state, $S_{TFE}$, after a sufficient number of pulses. This steady state signal depends on the \tone of the tissue and the \ac{FA} and \ac{TR} of the sequence and is given by,
+After a train of equally spaced \ac{RF} pulses of \ac{FA}, $\alpha$, and period, \ac{TR}, the longitudinal magnetisation reaches a steady state, $S_{TFE}$, after a sufficient number of pulses. This steady state signal depends on the \tone of the tissue and the \ac{FA} and \ac{TR} of the sequence. Assuming perfect transverse magnetisation spoiling between each \ac{RF} pulse, this equilibrium signal is given by,
 
 \begin{equation}
 	S_{TFE} = M_0 \frac{\sin \left( \alpha \right) \left[ 1 - \exp \left( -\sfrac{TR}{T_1}\right) \right]}{1-\cos \left( \alpha \right) \exp \left( -\sfrac{TR}{T_1}\right)} \exp \left( - \frac{TE}{T_2^*}\right).
 	\label{eq:tfe_signal}
 \end{equation}
 
-The angle that produces the maximum signal known as the Ernst angle is given by,
+The angle that produces the maximum signal known as the Ernst angle, $\alpha_E$, and is given by,
 \begin{equation}
-	\alpha = \arccos \left[ \exp \left( -\frac{TR}{T_1}\right)\right]
+	\alpha_E = \arccos \left[ \exp \left( -\frac{TR}{T_1}\right)\right].
 	\label{eq:theory_ernst}
 \end{equation}
-
+Figure \ref{fig:theory_ernst} shows the ratio of the steady state signal to the fully recovered, 90$\degree${ } excitation signal of renal cortex (\tone of 1376 ms) for a range of flip angles and \ac{TR}. Additionally the Ernst angle is shown. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{Theory/TFE/ernst.pdf}
-	\caption{}
+	\caption{The expected steady state signal of a \ac{TFE} pulse sequence and Ernst angle when imaging renal cortex.}
 	\label{fig:theory_ernst}	
 \end{figure}
+
+\section{Conclusion}
+This chapter has introduced the basic concepts of \ac{NMR} and \ac{MRI} required for interpreting this thesis. These techniques are built upon in the experimental chapters for quantification of renal properties, both in-vivo and ex-vivo.
 
 \newpage
 \section{References}
