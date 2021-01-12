@@ -1,5 +1,31 @@
-\chapter{Introduction}
-
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
 Science will happen
 
-\section{Thesis Overview}
+What MRI is and why we want to use it in the body? Whats quantitative MRI?
+
+\section*{Clinical Motivation}
+\addcontentsline{toc}{section}{Clinical Motivation}
+Kidneys, wot do? \todo{Add a little bit about renal anatomy, CKD and maybe transplants.}
+
+\section*{Thesis Overview}
+\addcontentsline{toc}{section}{Thesis Overview}
+\doublecheck{Make sure these are in the correct order}
+
+\textbf{Chapter \ref{chap:Theory}} provides the theoretical framework of \ac{NMR} and \ac{MRI}. A detailed description if given of the origin of the measured signal, processes that give rise to contrast between tissues and the methods of image formation. \\
+
+\textbf{Chapter \ref{chap:t2_mapping}} explores \ttwo mapping within the kidneys. There is little consensus as to which method should be used within the kidneys \cite{dekkers_consensus-based_2019}, thus leading to inconsistent values quoted between studies \cite{wolf_magnetic_2018}. Here multiple methods from the literature are compared assessing their quantitative accuracy, sensitivity to flow and image quality in phantoms before five subjects are scanned to assess the methods in-vivo.\\
+
+\textbf{Chapter \ref{chap:TRUST}} aims to translate methods for measuring blood oxygenation from vessels in the brain to use within the kidneys. Focusing on \ac{SBO} \cite{jain_mri_2010} and \ac{TRUST} \cite{lu_quantitative_2008} this chapter optimises the methods for use in the abdomen, verifying the modifications in the brain, then carries out an oxygen challenge in-vivo to measure changes in oxygen saturation within the renal vein.\\
+
+\textbf{Chapter \ref{chap:ML}} describes the development of a fully automated method to segment the kidneys from \ac{MRI} data. Defining renal masks is an important, yet time consuming, aspect of many studies. The masks can be used to calculate \ac{TKV} or to inform downstream processing. Here a \ac{CNN} is developed to segment the kidneys from \ttwo weighted \ac{HASTE} images. Software is developed to provide an executable that allows anyone to segment the kidneys in a few seconds on regular office hardware.\\
+
+\textbf{Chapter \ref{chap:Neph}} develops methods for scanning kidneys ex-vivo. The clinical gold standard for diagnosis of renal pathologies is biopsy followed by histological analysis. Comparison between this gold standard and recently developed quantitative \ac{MRI} techniques is vital for clinical translation. Here a pipeline for multi-parametric imaging of the same kidney in-vivo, ex-vivo followed by histology is developed.\\
+
+\textbf{Chapter \ref{chap:conclusion}} concludes the thesis, highlighting key results and their current applications. It also provides an overview as to future research directions and how the methods developed could be applied to new paradigms or expanded upon.\\
+
+\newpage
+\section*{References}
+\addcontentsline{toc}{section}{References}
+\defbibheading{bibliography}[\refname]{}
+\printbibliography

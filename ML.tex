@@ -65,7 +65,7 @@ The network uses a dice score, defined by Equation \eqref{eq:dice}, as its loss 
 D\left(A, B\right) = \frac{2\left| A \cap B \right|}{\left|A\right|+\left|B\right|}
 \label{eq:dice}
 \end{equation}
-The network is implemented using Keras \cite{noauthor_keras_2019} with a TensorFlow \cite{noauthor_tensorflow_2019} back-end and is trained on an NVIDIA Titan Xp \ac{GPU}. Training takes approximately forty minutes for the 150 epochs and predicting a renal mask from a thirteen slice volume takes approximately 9 seconds when executed on a computer with no \ac{GPU} (as it would be in most end user cases).
+The network is implemented using Keras \cite{chollet_keras_2015} with a TensorFlow \cite{abadi_tensorflow_2015, martin_abad_tensorflow_2019} back-end and is trained on an NVIDIA Titan Xp \ac{GPU}. Training takes approximately forty minutes for the 150 epochs and predicting a renal mask from a thirteen slice volume takes approximately 9 seconds when executed on a computer with no \ac{GPU} (as it would be in most end user cases).
 
 \newpage
 \section{Results and Discussion}

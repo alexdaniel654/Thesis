@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{gensymb}
 \usepackage{mhchem}
+\usepackage[pdftex,dvipsnames]{xcolor}
 \usepackage{xfrac}
 \usepackage{indentfirst}
 \usepackage{graphicx}
@@ -33,6 +34,7 @@
 \usepackage{afterpage}
 \usepackage{fancyhdr}
 \usepackage{setspace}
+\usepackage{xargs}  
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{pdfpages}
 \usepackage{lipsum}
@@ -42,6 +44,11 @@
 \usepackage{etoolbox}
 \captionsetup{font={stretch=1.5}}
 \raggedbottom
+
+% Todo notes
+\newcommandx{\doublecheck}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\question}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 
 % Define page styles
 \renewcommand{\chaptermark}[1]{\markboth{}{}}
@@ -135,7 +142,7 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 \end{abstract}
 \setcounter{tocdepth}{2}
 \tableofcontents
-%\listoftodos
+\listoftodos
 \newpage
 
 \input{Acknowledgements}
@@ -156,15 +163,8 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 
 \newpage
 
+\acresetall % Expand all acronyms again
 \input{Theory}
-
-\newpage
-
-\input{Nephrectomy}
-
-\newpage
-
-\input{ML}
 
 \newpage
 
@@ -173,6 +173,14 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 \newpage
 
 \input{TRUST}
+
+\newpage
+
+\input{ML}
+
+\newpage
+
+\input{Nephrectomy}
 
 \newpage
 
