@@ -9,6 +9,10 @@
 \usepackage[pdftex,dvipsnames]{xcolor}
 \usepackage{xfrac}
 \usepackage{indentfirst}
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\setlength{\parskip}{\baselineskip}
+\restoreparindent
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
