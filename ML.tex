@@ -2,6 +2,8 @@
 \label{chap:ML}
 
 \begin{abstract}
+	
+	
 	This work was presented as an aural presentation at the \ac{ISMRM} 28th Annual Meeting (2020) \cite{daniel_automated_2020}.
 	
 	\lipsum[1]
@@ -10,48 +12,56 @@
 
 \section{Introduction}
 
-Segmentation of the kidneys in \ac{MRI} images is a vital, yet time consuming, aspect of many renal studies \cite{cohen_mri_2009, van_den_dool_functional_2005, cox_multiparametric_2017}. \ac{TKV} is used as a biomarker for a variety of renal pathologies; autosomal dominant polycystic disease is characterised by an increase in \ac{TKV} \cite{chapman_kidney_2012, tangri_total_2017}, while a decrease in \ac{TKV} is associated with a decrease in real function \cite{gong_relationship_2012}. In addition to \ac{TKV} measurements, renal segmentation is an important first step for many other processing pipelines, be that to increase accuracy of automated cortical-medullary segmentations or reduce computation times by only carrying out calculations for a relevant \ac{ROI}. The gold standard of segmentation is manual \ac{ROI} definition by an experienced and skilled professional, this manual process is highly time consuming and difficult due to similar signal intensities between the kidneys and other organs, anatomical differences between subjects and imaging artefacts. These factors mean that developing a fully automated method of renal segmentation is highly desirable. Such methods have been proposed with varied successes \cite{zollner_assessment_2012, seuss_development_2017} however the techniques used differ between diseases. The fact that each technique is highly optimised for a specific dataset means that it needs to be re-written to be applied to different a pathology, another time consuming and highly skilled process.
+Segmentation of the kidneys from \ac{MRI} is a time consuming aspect of many renal \ac{MRI} studies \cite{cox_multiparametric_2017, cohen_mri_2009, van_den_dool_functional_2005}. \ac{TKV} gives insight into renal function and is therefore used as a measured parameter for a variety of renal pathologies. The use of \ac{TKV} is an active area of ongoing research for \ac{ADPKD}, which is characterised by an increase in \ac{TKV} due to cyst formation. Disease progression can be monitored by recording \ac{TKV}, with higher rates of \ac{TKV} increase being associated with a more rapid decrease in renal function \cite{chapman_kidney_2012, tangri_total_2017, grantham_volume_2006}. Measurements of \ac{TKV} in \ac{CKD} subjects have shown a significant correlation with glomerular filtration rate \cite{buchanan_quantitative_2019}, the primary measure of \ac{CKD} severity \cite{stevens_assessing_2006}, with more generally a decrease in \ac{TKV} associated with a decrease in renal function \cite{gong_relationship_2012}. When studying pathologies which commonly lead to a change in kidney function, total kidney perfusion is often measured, this metric relies on an accurate measurement of renal blood flow and kidney volume of each kidney, and allows investigators to ascertain if the blood flow is preserved as the organ changes in size or if tissue perfusion is impaired. In addition to \ac{TKV} measurements, renal segmentation is an important first step for many other processing pipelines, be that for automated cortical-medullary segmentations or to carry out multiparametric mapping within only the kidney to reduce computation times. 
 
-Machine learning allows for a single method to be written and then trained on different datasets. This means that as more data becomes available the algorithm can become more accurate and generalised, without a need to rewrite the methods, thus making it a better choice for long term development. Such methods have already been applied to segmentation in other areas of medical imaging, especially successful have been U-Nets. An example of a \ac{FCN}, these algorithms convolve the image with a series of filters to extract features from the input data and thus generate a voxel by voxel classification. The weights of each pixel in these convolution kernels is honed through an optimisation process where the filters are applied to the training data and their performance is evaluated against the manually segmented data using a loss function such as mean square error or dice overlap score. Changes to each filter are then back propagated through the network and the process starts again. After many iterations, the filters become tuned to detecting the feature labelled in the manually segmented data. 
+The gold standards of kidney segmentation are manual \ac{ROI} boundary tracing \cite{di_leo_measurement_2011} or stereology \cite{bae_volumetric_2000} by experienced and skilled experts, with blood vessels in the kidney and the hilum excluded. These manual processes are highly time consuming (taking approximately 15 – 30 minutes per subject \cite{zollner_assessment_2012, sharma_kidney_2017, simms_rapid_2019} and can be biased by investigator judgement due to the similar signal intensities between the kidneys and surrounding organs, anatomical differences between subjects, cysts and image artefacts. Consequently, the resulting kidney \ac{ROI}s produced are subject to intra- and inter-expert variability as a result of the varying expertise levels; experts may segment a specific image differently when performed more than once, or different experts may segment the same image differently. These factors mean that the development of a faster and ideally fully automated method of renal segmentation is highly desirable. However the same factors that make manual segmentation difficult can also limit fully automated methods, for example the signal intensity of the kidneys closely matches that of other abdominal structures such as the spleen.
 
-To avoid the network becoming too specific and, for example, just learning to detect the specific kidneys in the data the network has been trained on rather than all kidneys, the data is divided into three categories, training, testing and validation. The training data is used for adjusting the filter weights over a short time scale, usually after a few tens of images. Once all the training data has been processed by the network and filter weights adjusted, all the test data is run through the network without any further weight adjustments and the performance evaluated using the loss function, this train, test cycle is known as an epoch. If the network has become too specialised and finely adjusted to the training data then it will not perform well on the test data. To stop this over specialisation, or over-fitting, the weights used at the start of each epoch are those that delivered the best performance on the test data. The validation data is never used to influence the filter weights and is used to validate the performance of the network on unseen data.
+A number of automated methods have been proposed with varied success \cite{zollner_assessment_2012}. Some simply assume the kidney is an ellipse and calculate the volume from measurements of the pole-to-pole distance \cite{cheong_normal_2007, spithoven_estimation_2015} or include a correction factor to reduce overestimations \cite{seuss_development_2017}. Unfortunately these techniques produce a large confidence interval and still require human intervention to define the pole-to-pole length, a process that can produce inconsistencies between readers and takes a reasonable amount of time ($\approx$5 min) \cite{magistroni_review_2018}. Other semi-automated methods use classical image processing techniques such as thresholding \cite{coulam_measurement_2002}, water-shedding \cite{karstoft_different_2007}, level sets \cite{simms_rapid_2019, gloger_prior_2012}, and spatial prior probability mapping \cite{kim_automated_2016}. These methods can either be inaccurate, over-segmenting the kidneys, or include a number of parameters that need to be manually adjusted and are computationally intensive. Further, the fact that each technique is highly optimised for a specific dataset means that it needs to be re-written to be applied to different pathology, another time consuming and highly skilled process.
 
-Similar methods have been applied to segment other areas of anatomy \cite{wachinger_deepnat_2018, lu_automatic_2017}, however this has not been successfully applied to segment the kidneys. Here we propose a \ac{FCN} to segment the kidneys from a standardised \ac{MRI} protocol.
+Machine learning methods have the potential to automatically detect different patterns from data given to a model which has been trained. Deep learning is a class of machine learning algorithms that can model high-level information in an image using several processing layers of transformations. This uses an architecture of multi-level linear and non-linear operations, described by layers, to learn complex functions that can represent high-level detail to map the input data to the output segmentations directly. As more data becomes available the algorithm can become more accurate and generalised, without a need to rewrite the underlying methods, thus making it a good choice for long term development. 
+
+In recent years, deep learning-based methods have been applied to the segmentation of medical images, especially successful has been the U-Net \cite{ronneberger_u-net_2015}. This modified fully \ac{CNN} architecture uses a number of convolution, pooling and up-sampling layers to detect features in the input data at multiple resolutions. The convolution layers convolve a learnable kernel with the input data to generate spatial feature maps that are passed to subsequent layers in the network. By adjusting the kernels, the resulting feature maps can be optimised to detect the location of the kidneys. Pooling layers are used to down-sample the data and allow some convolution kernels to become tuned to approximate features, this also reduces the tendency of the network to overfit the training data. When the data has been fully down-sampled, up-sampling layers are used to increase the resolution of the feature maps back to that of the original data while more convolution layers also learn the precise location of the kidneys. Parameters are adjusted by comparing the output from the network to a known ground truth. \ac{CNN} methods have been applied to segmentation in other areas of medical imaging \cite{lu_automatic_2017, sharma_automatic_2017, wachinger_deepnat_2018, fu_novel_2018}, for example to prostate segmentation of \ac{MRI} images \cite{hassanzadeh_convolutional_2019}, liver segmentation of x-ray \ac{CT} images \cite{li_h-denseunet_2018} and segmentation of polycystic kidneys \cite{kline_performance_2017, van_gastel_automatic_2019, shin_expert-level_2020}. However, to date, these methods have not been successfully applied to \ac{CKD} and healthy kidney segmentation from MR images. 
+
+Here a single 2D U-Net model \ac{CNN} is used for the segmentation of the kidneys in both \ac{HC} participants and \ac{CKD} patients using \ttwo-weighted MR images. Automatically generated kidney masks are compared with manual masks defined by experts and assessed for similarity using multiple voxel and surface based metrics and total segmented volume. A subset of subjects were scanned multiple times to assess the repeatability of the segmentations.
 
 \newpage
 \section{Methods}
+The study was approved by the University of Nottingham Medical School Research Ethics Committee (H14082014 and E14032013), and East Midlands Research Ethics committee REC reference: 17/LO/2036 and 15/EM/0274.
 
-\subsection{Data Acquisition}
+\subsection{MRI Data Acquisition}
 \label{sec:ml_methods_acquisition}
-All data is acquired on a 3T Philips Ingenia system using a $T_2$-weighted \ac{HASTE} sequence (\ac{TE} = 60, \ac{TR} = 1800 or 1300 ms, \ac{FOV} = 350 $\times$ 350 mm$^2$, voxel size = 1.46 $\times$ 1.46 $\times$ 5 mm$^3$ with enough slices to cover the entire kidney, usually 12-14, \ac{SENSE} = 2.5), the sequence is carried out in a single breath hold. Parameters have been optimised to deliver the maximum contrast between the kidneys and surrounding tissue. Training and test data is a single volume per subject; validation datasets are composed of five volumes acquired on the same subject in the same scanning session with the subject being removed from the scanner, asked to move, then positioned back in the scanner between each acquisition. The scanner operator attempted to vary the acquisition geometry between repeats while still acquiring the full kidney volume. These validation datasets allow the consistency of the networks ability to measure \ac{TKV} to be assessed. Manual binary masks are generated for every volume to allow the network to train and its accuracy to be investigated. A summary of the data collected can be seen in Table \ref{tab:ml_data}, to make the algorithm as generalisable as possible, healthy volunteers and patients with \ac{CKD} are scanned.
 
-\begin{table}[H]
+All kidney \ac{MRI} scans were acquired on a 3T Philips Ingenia system (Philips Medical Systems, Best, The Netherlands) using a 2D \ttwo-weighted \ac{HASTE} sequence optimised to achieve the maximum contrast between the kidneys and surrounding tissue (\ac{TE} = 60 ms, \ac{TR} = 1300 – 1800 ms, \ac{SENSE} factor = 2.5, refocus angle 120$\degree$, bandwidth, 792 Hz, \ac{FOV} = 350 x 350 mm$^2$, voxel size = 1.5 x 1.5 x 5 mm$^3$ and a slice gap of 0.5 mm with approximately 13 coronal slices, enough to image the entire kidney \cite{petzold_building_2014, will_automated_2014}, in a single 17 - 23 s breath hold.
+
+The dataset consisted of 60 subjects, 30 \ac{HC} (10 female, 20 male) with a mean age of 26 $\pm$ 11 (19–77) years and 30 \ac{CKD} patients (6 female, 24 male) with a mean age of 59 $\pm$ 14 (19–80) years and mean \ac{CKD} Stage 3.5 $\pm$ 1.2 (1-5). Ten of the subjects (5 \ac{HC}s and 5 \ac{CKD} patients) were scanned five times in the same scan session for use as test data. In each test data scan session, subjects were repositioned between each acquisition (removed from the scanner, asked to sit up and move on the bed), additionally the scanner operator attempted to vary the acquisition geometry between each scan while still acquiring full kidney coverage. These repeated test datasets allow the consistency of the networks ability to measure \ac{TKV} to be assessed. 
+
+In total, 649 2D image slices from the 50 subjects in the training data and 650 2D image slices from the 10 subjects in the test data, were collected. A summary of the data collected is provided in Table \ref{tab:ml_datasets} and Figure \ref{fig:ml_true_tkv_hist}.
+
+\begin{table}[h]
 	\centering
-	\begin{tabular}{|l|l|l|}
+	\begin{tabularx}{\textwidth}{X|XXXXXX}
 		\hline
-		\textbf{Dataset}           & \textbf{Number of Subjects} & \textbf{Number of Volumes} \\ \hline
-		Healthy kidneys            & 26                            & 26                         \\ \hline
-		\ac{CKD} kidneys           & 23                            & 23                         \\ \hline
-		Validation healthy kidneys & 5                             & 25                         \\ \hline
-		Validation \ac{CKD} kidneys& 3                             & 15                         \\ \hline
-	\end{tabular}
-	\caption{Number of subjects and volumes in each dataset type.}
-	\label{tab:ml_data}
+		& \textbf{Number of Subjects} & \textbf{Number of Datasets} & \textbf{Number of 2D Slices} & \textbf{Sex (F/M)} & \textbf{Mean Age} & \textbf{TKV (m$\ell$)} \\ \hline
+		\textbf{Training HC}  & 25                          & 25                          & 325                          & 9/16               & 26 $\pm$ 12       & 296 $\pm$ 38           \\
+		\textbf{Training CKD} & 25                          & 25                          & 324                          & 6/19               & 58 $\pm$ 15       & 258 $\pm$ 72           \\
+		\textbf{Testing HC}   & 5                           & 25                          & 325                          & 1/4                & 25 $\pm$ 3        & 330 $\pm$ 35           \\
+		\textbf{Training CKD} & 5                           & 25                          & 325                          & 0/5                & 69 $\pm$ 3        & 274 $\pm$ 56          
+	\end{tabularx}
+	\caption{Characteristics of datasets used for training and validation of the 2D U-Net model \ac{CNN}.}
+	\label{tab:ml_datasets}
 \end{table}
+\todo{Fix table \ref{tab:ml_datasets} formatting}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{ML/Datasets/dataset_hist_overlay.pdf}
+	\caption{Distribution of \ac{TKV} within the training and testing data.}
+	\label{fig:ml_true_tkv_hist}	
+\end{figure}
 
-The accuracy of the network will increase as it is trained on a greater volume of data. As such, this protocol is still being run on as many subjects as possible to further increase the accuracy of the algorithm.
+\subsection{Manual Segmentation}
 
-\subsection{Data Pre-Processing}
-All training and test data is loaded and the order of the volumes randomised i.e. healthy volunteers and patients are mixed. Each slice is resampled to a matrix size of 256 $\times$ 256 and voxel intensities scaled between 0 and 1 where black is set to the mean voxel value minus 0.5 times the standard deviation of that slice and white is set to the mean voxel value plus 4 times the standard deviation of the slice; values outside this range are clipped to 0 or 1. This windowing leads to a clear contrast between kidneys and surrounding tissue while negating the effects of bulk signal changes between subjects.
-
-This resampling and windowing is also applied to the validation data before it is processed by the network. Once a prediction of the renal mask has been generated by the algorithm, the mask is resampled back to the original image volume dimensions.
-
-The ratio of training data to test data is eighty to twenty. No data augmentation is performed in this architecture.
-
-\subsection{Network Architecture}
-
-A summary of the network architecture is shown in Figure \ref{fig:ml_network}. Each volume is split into two-dimensional slices before being processed by the network. Convolution and deconvolution layers use a 3 $\times$ 3 kernel. Activation layers use a \ac{ReLU}. Max pooling with a stride 2 is used on the encoding half of the network.
-
+\subsection{Automated Segmentation Using a CNN Architecture}
+\ac{ReLU}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\textwidth]{ML/Model/Model.eps}
@@ -59,13 +69,12 @@ A summary of the network architecture is shown in Figure \ref{fig:ml_network}. E
 	\label{fig:ml_network}	
 \end{figure}
 
-The network uses a dice score, defined by Equation \eqref{eq:dice}, as its loss function; this function is ideal for renal segmentation as it doesn't weight true negatives which represent the majority of voxels input to the network. Training is carried out over 150 epochs using stochastic gradient decent with a learning rate of 0.01 to optimise the networks approximately thirty million trainable parameters.
-
 \begin{equation}
 D\left(A, B\right) = \frac{2\left| A \cap B \right|}{\left|A\right|+\left|B\right|}
 \label{eq:dice}
 \end{equation}
-The network is implemented using Keras \cite{chollet_keras_2015} with a TensorFlow \cite{abadi_tensorflow_2015, martin_abad_tensorflow_2019} back-end and is trained on an NVIDIA Titan Xp \ac{GPU}. Training takes approximately forty minutes for the 150 epochs and predicting a renal mask from a thirteen slice volume takes approximately 9 seconds when executed on a computer with no \ac{GPU} (as it would be in most end user cases).
+
+\subsection{Statistical Analysis}
 
 \newpage
 \section{Results and Discussion}
