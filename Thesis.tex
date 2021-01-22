@@ -6,6 +6,8 @@
 \usepackage{amssymb}
 \usepackage{gensymb}
 \usepackage{mhchem}
+\usepackage{multirow}
+\usepackage{adjustbox}
 \usepackage[pdftex,dvipsnames]{xcolor}
 \usepackage{xfrac}
 \usepackage{indentfirst}
@@ -54,6 +56,9 @@
 \newcommandx{\doublecheck}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
 \newcommandx{\info}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
 \newcommandx{\question}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+
+% Include only certain chapters for drafts 
+%\includeonly{TRUST} 
 
 % Define page styles
 \renewcommand{\chaptermark}[1]{\markboth{}{}}
@@ -150,11 +155,11 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 \listoftodos
 \newpage
 
-\input{Acknowledgements}
+\include{Acknowledgements}
 
 \newpage
 
-\input{Abbreviations}
+\include{Abbreviations}
 
 \newpage
 
@@ -164,37 +169,37 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 \acresetall
 \setcounter{page}{1}
 
-\input{Introduction}
+\include{Introduction}
 
 \newpage
 
 \acresetall % Expand all acronyms again
-\input{Theory}
+\include{Theory}
 
 \newpage
 
 \acresetall
-\input{T2_Mapping}
+\include{T2_Mapping}
 
 \newpage
 
 \acresetall
-\input{TRUST}
+\include{TRUST}
 
 \newpage
 
 \acresetall
-\input{ML}
+\include{ML}
 
 \newpage
 
 \acresetall
-\input{Nephrectomy}
+\include{Nephrectomy}
 
 \newpage
 
 \acresetall
-\input{Conclusion}
+\include{Conclusion}
 
 %\appendix
 %\input{Publications}
