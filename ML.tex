@@ -346,13 +346,28 @@ The amount of augmentation applied to the training data was empirically derived 
 A 2D \ac{CNN} was used to process each 2D slice of a full volume, rather than a 3D volume. This was advantageous for the relatively small training dataset the network was optimised on, as it avoids overfitting and allows the network to easily be used on volumes of variable slice number. However, this can come at the expense of accuracy as 2D \ac{CNN}s do not leverage the information from adjacent slices in the segmentation as is done in 3D \ac{CNN}, but 3D \ac{CNN} come with a computational cost as a result of the increased number of parameters used. 3D networks have successfully been implemented on neural data using patching methods where the image volume is divided up into smaller cubes \cite{wachinger_deepnat_2018} to reduce memory requirements and allow for differing input shapes. While this works well in the brain, there are a number of reasons why this method may not be as successful for body applications. The out-of-plane resolution is significantly less than the in-plane resolution; this results in far fewer slices in one direction than the other two. To avoid overfitting for a certain number of slices e.g. training on a 11 slice image with a 113 patch, and subsequently the network not performing well when the patch is applied to a 16 slice image, the patch would need to be much smaller than the number of slices, thus diminishing the benefits of the 3D methodology. Additionally, the extra memory requirements for a 3D network limit the ease of use of the software for inference on many standard office computers.
 
 \subsection{Future Directions}
-\todo{Add stuff about alternative network architectures (\ac{RNN} and \ac{LSTM}, 3D \ac{CNN} or `colour' \ac{CNN})\cite{chen_combining_2016, stollenga_parallel_2015}}
 
-Future work will collect more training data to compare the 2D \ac{CNN} with a 3D \ac{CNN} to ascertain if the potential increase in accuracy is worth the increased hardware requirements and reduced generalisability. Here, the CNN has been developed for use on a \ttwo-weighted sequence and has not been validated on \tone-weighted images. This image contrast was chosen as a result of recent publications comparing T1- and \ttwo-weighted images for \ac{TKV} assessment reporting that \ttwo-weighted images provide better quality to enable \ac{TKV} measurements, leading to improved reproducibility with lower intra- and inter-reader variability \cite{van_gastel_t1_2018}. \tone-weighted data could be registered to the \ttwo-weighted data and used as an extra channel to inform the segmentation. 
+Future work will explore alternative network architectures. As the main source of inaccuracy with the current network is its lack of slice-to-slice context, there are multiple architectures that can address this. A relatively simple method would be exploiting the fact that the Keras framework is designed to work with colour images. By combining three slices into a single image where each slice represents either the red, green or blue channel, Figure \ref{fig:ml_rgb_slices}, the network would be able to use contextual information about the adjacent slices to help inform its predictions. This method result in two slices from each volume being becoming impossible to process and as such the \ac{FOV} would have to be increased. Alternatively multiple network architectures such as \ac{RNN} \cite{chen_combining_2016}, and \ac{LSTM} \cite{stollenga_parallel_2015} are designed to have a memory therefore enabling them to retain contextual information from slice to slice. Alternatively, if more training data were available, a 3D \ac{CNN} could be explored to ascertain if the any improved accuracy is worth the increase in hardware requirements and reduced generalisability.
+ 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{ML/rgb_kidney.png}
+	\caption{An example of using colour information to represent adjacent slices for processing by a \ac{CNN}. Vessels in the liver can clearly be seen travelling through the three slices as they change from red to green to blue.}
+	\label{fig:ml_rgb_slices}	
+\end{figure}
+
+This image contrast was chosen as a result of recent publications comparing \tone- and \ttwo-weighted images for \ac{TKV} assessment reporting that \ttwo-weighted images provide better quality to enable \ac{TKV} measurements, leading to improved reproducibility with lower intra- and inter-reader variability \cite{van_gastel_t1_2018}. Other contrasts e.g. a \tone-weighted scan, could also be collected, registered to the \ttwo-weighted images and used as another channel to inform segmentation.
 
 This network was validated on healthy subjects and \ac{CKD} patients, but has not been trained and validated on subjects with \ac{ADPKD}. These subjects have many more cysts in their kidneys, while the \ac{CNN} was able to segment cysts encountered in the \ac{CKD} cohort, it would be beneficial for future work on \ac{ADPKD} to retrain the network with \ac{HC}, \ac{CKD} and \ac{ADPKD} data, where \ac{TKV} is a recognised biomarker of disease progression.
 
-Another common segmentation task in renal imaging is generating an \ac{ROI} for the renal cortex and medulla. There are some automated methods of achieving this once a total kidney mask has been produced \cite{cox_multiparametric_2017, morris_segmentation_2019}, however there has been no work on the application of deep learning to this task. In addition to the acquisition of the \ttwo-weighted dataset used here, a \tone-weighted dataset designed to optimise the contrast between cortex and medulla was also collected on each subject \cite{will_automated_2014}. Using this data, it may be possible to develop this method further such that an automated mask for each tissue type is produced. 
+Another common segmentation task in renal imaging is generating an \ac{ROI} for the renal cortex and medulla. There are some automated methods of achieving this once a total kidney mask has been produced \cite{cox_multiparametric_2017, morris_segmentation_2019}, however there has been no work on the application of deep learning to this task. In addition to the acquisition of the \ttwo-weighted dataset used here, a \tone-weighted dataset designed to optimise the contrast between cortex and medulla was also collected on each subject \cite{will_automated_2014}, an example of which is shown in Figure \ref{fig:ml_t1}. Using this data, it may be possible to develop this method further such that an automated mask for each tissue type is produced. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{ML/T1/T1W.png}
+	\caption{An example of the data collected to enable segmentation of the renal cortex and medulla.}
+	\label{fig:ml_t1}
+\end{figure}
 
 \section{Conclusions}
 
@@ -361,13 +376,6 @@ This method has been shown to produce promising results delivering an mean dice 
 There is still work to be done on this segmentation method, as explained above, there are signs that data augmentation may improve both the accuracy and generalisability of the algorithm, this should be implemented and evaluated. By implementing data augmentation, the false positives observed on fringe slices may decrease however, if this is not the case then there are multiple solutions to reduce the prevalence of these errors such as basic binary filtering or modifying the networks architecture. There seems to be a reasonable degree of variability in the manually segmented data, to investigate this, the manual masking process should be repeated by a second observer at assess if this variability in the data is due to acquisition or human interpretation.
 
 Another common segmentation task in renal imaging is to generate \ac{ROI} for the renal cortex and medulla. There are some automated methods of achieving this once an overall renal mask has been produced \cite{cox_multiparametric_2017}, however there has been no work on the application of machine learning to this task. During the acquisition of the $T_2$ weighted data in Section \ref{sec:ml_methods_acquisition}, a sequence designed to optimise the contrast between cortex and medulla was also collected on each subject, an example of which is shown in Figure \ref{fig:ml_t1}. Using this data it may be possible to develop the algorithm further so it can segment each tissue type within the kidneys.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.4\textwidth]{ML/T1/T1W.png}
-	\caption{An example of the data collected to enable segmentation of the renal cortex and medulla.}
-	\label{fig:ml_t1}
-\end{figure}
 
 Ultimately the goal of this work is to produce an easy to use segmentation tool that can be utilised by clinicians and scientists alike. As such, time should be spent making the software easy to use with a simple front end/\ac{GUI}.
 
