@@ -33,7 +33,7 @@ Here a single 2D U-Net model \ac{CNN} is used for the segmentation of the kidney
 \section{Neural Networks for Image Segmentation}
 
 \subsection{Artificial Neural Networks}
-\ac{ANN}s aim to solve computational problems using a similar methodology to their biological namesake. Input data is passed through a series of connected nodes or neurons, each of which can have multiple input and output connections from and to other neurons mimicking synapses. At each neuron, a weighted sum of the input values is calculated before being passed onto the next hidden layer of neurons. The final layer of neurons is connected to the output layer which will give an estimation of the desired property, be that a number e.g. probability someone will like a television program, an image e.g. the probability that a pixel in an image is a cat, or a sample in an audio signal e.g. voice synthesis. More concisely, an \ac{ANN} can be used to map a non-linear set of input data to an output dimension.
+\acp{ANN} aim to solve computational problems using a similar methodology to their biological namesake. Input data is passed through a series of connected nodes or neurons, each of which can have multiple input and output connections from and to other neurons mimicking synapses. At each neuron, a weighted sum of the input values is calculated before being passed onto the next hidden layer of neurons. The final layer of neurons is connected to the output layer which will give an estimation of the desired property, be that a number e.g. probability someone will like a television program, an image e.g. the probability that a pixel in an image is a cat, or a sample in an audio signal e.g. voice synthesis. More concisely, an \ac{ANN} can be used to map a non-linear set of input data to an output dimension.
 
 A very basic example could use the mass and colour of an animal to guess if it is a dog or a cat, Figure \ref{fig:ml_theory_init}. The connections between neurons are initialised with random weights. 
 
@@ -83,9 +83,64 @@ When another animal is input to the network, here a smaller, darker coloured cat
 	\label{fig:ml_theory_new_data}	
 \end{figure}
 
-In the case of imaging data, the input layer will simply be a node for each pixel in the image.
+The above example is highly simplified, real \ac{ANN}s will have many more input nodes and hidden layers. In the case of imaging data, the input layer will simply be a node for each pixel in the image.
 
+\subsection{Convolutional Neural Networks}
 
+It was found that \ac{ANN} segmentation performance was increased if additional features were input to the network. These features could be colour rather than greyscale date, different \ac{MRI} contrasts e.g. fat/water images or artificially generated features. In Figure \ref{fig:ml_theory_features} a selection of artificially generated features are presented, some of these highlight the kidneys from the surrounding tissue e.g. the intensity range adjustment, \ref{fig:ml_theory_features_levels}, and edge detector, \ref{fig:ml_theory_features_edges} while others are better at providing contrast between the cyst in the right kidney and the renal tissue e.g. the intensity inversion, \ref{fig:ml_theory_features_invert} and sharpening filter, \ref{fig:ml_theory_features_sharpern}.
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/raw.png}
+		\caption{}
+		\label{fig:ml_theory_features_raw}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/levels.png}
+		\caption{}
+		\label{fig:ml_theory_features_levels}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/invert.png}
+		\caption{}
+		\label{fig:ml_theory_features_invert}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/blur.png}
+		\caption{}
+		\label{fig:ml_theory_features_blur}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/sharpern.png}
+		\caption{}
+		\label{fig:ml_theory_features_sharpern}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/edges.png}
+		\caption{}
+		\label{fig:ml_theory_features_edges}
+	\end{subfigure}
+	\caption{An example of the features that can be generated from a raw image (\subref{fig:ml_theory_features_raw}). Implemented here are intensity range adjustments (\subref{fig:ml_theory_features_levels}), intensity inversion (\subref{fig:ml_theory_features_invert}), Gaussian blur (\subref{fig:ml_theory_features_blur}), sharpening (\subref{fig:ml_theory_features_sharpern}) and edge detection (\subref{fig:ml_theory_features_edges}).}
+	\label{fig:ml_theory_features}
+\end{figure}
+
+Many of these artificially generated features can be implemented as convolutional operations, these involve convolving a numerical kernel with every pixel in the image. By adjusting the values of each cell in the kernel, different features or filters can be produced. The control of these kernels can be handed over to the same optimisation processes that are used to adjust the weights of the connections between neurons. Over the training period, this enables the network to learn what features are useful for the task at hand and which as less useful rather than the network being given features that the programmer thinks will be helpful. Shallow layers of the network usually resemble features similar to those in \ref{fig:ml_theory_features} while deeper layers represent more complex and specific objects such as, using the cat and dog example above, pointy noses to distinguish dogs and triangular ears to distinguish cats. This architecture is known as a \acl{CNN} \cite{fukushima_neocognitron_1988,lecun_gradient-based_1998}. 
+
+To aid with feature extraction, the raw image is often downsampled by max-pooling layers, this enables different kernels to act on different scales of the image can help keep the network generalisable and avoid overfitting. The U-Net architecture \cite{ronneberger_u-net_2015} combines an arm with downsampling and feature extraction with an upsampling arm that returns the image to its initial dimensions making it especially useful for segmentations tasks.
+
+\newpage
 \section{Methods}
 The study was approved by the University of Nottingham Medical School Research Ethics Committee (H14082014 and E14032013), and East Midlands Research Ethics committee REC reference: 17/LO/2036 and 15/EM/0274.
 
@@ -125,11 +180,10 @@ where $TP$ is true positive, $FP$ is false positive and $FN$ is false negative. 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{ML/Training_progress/training_history.png}
+	\includegraphics[width=0.7\textwidth]{ML/Training_progress/training_history.pdf}
 	\caption{Dice score of the network for the training and validation data. Data is shown with a 10 epoch rolling average.}
 	\label{fig:ml_training_history}	
 \end{figure}
-\todo{Swap this for eps/pdf rather than png}
 
 \newpage
 \subsection{Statistical Analysis}
@@ -168,19 +222,20 @@ The training data comprised 25 healthy controls (9 female, 16 male) with a mean 
 \begin{table}[H]
 	\centering
 	\begin{adjustbox}{width=1.1\textwidth, center}
-	\begin{tabularx}{1.1\textwidth}{X|XXXXXX}
-		\hline
+	\begin{tabularx}{1.1\textwidth}{X|X|X|X|X|X|X}
 		& \textbf{Number of Subjects} & \textbf{Number of Datasets} & \textbf{Number of 2D Slices} & \textbf{Sex (F/M)} & \textbf{Mean Age} & \textbf{TKV (m$\ell$)} \\ \hline
 		\textbf{Training HC}  & 25                          & 25                          & 325                          & 9/16               & 26 $\pm$ 12       & 296 $\pm$ 38           \\
+		\hline
 		\textbf{Training CKD} & 25                          & 25                          & 324                          & 6/19               & 58 $\pm$ 15       & 258 $\pm$ 72           \\
+		\hline
 		\textbf{Testing HC}   & 5                           & 25                          & 325                          & 1/4                & 25 $\pm$ 3        & 330 $\pm$ 35           \\
+		\hline
 		\textbf{Training CKD} & 5                           & 25                          & 325                          & 0/5                & 69 $\pm$ 3        & 274 $\pm$ 56          
 	\end{tabularx}
 	\end{adjustbox}
 	\caption{Characteristics of datasets used for training and validation of the 2D U-Net model \ac{CNN}.}
 	\label{tab:ml_datasets}
 \end{table}
-\todo{Fix table \ref{tab:ml_datasets} formatting}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{ML/Datasets/dataset_hist_overlay.pdf}
