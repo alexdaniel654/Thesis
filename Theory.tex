@@ -129,17 +129,10 @@ If disturbed from equilibrium by an \ac{RF} pulse, the net magnetisation vector 
 \end{equation}
 
 \subsection{Longitudinal Relaxation (\tone)}
+\label{subsec:theory_t1}
 Upon excitation, energy is exchanged between the spin system and the surrounding environment. The result of this energy exchange is that the energy of the spin system decreases and the longitudinal magnetisation exponentially decays to its equilibrium position. The time constant of this exponential decay returning to equilibrium, $M_0$ is known as the longitudinal relaxation time or \tone and is dictated by the efficiency of energy transfer between the spin system and the surrounding lattice, hence its historical name, spin-lattice relaxation.
 
 The efficiency of this energy transfer is primarily dictated by the motion of the surrounding lattice. As nearby molecules undergo rotation and translation they cause variations in the local magnetic field. If these fluctuations are at a similar frequency to the Larmor frequency then energy transfer via dipole-dipole interactions will be relatively efficient. The rate of energy transfer can also be increased if the molecules are more closely coupled for example, tissues with a lower molecular mobility tend to have a shorter \tone than those with a high molecular mobility.
-
-\begin{figure}[H]
-	\centering
-%	\includegraphics[width=0.8\textwidth]{}
-	\missingfigure{Correlation time}
-	\caption{}
-	\label{fig:theory_correlation_time}	
-\end{figure}
 
 \subsubsection{Measuring \tone}
 The longitudinal component of the Bloch equation, \eqref{eq:theory_bloch_full}, is given by \eqref{eq:theory_bloch_longitudinal}.
@@ -167,6 +160,7 @@ This method is expanded upon when it is used in Chapter \ref{chap:Neph}.
 	\label{fig:theory_inversion_recovery}	
 \end{figure}
 \subsection{Transverse Relaxation (\ttwo and \ttwostar)}
+\label{subsec:theory_t2}
 Upon the application of a 90\degree{ } \ac{RF} pulse, the net magnetisation vector has tipped in the $y'$ direction resulting in phase coherence and creating transverse magnetisation, $M_{x'y'}$. The spins then precess about the $z$-axis at their Larmor frequency, dictated by the magnetic field they are in. This magnetic field is not perfectly homogenous over the whole ensemble though, random dipole-dipole interaction with neighbouring spins produce short-lived fluctuations in the local magnetic field and thus the Larmor frequency of each spin varies. As the spins process at different frequencies, they de-phase, resulting an the transverse magnetisation decaying to zero as phase coherence is lost. This mechanism is driven by energy transfer between the spins within the system so is sometimes termed, spin-spin relaxation. The rate at which this loss of phase coherence due to spin-spin interactions occurs is characterised by the time constant \ttwo.
 
 The local magnetic field is not just influenced by spin-spin interactions. Local inhomogeneities in the static $B_0$ field can be caused by susceptibility differences within the sample and hardware imperfections. These $B_0$  inhomogeneities result in additional perturbation to the local magnetic field and therefore results in additional de-phasing of the system. The rate at which this de-phasing due to static $B_0$ inhomogeneities occurs is characterised by the time constant $T_2'$. The measured decay in transverse magnetisation is therefore dictated by \ttwostar, which is related to \ttwo and $T_2'$ by
@@ -239,6 +233,55 @@ Echoes can be generated via another mechanism, the \ac{GE}. In addition to the h
 	\caption{A schematic of a basic \acf{GE} sequence with \ac{TE} 100 ms.}
 	\label{fig:theory_ge_signal}	
 \end{figure}
+
+\subsection{Dipole-Dipole Interactions}
+
+As outlined in \ref{subsec:theory_t1} and \ref{subsec:theory_t2}, dipole-dipole interactions are a primary contributing factor to \tone and \ttwo times. The factors that dictate the strength of these interactions are the types of spin involved, the distance between them, the angle between them and their motion.
+
+The strength of the interaction depends on the gyromagnetic ratio of the spins involved. The magnitude of an electrons gyromagnetic ratio is much greater than that of a proton (-28025 MHzT$^{-1}$ and 43 MHzT$^{-1}$ respectively \cite{mohr_codata_2016}) and as such proton-electron interactions are much stronger than proton-proton interactions.
+
+The strength of the interaction is inversely proportional to the sixth power of distance (seen in Equations \eqref{eq:theory_SB_t1} and \eqref{eq:theory_SB_t2}) and thus means that dipole-dipole interactions are only effective over a very short range. As such, the majority of interactions are intramolecular rather than intermolecular.
+
+The $z$ component of a magnetic field produced by a dipole, $\mu$ is given by Equation \ref{eq:theory_dipole_z},
+\begin{equation}
+	B_{\mu z} \propto \frac{\mu}{r^3}\left( 3\cos^2\theta -1\right) 
+	\label{eq:theory_dipole_z}
+\end{equation}
+producing the field shown in Figure \ref{fig:theory_magic_angle}. Here it can be seen that at certain angles, the magnetic field is zero, this occurs when $\left( 3\cos^2\theta -1\right) = 0$ and equates to angles at approximately $54.7\degree$. These angles are known as magic angles. If the dipoles are orientated at approximately the magic angle to the $B_0$ field, their \ttwo will be increased.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Theory/Correlation_Time/magic_angle.pdf}
+	\caption{The $z$ component of the magnetic field produced by dipole, $\mu$.}
+	\label{fig:theory_magic_angle}	
+\end{figure}
+
+Molecules can move in three different ways, translation, vibration and rotation. Translation has little effect on \ac{NMR} signals as it is usually omnidirectional. Vibrational oscillations are at a much higher frequency than \ac{NMR} phenomenon and as such do not affect the \ac{MRI} signal. Rotations can be at similar frequencies to \ac{MRI} and as such, influence \tone and \ttwo due to dipole-dipole interactions.
+
+Each molecule in a sample will have a characteristic correlation time, $\tau_c$, the time it takes the molecule to rotate by one radian. The correlation time is effected by how tightly bound the molecules are and their mass, light freely bound molecules like water in liquid form will have a short correlation time while heavy tightly bound molecules such as those found in bone, will have a longer correlation time. If a molecule is tumbling at a rate similar to the Larmor frequency, it will cause energy transfer to be more efficient, thus reducing \tone. As the tumbling rate slows, the properties of the dipole become more similar to those of a static field, this means that nearby dipoles will experience magnetic fields perpetuated about $B_0$ and as such \ttwo will decrease.
+
+The mathematical framework of this phenomenon is given by the Solomon-Bloembergen equations \cite{solomon_relaxation_1955} (Equations \eqref{eq:theory_SB_t1} and \eqref{eq:theory_SB_t2}). These equations predict \tone and \ttwo dependence on correlation time, Figure \ref{fig:theory_relaxation_correlation}, where it can be observed that \tone is lowest when the frequency of the molecular tumbling is similar close to the Larmor frequency and that \ttwo decreases as correlation time increases. Tissues with a range of tumbling rates are highlighted in Figure \ref{fig:theory_relaxation_correlation}; the molecules in \ac{CSF} are weakly bound as they are in the liquid phase whereas solid tissues such as bone are tightly bound.
+
+\begin{eqnarray}
+	\frac{1}{T_1}&=& \frac{6}{20}\frac{\hbar^2\gamma^4}{r^6}\left[ \frac{\tau_c}{1 + \omega^2\tau_c^2} + \frac{4\tau_c}{1 + 4\omega^2\tau_c^2}\right]
+	\label{eq:theory_SB_t1}\\
+	\frac{1}{T_2}&=& \frac{3}{20}\frac{\hbar^2\gamma^4}{r^6}\left[ 3\tau_c +  \frac{5\tau_c}{1 + \omega^2\tau_c^2} + \frac{2\tau_c}{1 + 4\omega^2\tau_c^2}\right]
+	\label{eq:theory_SB_t2}
+\end{eqnarray}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Theory/Correlation_Time/relaxation_correlation.pdf}
+	\caption{\tone and \ttwo dependence on moelcular correlation time as predicted by the Solomon-Bloembergen equations. Tissues with a range of correlation times are highlighted.}
+	\label{fig:theory_relaxation_correlation}	
+\end{figure}
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.7\textwidth]{Theory/Correlation_Time/relaxation_b0.pdf}
+%	\caption{}
+%	\label{fig:theory_relaxation_b0}	
+%\end{figure}
 
 \subsection{Diffusion Imaging}
 Spins have been considered stationary until how, however, in biological tissues, they are often undergoing Brownian motion leading to diffusion. The signal from a sample can be made sensitive to the degree of diffusion taking place using diffusion gradients applied between excitation and echo. If a spin undergoes a translation while the gradient is being applied, it will be in a different magnetic field and thus at a different Larmor frequency while rephasing, resulting in additional signal attenuation. The degree of signal attenuation is proportional to the rate at which diffusion is occurring i.e. how far the spin has moved while the diffusion gradient was being applied. These diffusion gradients can either be bipolar, as seen in \ref{fig:theory_ge_signal} or monopolar if a \ac{SE} sequence is used.

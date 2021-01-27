@@ -50,7 +50,7 @@ legend_relaxation = [Line2D([0], [0], color='C0', label='$T_1$'),
 legend_1 = ax1.legend(handles=legend_tissue, loc='lower left', title='Tissue')
 ax1.add_artist(legend_1)
 ax1.legend(handles=legend_relaxation, loc='right', title='Relaxation')
-# fig1.savefig('relaxation_correlation.pdf', bbox_inches='tight', dpi=300)
+fig1.savefig('relaxation_correlation.pdf', bbox_inches='tight', dpi=300)
 
 fig2, ax2 = plt.subplots()
 b0 = np.linspace(0, 10, 100)
