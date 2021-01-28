@@ -37,6 +37,9 @@ ax1.loglog(tc, t2, label='$T_2$')
 ax1.axvspan(10E-11, 11E-11, alpha=0.5, color='C2', label='CSF')
 ax1.axvspan(10E-9, 11E-9, alpha=0.5, color='C3', label='Muscle')
 ax1.axvspan(10E-7, 11E-7, alpha=0.5, color='C4', label='Bone')
+ax1.axvspan(1/omega, 1/omega + 1E-11, alpha=1, color='k', label='$\omega_0$')
+ylim = ax1.get_ylim()
+ax1.text(1/omega, ylim[0], r'$\tau_0$', ha='center', va='top')
 ax1.set_xlabel('Correlation Time (s)')
 ax1.set_ylabel('Relaxation Time (s)')
 # ax1.xaxis.grid(True, which='both')
@@ -72,10 +75,10 @@ ax2.set_xlabel('$B_0$ (T)')
 ax2.set_ylabel('Relaxation Time (s)')
 
 legend_tissue = [Line2D([0], [0], color='0', ls=(0, (1.5, 5)), alpha=1, label='CSF'),
-                 Line2D([0], [0], color='0', ls='--', alpha=1, label='Muscle'), 
-                 Line2D([0], [0], color='0', ls='-', alpha=1, label='Bone')]
+                  Line2D([0], [0], color='0', ls='--', alpha=1, label='Muscle'), 
+                  Line2D([0], [0], color='0', ls='-', alpha=1, label='Bone')]
 legend_relaxation = [Line2D([0], [0], color='C0', label='$T_1$'),
-                     Line2D([0], [0], color='C1', label='$T_2$')]
+                      Line2D([0], [0], color='C1', label='$T_2$')]
 legend_1 = ax2.legend(handles=legend_tissue, loc='lower right', title='Tissue')
 ax2.add_artist(legend_1)
 ax2.legend(handles=legend_relaxation, loc='upper right', title='Relaxation')
