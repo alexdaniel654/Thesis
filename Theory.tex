@@ -227,12 +227,22 @@ To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogenei
 By repeating this sequence over a range of \ac{TE} the \ttwo curve can be samples and fit to \eqref{eq:theory_bloch_transverse_mxy} to estimate \ttwo and $M_{xy0}$. The \ac{SE} sequence is the most basic form of \ttwo mapping, more methods are explored and compared in Chapter \ref{chap:t2_mapping}.
 
 \subsubsection{Gradient Echoes}
-Echoes can be generated via another mechanism, the \ac{GE}. In addition to the homogenous $B_0$ field and \ac{RF} fields encountered thus far, \ac{MRI} scanners can produce additional fields known as gradients. These switchable fields can induce linearly varying spatially dependent magnetic fields to perturb $B_0$. They are used for image formation, explained in Section \ref{sec:theory_forming_an_image} but can also be used to form an echo. The \ac{GE} pulse sequence uses a single 90\degree{ }\ac{RF} excitation pulse to tip the net magnetisation vector into the transverse plane. A gradient is then applied to the sample causing areas of higher field to de-phase quickly whereas areas with a relatively lower field will de-phase slower. At time \ac{TE}/2 the polarity of the gradient is reversed thus causing the spins to refocus and an echo to be formed at time \ac{TE}. An overview of the sequence is shown in Figure \ref{fig:theory_ge_signal}.
+Echoes can be generated via another mechanism, the \ac{GE}. In addition to the homogenous $B_0$ field and \ac{RF} fields encountered thus far, \ac{MRI} scanners can produce additional fields known as gradients. These switchable fields can induce linearly varying spatially dependent magnetic fields to perturb $B_0$. They are used for image formation, explained in Section \ref{sec:theory_forming_an_image} but can also be used to form an echo. The \ac{GE} pulse sequence uses a single 90\degree{ }\ac{RF} excitation pulse to tip the net magnetisation vector into the transverse plane. A gradient is then applied to the sample causing areas of higher field to de-phase quickly whereas areas with a relatively lower field will de-phase slower. At time \ac{TE}/2 the polarity of the gradient is reversed thus causing the spins to refocus and an echo to be formed at time \ac{TE}. An overview of the sequence is shown in Figure \ref{fig:theory_ge_signal}. 
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/GE/ge_signal.eps}
 	\caption{A schematic of a basic \acf{GE} sequence with \ac{TE} 200 ms.}
 	\label{fig:theory_ge_signal}	
+\end{figure}
+
+In reality, the gradients cannot switch polarity instantaneously due to the inductance of the gradient coils and characteristics of the amplifiers used to generate the gradients. This phenomenon leads to the gradient waveform being trapezoidal, however, to aid clarity in schematics within this chapter, an idealised gradient waveform has been shown. This characteristic of gradients is known as slew rate and is defined as the peak gradient amplitude upon the rise time, Figure \ref{fig:theory_slew}, and for modern \ac{MRI} scanners is of the order of 200 T/m/s.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Theory/GE/slew.pdf}
+	\caption{A gradient waveform with typical peak gradient amplitude, rise time and slew rate.}
+	\label{fig:theory_slew}	
 \end{figure}
 
 \subsection{Dipole-Dipole Interactions}
@@ -380,9 +390,7 @@ Phase aliasing occurs because the whole sample produces signal, whether it is in
 
 \subsubsection{Frequency Encoding}
 Finally, the signal needs to be localised in the $x$ direction. This is achieved using frequency encoding.
-Here the gradient, $G_x$ is applied during the acquisition section of the sequence i.e. when the signal is being sampled. As the gradient is being applied during readout, those spins in the centre of the gradient (at field $B_0$) will be precessing at the Larmor frequency while those in a stronger or weaker field will be precessing faster ro slower respectively. By sampling the signal generated and applying a Fourier transform to separate components of the signal at each frequency, the signal is spatially resolved in all three dimensions.
-
-An overview of a basic signal localisation scheme is shown in Figure \ref{fig:theory_signal_loc}.
+Here the gradient, $G_x$ is applied during the acquisition section of the sequence i.e. when the signal is being sampled. As the gradient is being applied during readout, those spins in the centre of the gradient (at field $B_0$) will be precessing at the Larmor frequency while those in a stronger or weaker field will be precessing faster ro slower respectively. By sampling the signal generated and applying a Fourier transform to separate components of the signal at each frequency, the signal is spatially resolved in all three dimensions. An overview of a basic signal localisation scheme is shown in Figure \ref{fig:theory_signal_loc}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/Signal_Localisation/signal_localisation_psd.eps}
@@ -500,7 +508,7 @@ The \ac{SENSE} factor is the degree to which $k$-space is under-sampled and is l
 
 \subsection{Image Acquisition Schemes}
 
-Many different acquisition schemes have been developed for sampling $k$-space. Outlined below are some of the key sequences.
+Many different acquisition schemes have been developed for sampling $k$-space. Outlined below are some of the key sequences that form the basis of much of \ac{MRI}.
 
 \subsubsection{Spin Warp Imaging}
 
@@ -574,7 +582,7 @@ The \ac{HASTE} sequence uses a combination of the techniques above. A single exc
 The advantage of \ac{HASTE} is its rapid acquisition. It can be used to minimise the effects of motion when scanning uncooperative patients, fetuses or structures the subject has no control over such as the bowel. Alternatively it can be used to capture a large \ac{FOV} in a single breath hold, thus minimising the effects of inconsistent expiration level, as in Chapter \ref{chap:ML}. The very long \ac{ETL} can cause significant blurring of the image, thus reducing its clinical readability.
 
 \subsubsection{\ac*{TFE}}
-\ac{TFE}, also known as ulatrafast \ac{GE}, is designed to speed up acquisition of \ac{GE} images by reducing the \ac{TR} between excitations. Typical basic \ac{GE} sequences have relatively long \ac{TR} to allow the recovery of longitudinal magnetisation. The flip angle used in the \ac{TFE} sequence is much smaller than the examples explored so far, usually approximately 10$\degree${ } thus leaving a large component of the magnetisation in the longitudinal direction while tipping enough magnetisation into the transverse plane to record a signal at an acceptable \ac{SNR}. Between each excitation, the transverse magnetisation is spoiled to ensure the images are only \tone weighted.
+\ac{TFE}, also known as ulatrafast \ac{GE}, is designed to speed up acquisition of \ac{GE} images by reducing the \ac{TR} between excitations. Typical basic \ac{GE} sequences have relatively long \ac{TR} to allow the recovery of longitudinal magnetisation. The flip angle used in the \ac{TFE} sequence is much smaller than the examples explored so far, usually approximately 10$\degree$ thus leaving a large component of the magnetisation in the longitudinal direction while tipping enough magnetisation into the transverse plane to record a signal at an acceptable \ac{SNR}. Between each excitation, the transverse magnetisation is spoiled to ensure the images are only \tone weighted.
 
 After a train of equally spaced \ac{RF} pulses of \ac{FA}, $\alpha$, and period, \ac{TR}, the longitudinal magnetisation reaches a steady state, $S_{TFE}$, after a sufficient number of pulses. This steady state signal depends on the \tone of the tissue and the \ac{FA} and \ac{TR} of the sequence. Assuming perfect transverse magnetisation spoiling between each \ac{RF} pulse, this equilibrium signal is given by,
 
@@ -583,7 +591,7 @@ After a train of equally spaced \ac{RF} pulses of \ac{FA}, $\alpha$, and period,
 	\label{eq:tfe_signal}
 \end{equation}
 
-The angle that produces the maximum signal known as the Ernst angle, $\alpha_E$, and is given by,
+The angle that produces the maximum signal, known as the Ernst angle, $\alpha_E$, is given by,
 \begin{equation}
 	\alpha_E = \arccos \left[ \exp \left( -\frac{TR}{T_1}\right)\right].
 	\label{eq:theory_ernst}
