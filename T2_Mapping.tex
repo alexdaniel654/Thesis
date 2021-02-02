@@ -7,6 +7,7 @@
 	\lipsum[1]
 \end{abstract}
 \newpage
+\acresetall
 
 \section{Introduction}
 \label{sec:t2_intro}
@@ -20,15 +21,13 @@ Renal \ttwo mapping has seen most research focusing on repeatability measures \c
 
 In the existing literature, there is a substantial variation in quoted \ttwo values for the kidneys of healthy volunteers, this is thought to be, in part, due to the differences in \ttwo mapping methodologies. There are currently four main methods, a basic spin echo method, a multi echo-spin echo method, a gradient spin echo method and a \ac{CPMG} \ttwo prep method. Here we aim to compare each of these methods in the context of renal \ttwo mapping to ascertain which is most suitable. This involves evaluating each methods quantitative accuracy, image quality, susceptibility to flow and suitability for use in-vivo.
 
-\subsection{Theory}
-
-
 \section{Methods}
 \label{sec:t2_methods}
 
-\subsection{Acquisition Schemes}
+\subsection{Data Acquisition}
 \label{subsec:t2_acq_schemes}
-There are multiple methods for acquiring $T_2$ maps in the kidneys, \ac{SE}-\ac{EPI}, \ac{ME-TSE}, \ac{GraSE} and $T_2$ preparation. We wish to compare each of these methods in-vivo and verify their accuracy using a calibrated phantom. A QalibreMD System Standard Model 130 \cite{noauthor_system_nodate} is used for verification. All data is collected on a Philips 3T Ingenia system. 
+
+All data was acquired on a 3T Philips Ingenia system (Philips Medical Systems, Best, The Netherlands). The 14 element \ttwo array of a QalibreMD System Standard Model 130 containing spheres doped with varying concentrations of \ce{MnCl_2} to modulate \ttwo between 5 ms and 650 ms was used to compare the accuracy of \ttwo measurements to a known ground truth, Figure \ref{fig:t2_phantom_schematic}. Additionally, a square grid etched into plate three of the phantom was used to assess the degree of image blurring. 
 
 \begin{figure}[H]
 	\centering
@@ -37,56 +36,86 @@ There are multiple methods for acquiring $T_2$ maps in the kidneys, \ac{SE}-\ac{
 	\label{fig:t2_phantom_schematic}	
 \end{figure}
 
-\subsubsection{Spin Echo-Echo Planar Imaging}
-A series of volumes are collected at a range of echo times using a multi-slice spin echo acquisition with \ac{EPI} readout. Acquisition parameters are \ac{FOV} = 288 $\times$ 288 $\times$ 25 mm, voxel size = 3 $\times$ 3 $\times$ 5 mm$^3$, \ac{TR} = 5000 ms, \ac{FA} = $90\degree$, \ac{SENSE} = 2.55, halfscan = 0.844 and the sequence is respiratory triggered for in-vivo use and has an acquisition time of approximately 9 minutes depending on breathing rate. Volumes are acquired at \ac{TE} between 20 ms and 70 ms in 5 ms steps with four volumes being acquired at each echo time. 
+To investigate the effects of flow upon \ttwo measurements, a Gold Standard Phantoms \ac{QASPER} phantom was used. This allows the \ttwo of the perfusate to be measured at rest and whilst being pumped through the phantom at a range of flow rates, Figure \ref{fig:t2_flow_phantom_schematic}. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\textwidth]{T2_Mapping/Pulse_Diagrams/SE-EPI/SE-EPI_Sequence-01.eps}
+%	\includegraphics[width=0.5\textwidth]{T2_Mapping/Phantom_Example/T2_Spheres.eps}
+	\missingfigure{Flow phantom schematic}
+	\caption{A schematic of \ac{QASPER} phantom used to quantify the effects of flow upon the \ttwo measurements.}
+	\label{fig:t2_flow_phantom_schematic}	
+\end{figure}
+
+Both phantoms were scanned using a 32-channel head coil. All data acquired on human subjects was done with approval of the local ethics committee and the study was conducted in accordance with the Helsinki Declaration. The subjects gave written, informed consent. Humans were scanned using a 16-channel anterior coil array and 16-channel posterior coil array. The study cohort consisted of 5 healthy participants (2 female, 3 male, mean age 31 $\pm$ 8).
+
+The protocol consisted of a survey, localisers, $B_0$ and $B_1$ mapping, then each of the optimised \ttwo mapping sequences. In-vivo subjects also had \ttwo-weighted and \tone-weighted structural scans to enable segmentation of the whole kidneys, and cortex/medulla respectively \cite{petzold_building_2014, will_automated_2014}, these \ac{ROI} are then used to calculate the mean \ttwo of each tissue type. A summary of the parameters of each \ttwo mapping sequence is shown in Table \ref{tab:t2_sequence_overview}. Each protocol was designed to be approximately two minutes (before respiratory triggering) and keep key parameters such as voxel size and \ac{FOV} constant.
+
+\begin{table}[H]
+	\centering
+	\begin{adjustbox}{width=1.2\textwidth, center}
+	\begin{tabularx}{1.25\textwidth}{X|X|X|X|X}
+		                                                     & Spin Echo - Echo Planar Imaging & Multi-Echo Turbo Spin Echo & Gradient Spin Echo & CPMG \ttwo Prep EPI \\ \hline
+		Abbreviation                                         & SE-EPI                          & ME-TSE                     & GraSE              & CPMG \ttwo Prep     \\ \hline
+		TE (min:step:max) (ms)                               & 20:10:70                        & 13:13:130                  & 11.2:5.6:173.3     & 0:20:160            \\ \hline
+		Number of   echoes                                   & 6                               & 10                         & 30                 & 9                   \\ \hline
+		TR (ms)                                              & 5000                            & 3000                       & 3000               & 3000                \\ \hline
+		Voxel Size   (mm$^3$)                                & 3 $\times$ 3 $\times$ 5         & 3 $\times$ 3 $\times$ 5    &3 $\times$ 3 $\times$ 5 &3 $\times$ 5.65 $\times$ 5\\ \hline
+		FoV (mm$^3$)                                         & 288 $\times$ 288 $\times$ 25    & 288 $\times$ 288 $\times$ 25   &288 $\times$ 288 $\times$ 25&288 $\times$ 288 $\times$ 25\\ \hline
+		Signal   Averages                                    & 2                               & 1                          & 1                  & 1                   \\ \hline
+		Acquisition Mode                                     & Multi Slice                     & Multi Slice                & Multi Slice        & Multiple 2D         \\ \hline
+		Fast   Imaging Mode                                  & EPI                             & TSE                        & GraSE              & TFEPI               \\ \hline
+		Flip Angle                                           & 90$\degree$                     & 90$\degree$                & 90$\degree$        & 90$\degree$         \\ \hline
+		Bandwidth   (Hz)                                     & 40                              & 180                        & 405                & 113                 \\ \hline
+		SENSE                                                & 2.55                            & 2.55                       & 2.55               & 3                   \\ \hline
+		Halfscan                                             & 0.838                           & No                         & No                 & 0.706               \\ \hline
+		TSE Factor                                           & N/A                             & 10                         & 30                 & N/A                 \\ \hline
+		EPI Factor                                           & 37                              & N/A                        & 3                  & 17                  \\ \hline
+		Respiratory Compensation                             & Triggered                       & Triggered                  & Triggered          & Triggered           \\ \hline
+		Acquisition Time \tiny{(before respiratory compensation)} & 3 min 0 sec                & 1 min 57 sec               & 2 min 6 sec        & 2 min 23 sec  
+	\end{tabularx}
+	\end{adjustbox}
+	\caption{A summary of the acquisition parameters of each of the \ttwo mapping methods compared.}
+	\label{tab:t2_sequence_overview}
+\end{table}
+
+\subsubsection{Spin Echo-Echo Planar Imaging}
+This technique is the simplest of the four consisting of a 90$\degree$ excitation pulse, followed by a 180$\degree$ \ac{RF} pulse \ac{TE}/2 ms later, leading to an echo at \ac{TE}. This 180$\degree$ pulse corrects for components of the signal lost due to static field inhomogeneities however does not correct for \ttwo effects therefore by repeating the sequence multiple times with different \ac{TE}, the \ttwo decay can be sampled. An \ac{EPI} readout is used to sample the signal during the echo. This sequence suffers from a relatively low \ac{SNR}, hence the two signal averages; this means that only six different echo times are recorded. An overview of the sequence is shown in Figure \ref{fig:t2_se-epi_seq}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_SE_EPI.eps}
 	\caption{A pulse sequence diagram of the \ac{SE}-\ac{EPI} scheme.}
 	\label{fig:t2_se-epi_seq}	
 \end{figure}
 
 \subsubsection{Multi-Echo Turbo Spin Echo}
-
-This method also uses a multi-slice spin echo acquisition however unlike the simple spin echo method, uses a multishot \ac{TSE} readout. Acquisition parameters for in-vivo scanning are \ac{FOV} = 288 $\times$ 288 $\times$ 25 mm, voxel size = 3 $\times$ 3 $\times$ 5 mm$^3$, \ac{TR} = 3000 ms, \ac{FA} = $90\degree$, \ac{SENSE} = 2.55 and \ac{TSE} factor = 10; the sequence is respiratory triggered and has an acquisition time of approximately 4 minutes depending on breathing rate. For phantom scanning, the following parameters are modified \ac{FOV} = 250 $\times$ 250 $\times$ 6 mm, voxel size = 0.9 $\times$ 0.9 $\times$ 6 mm$^3$ and respiratory triggering is removed. Volumes are collected with \ac{TE} between 13 ms and 130 ms in 13 ms steps.
+This sequence also uses a multi-slice spin echo; however the \ac{EPI} readout is replaced by a \ac{TSE} readout. This replaces the singe 180$\degree$ pulse with a train of pulses with an echo forming between each allowing the whole \ttwo decay to be sampled in a single echo train. Different echo times are sampled by varying the number and spacing of the 180$\degree$ pulses. The decrease in acquisition time per echo compared to the \ac{SE}-\ac{EPI} sequence meant that ten echoes were collected per \ttwo map at the minimum possible echo spacing, 13 ms. A schematic of the \ac{PSD} can be seen in Figure \ref{fig:t2_me-tse_seq}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\textwidth]{T2_Mapping/Pulse_Diagrams/ME-TSE/ME-TSE_Sequence-01.eps}
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_ME_TSE.eps}
 	\caption{A pulse sequence diagram of the \ac{ME-TSE} scheme.}
 	\label{fig:t2_me-tse_seq}	
 \end{figure}
 
 \subsubsection{Gradient Spin Echo}
 
-This method also uses a multi-slice spin echo acquisition but with a \ac{GraSE} readout. Acquisition parameters for in-vivo scanning are \ac{FOV} = 288 $\times$ 288 $\times$ 25 mm, voxel size = 3 $\times$ 3 $\times$ 5 mm$^3$, \ac{TR} = 3000 ms, \ac{FA} = $90\degree$, \ac{SENSE} = 2.55 and \ac{TSE} factor = 30, startup echoes = 1; the sequence is respiratory triggered and has an acquisition time of approximately 5 minutes depending on breathing rate. For phantom scanning, the following parameters are modified \ac{FOV} = 250 $\times$ 250 $\times$ 6 mm, voxel size = 0.9 $\times$ 0.9 $\times$ 6 mm$^3$ and respiratory triggering is removed. Volumes are collected with \ac{TE} between 11.2 ms and 173.3 ms in 5.6 ms steps.
+To achieve further acceleration over the \ac{ME-TSE} sequence, a \ac{GraSE} sequence can be used. Here two gradient echoes are collected for every spin echo with the spin echo and gradient echoes being used for the acquisition of the centre and periphery of k-space respectively. The multiple $k$-space profiles collected per spin echo enables a decrease in the echo spacing of the sequence compared to the \ac{ME-TSE}, decreasing to 5.6 ms and thus thirty echoes are collected per \ttwo map. The \ac{PSD} for the \ac{GraSE} acquisition is shown in Figure \ref{fig:t2_grase_seq}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\textwidth]{T2_Mapping/Pulse_Diagrams/GraSE/GraSE_Sequence-01.eps}
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_GraSE.eps}
 	\caption{A pulse sequence diagram of the \ac{GraSE} scheme.}
 	\label{fig:t2_grase_seq}	
 \end{figure}
 
-\subsubsection{$T_2$ Preperation}
+\subsubsection{CPMG $T_2$ Preparation}
 
-\paragraph{Basic $T_2$ Preperation}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.95\textwidth]{T2_Mapping/Pulse_Diagrams/Philips_T2_Prep/T2_Prep_Sequence-01.eps}
-	\caption{A pulse sequence diagram of the basic $T_2$ preparation scheme.}
-	\label{fig:t2_t2prep_seq}	
-\end{figure}
-
-\paragraph{CPMG $T_2$ Preparation}
-
-This technique uses a multi-slice \ac{FFE} acquisition with a \ac{TFEPI} readout. Varying degrees of $T_2$ weighting are applied as a series of $180\degree$ preparation pulses for a variable \ac{eTE}, this is similar to the sequence used in Section \ref{sec:TRUST_MRI}. Acquisition parameters for in-vivo scanning are \ac{FOV} = 288 $\times$ 288 $\times$ 25 mm, voxel size = 3 $\times$ 5.65 $\times$ 5 mm$^3$ (voxel size is limited by the \ac{EPI} factor), \ac{TR} = 3000 ms, \ac{TE} = 5.3, \ac{FA} = $90\degree$, \ac{EPI} factor = 17, \ac{SENSE} = 3 and halfscan = 0.733; the sequence is respiratory triggered and has an acquisition time of approximately 6 minutes depending on breathing rate. As the voxel size is already at its minimum, the only modifications made for scanning the phantom are to decrease the \ac{FOV} to 250 $\times$ 250 $\times$ 6 mm and remove respiratory triggering. \ac{eTE}s of 0, 40, 80 and 160 ms are used with three volumes acquired at each \ac{eTE}
+The \ac{CPMG} \ttwo preparation sequence is considered the gold standard in terms of accuracy. This sequence consists of the 90$\degree$ excitation pulse to transfer the magnetisation into the transverse plane as with the other sequences. A series of spatially non-selective 180$\degree$ pulses with alternating phases are then applied; by varying the number and temporal spacing, $\tau_{\textup{CPMG}}$, of these pulses the degree of \ttwo weighting can me modulated to achieve different \ac{eTE}. An \ac{EPI} readout scheme is then used to sample the signal. An overview of this sequence is shown in Figure \ref{fig:t2_cpmg_t2prep_seq}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\textwidth]{T2_Mapping/Pulse_Diagrams/CPMG_T2_Prep/CPMG_T2_Prep_Sequence-01.eps}
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_T2_Prep.eps}
 	\caption{A pulse sequence diagram of the \ac{CPMG} $T_2$ preperation scheme.}
 	\label{fig:t2_cpmg_t2prep_seq}	
 \end{figure}
