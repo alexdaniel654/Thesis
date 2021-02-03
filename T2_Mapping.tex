@@ -123,26 +123,47 @@ The \ac{CPMG} \ttwo preparation sequence is considered the gold standard in term
 
 \subsection{Post Processing}
 
-\subsubsection{Generating $T_2$ Maps}
-The data is fit on a voxel by voxel basis using a least squares trust region reflective method to fit the data to Equation \eqref{eq:T2} to estimate $T_2$ and $S_0$ with an uncertainty in the fit \cite{branch_subspace_1999}. For methods where multiple volumes are acquired at an \ac{TE}, individual volumes are used for the fit e.g. four points at each \ac{TE} for the \ac{SE}-\ac{EPI} method rather than taking  mean of the volumes for each \ac{TE}, this makes potential datathe discarding easier. This post-processing is performed by an in-house Python package. Once the $T_2$ maps have been generated, \ac{ROI} can be defined for different tissue types or phantom components.
+All post processing was performed using Python 3.7 making use of the \ac{UKAT} toolbox \cite{nery_ukrin_2020}. All curve fitting uses a least squares trust region reflective method to estimate the variables in the desired function.
 
+\subsubsection{\ttwo Fitting Methods}
+
+The data were fit using a mono-exponential model, however, there are multiple models for fitting noisy data, each of which was evaluated here and illustrated in Figure \ref{fig:t2_fitting_methods} The basic fit simply takes the signal from each voxel at each \ac{TE} and fits it to 
 \begin{equation}
-S(t) = S_0 \cdot e^{-t/T_2}
-\label{eq:T2}
+	S(t) = S_0 \cdot e^{-t/T_2}.
+	\label{eq:t2}
+\end{equation}
+If no noise were present in the data, this would be the optimum method however, decreased SNR of later \ac{TE} often leads to inaccurate fits. To combat this, the equation the data is fit to can be modified to
+\begin{equation}
+	S(t) = S_0 \cdot e^{-t/T_2} + \epsilon
+	\label{eq:t2_noise}
+\end{equation}
+where $\epsilon$ represents thermal noise and a baseline in the signal due to long \ttwo compartments, this fitting method is referred to as ``noise fit''. Another common method of negating the effects of the low \ac{SNR} later \ac{TE} is to discard data below a threshold, illustrated here at 0.2 AU and referred to as ``discard fit''. Finally, a combination of both noise estimation and discarding was performed (discard and noise fit).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/fitting_methods.pdf}
+	\caption{Each of the four fitting methods being used to estimate \ttwo of the same simulated data.}
+	\label{fig:t2_fitting_methods}	
+\end{figure}
+
+These fitting methods can either be applied on a voxel-by-voxel basis to generate spatial maps or the signal from all voxels in an \ac{ROI} with a single \ttwo can be averaged at each \ac{TE} with parameters being fit to the subsequent mean signal. 
+
+\subsection{Assessment of Data}
+
+\subsubsection{Quantifying Accuracy}
+Using the QalibreMD phantom, the quantitative accuracy of each of the sequences was assessed. A \ac{ROI} was defined for each of the spheres in the \ttwo array and the mean of all voxels within the sphere at each \ac{TE} calculated. The estimated values of \ttwo were compared to the ground truth literature values and their discrepancy assessed over both the full range of \ttwo in the array (5 ms – 650 ms) and the range of \ttwo reported in the kidneys (40 ms – 200 ms) \cite{wolf_magnetic_2018}. Accuracy was summarised over these ranges using \ac{MRE} defined as 
+\begin{equation}
+	\textup{MRE} = \frac{1}{N}\sum_{n}^{i=1}\left|  \frac{t_{2\; i}^{\textup{ground truth}} - t_{2\; i}^{\textup{estimate}}}{t_{2\; i}^{\textup{ground truth}}}\right|.
+	\label{eq:t2_mre}
 \end{equation}
 
-\subsubsection{Quantifying $T_2$ Accuracy}
-To access the accuracy of each method, the sequences were performed on the calibrated phantom with spheres of known \ttwo. By calculating the mean \ttwo for each sphere and comparing to the known \ttwo it is possible to quantify the accuracy across a range of \ttwo and summarise the overall accuracy by Pearsons correlation coefficient, \eqref{eq:pearson_cc}.
+\subsubsection{Effects of Flow}
+The kidneys are highly perfused organ, as such, the effects of fluid flow through the area being imaged should be evaluated. This was achieved using a Gold Standard Phantoms \ac{QASPER} phantom. This phantom comprises of a \ac{MRI} compatible pump with adjustable continuous flow rates from 0 m$\ell$/min to 350 m$\ell$/min, the perfusate exiting this pump continues into a series of simulated arterioles before entering a porous media designed to simulate a capillary bed. The porous media is imaged using each sequence over the full range of flow rates the phantoms pump can deliver. \ttwo maps are calculated and the mean \ttwo calculated to evaluate the robustness of each sequence to variations in perfusion.
 
-\begin{equation}
-\label{eq:pearson_cc}
-r = \frac{\sum^{n}_{i=1}\left(x_i - \bar{x}\right )\left(y_i - \bar{y}\right )}{\sqrt{\sum^{n}_{i=1}\left(x_i - \bar{x}\right )^2}\sqrt{\sum^{n}_{i=1}\left(y_i - \bar{y}\right )^2}}
-\end{equation}
+\subsubsection{Blurring}
+Unfortunately \ac{MRI} doesn't produce perfect images, every signal is subject to a degree of blurring or spreading out into surrounding voxels. The amount of this blurring is different for each sequence and can dramatically effect the readability of an image and ultimately its clinical utility. In \ac{MRI} the amount and characteristics of the blur are usually spatially invariant, that is to say, if a voxel in the centre of an image is blurred over its five neighbouring voxels in the phase encode direction, a voxel at the edge of the image would have the same five voxel blur applied to it. We wish to quantify the amount of blurring produced by each of the sequences outlined in \ref{subsec:t2_acq_schemes}.
 
-\subsubsection{Quantifying Image Quality}
-Unfortuanately \ac{MRI} doesn't produce perfect images, every signal is subject to a degree of bluring or spreading out into surrounding voxels. The amount of this blurring is different for each sequence and can dramatically effect the readability of an image and ultimately its clinical utility. In \ac{MRI} the amount and charecteristics of the blur are usually spatialy inveriant, that is to say, if a voxel in the centre of an image is blurred over its five neighbouring voxels in the phase encode direction in the centre of the image, a voxel at the edge of the image would have the same five voxel blur applied to it. We wish to quantify the amount of bluring produced by each of the sequences outlined in \ref{subsec:t2_acq_schemes}.
-
-The observed image, $h$, can be moddeled as a the ideal, unblured signal, $f$ distorted by a filter, $g$, figure \ref{fig:t2_1d_blur}. This distorting filter is known as the \ac{PSF} and is the theoredical signal produced by an infinitely small point source object or, in practice, the blurring observed in the imaging system produced when an object much smaller than the systems resolving power is imaged. In a spatially invariant system such as \ac{MRI} the recorded signal is simply a convolution of the true signal and the \ac{PSF} i.e. $f \ast g = h$. By fitting a gaussian to the \ac{PSF} we can quantify the degree of bluring in the image. 
+The observed image, $h$, can be modelled as a the ideal, unblurred signal, $f$ distorted by a filter, $g$, Figure \ref{fig:t2_1d_blur}. This distorting filter is known as the \ac{PSF} and is the theoretical signal produced by an infinitely small point source object or, in practice, the blurring observed in the imaging system produced when an object much smaller than the systems resolving power is imaged. In a spatially invariant system such as \ac{MRI} the recorded signal is simply a convolution of the true signal and the \ac{PSF} i.e. $f \ast g = h$. By fitting a Gaussian to the \ac{PSF} we can quantify the degree of blurring in the image \cite{chaimow_more_2017, chaimow_more_2017-1}. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{T2_Mapping/1D_Blur/1d_conv.eps}
@@ -150,9 +171,18 @@ The observed image, $h$, can be moddeled as a the ideal, unblured signal, $f$ di
 	\label{fig:t2_1d_blur}	
 \end{figure}
 
-To estimate the \ac{PSF} we acquire an image of the \ac{NIST} phantom at a much higher resolution than the standard $T_2$ mapping sequence to approximate the ideal signal. The phantom coutains lots of clearly defined structures with high contrast edges, therefore, for the 3 $\times$ 3 $mm^2$ in plane resolution of the sequences, the edges of the structures inside the phantom are smaller than the resolving power of the sequence
+A grid etched into one of the plastic plates of the QalibreMD phantom was imaged using each of the \ttwo mapping methods with an echo time of 20 ms and a 0.5 mm$^3$ isotropic structural scan collected. The resolution of the structural scan is much greater than the resolution of the \ttwo mapping scans, therefore it can be seen as an approximation of the ideal image produced by each \ttwo mapping method. This allows a deconvolution of the \ac{PSF} from the \ttwo mapping scans and, by fitting a Gaussian to the line profiles of the \ac{PSF} in each direction, estimate the \ac{FWHM} of the \ac{PSF} as shown in Figure \ref{fig:t2_2d_blur}. Quoted values are the maximum \ac{PSF} of each of the two directions as this is the limiting factor in an images readability, for the example in Figure \ref{fig:t2_2d_blur}, the quoted \ac{PSF} would be 9.49 $\pm$ 0.23 mm.
 
-\subsubsection{Assessment of In-Vivo Feasability}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{T2_Mapping/2D_Blur/Example/2D_Blur.eps}
+	\caption{An overview of the estimation of the \ac{PSF}. The \ttwo weighted data has had additional blur added to make the effect of each processing step clearer.}
+	\label{fig:t2_2d_blur}	
+\end{figure}
+
+\subsubsection{In-Vivo}
+
+Using the \tone-weighted structural scans \ac{ROI} were defined for both the renal cortex and medulla of each subject. These \ac{ROI} were the applied to \ttwo maps generated using each method and a mean and standard deviation of \ttwo for each tissue type calculated. \ttwo maps were also qualitatively assessed.
 
 \section{Results}
 
