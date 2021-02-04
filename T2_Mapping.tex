@@ -2,9 +2,15 @@
 \label{chap:t2_mapping}
 
 \begin{abstract}
+	Renal \ttwo mapping shows promising early results for the evaluation of multiple pathologies, however, there is very little consistency between studies with different methodologies being employed by each research group. Here we evaluate a basic spin echo, multi echo-spin echo, gradient spin echo method and \ac{CPMG} \ttwo prep method, the four most common \ttwo mapping sequences for use in the kidneys.
+	
+	Each of the four sequences was used to image a phantom with an array of spheres of known \ttwo to evaluate quantitative accuracy across the range of \ttwo reported in the kidneys. The sensitivity of each sequence to flow was evaluated using a different phantom over a range of flow rates. Additionally, the image quality of each sequence was assessed by estimating the point spread function. All sequences were then used generate \ttwo maps of five healthy volunteers. 
+	
+	The \ac{CPMG} \ttwo prep sequence delivered the most accurate quantitative results over the range of \ttwo within the static phantom, however, its sensitivity to flow and wide point spread function limit its use in-vivo. Instead, a gradient spin echo sequence is recommended, with a mean relative error of 15 ± 4 \% over the range of \ttwo reported within the kidneys (40 ms – 200 ms), superior readability due to its smaller point spread function and insensitivity to flow.
+	
 	This work was presented as an aural presentation at the \ac{ISMRM} 28th Annual Meeting (2020) \cite{daniel_comparison_2020}.
 	
-	\lipsum[1]
+%	\lipsum[1]
 \end{abstract}
 \newpage
 \acresetall
@@ -52,15 +58,16 @@ The protocol consisted of a survey, localisers, $B_0$ and $B_1$ mapping, then ea
 
 \begin{table}[H]
 	\centering
-	\begin{adjustbox}{width=1.2\textwidth, center}
+	\begin{adjustbox}{width=1.0\textwidth, center}
 	\begin{tabularx}{1.25\textwidth}{X|X|X|X|X}
 		                                                     & Spin Echo - Echo Planar Imaging & Multi-Echo Turbo Spin Echo & Gradient Spin Echo & CPMG \ttwo Prep EPI \\ \hline
 		Abbreviation                                         & SE-EPI                          & ME-TSE                     & GraSE              & CPMG \ttwo Prep     \\ \hline
 		TE (min:step:max) (ms)                               & 20:10:70                        & 13:13:130                  & 11.2:5.6:173.3     & 0:20:160            \\ \hline
 		Number of   echoes                                   & 6                               & 10                         & 30                 & 9                   \\ \hline
+		Startup echoes                                       & N/A                             & 0                          & 1                  & N/A                 \\ \hline
 		TR (ms)                                              & 5000                            & 3000                       & 3000               & 3000                \\ \hline
 		Voxel Size   (mm$^3$)                                & 3 $\times$ 3 $\times$ 5         & 3 $\times$ 3 $\times$ 5    &3 $\times$ 3 $\times$ 5 &3 $\times$ 5.65 $\times$ 5\\ \hline
-		FoV (mm$^3$)                                         & 288 $\times$ 288 $\times$ 25    & 288 $\times$ 288 $\times$ 25   &288 $\times$ 288 $\times$ 25&288 $\times$ 288 $\times$ 25\\ \hline
+		FoV (mm$^3$)                                         & 288 $\times$ 288 $\times$ 25    & 288 $\times$ 288 $\times$ 25&288 $\times$ 288 $\times$ 25&288 $\times$ 288 $\times$ 25\\ \hline
 		Signal   Averages                                    & 2                               & 1                          & 1                  & 1                   \\ \hline
 		Acquisition Mode                                     & Multi Slice                     & Multi Slice                & Multi Slice        & Multiple 2D         \\ \hline
 		Fast   Imaging Mode                                  & EPI                             & TSE                        & GraSE              & TFEPI               \\ \hline
@@ -71,7 +78,7 @@ The protocol consisted of a survey, localisers, $B_0$ and $B_1$ mapping, then ea
 		TSE Factor                                           & N/A                             & 10                         & 30                 & N/A                 \\ \hline
 		EPI Factor                                           & 37                              & N/A                        & 3                  & 17                  \\ \hline
 		Respiratory Compensation                             & Triggered                       & Triggered                  & Triggered          & Triggered           \\ \hline
-		Acquisition Time \tiny{(before respiratory compensation)} & 3 min 0 sec                & 1 min 57 sec               & 2 min 6 sec        & 2 min 23 sec  
+		Acquisition Time \scriptsize{(before respiratory compensation)} & 3 min 0 sec                & 1 min 57 sec               & 2 min 6 sec        & 2 min 23 sec  
 	\end{tabularx}
 	\end{adjustbox}
 	\caption{A summary of the acquisition parameters of each of the \ttwo mapping methods compared.}
@@ -192,14 +199,14 @@ Each fitting method was tested on data acquired on the QalibreMD phantom and in-
 
 \begin{table}[H]
 	\centering
-	\begin{adjustbox}{width=1.2\textwidth, center}
+	\begin{adjustbox}{width=1.0\textwidth, center}
 	\begin{tabularx}{1.3\textwidth}{X|X|X|X|X|X|X|X|X|X}
 		\ttwo   Range            & \multicolumn{4}{c|}{MRE   (5 ms – 650 ms) (\%)}                         & \multicolumn{5}{c}{MRE   (40 ms – 200 ms) (\%)}              \\ \hline
 		Fitting   Method      & Basic     & Noise     & Discard   & Discard   and Noise & \multicolumn{2}{l|}{Basic}     & Noise      & Discard   & Discard   and Noise \\ \hline
 		SE-EPI                & 36 $\pm$  34   & 202 $\pm$  437 & 33 $\pm$  34   & 238 $\pm$  463           & \multicolumn{2}{l|}{8 $\pm$  5}     & 32 $\pm$  42    & 22 $\pm$  8    & 31 $\pm$  42             \\ \hline
 		ME-TSE                & 38   $\pm$  31 & 13   $\pm$  16 & 41   $\pm$  35 & 35   $\pm$  36           & \multicolumn{2}{l|}{23   $\pm$  13} & 14   $\pm$  3   & 15   $\pm$  13 & 13   $\pm$  4            \\ \hline
 		GraSE                 & 32 $\pm$  29   & 23 $\pm$  27   & 26 $\pm$  28   & 33 $\pm$  37             & \multicolumn{2}{l|}{15 $\pm$  4}    & 11 $\pm$  5     & 13 $\pm$  4    & 9 $\pm$  7               \\ \hline
-		CPMG   T2 Prep        & 18   $\pm$  15 & 30   $\pm$  53 & 20   $\pm$  18 & 28   $\pm$  28           & \multicolumn{2}{l|}{11   $\pm$  1}  & 8   $\pm$  5    & 11   $\pm$  1  & 6   $\pm$  5             \\ \hline
+		CPMG   \ttwo Prep        & 18   $\pm$  15 & 30   $\pm$  53 & 20   $\pm$  18 & 28   $\pm$  28           & \multicolumn{2}{l|}{11   $\pm$  1}  & 8   $\pm$  5    & 11   $\pm$  1  & 6   $\pm$  5             \\ \hline
 		Mean   over sequences & 31   $\pm$  8  & 67   $\pm$  90 & 30   $\pm$  9  & 83   $\pm$  103          & \multicolumn{2}{l|}{14   $\pm$  7}  & 16   $\pm$  11  & 14   $\pm$  36 & 15   $\pm$  11          
 	\end{tabularx}
 	\end{adjustbox}
@@ -257,7 +264,7 @@ Each sequence was used to image the T2 array in the QalibreMD phantom, Figure \r
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{T2_Mapping/Phantom_Example/Localiser_multi.eps}
+	\includegraphics[width=0.5\textwidth]{T2_Mapping/Phantom_Example/Localiser_multi.eps}
 	\caption{The $T_2$ spheres inside the QalibreMD phantom.}
 	\label{fig:t2_phantom_loc}	
 \end{figure}
@@ -283,13 +290,13 @@ Each sequence was used to image the T2 array in the QalibreMD phantom, Figure \r
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{l|l|l}
+	\begin{tabularx}{1\textwidth}{X|X|X}
 		Acquisition   Method & MRE   (5 ms – 650 ms) (\%) & MRE   (40 ms – 200 ms) (\%) \\ \hline
 		SE-EPI               & 36 $\pm$ 34                    & 8   $\pm$ 5                     \\ \hline
 		ME-TSE               & 38   $\pm$ 31                  & 23 $\pm$ 13                     \\ \hline
 		GraSE                & 32 $\pm$ 29                    & 15   $\pm$ 4                    \\ \hline
 		CPMG   \ttwo Prep       & 18   $\pm$ 15                  & 11   $\pm$ 1                   
-	\end{tabular}
+	\end{tabularx}
 	\caption{\ac{MRE} when measuring \ttwo of the QalibreMD phantom over different ranges using each sequence. 5 ms – 650 ms is the full range of \ttwo available in the phantom and 40 ms – 200 ms is the range of \ttwo expected in the kidneys.}
 	\label{tab:t2_phantom_acquisition_methods}
 \end{table}
@@ -330,142 +337,170 @@ Each sequence was used to image the T2 array in the QalibreMD phantom, Figure \r
 
 \subsubsection{Sensitivity to Flow}
 
+The simulated capillary bed of the flow phantom was imaged with the perfusate being pumped at rates from 0 to 350 m$\ell$/min. The absolute change in measured \ttwo is shown in Figure \ref{fig:t2_flow_abs} and the change in \ttwo as a percentage of \ttwo measured when the pump was turned off is shown in Figure \ref{fig:t2_flow_percent}. The \ttwo of the perfusate is relatively long and as such the inaccuracies measuring long \ttwo observed in the static phantom (Figure \ref{fig:t2_phantom_cor_full}) manifest themselves here. This causes a large range in \ttwo even when the pump is turned off. In Figure 5b the \ac{SE}-\ac{EPI} sequence can be seen to be most sensitive to perfusion due to its largest deviation as flow rate increased, the \ac{GraSE} sequence produced the minimum proportional change in \ttwo as the rate perfusate was pumped through the capillary bed was increased.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Flow/flow_abs.pdf}
+		\caption{}
+		\label{fig:t2_flow_abs}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Flow/flow_per.pdf}
+		\caption{}
+		\label{fig:t2_flow_percent}
+	\end{subfigure}
+	\caption{The effects of flow on measurements of \ttwo using each method. Points have been slightly staggered on the $x$-axis to make the error bars visible. (\subref{fig:t2_flow_abs}) Absolute change in measured \ttwo. (\subref{fig:t2_flow_percent}) Change in \ttwo as a percentage of \ttwo measured at rest for each sequence.}
+	\label{fig:t2_flow}
+\end{figure}
+
+The flow rate is measured at the pump, therefore the perfusate will not be travelling at the reported rate through the capillary bed. To quantify the movement of the perfusate using techniques widely available in the kidneys, \ac{ADC} maps of the capillary bed were calculated at each flow rate, Figure \ref{fig:t2_flow_adc}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{T2_Mapping/Flow/flow_adc.pdf}
+	\caption{Changes in ADC as the rate perfusate is pumped through the simulated capillary bed is increased.}
+	\label{fig:t2_flow_adc}	
+\end{figure} 
+
 \subsubsection{Image Quality}
+
+Each sequence was slightly modified to contain a volume with TE 20 ms and used to image the orthogonal grid in the QalibreMD phantom. A high-resolution structural scan was then used to deconvolve an estimate of the \ac{PSF} from each of the \ttwo-weighted images, Table \ref{tab:t2_phantom_blur}. 
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{l|l}
+		Acquisition   Method & Point   Spread Function FWHM (mm) \\ \hline
+		SE-EPI               & 4.80   $\pm$ 0.18                 \\ \hline
+		ME-TSE               & 4.20 $\pm$ 0.14                   \\ \hline
+		GraSE                & 4.26   $\pm$ 0.12                 \\ \hline
+		CPMG   \ttwo Prep    & 6.48   $\pm$ 0.33                    
+	\end{tabular}
+	\caption{The \ac{FWHM} of the estimated \ac{PSF} for each acquisition method.}
+	\label{tab:t2_phantom_blur}
+\end{table}
+
+Both the \ac{SE}-\ac{EPI} and \ac{CPMG} \ttwo prep sequences suffer from significant image distortions due to their \ac{EPI} readout with the \ac{ME-TSE} and \ac{GraSE} both producing similar image quality and a comparable width of \ac{PSF}. Examples of the central slice of the grid imaged with each method are shown in Figure \ref{fig:t2_phantom_blur}. 
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Phantom_blur/gold.png}
+		\caption{Structural Scan}
+		\label{fig:t2_phantom_blur_gold}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Phantom_blur/se.png}
+		\caption{\ac{SE}-\ac{EPI}}
+		\label{fig:t2_phantom_blur_se}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Phantom_blur/me.png}
+		\caption{\ac{ME-TSE}}
+		\label{fig:t2_phantom_blur_me}
+	\end{subfigure}
+	\vskip\baselineskip
+%	\hbox to 0.3\textwidth{}% !!
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Phantom_blur/grase.png}
+		\caption{\ac{GraSE}}
+		\label{fig:t2_phantom_blur_grase}
+	\end{subfigure}
+%	\hfill
+	\hbox to 6.3mm{}% !!
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Phantom_blur/cpmg.png}
+		\caption{\ac{CPMG} \ttwo Prep}
+		\label{fig:t2_phantom_blur_cpmg}
+	\end{subfigure}
+%	\hfill
+	\caption{Examples of the orthogonal grid imaged with a \ac{TE} of 20 ms using each sequence and the high-resolution structural scan used as the gold standard to be deconvolved from each \ttwo-weighted scan.}
+	\label{fig:t2_phantom_blur}
+\end{figure}
 
 \subsection{In-Vivo}
 
-$T_2$ maps using all four methods were collected on the same subject in the same scanning session to allow for a direct comparison of the in-vivo data. 
+Five healthy volunteers were imaged using each of the four methods. Example in-vivo images are shown in Figure \ref{fig:t2_in_vivo_maps}. The \ttwo measured using the \ac{SE}-\ac{EPI} method is much lower than when measured using each of the other three methods. The \ac{GraSE} shows the largest contrast between cortex and medulla while the \ac{CPMG} \ttwo prep suffers from image artefacts with the large amount of blurring measured on the phantom making the in-vivo data difficult to interpret.
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[c]{0.9\textwidth}
+	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=1\textwidth]{T2_Mapping/SE/SE_Raw_Echoes.eps}
-			\caption{}
-			\label{fig:t2_t2_se_raw}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=1\textwidth]{T2_Mapping/SE/SE_Map.eps}
-			\caption{}
-			\label{fig:t2_t2_se_map}
-		\end{subfigure}
+		\includegraphics[width=1\textwidth]{T2_Mapping/Invivo/se.eps}
+		\caption{\ac{SE}-\ac{EPI}}
+		\label{fig:t2_in_vivo_map_se}
 	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Invivo/me.eps}
+		\caption{\ac{ME-TSE}}
+		\label{fig:t2_in_vivo_map_me_tse}
+	\end{subfigure}
+	
 	\vskip\baselineskip
-	\begin{subfigure}[c]{0.9\textwidth}
+	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{T2_Mapping/SE/SE_Decay.eps}
-		\caption{}
-		\label{fig:t2_t2_se_decay}			
+		\includegraphics[width=1\textwidth]{T2_Mapping/Invivo/grase.eps}
+		\caption{\ac{GraSE}}
+		\label{fig:t2_in_vivo_map_grase}
 	\end{subfigure}
-	\caption{(\subref{fig:t2_t2_se_raw}) The raw data used to generate the \ac{SE}-\ac{EPI} $T_2$ map.  (\subref{fig:t2_t2_se_map}) An example slice from the \ac{SE}-\ac{EPI} $T_2$ map. (\subref{fig:t2_t2_se_decay}) The signal decay for the renal cortex and medulla.} 
-	\label{fig:t2_t2_se}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Invivo/cpmg.eps}
+		\caption{\ac{CPMG} \ttwo Prep}
+		\label{fig:t2_in_vivo_map_cpmg_t2_prep}
+	\end{subfigure}
+	\caption{Example in-vivo \ttwo maps produced using each method.}
+	\label{fig:t2_in_vivo_maps}
 \end{figure}
 
-The \ac{SE}-\ac{EPI} method (Figure \ref{fig:t2_t2_se}) generated maps with little blurring however there is also a lack of differentiation in $T_2$ between the renal cortex and medulla. The data collected at \ac{TE} of 20 ms appears to be artificially high and leads to a reduction in fit $T_2$. This sequence is the most susceptible of the methods to patient motion due to the acquisition method of a series per \ac{TE}, this increase in motion is clear when scrolling through \ac{TE}. 
+\ac{ROI} for the cortex and medulla were defined from the \tone-weighted structural scan and these \ac{ROI} used to calculate the mean \ttwo for each tissue using each mapping method. The mean across the five subjects is shown in Figure \ref{fig:t2_in_vivo_bar}.
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[c]{0.9\textwidth}
-		\centering
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=1\textwidth]{T2_Mapping/ME/ME_Raw_Echoes.eps}
-			\caption{}
-			\label{fig:t2_t2_me_raw}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=1\textwidth]{T2_Mapping/ME/ME_Map.eps}
-			\caption{}
-			\label{fig:t2_t2_me_map}
-		\end{subfigure}
-	\end{subfigure}
-	\vskip\baselineskip
-	\begin{subfigure}[c]{0.9\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{T2_Mapping/ME/ME_Decay.eps}
-		\caption{}
-		\label{fig:t2_t2_me_decay}			
-	\end{subfigure}
-	\caption{(\subref{fig:t2_t2_me_raw}) The raw data used to generate the \ac{ME-TSE} $T_2$ map.  (\subref{fig:t2_t2_me_map}) An example slice from the \ac{ME-TSE} $T_2$ map. (\subref{fig:t2_t2_me_decay}) The signal decay for the renal cortex and medulla.} 
-	\label{fig:t2_t2_me}
+	\includegraphics[width=0.8\textwidth]{T2_Mapping/Invivo/bar.pdf}
+	\caption{Mean cortical and medullary \ttwo values across five subjects measured using each sequence.}
+	\label{fig:t2_in_vivo_bar}	
 \end{figure}
-
-The map generated by the \ac{ME-TSE} method (Figure \ref{fig:t2_t2_me}) suffers from a large amount of blurring due to the relatively long echo train length. The number of echoes acquired is limited to the \ac{TSE} factor therefore to acquire ten echoes, a \ac{TSE} factor of ten needs to be used. This blurring leads to structures being obscured in the map and only a very small differentiation between cortex and medulla.
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.9\textwidth}
-		\centering
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=1\textwidth]{T2_Mapping/GraSE/GraSE_Raw_Echoes.eps}
-			\caption{}
-			\label{fig:t2_t2_grase_raw}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=1\textwidth]{T2_Mapping/GraSE/GraSE_Map.eps}
-			\caption{}
-			\label{fig:t2_t2_grase_map}
-		\end{subfigure}
-	\end{subfigure}
-	\vskip\baselineskip
-	\begin{subfigure}[c]{0.9\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{T2_Mapping/GraSE/GraSE_Decay.eps}
-		\caption{}
-		\label{fig:t2_t2_grase_decay}			
-	\end{subfigure}
-	\caption{(\subref{fig:t2_t2_grase_raw}) The raw data used to generate the \ac{GraSE} $T_2$ map.  (\subref{fig:t2_t2_grase_map}) An example slice from the \ac{GraSE} $T_2$ map. (\subref{fig:t2_t2_grase_decay}) The signal decay for the renal cortex and medulla.}
-	\label{fig:t2_t2_grase}
-\end{figure}
-
-Using the \ac{GraSE} method the data in Figure \ref{fig:t2_t2_grase} was collected. There is a clear difference between cortical and medullary $T_2$ and the data fits well to a $T_2$ decay (Figure \ref{fig:t2_t2_grase_decay}). The signal from the first echo in Figure \ref{fig:t2_t2_grase_decay} is too intense, this effect was even more pronounced when no startup echoes were used. For tissues with a longer $T_2$ using two startup echoes would be preferable however this makes measurements of tissues with a short $T_2$ more inaccurate, as such a compromise of a single startup echo was used. The short echo-spacing made possible by \ac{GraSE} means more \ac{TE} can be sampled and therefore leads to a more accurate fit.
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.9\textwidth}
-		\centering
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=1\textwidth]{T2_Mapping/T2prep/T2prep_Raw_Echoes.eps}
-			\caption{}
-			\label{fig:t2_t2_t2prep_raw}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=1\textwidth]{T2_Mapping/T2prep/T2prep_Map.eps}
-			\caption{}
-			\label{fig:t2_t2_t2prep_map}
-		\end{subfigure}
-	\end{subfigure}
-	\vskip\baselineskip
-	\begin{subfigure}[c]{0.9\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{T2_Mapping/T2prep/T2prep_Decay.eps}
-		\caption{}
-		\label{fig:t2_t2_t2prep_decay}			
-	\end{subfigure}
-	\caption{(\subref{fig:t2_t2_t2prep_raw}) The mean data at each \ac{eTE} used to generate the $T_2$ preparation $T_2$ map.  (\subref{fig:t2_t2_t2prep_map}) An example slice from the $T_2$ preparation $T_2$ map. (\subref{fig:t2_t2_t2prep_decay}) The signal decay for the renal cortex and medulla.} 
-	\label{fig:t2_t2_t2prep}
-\end{figure}
-
-The map made using the $T_2$ preparation method (Figure \ref{fig:t2_t2_t2prep}) suffers from noise in the raw data, this is despite there being three acquisitions at each \ac{eTE}. When comparing Figure \ref{fig:t2_t2_t2prep_map} to Figure \ref{fig:t2_t2_grase_map} it's possible to see that some of the areas of greater $T_2$ do match with the medulla, however the degree of noise in \ref{fig:t2_t2_t2prep_map} means it is un-usable on its own. The small number of \ac{eTE} collected means the uncertainty in the fit $T_2$ is higher for this method.
-
-The two methods that have delivered the highest image quality, \ac{SE}-\ac{EPI} and \ac{GraSE}, produce substantially different values of $T_2$ in-vivo. Even when the data from the 20 ms volume is omitted from the \ac{SE}-\ac{EPI} fit, the $T_2$ is far lower. This is surprising give that when deployed on the phantom, this protocol delivered accurate results over the range of $T_2$ we see in the kidneys. This disparity is due to the additional confounding factors of diffusion and flow that are present in the body. These factors do not affect the \ac{GraSE} sequence to the same degree as the \ac{SE}-\ac{EPI} sequence.
 
 \section{Discussion}
-Of the methods explored, the \ac{GraSE} sequence produced the most accurate results on the phantom and superior image quality in-vivo, we will use this sequence in $T_2$ mapping going forward.
+
+In this study, four of the most common \ttwo mapping methods were optimised for use in the kidneys. These sequences were validated for quantitative accuracy, image quality and sensitivity to flow using phantoms before being used to image five healthy volunteers. Additionally, four different methods of fitting \ttwo maps were compared.
+
+Of the fitting methods compared, the basic fit was deemed the most appropriate. While in some limited situations other methods could produce more accurate results, over the range of \ttwo within the kidneys, fitting for a baseline noise term reduced the calculated \ttwo of longer \ttwo tissues because they had not fully recovered before the final \ac{TE} and as such the noise term was over-estimated. This method would be more appropriate for use in tissues with a shorter \ttwo such as the liver. Discarding \ac{TE} with signal below an empirically derived threshold can result in an increased accuracy for short \ttwo tissues but does not improve the accuracy of the kidneys. The discard threshold can be manually defined; however, this leads to potentially inaccurate results if a sub-optimum threshold is chosen, these inaccurate results can be difficult to identify in-vivo with no gold standard to compare with. Alternatively, an \ac{ROI} over the liver can be defined and the signal from the final \ac{TE} used to inform the estimation of the discard threshold as in most cases, due to its shorter \ttwo, the liver will have fully recovered by the final \ac{TE}. While this method does eliminate the manual aspect of threshold definition between subjects, it requires the delimitation of an additional \ac{ROI} for no increase inaccuracy within the kidneys. It was therefore concluded that the basic fit should be used for renal studies, however, the noise fit should be considered for liver \ttwo measurements.
+
+The only sequence that was able to accurately estimate the \ttwo of the shortest \ttwo spheres of the QalibreMD phantom was the \ac{CPMG} \ttwo prep, Figure \ref{fig:t2_phantom_cor} and Table \ref{tab:t2_phantom_acquisition_methods}. This is because, its able to achieve an effective echo time of 0 ms and thus sample the signal before it has decayed; for other sequences the first echo time can be multiple times the \ttwo of these short spheres and as such the signal has already decayed a large amount. Additionally, the \ac{CPMG} sequence is self-correcting for imperfect 180$\degree$ pulses, and thus the longer \ac{TE} are more accurate. It is the very larger relative error of the shortest \ttwo spheres that leads to the unacceptable large errors in the other sequences over the full range of \ttwo within the phantom, Figure SXa\todo{add figure}. Both the \ac{ME-TSE} and \ac{GraSE} yield similar accuracies over the range of \ttwo seen in the kidneys due to their rapid acquisition, initial \ac{TE} much shorter than the \ttwo of the kidneys and, in the case of \ac{GraSE}, short echo spacing  and thus more \ac{TE} to fit each voxel to. The \ac{SE}-\ac{EPI} sequence suffers due to being relatively slow, this is because the thick slice profile of the 180$\degree$ pulse means that each \ac{TE} needs to be collected in two packets with slices interleaved. As such only a limited number of \ac{TE} can be acquired in a reasonable timeframe and, without any of the more advance elements of the \ac{CPMG} sequence its accuracy is compromised. 
+
+From Figure \ref{fig:t2_flow} it can be observed that the \ac{SE}-\ac{EPI} sequence is most sensitive to flow with the largest proportional change in measured \ttwo as the rate of flow is increased.  The sequences with the lowest absolute \ttwo with the pump off are also the sequences that are influenced most when the pump is turned on, this is because there are still effects of diffusion/flow even with the pump turned off and as such the \ttwo is still reduced. The \ac{ADC} increases from $1.15\times 10^{-3}$ $\pm$ $0.06\times 10^{-3}$ mm$^2$/s to $1.36\times 10^{-3}$ $\pm$ $0.09\times 10^{-3}$ mm$^2$/s over the full range of flow rates the pump can produce, Figure \ref{fig:t2_flow_adc}, corresponding to an increase of 17\% therefore we still expect considerable diffusion effects when the pump is turned off. The \ac{GraSE} sequence is least sensitive to flow with only a 5\% decrease in \ttwo. This is due to the \ac{GraSE} sequences short echo spacing and the fact multiple \ac{TE} are collected within the same \ac{TR}, as such, the effects of diffusion are not consistent across \ac{TE} and do not produce a diffusion weighting proportional to the \ttwo weighting.
+
+The large amount of blurring of the \ac{CPMG} \ttwo prep sequence limits its readability in-vivo and is due to the high \ac{EPI} factor leading to an increased acquisition voxel size. The degree of blurring measured in the other three sequences was comparable with the \ac{SE}-\ac{EPI} having a slightly broader \ac{FWHM}.
+
+Comparing the in-vivo data in Figure \ref{fig:t2_in_vivo_maps} and Figure \ref{fig:t2_in_vivo_bar} we can see the relative strengths and weaknesses of each sequence observed in the phantoms are mirrored in-vivo. The \ac{SE}-\ac{EPI} sequence is measuring much shorter \ttwo than the other three and measures a shorted \ttwo in the medulla than the cortex, this was also observed by de Bazelaire et al \cite{de_bazelaire_mr_2004} and is somewhat surprising given the perfusion of the renal cortex is higher than the medulla \cite{buchanan_quantitative_2019, nery_consensus-based_2020} yet in Figure \ref{fig:t2_flow} it was observed that measured \ttwo decreases as flow increases. This is most likely caused by a difference in the direction of flow between the phantom and the medulla. In the flow phantom the perfusate was flowing radially in from the circumference and thus the flow is predominantly in-plain whereas in the kidney the renal vein quickly ascends to the inferior vena cava and is thus out-of-plain. This out-of-plain flow means that for longer \ac{TE}, some protons have travelled out of the profile of the 180$\degree$ refocusing pulse and as such do not contribute to the signal. This effect manifests itself more at longer \ac{TE} and thus the measured \ttwo decreases.
+
+The \ac{ME-TSE} sequence produces reasonable images and broadly similar \ttwo to the \ac{GraSE} and \ac{CPMG} \ttwo prep for the cortex however the \ttwo measured in the medulla is lower therefore little contrast is seen between the cortex and medulla.  The image quality produced by the \ac{GraSE} sequence is similar to that of the \ac{ME-TSE} which is expected given the comparable \ac{PSF} and sequence architecture. The \ac{GraSE} measures higher medullary \ttwo than the \ac{ME-TSE} resulting in greater corticomedullary contrast. The effects of the wide \ac{PSF} can be seen in the image produced by \ac{CPMG} \ttwo Prep with a large amount of blurring decreasing the readability of the image. The mean \ttwo of the cortex and medulla are similar to that measured using the \ac{GraSE} sequence however, due to the inferior image quality, the variance within the \ac{ROI} is much higher.
+
+Having compared the quantitative accuracy, image quality and acquisition time of four common \ttwo mapping sequences on phantoms and in-vivo for use in the, we conclude that the \ac{GraSE} sequence provides the optimum protocol for renal \ttwo mapping. In phantoms, the accuracy was shown to be comparable with the \ac{ME-TSE} sequence and its superior in-vivo image quality and insensitivity to flow lead us to recommend this sequence for further renal studies.
 
 \section{Conclusion}
+
+A \ac{SE}-\ac{EPI}, \ac{ME-TSE}, \ac{GraSE} and \ac{CPMG} \ttwo Prep sequence were used to image phantoms to assess their accuracy when quantifying \ttwo, sensitivity to flow and image quality by estimating the \ac{PSF}. These sequences were then used to acquire \ttwo maps of the kidneys of five healthy volunteers.
+
+The \ac{GraSE} sequence is recommended for future renal studies due to its superior image quality and accuracy within the time constraints.
+
+All acquisition presented here was carried out on a Philips system. Going forward these methods should be evaluated on other vendors to enable a better comparison of results between sites.
 
 \section{Acknowledgements}
 

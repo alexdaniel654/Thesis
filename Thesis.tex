@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,oneside]{report}
+\documentclass[12pt,a4paper,oneside]{report}
 % Import packages
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -26,7 +26,7 @@
 \usepackage[scale=.95,type1]{cabin}
 \usepackage[baskerville,vvarbb]{newtxmath}
 \usepackage[cal=boondoxo]{mathalfa}
-\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[left=5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage[backend=biber,style=nature,autocite=superscript,citestyle=numeric-comp,sorting=none, url=false, doi=false, refsection=chapter]{biblatex}
 \addbibresource{./References/Renal_Imaging.bib}
 \usepackage[british]{babel}
@@ -35,7 +35,6 @@
 \usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
 \definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
 \definecolor{mylilas}{RGB}{170,55,241}
-%\usepackage[nolist]{acronym}
 \usepackage[printonlyused]{acronym}
 \usepackage{afterpage}
 \usepackage{fancyhdr}
@@ -49,6 +48,7 @@
 \usepackage[colorlinks=true,hidelinks, pdftex, pdfauthor={Alexander James Daniel}, pdftitle={Developing Techniques for Quantitative Renal Magnetic Resonance Imaging}, pdfsubject={Renal Magnetic Resonance Imaging}, pdfkeywords={Kidney, Renal, MRI, Physics}, pdfproducer={Latex with hyperref}, pdfcreator={pdflatex}]{hyperref}
 \usepackage{etoolbox}
 \usepackage{tabularx}
+\usepackage{lscape}
 \captionsetup{font={stretch=1.5}}
 \raggedbottom
 
@@ -62,6 +62,7 @@
 
 % Define page styles
 \renewcommand{\chaptermark}[1]{\markboth{}{}}
+
 \fancypagestyle{body}{
   \fancyhf{}
   \fancyhead[RE,LO]{\nouppercase\rightmark}
@@ -69,18 +70,21 @@
   \renewcommand{\headrulewidth}{0.5pt}
   \renewcommand{\footrulewidth}{0.5pt}
 }
+
 \fancypagestyle{plain}{
 	\fancyhf{}
 	\fancyfoot[LE,RO]{\thepage~}
 	\renewcommand{\headrulewidth}{0pt}
 }
 \renewcommand{\baselinestretch}{1.5}
+
 \newcommand\blankpage{
     \null
     \thispagestyle{empty}
     \addtocounter{page}{-1}
     \newpage}
 \makeatletter
+
 \renewenvironment{abstract}{
 	\if@twocolumn
 	\section*{\abstractname}
@@ -109,7 +113,7 @@
 \begin{document}
 {\setstretch{1}
 \begin{titlepage}
-
+\newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \center
  
@@ -145,7 +149,7 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 }
 \pagestyle{plain}
 
-\newgeometry{left=4cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+%\newgeometry{left=5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 \begin{abstract}
 	\addcontentsline{toc}{chapter}{Abstract}
 	Science will happen, but this bit can be read by muggles on `tinterweb.
