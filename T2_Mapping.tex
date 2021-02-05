@@ -27,6 +27,8 @@ Renal \ttwo mapping has seen most research focusing on repeatability measures \c
 
 In the existing literature, there is a substantial variation in quoted \ttwo values for the kidneys of healthy volunteers, this is thought to be, in part, due to the differences in \ttwo mapping methodologies. There are currently four main methods, a basic spin echo method, a multi echo-spin echo method, a gradient spin echo method and a \ac{CPMG} \ttwo prep method. Here we aim to compare each of these methods in the context of renal \ttwo mapping to ascertain which is most suitable. This involves evaluating each methods quantitative accuracy, image quality, susceptibility to flow and suitability for use in-vivo.
 
+\newpage
+
 \section{Methods}
 \label{sec:t2_methods}
 
@@ -99,7 +101,7 @@ This sequence also uses a multi-slice spin echo; however the \ac{EPI} readout is
 
 \subsubsection{Gradient Spin Echo}
 
-To achieve further acceleration over the \ac{ME-TSE} sequence, a \ac{GraSE} sequence can be used. Here two gradient echoes are collected for every spin echo with the spin echo and gradient echoes being used for the acquisition of the centre and periphery of k-space respectively. The multiple $k$-space profiles collected per spin echo enables a decrease in the echo spacing of the sequence compared to the \ac{ME-TSE}, decreasing to 5.6 ms and thus thirty echoes are collected per \ttwo map. The \ac{PSD} for the \ac{GraSE} acquisition is shown in Figure \ref{fig:t2_grase_seq}.
+To achieve further acceleration over the \ac{ME-TSE} sequence, a \ac{GraSE} sequence can be used. Here two gradient echoes are collected for every spin echo with the spin echo and gradient echoes being used for the acquisition of the centre and periphery of k-space respectively. The multiple $k$-space profiles collected per spin echo enables a decrease in the echo spacing of the sequence compared to the \ac{ME-TSE}, decreasing to 5.6 ms and thus thirty echoes are collected per \ttwo map. The first echo of the train has an artificially high signal, the short echo spacing of this means a startup echo can be sacrificed i.e. the first echo is sampled at 11.2 ms rather than 5.6 ms. This leads to a more accurate fit, while also retaining accuracy when measuring short $T_2$ signals that will quickly decay. The \ac{PSD} for the \ac{GraSE} acquisition is shown in Figure \ref{fig:t2_grase_seq}.
 
 \begin{figure}[H]
 	\centering
@@ -150,11 +152,18 @@ These fitting methods can either be applied on a voxel-by-voxel basis to generat
 \subsection{Assessment of Data}
 
 \subsubsection{Quantifying Accuracy}
-Using the QalibreMD phantom, the quantitative accuracy of each of the sequences was assessed. A \ac{ROI} was defined for each of the spheres in the \ttwo array and the mean of all voxels within the sphere at each \ac{TE} calculated. The estimated values of \ttwo were compared to the ground truth literature values and their discrepancy assessed over both the full range of \ttwo in the array (5 ms – 650 ms) and the range of \ttwo reported in the kidneys (40 ms – 200 ms) \cite{wolf_magnetic_2018}. Accuracy was summarised over these ranges using \ac{MRE} defined as 
+Using the QalibreMD phantom, the quantitative accuracy of each of the sequences was assessed. A \ac{ROI} was defined for each of the spheres in the \ttwo array, Figure \ref{fig:t2_phantom_loc}, and the mean of all voxels within the sphere at each \ac{TE} calculated. The estimated values of \ttwo were compared to the ground truth literature values and their discrepancy assessed over both the full range of \ttwo in the array (5 ms – 650 ms) and the range of \ttwo reported in the kidneys (40 ms – 200 ms) \cite{wolf_magnetic_2018}. Accuracy was summarised over these ranges using \ac{MRE} defined as 
 \begin{equation}
 	\textup{MRE} = \frac{1}{N}\sum_{n}^{i=1}\left|  \frac{t_{2\; i}^{\textup{ground truth}} - t_{2\; i}^{\textup{estimate}}}{t_{2\; i}^{\textup{ground truth}}}\right|.
 	\label{eq:t2_mre}
 \end{equation}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{T2_Mapping/Phantom_Example/Localiser_multi.eps}
+	\caption{The $T_2$ spheres inside the QalibreMD phantom.}
+	\label{fig:t2_phantom_loc}	
+\end{figure}
 
 \subsubsection{Effects of Flow}
 The kidneys are highly perfused organ, as such, the effects of fluid flow through the area being imaged should be evaluated. This was achieved using a Gold Standard Phantoms \ac{QASPER} phantom, Figure \ref{fig:t2_flow_phantom_schematic}. This phantom comprises of a \ac{MRI} compatible pump with adjustable continuous flow rates from 0 m$\ell$/min to 350 m$\ell$/min, the perfusate exiting this pump continues into a series of simulated arterioles before entering a porous media designed to simulate a capillary bed. The porous media is imaged using each sequence over the full range of flow rates the phantoms pump can deliver. \ttwo maps are calculated and the mean \ttwo calculated to evaluate the robustness of each sequence to variations in perfusion.
@@ -182,7 +191,7 @@ A grid etched into one of the plastic plates of the QalibreMD phantom was imaged
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\textwidth]{T2_Mapping/2D_Blur/Example/2D_Blur.eps}
+	\includegraphics[width=1\textwidth]{T2_Mapping/2D_Blur/Example/2D_Blur.eps}
 	\caption{An overview of the estimation of the \ac{PSF}. The \ttwo weighted data has had additional blur added to make the effect of each processing step clearer.}
 	\label{fig:t2_2d_blur}	
 \end{figure}
@@ -190,6 +199,8 @@ A grid etched into one of the plastic plates of the QalibreMD phantom was imaged
 \subsubsection{In-Vivo}
 
 Using the \tone-weighted structural scans \ac{ROI} were defined for both the renal cortex and medulla of each subject. These \ac{ROI} were the applied to \ttwo maps generated using each method and a mean and standard deviation of \ttwo for each tissue type calculated. \ttwo maps were also qualitatively assessed.
+
+\newpage
 
 \section{Results}
 
@@ -260,14 +271,7 @@ It was therefore concluded that a basic fit should be used for all subsequent re
 
 \subsubsection{Accuracy}
 
-Each sequence was used to image the T2 array in the QalibreMD phantom, Figure \ref{fig:t2_phantom_loc}. Figure \ref{fig:t2_phantom_cor} shows the measured \ttwo plot against the reference \ttwo for each method. All methods struggle to accurately measure the very short \ttwo spheres in the array with the \ac{CPMG} \ttwo prep method faring best. The \ac{SE}-\ac{EPI} method overestimates short \ttwo spheres due to the first \ac{TE} being sampled at 20 ms but is also underestimating long \ttwo because of its small range in \ac{TE}. When considering only the spheres with physiologically similar \ttwo to the kidneys, the \ac{SE}-\ac{EPI} method is the most accurate with the \ac{GraSE} and \ac{CPMG} \ttwo prep delivering similar results. This is mirrored by the \ac{MRE} shown in Table \ref{tab:t2_phantom_acquisition_methods}. Example \ttwo maps of the phantoms \ttwo array imaged with each sequence are shown in Figure \ref{fig:t2_phantom_maps}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{T2_Mapping/Phantom_Example/Localiser_multi.eps}
-	\caption{The $T_2$ spheres inside the QalibreMD phantom.}
-	\label{fig:t2_phantom_loc}	
-\end{figure}
+Each sequence was used to image the \ttwo array in the QalibreMD phantom. Figure \ref{fig:t2_phantom_cor} shows the measured \ttwo plot against the reference \ttwo for each method. All methods struggle to accurately measure the very short \ttwo spheres in the array with the \ac{CPMG} \ttwo prep method faring best. The \ac{SE}-\ac{EPI} method overestimates short \ttwo spheres due to the first \ac{TE} being sampled at 20 ms but is also underestimating long \ttwo because of its small range in \ac{TE}. When considering only the spheres with physiologically similar \ttwo to the kidneys, the \ac{SE}-\ac{EPI} method is the most accurate with the \ac{GraSE} and \ac{CPMG} \ttwo prep delivering similar results. This is mirrored by the \ac{MRE} shown in Table \ref{tab:t2_phantom_acquisition_methods}. Example \ttwo maps of the phantoms \ttwo array imaged with each sequence are shown in Figure \ref{fig:t2_phantom_maps}.
 
 \begin{figure}[H]
 	\centering
@@ -284,7 +288,21 @@ Each sequence was used to image the T2 array in the QalibreMD phantom, Figure \r
 		\caption{}
 		\label{fig:t2_phantom_cor_kidney}
 	\end{subfigure}
-	\caption{\ttwo measured using each method compared to the reference \ttwo from literature. (\subref{fig:t2_phantom_cor_full}) The full range of \ttwo spheres is shown on logarithmic axis with the range of \ttwo reported in the kidneys shaded in red (\subref{fig:t2_phantom_cor_kidney}) The spheres with \ttwo in the range of the kidneys are shown on linear axis.}
+	\vfill
+		\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Phantom_cor/basic_re_full.pdf}
+		\caption{}
+		\label{fig:t2_phantom_re_full}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Phantom_cor/basic_re_kidney.pdf}
+		\caption{}
+		\label{fig:t2_phantom_re_kidney}
+	\end{subfigure}
+	\caption{\ttwo measured using each method compared to the reference \ttwo from literature. (\subref{fig:t2_phantom_cor_full}) The full range of \ttwo spheres is shown on logarithmic axis with the range of \ttwo reported in the kidneys shaded in red (\subref{fig:t2_phantom_cor_kidney}) The spheres with \ttwo in the range of the kidneys are shown on linear axis. (\subref{fig:t2_phantom_re_full}) and (\subref{fig:t2_phantom_re_kidney}) show the relative error of each sphere for the full and renal range of spheres respectively.}
 	\label{fig:t2_phantom_cor}
 \end{figure}
 
@@ -476,13 +494,15 @@ Five healthy volunteers were imaged using each of the four methods. Example in-v
 	\label{fig:t2_in_vivo_bar}	
 \end{figure}
 
+\newpage
+
 \section{Discussion}
 
 In this study, four of the most common \ttwo mapping methods were optimised for use in the kidneys. These sequences were validated for quantitative accuracy, image quality and sensitivity to flow using phantoms before being used to image five healthy volunteers. Additionally, four different methods of fitting \ttwo maps were compared.
 
 Of the fitting methods compared, the basic fit was deemed the most appropriate. While in some limited situations other methods could produce more accurate results, over the range of \ttwo within the kidneys, fitting for a baseline noise term reduced the calculated \ttwo of longer \ttwo tissues because they had not fully recovered before the final \ac{TE} and as such the noise term was over-estimated. This method would be more appropriate for use in tissues with a shorter \ttwo such as the liver. Discarding \ac{TE} with signal below an empirically derived threshold can result in an increased accuracy for short \ttwo tissues but does not improve the accuracy of the kidneys. The discard threshold can be manually defined; however, this leads to potentially inaccurate results if a sub-optimum threshold is chosen, these inaccurate results can be difficult to identify in-vivo with no gold standard to compare with. Alternatively, an \ac{ROI} over the liver can be defined and the signal from the final \ac{TE} used to inform the estimation of the discard threshold as in most cases, due to its shorter \ttwo, the liver will have fully recovered by the final \ac{TE}. While this method does eliminate the manual aspect of threshold definition between subjects, it requires the delimitation of an additional \ac{ROI} for no increase inaccuracy within the kidneys. It was therefore concluded that the basic fit should be used for renal studies, however, the noise fit should be considered for liver \ttwo measurements.
 
-The only sequence that was able to accurately estimate the \ttwo of the shortest \ttwo spheres of the QalibreMD phantom was the \ac{CPMG} \ttwo prep, Figure \ref{fig:t2_phantom_cor} and Table \ref{tab:t2_phantom_acquisition_methods}. This is because, its able to achieve an effective echo time of 0 ms and thus sample the signal before it has decayed; for other sequences the first echo time can be multiple times the \ttwo of these short spheres and as such the signal has already decayed a large amount. Additionally, the \ac{CPMG} sequence is self-correcting for imperfect 180$\degree$ pulses, and thus the longer \ac{TE} are more accurate. It is the very larger relative error of the shortest \ttwo spheres that leads to the unacceptable large errors in the other sequences over the full range of \ttwo within the phantom, Figure SXa\todo{add figure}. Both the \ac{ME-TSE} and \ac{GraSE} yield similar accuracies over the range of \ttwo seen in the kidneys due to their rapid acquisition, initial \ac{TE} much shorter than the \ttwo of the kidneys and, in the case of \ac{GraSE}, short echo spacing  and thus more \ac{TE} to fit each voxel to. The \ac{SE}-\ac{EPI} sequence suffers due to being relatively slow, this is because the thick slice profile of the 180$\degree$ pulse means that each \ac{TE} needs to be collected in two packets with slices interleaved. As such only a limited number of \ac{TE} can be acquired in a reasonable timeframe and, without any of the more advance elements of the \ac{CPMG} sequence its accuracy is compromised. 
+The only sequence that was able to accurately estimate the \ttwo of the shortest \ttwo spheres of the QalibreMD phantom was the \ac{CPMG} \ttwo prep, Figure \ref{fig:t2_phantom_cor} and Table \ref{tab:t2_phantom_acquisition_methods}. This is because, its able to achieve an effective echo time of 0 ms and thus sample the signal before it has decayed; for other sequences the first echo time can be multiple times the \ttwo of these short spheres and as such the signal has already decayed a large amount. Additionally, the \ac{CPMG} sequence is self-correcting for imperfect 180$\degree$ pulses, and thus the longer \ac{TE} are more accurate. It is the very larger relative error of the shortest \ttwo spheres that leads to the unacceptable large errors in the other sequences over the full range of \ttwo within the phantom, Figure \ref{fig:t2_phantom_re_full}. Both the \ac{ME-TSE} and \ac{GraSE} yield similar accuracies over the range of \ttwo seen in the kidneys due to their rapid acquisition, initial \ac{TE} much shorter than the \ttwo of the kidneys and, in the case of \ac{GraSE}, short echo spacing  and thus more \ac{TE} to fit each voxel to. The \ac{SE}-\ac{EPI} sequence suffers due to being relatively slow, this is because the thick slice profile of the 180$\degree$ pulse means that each \ac{TE} needs to be collected in two packets with slices interleaved. As such only a limited number of \ac{TE} can be acquired in a reasonable timeframe and, without any of the more advance elements of the \ac{CPMG} sequence its accuracy is compromised. 
 
 From Figure \ref{fig:t2_flow} it can be observed that the \ac{SE}-\ac{EPI} sequence is most sensitive to flow with the largest proportional change in measured \ttwo as the rate of flow is increased.  The sequences with the lowest absolute \ttwo with the pump off are also the sequences that are influenced most when the pump is turned on, this is because there are still effects of diffusion/flow even with the pump turned off and as such the \ttwo is still reduced. The \ac{ADC} increases from $1.15\times 10^{-3}$ $\pm$ $0.06\times 10^{-3}$ mm$^2$/s to $1.36\times 10^{-3}$ $\pm$ $0.09\times 10^{-3}$ mm$^2$/s over the full range of flow rates the pump can produce, Figure \ref{fig:t2_flow_adc}, corresponding to an increase of 17\% therefore we still expect considerable diffusion effects when the pump is turned off. The \ac{GraSE} sequence is least sensitive to flow with only a 5\% decrease in \ttwo. This is due to the \ac{GraSE} sequences short echo spacing and the fact multiple \ac{TE} are collected within the same \ac{TR}, as such, the effects of diffusion are not consistent across \ac{TE} and do not produce a diffusion weighting proportional to the \ttwo weighting.
 
@@ -493,6 +513,8 @@ Comparing the in-vivo data in Figure \ref{fig:t2_in_vivo_maps} and Figure \ref{f
 The \ac{ME-TSE} sequence produces reasonable images and broadly similar \ttwo to the \ac{GraSE} and \ac{CPMG} \ttwo prep for the cortex however the \ttwo measured in the medulla is lower therefore little contrast is seen between the cortex and medulla.  The image quality produced by the \ac{GraSE} sequence is similar to that of the \ac{ME-TSE} which is expected given the comparable \ac{PSF} and sequence architecture. The \ac{GraSE} measures higher medullary \ttwo than the \ac{ME-TSE} resulting in greater corticomedullary contrast. The effects of the wide \ac{PSF} can be seen in the image produced by \ac{CPMG} \ttwo Prep with a large amount of blurring decreasing the readability of the image. The mean \ttwo of the cortex and medulla are similar to that measured using the \ac{GraSE} sequence however, due to the inferior image quality, the variance within the \ac{ROI} is much higher.
 
 Having compared the quantitative accuracy, image quality and acquisition time of four common \ttwo mapping sequences on phantoms and in-vivo for use in the, we conclude that the \ac{GraSE} sequence provides the optimum protocol for renal \ttwo mapping. In phantoms, the accuracy was shown to be comparable with the \ac{ME-TSE} sequence and its superior in-vivo image quality and insensitivity to flow lead us to recommend this sequence for further renal studies.
+
+\newpage
 
 \section{Conclusion}
 
