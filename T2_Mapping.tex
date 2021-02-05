@@ -42,15 +42,7 @@ All data was acquired on a 3T Philips Ingenia system (Philips Medical Systems, B
 	\label{fig:t2_phantom_schematic}	
 \end{figure}
 
-To investigate the effects of flow upon \ttwo measurements, a Gold Standard Phantoms \ac{QASPER} phantom was used. This allows the \ttwo of the perfusate to be measured at rest and whilst being pumped through the phantom at a range of flow rates, Figure \ref{fig:t2_flow_phantom_schematic}. 
-
-\begin{figure}[H]
-	\centering
-%	\includegraphics[width=0.5\textwidth]{T2_Mapping/Phantom_Example/T2_Spheres.eps}
-	\missingfigure{Flow phantom schematic}
-	\caption{A schematic of \ac{QASPER} phantom used to quantify the effects of flow upon the \ttwo measurements.}
-	\label{fig:t2_flow_phantom_schematic}	
-\end{figure}
+To investigate the effects of flow upon \ttwo measurements, a Gold Standard Phantoms \ac{QASPER} phantom was used. This allows the \ttwo of the perfusate to be measured at rest and whilst being pumped through the phantom at a range of flow rates. 
 
 Both phantoms were scanned using a 32-channel head coil. All data acquired on human subjects was done with approval of the local ethics committee and the study was conducted in accordance with the Helsinki Declaration. The subjects gave written, informed consent. Humans were scanned using a 16-channel anterior coil array and 16-channel posterior coil array. The study cohort consisted of 5 healthy participants (2 female, 3 male, mean age 31 $\pm$ 8).
 
@@ -165,7 +157,15 @@ Using the QalibreMD phantom, the quantitative accuracy of each of the sequences 
 \end{equation}
 
 \subsubsection{Effects of Flow}
-The kidneys are highly perfused organ, as such, the effects of fluid flow through the area being imaged should be evaluated. This was achieved using a Gold Standard Phantoms \ac{QASPER} phantom. This phantom comprises of a \ac{MRI} compatible pump with adjustable continuous flow rates from 0 m$\ell$/min to 350 m$\ell$/min, the perfusate exiting this pump continues into a series of simulated arterioles before entering a porous media designed to simulate a capillary bed. The porous media is imaged using each sequence over the full range of flow rates the phantoms pump can deliver. \ttwo maps are calculated and the mean \ttwo calculated to evaluate the robustness of each sequence to variations in perfusion.
+The kidneys are highly perfused organ, as such, the effects of fluid flow through the area being imaged should be evaluated. This was achieved using a Gold Standard Phantoms \ac{QASPER} phantom, Figure \ref{fig:t2_flow_phantom_schematic}. This phantom comprises of a \ac{MRI} compatible pump with adjustable continuous flow rates from 0 m$\ell$/min to 350 m$\ell$/min, the perfusate exiting this pump continues into a series of simulated arterioles before entering a porous media designed to simulate a capillary bed. The porous media is imaged using each sequence over the full range of flow rates the phantoms pump can deliver. \ttwo maps are calculated and the mean \ttwo calculated to evaluate the robustness of each sequence to variations in perfusion.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{T2_Mapping/Flow/Flow_schematic.eps}
+	%	\missingfigure{Flow phantom schematic}
+	\caption{A schematic of \ac{QASPER} phantom used to quantify the effects of flow upon the \ttwo measurements.}
+	\label{fig:t2_flow_phantom_schematic}	
+\end{figure}
 
 \subsubsection{Blurring}
 Unfortunately \ac{MRI} doesn't produce perfect images, every signal is subject to a degree of blurring or spreading out into surrounding voxels. The amount of this blurring is different for each sequence and can dramatically effect the readability of an image and ultimately its clinical utility. In \ac{MRI} the amount and characteristics of the blur are usually spatially invariant, that is to say, if a voxel in the centre of an image is blurred over its five neighbouring voxels in the phase encode direction, a voxel at the edge of the image would have the same five voxel blur applied to it. We wish to quantify the amount of blurring produced by each of the sequences outlined in \ref{subsec:t2_acq_schemes}.
