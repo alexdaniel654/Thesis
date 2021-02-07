@@ -48,7 +48,7 @@ To investigate the effects of flow upon \ttwo measurements, a Gold Standard Phan
 
 Both phantoms were scanned using a 32-channel head coil. All data acquired on human subjects was done with approval of the local ethics committee and the study was conducted in accordance with the Helsinki Declaration. The subjects gave written, informed consent. Humans were scanned using a 16-channel anterior coil array and 16-channel posterior coil array. The study cohort consisted of 5 healthy participants (2 female, 3 male, mean age 31 $\pm$ 8).
 
-The protocol consisted of a survey, localisers, $B_0$ and $B_1$ mapping, then each of the optimised \ttwo mapping sequences. In-vivo subjects also had \ttwo-weighted and \tone-weighted structural scans to enable segmentation of the whole kidneys, and cortex/medulla respectively \cite{petzold_building_2014, will_automated_2014}, these \ac{ROI} are then used to calculate the mean \ttwo of each tissue type. A summary of the parameters of each \ttwo mapping sequence is shown in Table \ref{tab:t2_sequence_overview}. Each protocol was designed to be approximately two minutes (before respiratory triggering) and keep key parameters such as voxel size and \ac{FOV} constant.
+The protocol consisted of a survey, localisers, $B_0$ and $B_1$ mapping, then each of the optimised \ttwo mapping sequences. In-vivo subjects also had \ttwo-weighted and \tone-weighted structural scans to enable segmentation of the whole kidneys, and cortex/medulla respectively \cite{petzold_building_2014, will_automated_2014}, these \ac{ROI} are then used to calculate the mean \ttwo of each tissue type. The basic principles of \ttwo mapping are outlined in Section \ref{subsec:theory_t2}. A summary of the parameters of each \ttwo mapping sequence is shown in Table \ref{tab:t2_sequence_overview}. Each protocol was designed to be approximately between two and three minutes (before respiratory triggering) and keep key parameters such as voxel size and \ac{FOV} constant. More accurate or higher resolution \ttwo mapping may be possible with longer acquisition times, however as the aim is for this sequence to be used as part of a multi-parametric protocol, the time constraints of the whole protocol must be considered. 
 
 \begin{table}[H]
 	\centering
@@ -80,7 +80,7 @@ The protocol consisted of a survey, localisers, $B_0$ and $B_1$ mapping, then ea
 \end{table}
 
 \subsubsection{Spin Echo-Echo Planar Imaging}
-This technique is the simplest of the four consisting of a 90$\degree$ excitation pulse, followed by a 180$\degree$ \ac{RF} pulse \ac{TE}/2 ms later, leading to an echo at \ac{TE}. This 180$\degree$ pulse corrects for components of the signal lost due to static field inhomogeneities however does not correct for \ttwo effects therefore by repeating the sequence multiple times with different \ac{TE}, the \ttwo decay can be sampled. An \ac{EPI} readout is used to sample the signal during the echo. This sequence suffers from a relatively low \ac{SNR}, hence the two signal averages; this means that only six different echo times are recorded. An overview of the sequence is shown in Figure \ref{fig:t2_se-epi_seq}.
+This technique is the simplest of the four consisting of a 90$\degree$ excitation pulse, followed by a 180$\degree$ \ac{RF} pulse \ac{TE}/2 ms later, leading to an echo at \ac{TE}. The 180$\degree$ pulse corrects for components of the signal lost due to static field inhomogeneities, $T_2'$ effects, however does not correct for \ttwo effects. By repeating the sequence multiple times with different \ac{TE}, the \ttwo decay can be sampled. An \ac{EPI} readout is used to sample the signal during the echo. This sequence suffers from a relatively low \ac{SNR}, hence two signal averages are acquired; this means that only six different echo times can be recorded in the target time window. An overview of the sequence is shown in Figure \ref{fig:t2_se-epi_seq}.
 
 \begin{figure}[H]
 	\centering
@@ -90,7 +90,7 @@ This technique is the simplest of the four consisting of a 90$\degree$ excitatio
 \end{figure}
 
 \subsubsection{Multi-Echo Turbo Spin Echo}
-This sequence also uses a multi-slice spin echo; however the \ac{EPI} readout is replaced by a \ac{TSE} readout. This replaces the singe 180$\degree$ pulse with a train of pulses with an echo forming between each allowing the whole \ttwo decay to be sampled in a single echo train. Different echo times are sampled by varying the number and spacing of the 180$\degree$ pulses. The decrease in acquisition time per echo compared to the \ac{SE}-\ac{EPI} sequence meant that ten echoes were collected per \ttwo map at the minimum possible echo spacing, 13 ms. A schematic of the \ac{PSD} can be seen in Figure \ref{fig:t2_me-tse_seq}.
+This sequence also uses a multi-slice spin echo; however the \ac{EPI} readout is substituted for a \ac{TSE} readout. This replaces the singe 180$\degree$ pulse with a train of pulses with an echo forming between each allowing the whole \ttwo decay to be sampled in a single echo train. Different echo times are sampled by varying the number and spacing of the 180$\degree$ pulses. The decrease in acquisition time per echo compared to the \ac{SE}-\ac{EPI} sequence means that ten echoes can be collected per \ttwo map at the minimum possible echo spacing, 13 ms. A schematic of the \ac{PSD} can be seen in Figure \ref{fig:t2_me-tse_seq}.
 
 \begin{figure}[H]
 	\centering
@@ -101,7 +101,7 @@ This sequence also uses a multi-slice spin echo; however the \ac{EPI} readout is
 
 \subsubsection{Gradient Spin Echo}
 
-To achieve further acceleration over the \ac{ME-TSE} sequence, a \ac{GraSE} sequence can be used. Here two gradient echoes are collected for every spin echo with the spin echo and gradient echoes being used for the acquisition of the centre and periphery of k-space respectively. The multiple $k$-space profiles collected per spin echo enables a decrease in the echo spacing of the sequence compared to the \ac{ME-TSE}, decreasing to 5.6 ms and thus thirty echoes are collected per \ttwo map. The first echo of the train has an artificially high signal, the short echo spacing of this means a startup echo can be sacrificed i.e. the first echo is sampled at 11.2 ms rather than 5.6 ms. This leads to a more accurate fit, while also retaining accuracy when measuring short $T_2$ signals that will quickly decay. The \ac{PSD} for the \ac{GraSE} acquisition is shown in Figure \ref{fig:t2_grase_seq}.
+To achieve further acceleration over the \ac{ME-TSE} sequence, a \ac{GraSE} sequence can be used. Here two gradient echoes are collected for every spin echo with the spin echo and gradient echoes being used for the acquisition of the centre and periphery of k-space respectively. The multiple $k$-space profiles collected per spin echo enables a decrease in the echo spacing of the sequence compared to the \ac{ME-TSE} sequence, decreasing to 5.6 ms and thus thirty echoes are collected per \ttwo map. The first echo of the train has an artificially high signal\question{Due to stimulate echoes?}, the short echo spacing of this technique means a startup echo can be sacrificed i.e. the first echo is sampled at 11.2 ms rather than 5.6 ms. This leads to a more accurate fit, while also retaining accuracy when measuring short $T_2$ signals that will quickly decay. The \ac{PSD} for the \ac{GraSE} acquisition is shown in Figure \ref{fig:t2_grase_seq}.
 
 \begin{figure}[H]
 	\centering
@@ -112,19 +112,19 @@ To achieve further acceleration over the \ac{ME-TSE} sequence, a \ac{GraSE} sequ
 
 \subsubsection{CPMG $T_2$ Preparation}
 
-The \ac{CPMG} \ttwo preparation sequence is considered the gold standard in terms of accuracy. This sequence consists of the 90$\degree$ excitation pulse to transfer the magnetisation into the transverse plane as with the other sequences. A series of spatially non-selective 180$\degree$ pulses with alternating phases are then applied; by varying the number and temporal spacing, $\tau_{\textup{CPMG}}$, of these pulses the degree of \ttwo weighting can me modulated to achieve different \ac{eTE}. An \ac{EPI} readout scheme is then used to sample the signal. An overview of this sequence is shown in Figure \ref{fig:t2_cpmg_t2prep_seq}.
+The \ac{CPMG} \ttwo preparation sequence is considered the gold standard in terms of accuracy. As in the other sequences, this sequence begins with a 90$\degree$ excitation pulse to transfer the magnetisation into the transverse plane. A series of spatially non-selective 180$\degree$ pulses with alternating phases are then applied; by varying the number and temporal spacing, $\tau_{\textup{CPMG}}$, of these pulses the degree of \ttwo weighting can me modulated to achieve different \ac{eTE}. An \ac{EPI} readout scheme is then used to sample the signal. An overview of this sequence is shown in Figure \ref{fig:t2_cpmg_t2prep_seq}.\todo{Add some CPMG references/better explanation of what CPMG is}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_T2_Prep.eps}
-	\caption{A pulse sequence diagram of the \ac{CPMG} $T_2$ preperation scheme.}
+	\caption{A pulse sequence diagram of the \ac{CPMG} $T_2$ preparation scheme.}
 	\label{fig:t2_cpmg_t2prep_seq}	
 \end{figure}
 
 
 \subsection{Post Processing}
 
-All post processing was performed using Python 3.7 making use of the \ac{UKAT} toolbox \cite{nery_ukrin_2020}. All curve fitting uses a least squares trust region reflective method to estimate the variables in the desired function.
+All post processing was performed using Python 3.7 making use of the \ac{UKAT} toolbox \cite{nery_ukrin_2020}. This open source software is specially designed for quantitative renal \ac{MRI}. All curve fitting uses a least squares trust region reflective method to estimate unknown parameters.
 
 \subsubsection{\ttwo Fitting Methods}
 
@@ -138,7 +138,7 @@ If no noise were present in the data, this would be the optimum method however, 
 	S(t) = S_0 \cdot e^{-t/T_2} + \epsilon
 	\label{eq:t2_noise}
 \end{equation}
-where $\epsilon$ represents thermal noise and a baseline in the signal due to long \ttwo compartments, this fitting method is referred to as ``noise fit''. Another common method of negating the effects of the low \ac{SNR} later \ac{TE} is to discard data below a threshold, illustrated here at 0.2 AU and referred to as ``discard fit''. Finally, a combination of both noise estimation and discarding was performed (discard and noise fit).
+where $\epsilon$ represents thermal noise and a baseline in the signal due to long \ttwo compartments; this fitting method is referred to as ``noise fit''. Another common method of negating the effects of the low \ac{SNR} of later \ac{TE} is to discard data below a threshold, illustrated in Figure \ref{fig:t2_fitting_methods} at 0.2 AU and referred to as ``discard fit''. Finally, a combination of both noise estimation and discarding was performed (discard and noise fit).
 
 \begin{figure}[H]
 	\centering
