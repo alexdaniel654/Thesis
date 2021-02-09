@@ -49,6 +49,10 @@
 \usepackage{etoolbox}
 \usepackage{tabularx}
 \usepackage{lscape}
+\usepackage{epigraph}
+\renewcommand{\epigraphflush}{center}
+\setlength\epigraphwidth{.7\textwidth}
+\usepackage{lettrine}
 \captionsetup{font={stretch=1.5}}
 \raggedbottom
 
@@ -145,11 +149,17 @@ Prof. Susan \textsc{Francis}
 \includegraphics[width=0.5\textwidth]{UoN_Primary_Logo_CMYK.eps}\\[1cm]
 Thesis submitted to the University of Nottingham for the degree of Doctor of Philosophy
 \vfill
-\afterpage{\blankpage}
+%\afterpage{\blankpage}
 \end{titlepage}
 }
 \pagestyle{plain}
 
+\vspace*{200px}
+
+\epigraph{\large{It’s very hard to talk quantum using a language originally designed to tell other monkeys where the ripe fruit is.}}{\normalsize{Terry Pratchett, \textit{Night Watch}}}
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel dapibus ex, non lobortis sem. Quisque in nunc id justo ultricies tempor vitae nec ante. Pellentesque volutpat, dui sit amet euismod dictum, turpis velit ultrices nisi, vitae porta tortor lacus ut turpis. 
+
+\newpage
 %\newgeometry{left=5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 \begin{abstract}
 	\addcontentsline{toc}{chapter}{Abstract}
