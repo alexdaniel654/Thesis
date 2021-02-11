@@ -112,7 +112,7 @@ To achieve further acceleration over the \ac{ME-TSE} sequence, a \ac{GraSE} sequ
 
 \subsubsection{CPMG $T_2$ Preparation}
 
-The \ac{CPMG} \ttwo preparation sequence is considered the gold standard in terms of accuracy. As in the other sequences, this sequence begins with a 90$\degree$ excitation pulse to transfer the magnetisation into the transverse plane. A series of spatially non-selective 180$\degree$ pulses with alternating phases are then applied; by varying the number and temporal spacing, $\tau_{\textup{CPMG}}$, of these pulses the degree of \ttwo weighting can me modulated to achieve different \ac{eTE}. An \ac{EPI} readout scheme is then used to sample the signal. An overview of this sequence is shown in Figure \ref{fig:t2_cpmg_t2prep_seq}.\todo{Add some CPMG references/better explanation of what CPMG is}
+The \ac{CPMG} \ttwo preparation sequence is considered the gold standard in terms of accuracy. As in the other sequences, this sequence begins with a 90$\degree$ excitation pulse to transfer the magnetisation into the transverse plane. Carr and Purcelle showed that a series of 180$\degree$ pulses of alternating phase could be used to reduce the effects of molecules diffusing to an area of slightly different magnetic field causing an attenuation in transverse magnetisation above that of \ttwo \cite{carr_effects_1954}. This technique relied on very accurate 180$\degree$ pulses as small imperfections could result in large cumulative errors over the pulse train. Later Meiboom and Gill showed that by delivering the 180$\degree$ pulses 90$\degree$ out of phase to the initial excitation pulse e.g. excite about $x'$ and refocus about $y'$, the undesirable effects of imperfect 180$\degree$ pulses and $B_1$ inhomogeneity could be greatly reduced \cite{meiboom_modified_1958}. The resulting sequence, known as a \acl{CPMG} sequence, can be used to generate robust measurements of \ttwo; by varying the number and temporal spacing, $\tau_{\textup{CPMG}}$, of the 180$\degree$ pulses the degree of \ttwo weighting can me modulated to achieve different \ac{eTE}. An \ac{EPI} readout scheme is then used to sample the signal. An overview of this sequence is shown in Figure \ref{fig:t2_cpmg_t2prep_seq}.
 
 \begin{figure}[H]
 	\centering
@@ -601,7 +601,7 @@ The \ac{ME-TSE} sequence produces reasonable images and broadly similar mean \tt
 	\label{tab:t2_results_summary}
 \end{table}
 
-Having compared the quantitative accuracy, image quality and acquisition time of four common \ttwo mapping sequences on phantoms and in-vivo for use in the kidneys, it is concluded that the \ac{GraSE} sequence provides the optimum protocol for renal \ttwo mapping. In phantoms, the accuracy was shown to be comparable with the \ac{ME-TSE} sequence and its superior in-vivo image quality and insensitivity to flow lead us to recommend this sequence for further renal studies.
+Having compared the quantitative accuracy, image quality and acquisition time of four common \ttwo mapping sequences on phantoms and in-vivo for use in the kidneys, Table \ref{tab:t2_results_summary}, it is concluded that the \ac{GraSE} sequence provides the optimum protocol for renal \ttwo mapping. In phantoms, the accuracy was shown to be comparable with the \ac{ME-TSE} sequence and its superior in-vivo image quality and insensitivity to flow lead us to recommend this sequence for further renal studies.
 
 \newpage
 
