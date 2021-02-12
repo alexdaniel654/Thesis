@@ -189,7 +189,8 @@ The observed image, $h$, can be modelled as an ideal, unblurred signal, $f$ dist
 	\includegraphics[width=0.8\textwidth]{T2_Mapping/1D_Blur/1d_conv.eps}
 	\caption{The convolution of the ideal signal, $f$, and the \ac{PSF}, $g$, produces the measured signal, $h$.}
 	\label{fig:t2_1d_blur}	
-\end{figure}\question{Would a 2D example of applying a Gaussian blur to an image be helpful here too?}
+\end{figure}
+%\question{Would a 2D example of applying a Gaussian blur to an image be helpful here too?}
 
 A 3 mm deep, 2 mm thick, grid etched into one of the plastic plates of the QalibreMD phantom, Figure \ref{fig:t2_blur_grid}, was imaged using each of the \ttwo mapping methods with an echo time of 20 ms. A 0.5 mm$^3$ isotropic structural scan was also collected. The thickness of the grid is smaller than the imaging resolution of the \ttwo mapping sequences and the resolution of the structural scan is much greater than the resolution of the \ttwo mapping scans, therefore the structural scan can be seen as an approximation of the ideal image produced by each \ttwo mapping method. This allows a deconvolution of the \ac{PSF} from the \ttwo mapping scans and, by fitting a Gaussian to the line profiles through the centre of the \ac{PSF} in each direction, an estimate the \ac{FWHM} of the \ac{PSF} as shown in Figure \ref{fig:t2_2d_blur}. Quoted values are the maximum \ac{PSF} of each of the two directions as this is the limiting factor in an images readability, for the example in Figure \ref{fig:t2_2d_blur}, the quoted \ac{PSF} would be 9.49 $\pm$ 0.23 mm.
 
