@@ -1,15 +1,19 @@
 \chapter{Automated Segmentation of Kidneys using Machine Learning}
 \label{chap:ML}
-
+\newpage
 \begin{abstract}
+	\ac{TKV} is an important measure in renal disease detection and monitoring. Here a fully automated method to segment the kidneys from \ttwo-weighted \ac{MRI} to calculate \ac{TKV} of \ac{HC} and \ac{CKD} patients is developed.
 	
+	This automated method uses machine learning, specifically a 2D \ac{CNN}, to accurately segment the left and right kidneys from \ttwo-weighted \ac{MRI} data. The dataset consisted of 30 \ac{HC} subjects and 30 \ac{CKD} patients. The model was trained on 50 manually defined \ac{HC} and \ac{CKD} kidney segmentations. It was subsequently evaluated on 50 test data sets, comprising data from five \ac{HC}s and five \ac{CKD} patients each scanned five times in a scan session to enable comparison of the precision of the \ac{CNN} and manual segmentation of kidneys.
+	
+	The unseen test data processed by the 2D \ac{CNN} had a mean Dice score of 0.93 $\pm$ 0.01. The difference between manual and automatically computed \ac{TKV} was 1.2 $\pm$ 16.2 m$\ell$ with a mean surface distance of 0.65 $\pm$ 0.21 mm. The variance in \ac{TKV} measurements from repeat acquisitions on the same subject was significantly lower using the automated method compared to manual segmentation of the kidneys.
+	
+	The 2D \ac{CNN} method provides fully automated segmentation of the left and right kidney and calculation of \ac{TKV} in under ten seconds on a standard office computer, allowing high data throughput and is a freely available executable.
 	
 	This work was presented as an aural presentation at the \ac{ISMRM} 28th Annual Meeting (2020) \cite{daniel_automated_2020}.
-	
-	\lipsum[1]
 \end{abstract}
 \newpage
-
+\acresetall
 \section{Introduction}
 
 Segmentation of the kidneys from \ac{MRI} is a time consuming aspect of many renal \ac{MRI} studies \cite{cox_multiparametric_2017, cohen_mri_2009, van_den_dool_functional_2005}. \ac{TKV} gives insight into renal function and is therefore used as a measured parameter for a variety of renal pathologies. The use of \ac{TKV} is an active area of ongoing research for \ac{ADPKD}, which is characterised by an increase in \ac{TKV} due to cyst formation. Disease progression can be monitored by recording \ac{TKV}, with higher rates of \ac{TKV} increase being associated with a more rapid decrease in renal function \cite{chapman_kidney_2012, tangri_total_2017, grantham_volume_2006}. Measurements of \ac{TKV} in \ac{CKD} subjects have shown a significant correlation with glomerular filtration rate \cite{buchanan_quantitative_2019}, the primary measure of \ac{CKD} severity \cite{stevens_assessing_2006}, with more generally a decrease in \ac{TKV} associated with a decrease in renal function \cite{gong_relationship_2012}. When studying pathologies which commonly lead to a change in kidney function, total kidney perfusion is often measured, this metric relies on an accurate measurement of renal blood flow and kidney volume of each kidney, and allows investigators to ascertain if the blood flow is preserved as the organ changes in size or if tissue perfusion is impaired. In addition to \ac{TKV} measurements, renal segmentation is an important first step for many other processing pipelines, be that for automated cortical-medullary segmentations or to carry out multiparametric mapping within only the kidney to reduce computation times. 
@@ -25,6 +29,118 @@ In recent years, deep learning-based methods have been applied to the segmentati
 Here a single 2D U-Net model \ac{CNN} is used for the segmentation of the kidneys in both \ac{HC} participants and \ac{CKD} patients using \ttwo-weighted MR images. Automatically generated kidney masks are compared with manual masks defined by experts and assessed for similarity using multiple voxel and surface based metrics and total segmented volume. A subset of subjects were scanned multiple times to assess the repeatability of the segmentations.
 
 \newpage
+
+\section{Neural Networks for Image Segmentation}
+
+\subsection{Artificial Neural Networks}
+\acp{ANN} aim to solve computational problems using a similar methodology to their biological namesake. Input data is passed through a series of connected nodes or neurons, each of which can have multiple input and output connections from and to other neurons mimicking synapses. At each neuron, a weighted sum of the input values is calculated before being passed onto the next hidden layer of neurons. The final layer of neurons is connected to the output layer which will give an estimation of the desired property, be that a number e.g. probability someone will like a television program, an image e.g. the probability that a pixel in an image is a road sign, or a sample in a time series e.g. audio in voice synthesis. More concisely, an \ac{ANN} can be used to map a non-linear set of input data to an output dimension.
+
+A very basic example could use the mass and colour of an animal to guess if it is a dog or a cat, Figure \ref{fig:ml_theory_init}. The connections between neurons are initialised with random weights. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{ML/theory/ANN_init.eps}
+	\caption{The \ac{ANN} initialised with random numbers trying to predict the species of a small ginger cat.}
+	\label{fig:ml_theory_init}	
+\end{figure}
+
+At each neuron, a weighted sum of its inputs is taken, then an activation function applied, here a \ac{ReLU}, Figure \ref{fig:ml_theory_activation_relu}, for the hidden neurons and sigmoid, \ref{fig:ml_theory_activation_sigmoid}, for the output neurons. These activation functions allow the network to act non-linearly and are modelling the action potential of biological neurons. The \ac{ReLU} function represents a higher rate of firing for signals above zero; as it is impossible for a biological neuron to reduce its firing rate below zero, the \ac{ReLU} outputs zero when the input signal is negative. The sigmoid function maps all values between zero and one, and therefore ensures the network outputs a probability at the output nodes.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/theory/relu.pdf}
+		\caption{$\sigma (x) = max(0, x)$}
+		\label{fig:ml_theory_activation_relu}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/theory/sigmoid.pdf}
+		\caption{$\sigma(x) = \frac{1}{1 + e^{-x}}$}
+		\label{fig:ml_theory_activation_sigmoid}
+	\end{subfigure}
+	\caption{Activation functions.}
+	\label{fig:ml_theory_activation}
+\end{figure}
+
+As the weights were randomly initialised, the network has incorrectly predicted that the animal is a dog. By comparing the result output from the network to the known ground truth, the weights of the network can be adjusted in a process known as back propagation, Figure \ref{fig:ml_theory_adjusted}. Hyper-parameters such as learning rate and momentum control how much each weight is adjusted in response to the input data and subsequent result.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{ML/theory/ANN_back_prop.eps}
+	\caption{The weightings of each connection are adjusted so the output layer produces results closer to the ground truth.}
+	\label{fig:ml_theory_adjusted}	
+\end{figure}
+
+When another animal is input to the network, here a smaller, darker coloured cat, the network now correctly predicts that it is a cat, \ref{fig:ml_theory_new_data}. By repeating this procedure many times, comparing the result to ground truths and adjusting the weights, a process known as training, the network becomes more and more accurate. Once trained, the network can be used to infer the species of animals with no ground truth data.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{ML/theory/ANN_new_data.eps}
+	\caption{New data is presented to the network in the form of a smaller, darker coloured cat and the process of adjusting weights is repeated until more accurate results are produced.}
+	\label{fig:ml_theory_new_data}	
+\end{figure}
+
+The above example is highly simplified, real \ac{ANN}s will have many more input nodes and hidden layers. In the case of imaging data, the input layer will simply be a node for each pixel in the image.
+
+\subsection{Convolutional Neural Networks}
+
+It was found that \ac{ANN} segmentation performance was increased if additional features were input to the network. These features could be colour rather than greyscale date, different \ac{MRI} contrasts e.g. fat/water images or artificially generated features. In Figure \ref{fig:ml_theory_features} a selection of artificially generated features are presented, some of these highlight the kidneys from the surrounding tissue e.g. the intensity range adjustment, \ref{fig:ml_theory_features_levels}, and edge detector, \ref{fig:ml_theory_features_edges} while others are better at providing contrast between the cyst in the right kidney and the renal tissue e.g. the intensity inversion, \ref{fig:ml_theory_features_invert} and sharpening filter, \ref{fig:ml_theory_features_sharpern}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/raw.png}
+		\caption{}
+		\label{fig:ml_theory_features_raw}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/levels.png}
+		\caption{}
+		\label{fig:ml_theory_features_levels}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/invert.png}
+		\caption{}
+		\label{fig:ml_theory_features_invert}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/blur.png}
+		\caption{}
+		\label{fig:ml_theory_features_blur}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/sharpern.png}
+		\caption{}
+		\label{fig:ml_theory_features_sharpern}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Theory/Features/edges.png}
+		\caption{}
+		\label{fig:ml_theory_features_edges}
+	\end{subfigure}
+	\caption{An example of the features that can be generated from a raw image (\subref{fig:ml_theory_features_raw}). Implemented here are intensity range adjustments (\subref{fig:ml_theory_features_levels}), intensity inversion (\subref{fig:ml_theory_features_invert}), Gaussian blur (\subref{fig:ml_theory_features_blur}), sharpening (\subref{fig:ml_theory_features_sharpern}) and edge detection (\subref{fig:ml_theory_features_edges}).}
+	\label{fig:ml_theory_features}
+\end{figure}
+
+Many of these artificially generated features can be implemented as convolutional operations, these involve convolving a numerical kernel with every pixel in the image. By adjusting the values of each cell in the kernel, different features or filters can be produced. The control of these kernels can be handed over to similar optimisation processes to those used to adjust the weights of the connections between neurons. Over the training period, this enables the network to learn what features are useful for the task at hand and which as less useful rather than the network being given features that the programmer thinks will be helpful. Shallow layers of the network usually resemble features similar to those in \ref{fig:ml_theory_features} while deeper layers represent more complex and specific objects such as, using the cat and dog example above, pointy noses to distinguish dogs and triangular ears to distinguish cats. This architecture is known as a \acl{CNN} \cite{fukushima_neocognitron_1988,lecun_gradient-based_1998}. 
+
+To aid with feature extraction, the raw image is often downsampled by max-pooling layers, this enables different kernels to act on different scales of the image can help keep the network generalisable and avoid overfitting. The U-Net architecture \cite{ronneberger_u-net_2015} combines an arm with downsampling and feature extraction with an upsampling arm that returns the image to its initial dimensions making it especially useful for segmentations tasks.
+
+\newpage
 \section{Methods}
 The study was approved by the University of Nottingham Medical School Research Ethics Committee (H14082014 and E14032013), and East Midlands Research Ethics committee REC reference: 17/LO/2036 and 15/EM/0274.
 
@@ -36,27 +152,6 @@ All kidney \ac{MRI} scans were acquired on a 3T Philips Ingenia system (Philips 
 The dataset consisted of 60 subjects, 30 \ac{HC} (10 female, 20 male) with a mean age of 26 $\pm$ 11 (19–77) years and 30 \ac{CKD} patients (6 female, 24 male) with a mean age of 59 $\pm$ 14 (19–80) years and mean \ac{CKD} Stage 3.5 $\pm$ 1.2 (1-5). Ten of the subjects (5 \ac{HC}s and 5 \ac{CKD} patients) were scanned five times in the same scan session for use as test data. In each test data scan session, subjects were repositioned between each acquisition (removed from the scanner, asked to sit up and move on the bed), additionally the scanner operator attempted to vary the acquisition geometry between each scan while still acquiring full kidney coverage. These repeated test datasets allow the consistency of the networks ability to measure \ac{TKV} to be assessed. 
 
 In total, 649 2D image slices from the 50 subjects in the training data and 650 2D image slices from the 10 subjects in the test data, were collected. A summary of the data collected is provided in Table \ref{tab:ml_datasets} and Figure \ref{fig:ml_true_tkv_hist}.
-
-\begin{table}[h]
-	\centering
-	\begin{tabularx}{\textwidth}{X|XXXXXX}
-		\hline
-		& \textbf{Number of Subjects} & \textbf{Number of Datasets} & \textbf{Number of 2D Slices} & \textbf{Sex (F/M)} & \textbf{Mean Age} & \textbf{TKV (m$\ell$)} \\ \hline
-		\textbf{Training HC}  & 25                          & 25                          & 325                          & 9/16               & 26 $\pm$ 12       & 296 $\pm$ 38           \\
-		\textbf{Training CKD} & 25                          & 25                          & 324                          & 6/19               & 58 $\pm$ 15       & 258 $\pm$ 72           \\
-		\textbf{Testing HC}   & 5                           & 25                          & 325                          & 1/4                & 25 $\pm$ 3        & 330 $\pm$ 35           \\
-		\textbf{Training CKD} & 5                           & 25                          & 325                          & 0/5                & 69 $\pm$ 3        & 274 $\pm$ 56          
-	\end{tabularx}
-	\caption{Characteristics of datasets used for training and validation of the 2D U-Net model \ac{CNN}.}
-	\label{tab:ml_datasets}
-\end{table}
-\todo{Fix table \ref{tab:ml_datasets} formatting}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\textwidth]{ML/Datasets/dataset_hist_overlay.pdf}
-	\caption{Distribution of \ac{TKV} within the training and testing data.}
-	\label{fig:ml_true_tkv_hist}	
-\end{figure}
 
 \subsection{Manual Segmentation}
 The manual binary mask of the kidneys of each subject were generated by one of three observers (A, B and C who had been trained on kidney segmentation and had an average of 2 years of experience), with each observer segmenting data from both the training and testing datasets. Kidney boundaries were manually traced using freely available software (MRIcron \cite{rorden_neurolabuscmricron_2021}) and any area of non-renal parenchyma, such as the renal hilum and cysts, were excluded from the manual definition. Binary masks of the kidney were generated, and the volume of each kidney was computed from the product of the number of voxels in each kidney mask and the voxel volume. Separate kidney volume for the left and right kidneys was determined and summed to compute \ac{TKV}. All measurements were performed by observers blinded for patient number and previous \ac{TKV} measurements. 
@@ -85,21 +180,87 @@ where $TP$ is true positive, $FP$ is false positive and $FN$ is false negative. 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{ML/Training_progress/training_history.png}
+	\includegraphics[width=0.7\textwidth]{ML/Training_progress/training_history.pdf}
 	\caption{Dice score of the network for the training and validation data. Data is shown with a 10 epoch rolling average.}
 	\label{fig:ml_training_history}	
 \end{figure}
-\todo{Swap this for eps/pdf rather than png}
 
+\newpage
 \subsection{Statistical Analysis}
 
-Baseline demographics are reported as mean $\pm$ \ac{SD}. Inter-observer variability in manual segmentation and \ac{TKV} was calculated by comparing the \ac{TKV} of the manual masks each observer generated for a given volume, and also assessing the Bland-Altman and regression analysis. Intra-observer variability in manual segmentation was calculated by comparing the \ac{TKV} of the five masks generated by an observer for a given subject. For each, the mean \ac{CoV}; defined as standard deviation/mean and \ac{ICC} were used as measures of repeatability of \ac{TKV}. Voxel-based (e.g. Dice score) and surface based (e.g. Hausdorff Distance)\question{Probably need to say what this is} metrics were also calculated between each observer.
+Baseline demographics are reported as mean $\pm$ \ac{SD}. Inter-observer variability in manual segmentation and \ac{TKV} was calculated by comparing the \ac{TKV} of the manual masks each observer generated for a given volume, and also assessing the Bland-Altman and regression analysis. Intra-observer variability in manual segmentation was calculated by comparing the \ac{TKV} of the five masks generated by an observer for a given subject. For each, the mean \ac{CoV}; defined as standard deviation/mean and \ac{ICC} were used as measures of repeatability of \ac{TKV}. Voxel-based metrics (Dice score, Equation \eqref{eq:dice} and Jaccard index, Equation \eqref{eq:jaccard}) and surface based metrics such as the average distance between the surface of the two masks and Hausdorff Distance 95th percentile, the 95th percentile of the largest distance between the two surfaces, were also calculated between each observer.
 
-The performance of the automated segmentation was assessed using multiple voxel and surface based similarity metrics. Performance was further assessed by determining the mean difference in \ac{TKV} between the automatic and manual methods. Both actual and percentage (\%) difference in \ac{TKV} were evaluated. Bias (mean) obtained from the automatic and manual methods was assessed using a paired sample t-test. The mean \ac{CoV} and \ac{ICC} were also used as measures of repeatability of the automated \ac{TKV}.
+\begin{equation}
+	J(A,B) = \frac{A\cap B}{A\cup B} = \frac{TP}{TP+FP+FN}
+	\label{eq:jaccard}
+\end{equation}
+	
+The performance of the automated segmentation was assessed using the voxel and surface based similarity metrics outlined above and, in addition, sensitivity, specificity, precision and accuracy, Equations \eqref{eq:sensitivity} - \eqref{eq:accuracy}. Performance was further assessed by determining the mean difference in \ac{TKV} between the automatic and manual methods. Both actual and percentage (\%) difference in \ac{TKV} were evaluated. Bias (mean) obtained from the automatic and manual methods was assessed using a paired sample t-test. The mean \ac{CoV} and \ac{ICC} were also used as measures of repeatability of the automated \ac{TKV}.
 
-\section{Results and Discussion}
+\begin{eqnarray}
+	\textup{Sensitivity} &=& \frac{TP}{TP + FN}
+	\label{eq:sensitivity}\\
+	\textup{Specificity} &=& \frac{TN}{TN + FP}
+	\label{eq:specificity}\\
+	\textup{Precision} &=& \frac{TP}{TP + FP}
+	\label{eq:precision}\\
+	\textup{Accuracy} &=& \frac{TP + TN}{TP + TN + FP + FN}
+	\label{eq:accuracy}
+\end{eqnarray}
 
-Initial data was collected with a \ac{TR} of 1800 ms leading to a breath hold of approximately 23 seconds. Some subjects struggled to hold their breath for this long on expiration, therefore the effects of reducing the \ac{TR} of the sequence were investigated. As can be seen in Figure \ref{fig:ml_tr}, there is no degradation in image quality from the image with \ac{TR} or 1800 ms to that with at \ac{TR} of 1300 ms, the differences between these images are mainly due to the small movements between volumes, as can be seen in the difference data where the largest differences are seen around the periphery of the kidneys and in the gut. Moving forward, the \ac{TR} was reduced to 1300 ms leading to a sequence with a breath hold of approximately 17 seconds.
+\newpage
+\section{Results}
+
+\subsection{Characteristics of the Training Cohort}
+
+Data was collected using a \ttwo-weighted \ac{HASTE} sequence providing optimal contrast between the kidneys and surrounding tissue, examples shown in Figure \ref{fig:ml_raw}, however there is limited contrast between the left kidney and spleen due to their similar \ttwo-weighting. Cysts of variable size are clearly visible in the kidneys of the \ac{CKD} patient. 
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Raw_data/HC_Raw.eps}
+		\caption{}
+		\label{fig:ml_raw_hc}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Raw_data/CKD_Raw.eps}
+		\caption{}
+		\label{fig:ml_raw_ckd}
+	\end{subfigure}
+	\caption{All slices of the raw data from representative subjects of the \ac{HC} cohort, shown in \subref{fig:ml_raw_hc}, and \ac{CKD} cohort, \subref{fig:ml_raw_ckd}.}
+	\label{fig:ml_raw}
+\end{figure}
+
+The training data comprised 25 healthy controls (9 female, 16 male) with a mean age of 26 $\pm$ 12 (19–77) years and 25 \ac{CKD} patients (6 female, 19 male) with a mean age of 58 $\pm$ 15 (19–80) years and mean \ac{CKD} stage 3.3 $\pm$ 1.1 (1-5). The manual \ac{TKV} was 277 $\pm$ 60 m$\ell$, ranging between 145 and 422 m$\ell$. Including both healthy control subjects and \ac{CKD} patients meant the kidneys had variable morphology (shape, size and heterogeneous cysts) within the training dataset. Table \ref{tab:ml_datasets} provides the characteristics of datasets used for training and testing of the \ac{CNN}, whilst Figure \ref{fig:ml_true_tkv_hist} shows the distribution of \ac{TKV} within the training and testing data.
+\begin{table}[H]
+	\centering
+	\begin{adjustbox}{width=1.0\textwidth, center}
+	\begin{tabularx}{1.1\textwidth}{X|X|X|X|X|X|X}
+		& \textbf{Number of Subjects} & \textbf{Number of Datasets} & \textbf{Number of 2D Slices} & \textbf{Sex (F/M)} & \textbf{Mean Age} & \textbf{TKV (m$\ell$)} \\ \hline
+		\textbf{Training HC}  & 25                          & 25                          & 325                          & 9/16               & 26 $\pm$ 12       & 296 $\pm$ 38           \\
+		\hline
+		\textbf{Training CKD} & 25                          & 25                          & 324                          & 6/19               & 58 $\pm$ 15       & 258 $\pm$ 72           \\
+		\hline
+		\textbf{Testing HC}   & 5                           & 25                          & 325                          & 1/4                & 25 $\pm$ 3        & 330 $\pm$ 35           \\
+		\hline
+		\textbf{Training CKD} & 5                           & 25                          & 325                          & 0/5                & 69 $\pm$ 3        & 274 $\pm$ 56          
+	\end{tabularx}
+	\end{adjustbox}
+	\caption{Characteristics of datasets used for training and validation of the 2D U-Net model \ac{CNN}.}
+	\label{tab:ml_datasets}
+\end{table}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{ML/Datasets/dataset_hist_overlay.pdf}
+	\caption{Distribution of \ac{TKV} within the training and testing data.}
+	\label{fig:ml_true_tkv_hist}	
+\end{figure}
+
+\subsection{Reducing Acquisition Time}
+Initial data was collected with a \ac{TR} of 1800 ms leading to a breath hold of approximately 23 seconds. Some subjects struggled to hold their breath for this long on expiration, therefore the effects of reducing the \ac{TR} of the sequence were investigated. As can be seen in Figure \ref{fig:ml_tr}, there is no degradation in image quality from the image with \ac{TR} of 1800 ms to that with at \ac{TR} of 1300 ms, the differences between these images are mainly due to the small movements between volumes, as can be seen in the difference data where the largest differences are seen around the periphery of the kidneys and in the gut. Moving forward, the \ac{TR} was reduced to 1300 ms leading to a sequence with a breath hold of approximately 17 seconds.
 
 \begin{figure}[H]
 	\centering
@@ -108,6 +269,99 @@ Initial data was collected with a \ac{TR} of 1800 ms leading to a breath hold of
 	\label{fig:ml_tr}	
 \end{figure}
 
+\subsection{Accuracy of Manual Segmentation}
+Four of the test subjects were each scanned five times, with the left and right kidneys in the 20 datasets each masked by Observers A, B and C. The intra-observer and inter-observer variability for this manual segmentation was computed, as shown in Table \ref{tab:ml_manual_repeatability}. 
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ll||l|l}
+		Observer                 & Kidneys & CoV (\%)      & ICC   \\ \hline
+		\multirow{3}{*}{Intra A} & Total   & 2.2 $\pm$ 0.7 & 0.939 \\ \cline{2-4} 
+		& Left    & 3.2 $\pm$ 0.8 & 0.783 \\ \cline{2-4} 
+		& Right   & 1.9 $\pm$ 0.5 & 0.957 \\ \hline
+		\multirow{3}{*}{Intra B} & Total   & 1.9 $\pm$ 0.3 & 0.895 \\ \cline{2-4} 
+		& Left    & 2.0 $\pm$ 0.5 & 0.807 \\ \cline{2-4} 
+		& Right   & 2.4 $\pm$ 0.3 & 0.892 \\ \hline
+		\multirow{3}{*}{Intra C} & Total   & 2.5 $\pm$ 0.9 & 0.908 \\ \cline{2-4} 
+		& Left    & 2.8 $\pm$ 1.3 & 0.769 \\ \cline{2-4} 
+		& Right   & 3.1 $\pm$ 1.9 & 0.940 \\ \hline
+		\multirow{3}{*}{Inter}   & Total   & 3.0 $\pm$ 1.0 & 0.897 \\ \cline{2-4} 
+		& Left    & 4.0 $\pm$ 1.4 & 0.713 \\ \cline{2-4} 
+		& Right   & 2.9 $\pm$ 1.0 & 0.910
+	\end{tabular}
+	\caption{Repeatability of the manual segmentation for left, right and \ac{TKV}, with coefficient of variation and intraclass coefficient computed.}
+	\label{tab:ml_manual_repeatability}
+\end{table}
+
+Additionally, similarity metrics were used to assess the overlap between each observer’s manual masks, Table \ref{tab:ml_manual_metrics}. Due to the large difference between in-plane and out-of-plane resolution (1.5 mm$^3$ vs 5.5 mm$^3$) the Hausdorff distance is very susceptible to inaccuracies in the anterior – posterior direction; this metric is highly sensitive to noise and as such the 95th percentile is used to generate a more representative value. Bland-Altman plots and regression analysis of inter-observer variance in measured \ac{TKV} are provided in Figure \ref{fig:ml_obs_var}.
+
+\begin{table}[H]
+	\centering
+	\begin{adjustbox}{width=1.0\textwidth, center}
+	\begin{tabularx}{1.25\textwidth}{XX||X|X|X|X|X}
+		Observer               & Kidney & Dice   Score  & Jaccard   Index & Average   Distance (mm) & Hausdorff   Distance (mm) (95th Percentile) & Volume   Difference (ml) \\ \hline
+		\multirow{3}{*}{A – B} & Both   & 0.93   $\pm$ 0.03 & 0.87   $\pm$ 0.05   & 0.81   $\pm$ 0.58           & 5.59   $\pm$ 2.77                               & 20.84   $\pm$ 9.33           \\ \cline{2-7} 
+		& Left   & 0.92 $\pm$ 0.07   & 0.85 $\pm$ 0.10     & 0.94 $\pm$ 1.12             & 5.53 $\pm$ 3.65                                 & 13.36 $\pm$ 5.76             \\ \cline{2-7} 
+		& Right  & 0.94   $\pm$ 0.01 & 0.88   $\pm$ 0.02   & 0.65   $\pm$ 0.14           & 4.75   $\pm$ 1.15                               & 7.48   $\pm$ 5.63            \\ \hline
+		\multirow{3}{*}{A – C} & Both   & 0.93 $\pm$ 0.01   & 0.87 $\pm$ 0.02     & 0.79 $\pm$ 0.18             & 5.83 $\pm$ 1.86                                 & 16.01 $\pm$ 8.56             \\ \cline{2-7} 
+		& Left   & 0.93   $\pm$ 0.01 & 0.87   $\pm$ 0.02   & 0.84   $\pm$ 0.27           & 6.83   $\pm$ 3.12                               & 6.93   $\pm$ 5.78            \\ \cline{2-7} 
+		& Right  & 0.93 $\pm$ 0.01   & 0.87 $\pm$ 0.02     & 0.72 $\pm$ 0.17             & 4.82 $\pm$ 1.25                                 & 9.08 $\pm$ 5.41              \\ \hline
+		\multirow{3}{*}{B – C} & Both   & 0.94   $\pm$ 0.04 & 0.89   $\pm$ 0.06   & 0.63   $\pm$ 0.62           & 3.59   $\pm$ 2.74                               & -4.83   $\pm$ 9.92           \\ \cline{2-7} 
+		& Left   & 0.93 $\pm$ 0.08   & 0.88 $\pm$ 0.11     & 0.78 $\pm$ 1.22             & 4.31 $\pm$ 3.58                                 & -6.44 $\pm$ 6.17             \\ \cline{2-7} 
+		& Right  & 0.95   $\pm$ 0.01 & 0.90   $\pm$ 0.02   & 0.48   $\pm$ 0.14           & 3.39   $\pm$ 1.15                               & 1.61   $\pm$ 6.56           
+	\end{tabularx}
+	\end{adjustbox}
+	\caption{Metrics comparing each combination of observers manual masks (A – B, A – C and B – C). All values are quoted as mean $\pm$ standard deviation.}
+\label{tab:ml_manual_metrics}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Observer_variability/Corr_A_B.pdf}
+		\caption{}
+		\label{fig:ml_obs_var_cor_ab}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Observer_variability/Corr_A_C.pdf}
+		\caption{}
+		\label{fig:ml_obs_var_cor_ac}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Observer_variability/Corr_B_C.pdf}
+		\caption{}
+		\label{fig:ml_obs_var_cor_bc}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Observer_variability/ab_ba.pdf}
+		\caption{}
+		\label{fig:ml_obs_var_ba_ab}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Observer_variability/ac_ba.pdf}
+		\caption{}
+		\label{fig:ml_obs_var_ba_ac}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{ML/Observer_variability/bc_ba.pdf}
+		\caption{}
+		\label{fig:ml_obs_var_ba_bc}
+	\end{subfigure}
+	\caption{Bland-Altman and regression analysis of inter-reader variations in \ac{TKV}}
+	\label{fig:ml_obs_var}
+\end{figure}
+\subsection{Network Testing}
 To verify that the trained network is behaving as expected saliency maps were produced, Figure \ref{fig:ml_salency}, this is especially important given the black box nature of machine learning methods. This map shows the areas the network is using most in its classification \cite{mahapatra_visual_2016}. It verifies that the networks is using the outside areas of the kidney to make its prediction with areas of a similar intensity receiving some attention to distinguish them from the kidney. While this is precisely what is expected of the algorithm, it is important to check this as it is possible for such a method to have learnt a slightly different mechanism for the segmentation, one that is more prone to errors if new data is presented to it.
 
 \begin{figure}[H]
@@ -117,91 +371,157 @@ To verify that the trained network is behaving as expected saliency maps were pr
 	\label{fig:ml_salency}	
 \end{figure}
 
-To assess the accuracy of the network, each of the five volumes per validation subject was segmented by the trained network, in theory the \ac{TKV} predicted for each volume should have been the same. Figure \ref{fig:ml_validation} shows the predicted \ac{TKV} against the manually segmented ``true" \ac{TKV} with each subject plot in a different colour. While there is a spread in the predicted values, there is also a reasonable variation in manual \ac{TKV}. For three out of the seven repeatability subjects, the predicted \ac{TKV} has a smaller standard deviation than the manually segmented data, this indicates that the algorithm may actually be more consistent than the humans. To identify if a systematic error is present, a Bland-Altman plot was generated (Figure \ref{fig:ml_ba_validation}). From this figure it is possible to see that the algorithm is slightly over estimating the \ac{TKV} by 0.69\% (1.6 mm$^3$) but there is no correlation between difference in \ac{TKV} and true \ac{TKV} over all subjects. There is a more subtle trend between each repeat on the same subject though, the volumes with a smaller true \ac{TKV} are consistently over estimated more than those volumes with a larger true \ac{TKV}. This again points to an issue with the manual segmentation rather than the algorithm.
+The trained network was used to predict segmentations of the 2D kidney slices and compute \ac{TKV} for each of the unseen test volumes. The mean Dice score over the 50 test volumes was 0.93 $\pm$ 0.01 (0.94 $\pm$ 0.02 for HC and 0.92 $\pm$ 0.01 for \ac{CKD} patients). The \ac{TKV} predicted by the network was, on average, 1.2 $\pm$ 16.2 m$\ell$ less than the manually segmented \ac{TKV} and thus not significantly different (p = 0.615) (Figure \ref{fig:ml_testing_ba}) This accuracy was comparable for the \ac{HC} and \ac{CKD} cohorts, with automated CNN \ac{TKV} measurements of 4.7 $\pm$ 17.7 m$\ell$ greater than manual and 7.0 $\pm$ 12.4 m$\ell$ less than manual respectively. A summary of the \ac{CNN} accuracy when evaluated using similarity metrics and volume difference from manual measures is shown in Table \ref{tab:ml_testing_metrics}. Note a slightly larger discrepancy for the left compared to the right kidney. Figure \ref{fig:ml_testing_ba} shows plots of the difference in volume between manual segmentation and automated segmentation of the test dataset. 
 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{ML/BA_plots/190802_training_data_shuffle_input_and_slices_max_dice_09013_validation_tkv.eps}
+		\includegraphics[width=1\textwidth]{ML/BA_plots/rescale_whole_image_max_dice_09177_validation_ba_volume.pdf}
 		\caption{}
-		\label{fig:ml_validation}
+		\label{fig:ml_testing_ba_volume}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{ML/BA_plots/190802_training_data_shuffle_input_and_slices_max_dice_09013_validation_ba.eps}
+		\includegraphics[width=1\textwidth]{ML/BA_plots/rescale_whole_image_max_dice_09177_validation_ba_percent.pdf}
 		\caption{}
-		\label{fig:ml_ba_validation}
+		\label{fig:ml_testing_ba_percent}
 	\end{subfigure}
-	\caption{(\subref{fig:ml_validation}) The predicted \ac{TKV} plot against the manually segmented ``true'' \ac{TKV}. Each subject is plot in a different colour. (\subref{fig:ml_ba_validation}) A Bland-Altman plot to identify and systematic error in the networks performance. Each subject is plot in a different colour.}
-	\label{fig:ml_validation_tkv}
+	\caption{The difference between the \ac{TKV} predicted by the \ac{CNN} and the manually segmented true \ac{TKV}. Mean and standard deviation \ac{TKV} difference are shown as dashed and dotted lines respectively. Each subject is shown in a different colour. (\subref{fig:ml_testing_ba_volume}) shows the absolute volume difference (\subref{fig:ml_testing_ba_percent}) shows the percentage volume difference.}
+	\label{fig:ml_testing_ba}
 \end{figure}
 
-While assessing the ability of the algorithm to predict \ac{TKV} is important, it is also necessary to access the raw segmentation as, for example, the algorithm may be over-estimating the size of central slices but under-estimating the size of edge slices. This type of inaccuracy could be masked in the \ac{TKV} however will be visible in the dice scores. These are shown in Figure \ref{fig:ml_validation_dice}.
+\begin{landscape}
+\begin{table}[H]
+	\centering
+	\begin{adjustbox}{width=\hsize, center}
+	\begin{tabularx}{1.3\hsize}{XX||X|X|X|X|X|X|X|X|X}
+		Cohort               & Kidney & Dice   Score  & Jaccard   Index & Sensitivity   & Specificity     & Precision     & Accuracy        & Mean   Surface Distance (mm) & Hausdorff   Distance (mm) (95th Percentile) & Volume   Difference (p)  \\ \hline
+		\multirow{3}{*}{All} & Total  & 0.93 $\pm$   0.01 & 0.87 $\pm$   0.03   & 0.93 $\pm$   0.03 & 0.997   $\pm$ 0.001 & 0.93 $\pm$   0.02 & 0.995   $\pm$ 0.001 & 0.65 $\pm$   0.21                & 4.33 $\pm$   1.64                               & -1.16   $\pm$ 16.23 (0.615)  \\ \cline{2-11} 
+		& Left   & 0.92 $\pm$ 0.02   & 0.86 $\pm$ 0.04     & 0.91 $\pm$ 0.05   & 0.997 $\pm$ 0.001   & 0.94 $\pm$ 0.03   & 0.994 $\pm$ 0.002   & 0.76 $\pm$ 0.31                  & 4.42 $\pm$ 1.52                                 & -3.95 $\pm$ 12.38   (0.029)  \\ \cline{2-11} 
+		& Right  & 0.94 $\pm$   0.02 & 0.89 $\pm$   0.03   & 0.95 $\pm$   0.03 & 0.997   $\pm$ 0.001 & 0.93 $\pm$   0.03 & 0.996   $\pm$ 0.001 & 0.54 $\pm$   0.21                & 3.66 $\pm$   1.76                               & 2.79 $\pm$   6.84 (0.006)    \\ \hline
+		\multirow{3}{*}{HC}  & Total  & 0.94 $\pm$ 0.02   & 0.88 $\pm$ 0.03     & 0.95 $\pm$ 0.05   & 0.997 $\pm$ 0.001   & 0.93 $\pm$ 0.03   & 0.995 $\pm$ 0.001   & 0.68 $\pm$ 0.27                  & 4.50 $\pm$ 1.97                                 & 4.66 $\pm$ 17.72 (0.201)     \\ \cline{2-11} 
+		& Left   & 0.93 $\pm$   0.02 & 0.87 $\pm$   0.04   & 0.94 $\pm$   0.05 & 0.997   $\pm$ 0.001 & 0.93 $\pm$   0.03 & 0.994   $\pm$ 0.002 & 0.79 $\pm$   0.37                & 4.47 $\pm$   1.81                               & 1.91 $\pm$   12.93 (0.467)   \\ \cline{2-11} 
+		& Right  & 0.95 $\pm$ 0.02   & 0.90 $\pm$ 0.03     & 0.96 $\pm$ 0.03   & 0.997 $\pm$ 0.001   & 0.94 $\pm$ 0.02   & 0.996 $\pm$ 0.001   & 0.56 $\pm$ 0.26                  & 3.81 $\pm$ 2.11                                 & 2.75 $\pm$ 7.70   (0.087)    \\ \hline
+		\multirow{3}{*}{CKD} & Total  & 0.92 $\pm$   0.01 & 0.86 $\pm$   0.02   & 0.91 $\pm$   0.02 & 0.998   $\pm$ 0.001 & 0.94 $\pm$   0.02 & 0.995   $\pm$ 0.001 & 0.63 $\pm$   0.14                & 4.16 $\pm$   1.24                               & -6.98   $\pm$12.38 (0.009)   \\ \cline{2-11} 
+		& Left   & 0.92 $\pm$ 0.02   & 0.85 $\pm$ 0.03     & 0.89 $\pm$ 0.04   & 0.998 $\pm$ 0.001   & 0.95 $\pm$ 0.02   & 0.994 $\pm$ 0.002   & 0.73 $\pm$ 0.24                  & 4.37 $\pm$ 1.21                                 & -9.81 $\pm$ 8.62   (0.00001) \\ \cline{2-11} 
+		& Right  & 0.93 $\pm$   0.01 & 0.88 $\pm$   0.02   & 0.94 $\pm$   0.02 & 0.997   $\pm$ 0.001 & 0.92 $\pm$   0.03 & 0.996   $\pm$ 0.001 & 0.51 $\pm$   0.13                & 3.51 $\pm$   1.34                               & 2.83 $\pm$   6.02 (0.027)   
+	\end{tabularx}
+	\end{adjustbox}
+	\caption{The accuracy of the \ac{CNN} compared to manual segmentations using a variety of metrics stratifying the testing data by cohort and left vs right kidney. All values are given as mean $\pm$ standard deviation. }
+	\label{tab:ml_testing_metrics}
+\end{table}
+\end{landscape}
+
+In Figure \ref{fig:ml_testing_corr}, the \ac{TKV} predicted by the CNN is plot against the manual \ac{TKV}, in ninety percent of subjects, the standard deviation of \ac{TKV} measurements between each volume for a subject was smaller when the \ac{TKV} was measured using the \ac{CNN} as oppose to manually. The mean \ac{CoV} and \ac{ICC} were 2.7 $\pm$ 0.9 \% and 0.979 respectively across the 5 repeats of the manually segmented test data (using masks from observers A, B and C), compared to a value of 1.5 $\pm$ 0.5 \% and 0.993 respectively for the automatic segmentations of the 5 repeats of test data. The \ac{CNN} produced a significantly lower \ac{CoV} than the manual segmentations (p = 0.008).
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.47\textwidth]{ML/BA_plots/190802_training_data_shuffle_input_and_slices_max_dice_09013_validation_dice.eps}
-	\caption{The dice scores for all volumes in the validation data. Each subject is plot in a different colour.}
-	\label{fig:ml_validation_dice}
+	\includegraphics[width=0.8\textwidth]{ML/BA_plots/rescale_whole_image_max_dice_09177_validation_tkv.pdf}
+	\caption{The \ac{TKV} predicted by the \ac{CNN} plot against the manually segmented true \ac{TKV} with each subject plot in a different colour. The standard deviation measured using both methods is shown as error bars originating from the mean of each subject. The dotted line represents perfect correlation between the \ac{CNN} and manual segmentation.}
+	\label{fig:ml_testing_corr}	
 \end{figure}
 
-The mean dice score over all forty volumes is 0.91$\pm$0.02. Here we see a slight trend towards more accurate predictions for larger kidneys. The reason for this becomes clear when we look at the \ac{ROI} the algorithm is outputting, Figure \ref{fig:ml_roi}.
+Representative examples of the output from the network for both \ac{HC} and \ac{CKD} data are shown in Figure \ref{fig:ml_masks}. The automated \ac{CNN} accurately segments the kidneys, and for \ac{CKD} patients, often omits cysts from the masks. 
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[c]{0.47\textwidth}
+	\begin{subfigure}[c]{1.0\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{ML/ROI/Kidney_vols2_repro3_T2W_TSE_Cor_BH_60_2_1_sl_01.png}
+		\includegraphics[width=0.9\textwidth]{ML/ROI/HC.eps}
+%\missingfigure{HC Masks}
 		\caption{}
-		\label{fig:ml_roi_outside}
+		\label{fig:ml_masks_hc}
 	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{1.0\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{ML/ROI/Kidney_vols2_repro3_T2W_TSE_Cor_BH_60_2_1_sl_08.png}
+		\includegraphics[width=0.9\textwidth]{ML/ROI/CKD.eps}
+%\missingfigure{CKD Masks}
 		\caption{}
-		\label{fig:ml_roi_inside}
+		\label{fig:ml_masks_ckd}
 	\end{subfigure}
-	\caption{(\subref{fig:ml_roi_outside}) A slice from the posterior of the volume. (\subref{fig:ml_roi_inside}) A slice from the centre of the kidneys.}
-	\label{fig:ml_roi}
+	\caption{Representative raw test data and corresponding masks of a \ac{HC}, (\subref{fig:ml_masks_hc}), and \ac{CKD} subject, (\subref{fig:ml_masks_ckd}). Manually generated masks are shown in blue, automatically generated masks are shown in red and the overlap of the two is shown in magenta.}
+	\label{fig:ml_masks}
 \end{figure}
 
-In Figure \ref{fig:ml_roi_outside} the algorithm is assigning false positives on the right hand side of the image in the area a kidney would be expected further into the body. The amount of false positives decrease as the slices move in an anterior direction as kidney comes into the slice, \ref{fig:ml_roi_inside}. The algorithm works on each slice individually as a two-dimensional image rather than as a three-dimensional volume. This means that, as the majority of slices in the training data have two kidneys in them, the algorithm is more likely to generate false positives if there is no kidney in the slice. For smaller kidneys, there are more slices with no kidney in them and therefore the overall dice score is lower, hence the trend observed in Figure \ref{fig:ml_validation_dice}.
-
-There are multiple methods of reducing this tendency in the algorithm. The false positives tend to be spatially independent through slices, this means that it would be relatively simple to remove them in post-processing by reconstructing the two-dimensional slices back into a three-dimensional volume and removing masked areas with a small volume or areas that are very thin in the anterior-posterior direction. Another method would be to modify the architecture to a \ac{RNN} with \ac{LSTM}. This would also keep the large advantage of working with two-dimensional images, that the algorithm generalises to $n$ slices, but means that the algorithm also has some memory of what is in the surrounding slices \cite{chen_combining_2016, stollenga_parallel_2015}. Finally the algorithm could be re-written as a three-dimensional \ac{FCN}, this would give the greatest degree of accuracy between slices however comes at the expense of simple generalisation with regards to number of slices or the slice thickness and would require much more data collection as amount of training/test data would be reduced by a factor of approximately thirteen.
-
-To establish how the network is performing with the relatively small amount of training data, predictions were made on the training and testing data and the dice score plot, Figure \ref{fig:ml_training_dice}.
+Since this is a 2D \ac{CNN}, it is important to assess the accuracy across the anterior – posterior 2D slices of the kidney. This was achieved by comparing the Dice score of the \ac{CNN} to the inter-reader Dice scores, Figure \ref{fig:ml_dice_slice}. A decrease in accuracy in the outer slices can be seen in both the \ac{CNN} and manual masks.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.5\textwidth]{ML/BA_plots/190802_training_data_shuffle_input_and_slices_max_dice_09013_training_dice.eps}
-	\caption{The dice score of predictions made on the training data.}
-	\label{fig:ml_training_dice}
+	\includegraphics[width=0.7\textwidth]{ML/dice_slice.pdf}
+	\caption{Mean Dice score for 2D slices from anterior to posterior. The shaded area represents one standard deviation from the mean Dice score.}
+	\label{fig:ml_dice_slice}	
 \end{figure}
 
-The algorithm is performing better on most of the training data than it did on the validation data although with 80\% of the volumes segmented more accurately than the validation data. This indicates that a certain degree of over fitting is occurring as the 20\% of volumes that are not segmented as well are most likely the testing data. Earlier in the development of this network it was established that augmentation did not improve the performance of the trained network however this should be explored again in light of this result as some basic augmentation would lead to a smaller disparity between the training data and test data and thus allow for better performance when segmenting the validation data.
+This decrease in accuracy manifests itself on the outer slices of the volume, where the proportion of kidney per slice is smaller and as such the 2D network, with a lack of spatial context in the anterior – posterior direction, finds these outer slices more challenging. This decrease in accuracy can partly be explained by the fact that larger structures (in terms of number of voxels) will in general produce higher scores for comparable errors because the vast majority of errors are on the perimeter of the kidney in each slice, slices with fewer voxels of kidney have a smaller area to perimeter ratio, Figure \ref{fig:ml_morphology}.
 
-An indication that some degree of data augmentation would be beneficial is also seen when investigating if there is any difference in performance of the network between healthy and \ac{CKD} kidneys. The manually segmented mean \ac{TKV} of the healthy subjects is 330$\pm$35 m$\ell$ and for subjects with \ac{CKD} is 268$\pm$32 m$\ell$ therefore it would be expected that the algorithm would perform better on the healthy subjects given their larger kidney volume. This is not the case though, the mean dice score of the validation images for healthy kidneys is 0.89$\pm$0.02 and for kidneys with \ac{CKD} this increases to 0.93$\pm$0.02. As there are more healthy subjects in the training data (26 versus 23) it would be expected that the network would perform better for these subjects however the greater degree of variability in geometry and size of the \ac{CKD} kidneys means they essentially have some degree of augmentation built into them. If this were replicated via data augmentation in the whole training dataset then an increase in accuracy across the board may be observed.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{ML/Morphology/morphology_hex.pdf}
+	\caption{A 2D histogram of the perimeter and area of each slice for both the \ac{HC} and \ac{CKD} cohorts.}
+	\label{fig:ml_morphology}	
+\end{figure}
 
 \newpage
-\section{Conclusions and Future Work}
 
-This method has been shown to produce promising results delivering an mean dice score of 0.91$\pm$0.02 over eight unseen scans with a mixture of healthy and \ac{CKD} subjects resulting in a mean \ac{TKV} difference of 0.69\% when compared to the manually segmented \ac{TKV}. This is especially promising as the algorithm will improve in accuracy as more training data is collected, something which the renal group at \ac{SPMIC} are actively pursuing by adding this scan to almost every subject that goes in the scanner. Efforts have been made to avoid the quintessential machine learning mistakes such as imbalanced training data making the algorithm too specific and un-generalisable and the network only working for healthy subjects. We have also peaked inside the black box of the algorithm to check that it is behaving in a sensible and expected manner.
-
-There is still work to be done on this segmentation method, as explained above, there are signs that data augmentation may improve both the accuracy and generalisability of the algorithm, this should be implemented and evaluated. By implementing data augmentation, the false positives observed on fringe slices may decrease however, if this is not the case then there are multiple solutions to reduce the prevalence of these errors such as basic binary filtering or modifying the networks architecture. There seems to be a reasonable degree of variability in the manually segmented data, to investigate this, the manual masking process should be repeated by a second observer at assess if this variability in the data is due to acquisition or human interpretation.
-
-Another common segmentation task in renal imaging is to generate \ac{ROI} for the renal cortex and medulla. There are some automated methods of achieving this once an overall renal mask has been produced \cite{cox_multiparametric_2017}, however there has been no work on the application of machine learning to this task. During the acquisition of the $T_2$ weighted data in Section \ref{sec:ml_methods_acquisition}, a sequence designed to optimise the contrast between cortex and medulla was also collected on each subject, an example of which is shown in Figure \ref{fig:ml_t1}. Using this data it may be possible to develop the algorithm further so it can segment each tissue type within the kidneys.
+\section{Discussion}
+In this chapter, a 2D \ac{CNN} has been trained to generate automatic segmentations of healthy control and \ac{CKD} patients. Segmentations of the left and right kidneys are computed from which total kidney volume is estimated. The \ac{CNN} was trained on both healthy control and \ac{CKD} kidneys with a range of \ac{TKV} (144.76 – 422.49 m$\ell$) which included the presence of cysts. The automated segmentation by the \ac{CNN} yielded a mean Dice score of 0.93 $\pm$ 0.01 and took an average time of 9 s to measure \ac{TKV} compared to 15 – 30 minutes \cite{zollner_assessment_2012} for manual segmentation. The automated \ac{CNN} can be run as a self-contained \ac{GUI} with the data and programme freely available \cite{daniel_alexdaniel654/renal_segmentor_2020} and thus avoid the need for complicated software setup. Note the software released at present can only be used to process coronal HASTE images and will not be accurate with other geometries/contrasts, for this, training of the network with a different dataset would be required and thus necessitate the use of a \ac{GPU}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.4\textwidth]{ML/T1/T1W.png}
+	\includegraphics[width=0.7\textwidth]{ML/gui.png}
+	\caption{The \acl{GUI} used to segment kidneys.}
+	\label{fig:ml_gui}	
+\end{figure}
+
+\newpage
+\subsection{Evaluation of Methodology}
+
+The network performed with high precision on the test data with a 1.2 $\pm$ 16.2 m$\ell$, statistically insignificant, discrepancy between manual and automated \ac{TKV} measurements. Table \ref{tab:ml_testing_metrics} shows the agreement between the \ac{CNN} and manual masks is higher for the right than left kidney, this is in part due to the proximity and lack of contrast between the left kidney and the spleen making distinguishing this boundary difficult for the \ac{CNN}. This difficulty also leads to inconsistencies in manual masks, borne out by the increased \ac{CoV} and decreased \ac{ICC} and similarity metrics of the left kidney when compared to the right kidney in Table \ref{tab:ml_manual_repeatability} and Table \ref{tab:ml_testing_metrics} assessing the variability in manual masks between observers. From Table \ref{tab:ml_testing_metrics} it can also be seen that the agreement between the \ac{CNN} and manual masks is greater for the healthy control cohort than the \ac{CKD} cohort, this is expected due to the increased variation in kidney morphology and the presence of cysts in the \ac{CKD} cohort. Figure \ref{fig:ml_testing_ba} shows that the difference between the manual \ac{TKV} and \ac{CNN} predicted \ac{TKV} is not dependent on the true \ac{TKV}, therefore the training data is balanced and well augmented as the network is able to accurately perform over the full range of kidney size in the test data. 
+
+Here, five volumes of test data were collected for each subject by repositioning the subject in the scanner within an hour scan session, and therefore any variance in measured \ac{TKV} is purely due to inaccuracies in the kidney \ac{ROI} definition. On assessing the correlation between manual and \ac{CNN} measured \ac{TKV} in Figure \ref{fig:ml_testing_corr}, it can be seen that, in 90 \% of subjects the intra-observer variance in manual \ac{TKV} between the segmentation of the five volumes collected in each subject is larger than using the \ac{CNN} to estimate \ac{TKV}, as reflected by the lower \ac{CoV} and increased \ac{ICC} of the \ac{TKV} measured using the \ac{CNN} (\ac{CoV} 1.5 $\pm$ 0.5 \%, \ac{ICC} 0.993) compared to the manual measures (\ac{CoV} 2.7 $\pm$ 0.9 \%, ICC 0.979). As the network is trained on the kidney segmentations from three observers (A, B and C) , it has been optimised by inheriting the most accurate tendencies of each observer e.g. one observer may have been very accurate when excluding cysts but not as accurate at defining the kidney-spleen boundary. The network will have learnt to exclude cysts from this observer but to delineate between kidney and spleen from another observer. Thus the network can become more precise than each individual observers manual segmentations. This increased precision can be seen in Figure \ref{fig:ml_testing_ba} when compared to Figure \ref{fig:ml_testing_corr} where the variance in difference in \ac{TKV} is driven by the larger variance in manual \ac{TKV}. The smallest \ac{TKV} per subject is consistently overestimated when compared to its manual mask and vice versa the largest manual \ac{TKV} per subject is often an underestimation compared to the manual \ac{TKV}. 
+
+Figure \ref{fig:ml_masks} illustrates the masks produced by the manual segmentation and the \ac{CNN} for both a \ac{HC} and \ac{CKD} patient. For the \ac{HC}, the \ac{CNN} includes more voxels around the edge of its mask than manual segmentation, and the network is more anatomically accurate e.g. where the interface between the kidney and spleen is very narrow, the \ac{CNN} predicts the kidney is adjacent to the spleen whilst the observers manual segmentation leaves a gap. The \ac{CKD} data shown in Figure \ref{fig:ml_masks_ckd} includes a cyst in each of the kidneys. The network was trained on a combination of healthy and \ac{CKD} data, with 19 of the 25 \ac{CKD} training datasets containing at least one cyst. The \ac{CNN} can be seen to segment out the cysts, despite their highly variable morphology and prevalence in the overall training data.
+ 
+The amount of augmentation applied to the training data was empirically derived (random shifts up to 25 \% of the image in both the horizontal and vertical direction, zooms between 0.75 and 1.25 times magnification, rotations within a 20 degree range, and sheers within a 5 degree range) and led to the potential for large transforms being applied to the data and masks if the extremes of each transform were randomly selected. This large degree of augmentation was advantageous as it mirrors the large variation in acquisition planning in abdominal imaging. 
+
+A 2D \ac{CNN} was used to process each 2D slice of a full volume, rather than a 3D volume. This was advantageous for the relatively small training dataset the network was optimised on, as it avoids overfitting and allows the network to easily be used on volumes of variable slice number. However, this can come at the expense of accuracy as 2D \ac{CNN}s do not leverage the information from adjacent slices in the segmentation as is done in 3D \ac{CNN}, but 3D \ac{CNN} come with a computational cost as a result of the increased number of parameters used. 3D networks have successfully been implemented on neural data using patching methods where the image volume is divided up into smaller cubes \cite{wachinger_deepnat_2018} to reduce memory requirements and allow for differing input shapes. While this works well in the brain, there are a number of reasons why this method may not be as successful for body applications. The out-of-plane resolution is significantly less than the in-plane resolution; this results in far fewer slices in one direction than the other two. To avoid overfitting for a certain number of slices e.g. training on a 11 slice image with a 113 patch, and subsequently the network not performing well when the patch is applied to a 16 slice image, the patch would need to be much smaller than the number of slices, thus diminishing the benefits of the 3D methodology. Additionally, the extra memory requirements for a 3D network limit the ease of use of the software for inference on many standard office computers.
+
+\subsection{Future Directions}
+
+Future work will explore alternative network architectures. As the main source of inaccuracy with the current network is its lack of slice-to-slice context, there are multiple architectures that can address this. A relatively simple method would be exploiting the fact that the Keras framework is designed to work with colour images. By combining three slices into a single image where each slice represents either the red, green or blue channel, Figure \ref{fig:ml_rgb_slices}, the network would be able to use contextual information about the adjacent slices to help inform its predictions. This method result in two slices from each volume being becoming impossible to process and as such the \ac{FOV} would have to be increased. Alternatively multiple network architectures such as \ac{RNN} \cite{chen_combining_2016}, and \ac{LSTM} \cite{stollenga_parallel_2015} are designed to have a memory therefore enabling them to retain contextual information from slice to slice. Alternatively, if more training data were available, a 3D \ac{CNN} could be explored to ascertain if the any improved accuracy is worth the increase in hardware requirements and reduced generalisability.
+ 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{ML/rgb_kidney.png}
+	\caption{An example of using colour information to represent adjacent slices for processing by a \ac{CNN}. Vessels in the liver can clearly be seen travelling through the three slices as they change from red to green to blue.}
+	\label{fig:ml_rgb_slices}	
+\end{figure}
+
+This image contrast was chosen as a result of recent publications comparing \tone- and \ttwo-weighted images for \ac{TKV} assessment reporting that \ttwo-weighted images provide better quality to enable \ac{TKV} measurements, leading to improved reproducibility with lower intra- and inter-reader variability \cite{van_gastel_t1_2018}. Other contrasts e.g. a \tone-weighted scan, could also be collected, registered to the \ttwo-weighted images and used as another channel to inform segmentation.
+
+This network was validated on healthy subjects and \ac{CKD} patients, but has not been trained and validated on subjects with \ac{ADPKD}. These subjects have many more cysts in their kidneys, while the \ac{CNN} was able to segment cysts encountered in the \ac{CKD} cohort, it would be beneficial for future work on \ac{ADPKD} to retrain the network with \ac{HC}, \ac{CKD} and \ac{ADPKD} data, where \ac{TKV} is a recognised biomarker of disease progression.
+
+Another common segmentation task in renal imaging is generating an \ac{ROI} for the renal cortex and medulla. There are some automated methods of achieving this once a total kidney mask has been produced \cite{cox_multiparametric_2017, morris_segmentation_2019}, however there has been no work on the application of deep learning to this task. In addition to the acquisition of the \ttwo-weighted dataset used here, a \tone-weighted dataset designed to optimise the contrast between cortex and medulla was also collected on each subject \cite{will_automated_2014}, an example of which is shown in Figure \ref{fig:ml_t1}. Using this data, it may be possible to develop this method further such that an automated mask for each tissue type is produced. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{ML/T1/T1W.png}
 	\caption{An example of the data collected to enable segmentation of the renal cortex and medulla.}
 	\label{fig:ml_t1}
 \end{figure}
 
-Ultimately the goal of this work is to produce an easy to use segmentation tool that can be utilised by clinicians and scientists alike. As such, time should be spent making the software easy to use with a simple front end/\ac{GUI}.
+\newpage
+
+\section{Conclusions}
+
+A \ac{CNN} has been shown to successfully segment the kidneys of both \ac{HC} and \ac{CKD} subjects from \ttwo-weighted data delivering a mean Dice score of 0.93 $\pm$ 0.01 leading to a mean volume of 1.2 $\pm$ 16.2 m$\ell$ less than the manually segmented \ac{TKV} and mean surface distance of 0.65 $\pm$ 0.21 mm. The \ac{CNN} produces higher than human precision, with a \ac{CoV} and \ac{ICC} of 1.5 $\pm$ 0.5 \% and 0.993 respectively. The accuracy of the network could be further increased via the acquisition of more training data, something the renal group at \ac{SPMIC} are actively pursuing. 
+
+The methods developed here can easily be deployed via the self contained, easy to use \ac{GUI}, thus moving renal segmentation from a 15 to 30 minute skilled task, to a 10 second task for anyone, on any hardware. Additional, this executable can be called form a terminal, making it suitable for use in scripting applications and pipelines.
+
+Future development will focus around exploring different network architectures, use of additional contrasts and expanding the tool to produce masks of both the cortex and medulla.
 
 \section{Acknowledgements}
 

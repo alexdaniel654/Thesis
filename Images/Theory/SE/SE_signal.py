@@ -48,10 +48,10 @@ t_rf = np.arange(-50, te *1.5, t_step)
 sinc = np.sin(t_rf[312:688]*0.5)/t_rf[312:688]
 rf = np.zeros(len(t_rf))
 rf[312:688] = sinc
-rf[2312:2688] = sinc*2
+rf[1312:1688] = sinc*2
 ax2.plot(t_rf, rf, 'C1')
 ax2.text(10, 0.5, '$90^\circ$')
-ax2.text(210, 0.5, '$180 ^\circ$')
+ax2.text(110, 0.5, '$180 ^\circ$')
 ax2.set_yticklabels([])
 ax2.set_yticks([-10, 0, 10])
 ax2.set_ylim([-0.3, 1.2])

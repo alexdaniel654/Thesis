@@ -1,0 +1,4 @@
+Freq FWHM = 8.73 +/- 0.33 voxels
+Phase FWHM = 26.16 +/- 0.64 voxels
+Freq FWHM = 4.37 +/- 0.16 mm
+Phase FWHM = 13.08 +/- 0.32 mm
