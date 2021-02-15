@@ -49,6 +49,11 @@
 \usepackage{etoolbox}
 \usepackage{tabularx}
 \usepackage{lscape}
+\usepackage{tocbibind}
+\usepackage{epigraph}
+\renewcommand{\epigraphflush}{center}
+\setlength\epigraphwidth{.7\textwidth}
+\usepackage{lettrine}
 \captionsetup{font={stretch=1.5}}
 \raggedbottom
 
@@ -96,6 +101,7 @@
 	\quotation
 	\fi}
 {\if@twocolumn\else\endquotation\fi}
+
 \makeatother
 \pagenumbering{roman}
 \newdateformat{mydate}{\twodigit{\THEDAY}{ }\shortmonthname[\THEMONTH], \THEYEAR}
@@ -144,10 +150,15 @@ Prof. Susan \textsc{Francis}
 \includegraphics[width=0.5\textwidth]{UoN_Primary_Logo_CMYK.eps}\\[1cm]
 Thesis submitted to the University of Nottingham for the degree of Doctor of Philosophy
 \vfill
-\afterpage{\blankpage}
+%\afterpage{\blankpage}
 \end{titlepage}
 }
 \pagestyle{plain}
+
+\vspace*{200px}
+
+\epigraph{\large{It’s very hard to talk quantum using a language originally designed to tell other monkeys where the ripe fruit is.}}{\normalsize{Terry Pratchett, \textit{Night Watch}}}
+\newpage
 
 %\newgeometry{left=5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 \begin{abstract}
@@ -155,71 +166,47 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 	Science will happen, but this bit can be read by muggles on `tinterweb.
 \end{abstract}
 \setcounter{tocdepth}{2}
+
 \tableofcontents
 \listoftodos
+
 \newpage
 
 \include{Acknowledgements}
-
 \newpage
 
 \include{Abbreviations}
-
 \newpage
-
 
 \pagestyle{body}
 \pagenumbering{arabic}
-\acresetall
 \setcounter{page}{1}
 
+\acresetall
 \include{Introduction}
-
 \newpage
 
-\acresetall % Expand all acronyms again
+\acresetall
 \include{Theory}
-
 \newpage
 
 \acresetall
 \include{T2_Mapping}
-
 \newpage
 
 \acresetall
 \include{TRUST}
-
 \newpage
 
 \acresetall
 \include{ML}
-
 \newpage
 
 \acresetall
-\include{Nephrectomy}
-
+\include{Ex_Vivo}
 \newpage
 
 \acresetall
 \include{Conclusion}
-
-%\appendix
-%\input{Publications}
-
-%\chapter{Quantitative Phantom Designs}
-%\label{app:phantom_designs}
-%\section{Anisotropic Diffusion Phantom}
-%\label{app:fa_phantom}
-%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}, angle=90]{Files/AM_Designs/50um_Hexagonal.pdf}
-%
-%\section{Fibre Crossing Phantom}
-%\label{app:fiber_crossing_phantom}
-%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}, angle=90]{Files/AM_Designs/Fiber_Cross_Variable.pdf}
-%
-%\section{Flow Phantom}
-%\label{app:flow_phantom}
-%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}, angle=90]{Files/AM_Designs/Four_Branch.pdf}
 
 \end{document}

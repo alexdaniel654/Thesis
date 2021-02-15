@@ -13,7 +13,14 @@ In addition to the acquisition of basic structural images, \ac{MRI} can be used 
 \label{sec:intro_clinical}
 %\addcontentsline{toc}{section}{Clinical Motivation}
 
-The kidneys are two bean shaped organs found in the abdomen, just below the rib cage, symmetrical about the spine. They participate in the control of bodily fluids by regulating the balance of electrolytes, excreting waste product of metabolism and excess water from blood into urine \cite{lote_principles_2012}. 
+The kidneys are two bean shaped organs found in the abdomen, just below the rib cage, symmetrical about the spine, Figure \ref{fig:intro_abdo}. They participate in the control of bodily fluids by regulating the balance of electrolytes, excreting waste product of metabolism and excess water from blood into urine \cite{lote_principles_2012}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Intro/Abdo_anatomy-01.eps}
+	\caption{Lower abdominal organs.}
+	\label{fig:intro_abdo}	
+\end{figure}
 
 Kidneys are made up of units called nephrons, Figure \ref{fig:intro_nephron}, each of which contains a renal corpuscle and a tubule. The renal corpuscle itself is made up of a glomerulus and a Bowman capsule. The glomerulus is a cluster of capillaries that allow wastes and fluid to pass out of the blood stream into the Bowman capsule, while larger structures such as blood cells and proteins remain in the blood. The substances that passed through the glomerulus are moved to the tubules, each of which has blood vessels running alongside; these vessels reabsorb many of the important components of the blood such as the majority of the water, minerals and nutrients. The remaining fluids and waste in the tubules are collected in the ureter and removed from the body \cite{hall_guyton_2015}. 
 
@@ -39,6 +46,8 @@ The current methods available to study \ac{CKD} are not ideal for a variety of r
 
 \ac{MRI} is an ideal modality for the study of kidney disease due to its non-ionising, non-invasive and quantitative nature. A current research interest at the \ac{SPMIC} is the use of a multi-parametric quantitative renal \ac{MRI} protocol to assess and predict \ac{CKD} \cite{cox_multiparametric_2017, buchanan_quantitative_2019}. This protocol is used to measure multiple quantitative properties of the kidneys with relative increases/decreases between measurements functioning as biomarkers and therefore indications of \ac{CKD} progression. The implementation of new quantitative renal imaging methods can improve this protocol, thus increasing its clinical application. In addition to the \ac{CKD} paradigm, we wish to apply these methods ex-vivo, both to allow a more direct comparison with current gold standards, such as histopathology, and to aid with assessment of renal allograft viability.
 
+\newpage
+
 \section{Thesis Overview}
 \label{sec:intro_overview}
 %\addcontentsline{toc}{section}{Thesis Overview}
@@ -52,7 +61,7 @@ The current methods available to study \ac{CKD} are not ideal for a variety of r
 
 \textbf{Chapter \ref{chap:ML}} describes the development of a fully automated method to segment the kidneys from \ac{MRI} data. Defining renal masks is an important, yet time consuming, aspect of many studies. The masks can be used to calculate \ac{TKV} or to inform downstream processing. Here a \ac{CNN} is developed to segment the kidneys from \ttwo weighted \ac{HASTE} images. Software is developed to provide an executable that allows anyone to segment the kidneys in a few seconds on regular office hardware.
 
-\textbf{Chapter \ref{chap:Neph}} develops methods for scanning kidneys ex-vivo. The clinical gold standard for diagnosis of renal pathologies is biopsy followed by histological analysis. Comparison between this gold standard and recently developed quantitative \ac{MRI} techniques is vital for clinical translation. Here a pipeline for multi-parametric imaging of the same kidney in-vivo, ex-vivo followed by histology is developed.
+\textbf{Chapter \ref{chap:ex}} develops methods for scanning kidneys ex-vivo. The clinical gold standard for diagnosis of renal pathologies is biopsy followed by histological analysis. Comparison between this gold standard and recently developed quantitative \ac{MRI} techniques is vital for clinical translation. Here a pipeline for multi-parametric imaging of the same kidney in-vivo, ex-vivo followed by histology is developed.
 
 \textbf{Chapter \ref{chap:conclusion}} concludes the thesis, highlighting key results and their current applications. It also provides an overview as to future research directions and how the methods developed could be applied to new paradigms or expanded upon.
 
