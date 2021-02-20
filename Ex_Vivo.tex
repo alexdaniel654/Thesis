@@ -53,12 +53,12 @@ Sequence development work was performed on formalin fixed porcine samples immers
 
 \subsection{Anatomical Scans}
 
-To make use of the layer based analysis techniques outlined in Section \ref{sec:ex_layers} and calculate \ac{TKV} high resolution, whole kidney coverage anatomical scan is required to segment the kidney from surrounding tissue/\ac{PBS}. In-vivo, the \ttwo weighted structural scan from Chapter \ref{chap:ML} is used. The ex-vivo protocol is outlined in Table \todo{Add table}.
+To make use of the layer based analysis techniques outlined in Section \ref{sec:ex_layers} and calculate \ac{TKV} high resolution, whole kidney coverage anatomical scan is required to segment the kidney from surrounding tissue/\ac{PBS}. In-vivo, the \ttwo weighted structural scan from Chapter \ref{chap:ML} is used. The ex-vivo protocol is outlined in Table \todo{Add table}; this scan was also used to plan subsequent ex-vivo scans.
 
 \subsection{\tone Mapping}
 % Acquisition
 \subsubsection{Acquisition}
-\tone mapping protocols were developed at both 3T and 7T. 
+\tone mapping protocols were developed for both 3T and 7T systems using an ultrafast gradient echo inversion recovery scheme. The basics of this sequence and \tone mapping are outlined in Section \ref{subsec:theory_t1}. An example of the acquisitions at each inversion time is shown in Figure \ref{fig:ex_ir_data}. The sequence parameters at both 3T and 7T are shown in Table \todo{Add table}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{Neph/Individual_TI.eps}
@@ -67,11 +67,15 @@ To make use of the layer based analysis techniques outlined in Section \ref{sec:
 \end{figure}
 
 \subsubsection{Post Processing}
-% smodding
+
+The signal sampled at each inversion time is proportional to the modulus of the true longitudinal magnetisation, as such, the true dynamic range of the inversion recovery is not sampled. This factor means there is ambiguity as to the polarity of signals near the null point (zero crossing) and can lead to a decreased accuracy when fitting for \tone as any algorithm is essentially having to fit an extra parameter in the form of the null point. 
+
+If the phase of the signal has been saved, the polarity of the magnitude can be corrected using the methods of Szumowski \textit{et al} \cite{szumowski_signal_2012} thus increasing accuracy by increasing dynamic range and removing ambiguity as the location of the null point for each voxel. Phase data is only accurate if partial Fourier acquisition acceleration techniques (Section \ref{subsec:theory_partial_fourier}) , known as halfscan, are not utilised however, because these acceleration methods result in a decreased \ac{SNR} they would not be used ex-vivo anyway.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{neph/signal_correction.eps}
-	\caption{A simulation of the true and measured magnetisation for a $T_1$ of 800 ms. The crosses represent the inversion times at which the inversion recovery is sampled.}
+	\includegraphics[width=0.5\textwidth]{neph/magnitude_correct.pdf}
+	\caption{The raw signal recorded from a single voxel and the magnitude corrected signal with increased dynamic range.}
 	\label{fig:ex_sig_mag_correction}	
 \end{figure}
 % Post Processing
@@ -296,7 +300,7 @@ To make use of the layer based analysis techniques outlined in Section \ref{sec:
 	\label{fig:ex_fixation_mts}
 \end{figure}
 \section{Layer Based Analysis of Renal Data}
-\label{sec:layers}
+\label{sec:ex_layers}
 % Motivation
 % Methods
 % Results
