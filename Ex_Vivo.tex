@@ -70,7 +70,7 @@ To make use of the layer based analysis techniques outlined in Section \ref{sec:
 
 The signal sampled at each inversion time is proportional to the modulus of the true longitudinal magnetisation, as such, the true dynamic range of the inversion recovery is not sampled. This factor means there is ambiguity as to the polarity of signals near the null point (zero crossing) and can lead to a decreased accuracy when fitting for \tone as any algorithm is essentially having to fit an extra parameter in the form of the null point. 
 
-If the phase of the signal has been saved, the polarity of the magnitude can be corrected using the methods of Szumowski \textit{et al} \cite{szumowski_signal_2012} thus increasing accuracy by increasing dynamic range and removing ambiguity as the location of the null point for each voxel. Phase data is only accurate if partial Fourier acquisition acceleration techniques (Section \ref{subsec:theory_partial_fourier}) , known as halfscan, are not utilised however, because these acceleration methods result in a decreased \ac{SNR} they would not be used ex-vivo anyway.
+If the phase of the signal has been saved, the polarity of the magnitude can be corrected using the methods of Szumowski \textit{et al} \cite{szumowski_signal_2012} thus increasing accuracy by increasing dynamic range and removing ambiguity as the location of the null point for each voxel. Phase data is only accurate if partial Fourier acquisition acceleration techniques (Section \ref{subsec:theory_partial_fourier}), known as halfscan, are not utilised however, because these acceleration methods result in a decreased \ac{SNR} they would not be used ex-vivo anyway.
 
 \begin{figure}[H]
 	\centering
@@ -78,8 +78,16 @@ If the phase of the signal has been saved, the polarity of the magnitude can be 
 	\caption{The raw signal recorded from a single voxel and the magnitude corrected signal with increased dynamic range.}
 	\label{fig:ex_sig_mag_correction}	
 \end{figure}
-% Post Processing
 
+Once the data has been polarity corrected, a voxel by voxel, least squares trust region reflective method is used to fit the data from each voxel to Equation \eqref{eq:ex_t1} to estimate the \tone and $M_0$ of the tissue and an uncertainty in the fit \cite{branch_subspace_1999}.
+
+\begin{equation}
+	S = S_0\left(1-2 e^{-\sfrac{TI}{\tone}}\right)
+	\label{eq:ex_t1}
+\end{equation}
+
+Using these techniques, the \tone of ex-vivo samples could be calculated at both 3T and 7T.
+ 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[c]{0.47\textwidth}
@@ -95,13 +103,31 @@ If the phase of the signal has been saved, the polarity of the magnitude can be 
 		\caption{}
 		\label{fig:ex_t1_map_7t}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_t1_map_3t}) \tone map of a kidney twenty four hours after fixation at 3 T. (\subref{fig:ex_t1_map_7t}) \tone map twenty four hours after fixation at 7 T  }
+	\caption{Example \tone maps generated at both 3T (\subref{fig:ex_t1_map_3t}) and 7T (\subref{fig:ex_t1_map_7t}).}
 	\label{fig:ex_t1_maps}
 \end{figure}
 
 \subsection{\ttwo Mapping}
-% Acquisition
+\subsubsection{Acquisition}
+
+\ttwo mapping makes use of the \ac{GraSE} sequence developed in Chapter \ref{chap:t2_mapping}. This sequence was only implemented at 3T, an example of the acquisitions at each ac{TE} is shown in Figure \ref{fig:ex_t2_raw_data} and the sequence parameters are shown in Table \todo{Add table}. The very wide range of \ac{TE} sampled ex-vivo will enable multi-exponential analysis of the data allowing for a more accurate quantification of the long \ttwo components of the tissue \cite{bjarnason_analyzennls_2010, sabouri_mr_2017}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Neph/T2_Individual_TE.eps}
+	\caption{Acquisitions of an ex-vivo sample at each of the \ac{TE}.}
+	\label{fig:ex_t2_raw_data}	
+\end{figure}
+
+\subsubsection{Post Processing}
 % Post processing
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Neph/ex_vivo_t2_map.pdf}
+	\caption{An example ex-vivo \ttwo map acquired using the scheme above.}
+	\label{fig:ex_t2_map}
+\end{figure}
 
 \subsection{\ttwostar Mapping}
 % Acquisition
@@ -158,6 +184,9 @@ If the phase of the signal has been saved, the polarity of the magnitude can be 
 	\caption{An example \ac{FA} map generated using the protocol above.}
 	\label{fig:ex_dti_fa}
 \end{figure}
+
+\subsection{Further Work}
+% Ex-Vivo DTI
 
 \section{Optimising Tissue Fixation}
 \label{sec:ex_tissue_fixation}
