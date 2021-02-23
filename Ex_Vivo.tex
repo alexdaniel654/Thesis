@@ -21,7 +21,7 @@ These drawbacks have provided the incentive for the development of multiparametr
 
 One of the first works correlating multiparametric \ac{MRI} with renal histology was by Inoue \textit{et al}, who found a statistically significant correlation between fibrosis area, as determined from a renal biopsy stained with Masson's trichrome, and \ac{ADC} and \ttwostar in 37 \ac{CKD} patients \cite{inoue_noninvasive_2011}. This was confirmed by Zhao \textit{et al}, who found a strong correlation between \ac{ADC} of both the renal cortex and medulla and histopathological fibrosis score on 25 more \ac{CKD} patients \cite{zhao_assessment_2014}. This study used a more comprehensive histopathology protocol. Feng \textit{et al} also found a correlation between both glomerulosclerosis and fibrosis and \ac{FA} and \ac{ADC} in \ac{CKD} subjects \cite{feng_dti_2015}. Friedli \textit{et al} found a significant correlation between cortical-medullary differences in \tone and \ac{ADC} and fibrosis, this was first found in rats, including histology of whole organs rather than just biopsy samples \cite{friedli_new_2016}. The same group then validated this finding in 164 human subjects, correlating with biopsy rather than whole organ \cite{berchtold_validation_2020}.
 
-Outside the renal community, work has been done with registered whole-mount histology and both in-vivo and ex-vivo \ac{MRI}. Jafari \textit{et al} have performed volume matched ex-vivo \ac{QSM} and \ttwostar mapping with whole explant histopathology using the histopathology results to validate predictions of fibrosis using \ac{MRI} \cite{jafari_integrated_2021}. The University of British Columbia group have carried out extensive work correlating histopathology of whole prostatectomy samples with in-vivo \ac{MRI} \cite{sabouri_mr_2017, dhatt_mri_2020}. The same group have also made use of ex-vivo scanning techniques to correlate histopathology with 3 T in-vivo data and 7 T narrow-bore ex-vivo data \cite{uribe_vivo_2015}. The use of matched histology and \ac{MRI} data is well established in the neuroimaging field with studies correlating histopathology with diffusion measures \cite{peters_white_2019, moll_multiple_2011, howard_joint_2019, mollink_white_2019}, magnetisation transfer \cite{mottershead_high_2003, seewann_diffusely_2009}, \ac{QSM} \cite{hametner_influence_2018, stuber_myelin_2014} and relaxometry measures \cite{bagnato_untangling_2018, reeves_combined_2016}.
+Outside the renal community, work has been done with registered whole-mount histology and both in-vivo and ex-vivo \ac{MRI}. Jafari \textit{et al} have performed volume matched ex-vivo \ac{QSM} and \ttwostar mapping with whole explant histopathology using the histopathology results to validate predictions of fibrosis using \ac{MRI} \cite{jafari_integrated_2021}. The University of British Columbia group have carried out extensive work correlating histopathology of whole prostatectomy samples with in-vivo \ac{MRI} \cite{sabouri_mr_2017, dhatt_mri_2020}. The same group have also made use of ex-vivo scanning techniques to correlate histopathology with 3 T in-vivo data and 7 T narrow-bore ex-vivo data \cite{uribe_vivo_2015}. The use of matched histology and \ac{MRI} data is well established in the neuroimaging field \cite{lazari_can_2021} with studies correlating histopathology with diffusion measures \cite{peters_white_2019, moll_multiple_2011, howard_joint_2019, mollink_white_2019}, magnetisation transfer \cite{mottershead_high_2003, seewann_diffusely_2009}, \ac{QSM} \cite{hametner_influence_2018, stuber_myelin_2014} and relaxometry measures \cite{bagnato_untangling_2018, reeves_combined_2016}.
 
 Thus far, no work has been found comparing whole organ renal histology to in-vivo and ex-vivo \ac{MRI} measurements. The ideal paradigm for this work is to scan patients who are undergoing a nephrectomy as part of their standard clinical care. Briefly, this method would involve scanning a subject pre-operation to acquire a multi-parametric quantitative \ac{MRI} dataset. The subject will then have part of their kidney removed, cancerous tissue will be sent for standard lab tests however, non-cancerous tissue will be immersion fixed in formalin. Equivalent scans assessing the same quantitative parameters as were collected in-vivo will be repeated ex-vivo, however these scans will be at a much higher resolution. Finally, the tissue will be sliced for multi-stain histopathology. This pipeline enables the comparison of tried and tested histological staining that clinicians are used to, albeit with larger sample sizes, with in-vivo quantitative \ac{MRI} data; ex-vivo data acts as an intermediary between histology and in-vivo \ac{MRI} data.
 
@@ -39,8 +39,7 @@ Given the purpose of this paradigm is to compare pre-existing histological analy
 
 \section{MRI Protocol Development}
 
-
-As one of the aims in this chapter is for the protocol developed to be able to be performed in a hospital environment, the decision to develop the protocol for use on human scanners rather than pre-clinical scanners was made as. While some hospitals are attached to research institutions with access to pre-clinical scanners, this is not the norm. Imaging was performed on a 3T Philips Ingenia system as 3T scanners are available in most hospitals however some protocols were also developed for a 7T Philips Achieva system to assess the best case scenario ex-vivo images that could be acquired on human scanners. All samples were scanned in 32 channel head coils, Figure \ref{fig:ex_head_coil}, as these coils allowed for a whole organ to be imaged while also keeping array elements as close to the signal as possible.
+As one of the aims in this chapter is for the protocol developed to be able to be performed in a hospital environment, the decision to develop the protocol for use on human scanners rather than pre-clinical scanners was made as. While some hospitals are attached to research institutions with access to pre-clinical scanners, this is not the norm. Imaging was performed on a 3T Philips Ingenia system as 3T scanners are available in most hospitals however some protocols were also developed for a 7T Philips Achieva system to assess the best case scenario ex-vivo images that could be acquired on human scanners, all in-vivo imaging was performed at 3T. All ex-vivo samples were scanned in 32 channel head coils, Figure \ref{fig:ex_head_coil}, as these coils allowed for a whole organ to be imaged while also keeping array elements as close to the signal as possible. In-vivo imaging utilised a 16-channel anterior coil array and 16-channel posterior coil array.
 
 \begin{figure}[H]
 	\centering
@@ -82,7 +81,7 @@ If the phase of the signal has been saved, the polarity of the magnitude can be 
 Once the data has been polarity corrected, a voxel by voxel, least squares trust region reflective method is used to fit the data from each voxel to Equation \eqref{eq:ex_t1} to estimate the \tone and $M_0$ of the tissue and an uncertainty in the fit \cite{branch_subspace_1999}.
 
 \begin{equation}
-	S = S_0\left(1-2 e^{-\sfrac{TI}{\tone}}\right)
+	S(TI) = M_0\left(1-2 \cdot e^{-\sfrac{TI}{\tone}}\right)
 	\label{eq:ex_t1}
 \end{equation}
 
@@ -121,23 +120,33 @@ Using these techniques, the \tone of ex-vivo samples could be calculated at both
 
 \subsubsection{Post Processing}
 % Post processing
+\ttwo maps are generated on a voxel by voxel basis using a least squares trust region reflective methods to fit the data to Equation \eqref{eq:ex_t2} to estimate \ttwo and $M_0$. 
+\begin{equation}
+	S(TE) = M_0 \cdot e^{-\sfrac{TE}{\ttwo}}
+	\label{eq:ex_t2}
+\end{equation}
+As outlined in Section \ref{subsec:t2_fitting_methods_results} multiple methods of estimating \ttwo were compared with the basic two parameter fit delivering the most desirable results. Using this pipeline, \ttwo maps could be generated an example of which is shown in Figure \ref{fig:ex_t2_map}. While partial voluming has been minimised by keeping voxel sizes small, the use of multi-exponential fitting models should be explored in future. This would allow the long \ttwo components of the signal, such as the signal from \ac{PBS} to be modelled separately to the renal tissue, thus increasing accuracy.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{Neph/ex_vivo_t2_map.pdf}
-	\caption{An example ex-vivo \ttwo map acquired using the scheme above.}
+	\caption{An example ex-vivo \ttwo map acquired using the scheme above. This sample had been formalin fixed and stored in \ac{PBS} for multiple months, hence the lack of contrast between cortical and medullary tissue.}
 	\label{fig:ex_t2_map}
 \end{figure}
 
 \subsection{\ttwostar Mapping}
-% Acquisition
+\subsubsection{Acquisition}
+
+\ttwostar acquisition is performed using a simple multi-slice gradient echo sequence as outlined in Section \ref{subsubsec:theory_ge} and was developed at both 3T and 7T. The acquisition parameters are shown in Table \todo{Add table}. In addition to the magnitude data saved for \ttwostar mapping, the phase data is also saved to allow a \ac{QSM} pipeline to be developed in future.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Neph/Individual_TE.eps}
 	\caption{Acquisitions at each of the \ac{TE} at 7T.}
 	\label{fig:ex_t2star_raw_data}	
 \end{figure}
-% Post processing
+
+\subsubsection{Post Processing}
 % Fitting methods
 
 \begin{figure}[H]

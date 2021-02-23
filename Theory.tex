@@ -227,6 +227,7 @@ To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogenei
 By repeating this sequence over a range of \ac{TE} the \ttwo curve can be samples and fit to \eqref{eq:theory_bloch_transverse_mxy} to estimate \ttwo and $M_{xy0}$. The \ac{SE} sequence is the most basic form of \ttwo mapping, more methods are explored and compared in Chapter \ref{chap:t2_mapping}.
 
 \subsubsection{Gradient Echoes}
+\label{subsubsec:theory_ge}
 Echoes can be generated via another mechanism, the \ac{GE}. In addition to the homogenous $B_0$ field and \ac{RF} fields encountered thus far, \ac{MRI} scanners can produce additional fields known as gradients. These switchable fields can induce linearly varying spatially dependent magnetic fields to perturb $B_0$. They are used for image formation, explained in Section \ref{sec:theory_forming_an_image} but can also be used to form an echo. The \ac{GE} pulse sequence uses a single 90\degree{ }\ac{RF} excitation pulse to tip the net magnetisation vector into the transverse plane. A gradient is then applied to the sample causing areas of higher field to de-phase quickly whereas areas with a relatively lower field will de-phase slower. At time \ac{TE}/2 the polarity of the gradient is reversed thus causing the spins to refocus and an echo to be formed at time \ac{TE}. An overview of the sequence is shown in Figure \ref{fig:theory_ge_signal}. 
 
 \begin{figure}[H]
