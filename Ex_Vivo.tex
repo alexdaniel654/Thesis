@@ -109,7 +109,7 @@ Using these techniques, the \tone of ex-vivo samples could be calculated at both
 \subsection{\ttwo Mapping}
 \subsubsection{Acquisition}
 
-\ttwo mapping makes use of the \ac{GraSE} sequence developed in Chapter \ref{chap:t2_mapping}. This sequence was only implemented at 3T, an example of the acquisitions at each ac{TE} is shown in Figure \ref{fig:ex_t2_raw_data} and the sequence parameters are shown in Table \todo{Add table}. The very wide range of \ac{TE} sampled ex-vivo will enable multi-exponential analysis of the data allowing for a more accurate quantification of the long \ttwo components of the tissue \cite{bjarnason_analyzennls_2010, sabouri_mr_2017}.
+\ttwo mapping makes use of the \ac{GraSE} sequence developed in Chapter \ref{chap:t2_mapping}. This sequence was only implemented at 3T, an example of the acquisitions at each \ac{TE} is shown in Figure \ref{fig:ex_t2_raw_data} and the sequence parameters are shown in Table \todo{Add table}. The very wide range of \ac{TE} sampled ex-vivo will enable multi-exponential analysis of the data allowing for a more accurate quantification of the long \ttwo components of the tissue \cite{bjarnason_analyzennls_2010, sabouri_mr_2017}.
 
 \begin{figure}[H]
 	\centering
@@ -147,7 +147,40 @@ As outlined in Section \ref{subsec:t2_fitting_methods_results} multiple methods 
 \end{figure}
 
 \subsubsection{Post Processing}
-% Fitting methods
+Estimation of \ttwostar can be performed via two different methods, fitting to a two parameter exponential (Equation \eqref{eq:ex_t2star}) or performing a weighted linear fit to the natural logarithm of the signal. The latter of these methods is far less computationally intensive and as such, runs much quicker.
+
+\begin{equation}
+	S(TE) = M_0 \cdot e^{-\sfrac{TE}{\ttwostar}}
+	\label{eq:ex_t2star}
+\end{equation}
+
+The acquisition parameters of the 3T ex-vivo protocol were simulated to compare the two fitting methods using Monte Carlo techniques. The linear fit produces a slightly greater \ac{CoV} than the exponential fit at lower \ttwostar, Figure \ref{fig:ex_t2star_sim_cov}. Additionally, the relative error, defined by Equation \eqref{eq:ex_re}, has a greater magnitude below 20 ms when fitting with the linear fit than the exponential fit, Figure \ref{fig:ex_t2star_sim_mre}. The \ttwostar we expect from the kidneys at 3T is greater than 20 ms so in the interests of computational efficiency, the linear fitting method was used.
+
+\begin{equation}
+	\textup{Relative Error} = \frac{t_{2\; \textup{fit}}^{*} - t_{2\; \textup{simulated}}^{*}}{t_{2\; \textup{simulated}}^{*}}
+	\label{eq:ex_re}
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/t2star_sim_cov.pdf}
+		\caption{}
+		\label{fig:ex_t2star_sim_cov}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/t2star_sim_mre.pdf}
+		\caption{}
+		\label{fig:ex_t2star_sim_mre}
+	\end{subfigure}
+	\caption{Simulations to ascertain the accuracy of each \ttwostar fitting algorithm over a range of \ttwostar.}
+	\label{fig:ex_t2star_sim}
+\end{figure}
+
+Using the acquisition and post processing steps above, \ttwostar maps can be generated, examples of which are shown in Figure \ref{fig:ex_t2star_maps}.
 
 \begin{figure}[H]
 	\centering
@@ -164,16 +197,28 @@ As outlined in Section \ref{subsec:t2_fitting_methods_results} multiple methods 
 		\caption{}
 		\label{fig:ex_t2star_map_7t}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_t2star_map_3t}) \ttwostar map twenty four hours after fixation at 3 T. (\subref{fig:ex_t2star_map_7t}) \ttwostar map twenty four hours after fixation at 7 T.}
+	\caption{An example \ttwostar map acquired at 3T (\subref{fig:ex_t2star_map_3t}) and 7T (\subref{fig:ex_t2star_map_7t}) fit using the weighted fit to the natural logarithm of the signal.}
 	\label{fig:ex_t2star_maps}
 \end{figure}
 
 \subsection{\acl*{ADC} Mapping}
-% Acquisition
-% Distortion correction
-% Post processing
+\subsubsection{Acquisition}
+The underlying principles of diffusion imaging are outlined in Section \ref{subsec:theory_diffusion}, here \ac{DWI} is performed using a \ac{SE}-\ac{EPI} sequence over a range of b-values applied in three orthogonal directions. By acquiring diffusion gradients in three different directions and calculating the mean, the effects of diffusion anisotropy can be minimised. The sequence was developed for 3T systems. 
+
+The interplay between diffusion weighting gradients and measured signal can be mathematically modelled by Equation \eqref{eq:ex_adc},
+\begin{equation}
+	S\left( b \right) = S_0 \cdot e^{-b \cdot ADC},
+	\label{eq:ex_adc}
+\end{equation}
+where b is the b-value, a quantity which dictates the degree of diffusion weighting and is given in units of sec/mm$^2$ and \ac{ADC} is the \acl{ADC} of the tissue and reflects the degree with which spins can diffuse through a tissue, given in mm$^2$/sec. The b-value can be increased by increasing the gradient strength (this is often limited by scanner hardware), the gradient pulse duration or the spacing between gradient pulses.
+% Distortion correction \cite{andersson_how_2003}
+
 
 \subsubsection{Optimising b-values}
+
+\subsubsection{Post Processing}
+
+The average of the three directions at each b-value is calculated.
 
 
 \subsection{\acl*{DTI}}
