@@ -203,14 +203,16 @@ Using the acquisition and post processing steps above, \ttwostar maps can be gen
 
 \subsection{\acl*{ADC} Mapping}
 \subsubsection{Acquisition}
-The underlying principles of diffusion imaging are outlined in Section \ref{subsec:theory_diffusion}, here \ac{DWI} is performed using a \ac{SE}-\ac{EPI} sequence over a range of b-values applied in three orthogonal directions. By acquiring diffusion gradients in three different directions and calculating the mean, the effects of diffusion anisotropy can be minimised. The sequence was developed for 3T systems. 
+The underlying principles of diffusion imaging are outlined in Section \ref{subsec:theory_diffusion}, here \ac{DWI} is performed using a \ac{SE}-\ac{EPI} sequence over a range of b-values applied in three orthogonal directions. By acquiring diffusion gradients in three different directions and calculating the mean, the effects of diffusion anisotropy can be minimised. The sequence was developed for 3T systems with a schematic of the sequence shown in Figure \ref{fig:ex_adc_psd}. 
 
-The interplay between diffusion weighting gradients and measured signal can be mathematically modelled by Equation \eqref{eq:ex_adc},
-\begin{equation}
-	S\left( b \right) = S_0 \cdot e^{-b \cdot ADC},
-	\label{eq:ex_adc}
-\end{equation}
-where b is the b-value, a quantity which dictates the degree of diffusion weighting and is given in units of sec/mm$^2$ and \ac{ADC} is the \acl{ADC} of the tissue and reflects the degree with which spins can diffuse through a tissue, given in mm$^2$/sec. The b-value can be increased by increasing the gradient strength (this is often limited by scanner hardware), the gradient pulse duration or the spacing between gradient pulses.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/Diffusion/diffusion_psd_epi.pdf}
+	\caption{A schematic of the \ac{SE}-\ac{EPI} sequence used for \ac{ADC} mapping.}
+	\label{fig:ex_adc_psd}	
+\end{figure}
+
+
 % Distortion correction \cite{andersson_how_2003}
 
 

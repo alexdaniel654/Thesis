@@ -297,7 +297,23 @@ The mathematical framework of this phenomenon is given by the Solomon-Bloemberge
 
 \subsection{Diffusion Imaging}
 \label{subsec:theory_diffusion}
-Spins have been considered stationary until how, however, in biological tissues, they are often undergoing Brownian motion leading to diffusion. The signal from a sample can be made sensitive to the degree of diffusion taking place using diffusion gradients applied between excitation and echo. If a spin undergoes a translation while the gradient is being applied, it will be in a different magnetic field and thus at a different Larmor frequency while rephasing, resulting in additional signal attenuation. The degree of signal attenuation is proportional to the rate at which diffusion is occurring i.e. how far the spin has moved while the diffusion gradient was being applied. These diffusion gradients can either be bipolar, as seen in Figure \ref{fig:theory_ge_signal} or monopolar if a \ac{SE} sequence is used.
+Spins have been considered stationary until how, however, in biological tissues, they are often undergoing Brownian motion leading to diffusion. The signal from a sample can be made sensitive to the degree of diffusion taking place using diffusion gradients applied between excitation and echo. 
+
+Figure \ref{fig:theory_diffusion_psd} shows the phase evolution of two spins, one stationary and the other diffusing along the direction the diffusion gradients are applied. The stationary spin accrues a positive phase shift relative to $\omega_0$ while the first diffusion gradient pulse is applied. The 180$\degree$ \ac{RF} pulse flips the spin system so the positive phase shift becomes a negative phase shift of equal magnitude. The spin then evolves under the same field strength in the second diffusion gradient pulse and as such, the diffusion pulses resulted in no net phase shift. The strength of the magnetic field experience by the diffusion spin is dependent on time, in this example, increasing in strength as time passes. This mean that the rate at which phase shifts are accrued increases over time and therefore the refocussing effects of the second diffusion pulse are reduced. This results in a signal attenuation proportional to the rate at which diffusion is occurring, the strength of the diffusion gradients, the time the diffusion gradients are applied for and the time between the two diffusion pulses. The diffusion gradients can either be bipolar, as seen in Figure \ref{fig:theory_ge_signal} or monopolar if a \ac{SE} sequence is used, Figure \ref{fig:theory_diffusion_psd}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/Diffusion/diffusion_psd.pdf}
+	\caption{Phase evolution of two spins under the influence of monopolar diffusion encoding gradients.}
+	\label{fig:theory_diffusion_psd}	
+\end{figure}
+
+The interplay between diffusion gradients and measured signal can be mathematically modelled by Equation \eqref{eq:theory_adc},
+\begin{equation}
+	S\left( b \right) = S_0 \cdot e^{-b \cdot ADC},
+	\label{eq:theory_adc}
+\end{equation}
+where b is the b-value, a quantity which dictates the degree of diffusion weighting and is given in units of sec/mm$^2$ and \ac{ADC} is the \acl{ADC} of the tissue and reflects the degree with which spins can diffuse through a tissue, given in mm$^2$/sec. The b-value can be increased by increasing the gradient strength (this is often limited by scanner hardware), the gradient pulse duration or the spacing between gradient pulses. By repeating the acquisition with different b-values, the signal from each voxel at each b-value can be used to estimate \ac{ADC} (and $S_0$) by fitting the data to Equation \eqref{eq:theory_adc}.
 
 Not all diffusion is isotropic (occurs to the the same degree in all directions), often the motion of the spins is restricted e.g. within tissue fibres. The amount of restriction is known as the \ac{FA} where 0 represents isotropic diffusion e.g. a large vial of water, and 1 represents diffusion being constrained to a single dimension. By applying the diffusion gradients in different directions (and strengths) the preferred direction of diffusion and fractional anisotropy can be calculated. These techniques are used in Chapter \ref{chap:ex}.
 
@@ -531,7 +547,7 @@ A much faster technique than spin warp imaging is \ac{EPI} \cite{mansfield_nmr_1
 	\centering
 		\includegraphics[width=1\textwidth]{Theory/EPI/epi.pdf}
 %	\missingfigure{EPI PSD and k-space}
-	\caption{A schematic of the \ac{EPI} pulse sequence and $k$-space trajectory. Not this diagram is not to scale.}
+	\caption{A schematic of the \ac{EPI} pulse sequence and $k$-space trajectory. This diagram is not to scale.}
 	\label{fig:theory_epi}	
 \end{figure}
 
