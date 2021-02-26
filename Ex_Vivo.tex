@@ -203,18 +203,37 @@ Using the acquisition and post processing steps above, \ttwostar maps can be gen
 
 \subsection{\acl*{ADC} Mapping}
 \subsubsection{Acquisition}
-The underlying principles of diffusion imaging are outlined in Section \ref{subsec:theory_diffusion}, here \ac{DWI} is performed using a \ac{SE}-\ac{EPI} sequence over a range of b-values applied in three orthogonal directions. By acquiring diffusion gradients in three different directions and calculating the mean, the effects of diffusion anisotropy can be minimised. The sequence was developed for 3T systems with a schematic of the sequence shown in Figure \ref{fig:ex_adc_psd}. 
+The underlying principles of diffusion imaging are outlined in Section \ref{subsec:theory_diffusion}, here \ac{DWI} is performed using a single shot \ac{SE}-\ac{EPI} sequence over a range of b-values applied in three orthogonal directions. By acquiring diffusion gradients in three different directions and calculating the mean, the effects of diffusion anisotropy can be minimised. The sequence was developed for 3T systems with a schematic of the sequence shown in Figure \ref{fig:ex_adc_psd} and the sequence parameters summarised in Table \todo{Add table}. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/Diffusion/diffusion_psd_epi.pdf}
-	\caption{A schematic of the \ac{SE}-\ac{EPI} sequence used for \ac{ADC} mapping.}
+	\caption{A schematic of the \ac{SE}-\ac{EPI} sequence used for \ac{ADC} mapping. This block is repeated multiple times with diffusion gradients applied in different directions and with different strengths.}
 	\label{fig:ex_adc_psd}	
 \end{figure}
 
+The diffusion sensitising block of the pulse sequence is time consuming and as such necessitates the use of fast image techniques, \ac{EPI} is the simplest to implement however is not without drawbacks. It suffers from geometric distortions, particularly in the phase encode direction, due to inhomogeneities in the $B_0$ field cause by susceptibility differences. These geometric distortions can be problematic for this paradigm as the ability to correlate, on a voxel by voxel basis, parameters acquired with different sequences is at the core of multiparametric \ac{MRI}. Geometric distortions make this impossible. The susceptibility of \ac{PBS} and renal tissue is similar however there is a very large difference between the \ac{PBS} and surrounding air and as such, distortions can be problematic. 
 
-% Distortion correction \cite{andersson_how_2003}
+As the distortions are predominantly in the phase encode direction, by inverting the direction of the phase encode blips, the direction of the distortion can be reversed, Figure \ref{fig:ex_epi_distortion_overlay}. By acquiring images with both phase encode directions the underlying field map can be estimated and used to undistort the data \cite{andersson_how_2003}. This process can be carried out using \ac{FSL} ``topup'' however, as this tool was designed for work in the brain, a custom configuration to perform more iterations of the field estimation algorithm with a greater degree of regularisation is required.
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/epi_distortion_overlay.png}
+		\caption{}
+		\label{fig:ex_epi_distortion_overlay}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/epi_distortion_corrected.png}
+		\caption{}
+		\label{fig:ex_epi_distortion_corrected}
+	\end{subfigure}
+	\caption{(\subref{fig:ex_epi_distortion_overlay}) b-0 images collected with opposing phase encode directions overlay in red and blue. (\subref{fig:ex_epi_distortion_corrected}) A composite image with \ac{EPI} distortions corrected using topup.}
+	\label{fig:ex_epi_distortion}
+\end{figure}
 
 \subsubsection{Optimising b-values}
 
