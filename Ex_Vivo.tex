@@ -237,6 +237,9 @@ As the distortions are predominantly in the phase encode direction, by inverting
 
 \subsubsection{Optimising b-values}
 
+As with many quantitative \ac{MRI} techniques, there is a balance with \ac{ADC} mapping between acquisition time and quantitative accuracy. By sampling more b-values, the estimation of \ac{ADC} becomes more accurate however this inherently takes longer. To ascertain the optimum number of b-values to collect and their locations a methodical search was conducted.
+
+\ac{ADC} data was collected from two different subjects using 16 b-values, more than would normally be collected, with \ac{ADC} maps being generated using all 16 values. \ac{ADC} maps were then fit for every combination and number of b-values using more than six of the available values. The resulting \ac{ADC} maps were then compared to the map generated using the full dataset.
 \subsubsection{Post Processing}
 
 The average of the three directions at each b-value is calculated.
