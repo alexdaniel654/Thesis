@@ -202,6 +202,7 @@ Using the acquisition and post processing steps above, \ttwostar maps can be gen
 \end{figure}
 
 \subsection{\acl*{ADC} Mapping}
+\label{subsec:ex_adc}
 \subsubsection{Acquisition}
 The underlying principles of diffusion imaging are outlined in Section \ref{subsec:theory_diffusion}, here \ac{DWI} is performed using a single shot \ac{SE}-\ac{EPI} sequence over a range of b-values applied in three orthogonal directions. By acquiring diffusion gradients in three different directions and calculating the mean, the effects of diffusion anisotropy can be minimised. The sequence was developed for 3T systems with a schematic of the sequence shown in Figure \ref{fig:ex_adc_psd} and the sequence parameters summarised in Table \todo{Add table}. 
 
@@ -214,7 +215,9 @@ The underlying principles of diffusion imaging are outlined in Section \ref{subs
 
 The diffusion sensitising block of the pulse sequence is time consuming and as such necessitates the use of fast image techniques, \ac{EPI} is the simplest to implement however is not without drawbacks. It suffers from geometric distortions, particularly in the phase encode direction, due to inhomogeneities in the $B_0$ field cause by susceptibility differences. These geometric distortions can be problematic for this paradigm as the ability to correlate, on a voxel by voxel basis, parameters acquired with different sequences is at the core of multiparametric \ac{MRI}. Geometric distortions make this impossible. The susceptibility of \ac{PBS} and renal tissue is similar however there is a very large difference between the \ac{PBS} and surrounding air and as such, distortions can be problematic. 
 
-As the distortions are predominantly in the phase encode direction, by inverting the direction of the phase encode blips, the direction of the distortion can be reversed, Figure \ref{fig:ex_epi_distortion_overlay}. By acquiring images with both phase encode directions the underlying field map can be estimated and used to undistort the data \cite{andersson_how_2003}. This process can be carried out using \ac{FSL} ``topup'' however, as this tool was designed for work in the brain, a custom configuration to perform more iterations of the field estimation algorithm with a greater degree of regularisation is required.
+As the distortions are predominantly in the phase encode direction, by inverting the direction of the phase encode blips, the direction of the distortion can be reversed, Figure \ref{fig:ex_epi_distortion_overlay}. By acquiring images with both phase encode directions the underlying field map can be estimated and used to undistort the data \cite{andersson_how_2003}. This process can be carried out using \ac{FSL} ``topup'' however, as this tool was designed for work in the brain, a custom configuration to perform more iterations of the field estimation algorithm with a greater degree of regularisation is required. 
+
+Although in some cases it is possible ot acquire only the b-0 image in both phase encode directions, calculate the displacement field, then apply this field to other b-values, it was decided that the $\sqrt{2}$ \ac{SNR} increase of acquiring two volumes and averaging them is beneficial. Additionally if, in the case of in-vivo data, there are issues with motion in the b-0 volumes, then another diffusion weighting can be used to estimate the displacement, thus adding inherent redundancy to the pipeline.
 
 \begin{figure}[H]
 	\centering
@@ -235,19 +238,57 @@ As the distortions are predominantly in the phase encode direction, by inverting
 	\label{fig:ex_epi_distortion}
 \end{figure}
 
-\subsubsection{Optimising b-values}
-
-As with many quantitative \ac{MRI} techniques, there is a balance with \ac{ADC} mapping between acquisition time and quantitative accuracy. By sampling more b-values, the estimation of \ac{ADC} becomes more accurate however this inherently takes longer. To ascertain the optimum number of b-values to collect and their locations a methodical search was conducted.
-
-\ac{ADC} data was collected from two different subjects using 16 b-values, more than would normally be collected, with \ac{ADC} maps being generated using all 16 values. \ac{ADC} maps were then fit for every combination and number of b-values using more than six of the available values. The resulting \ac{ADC} maps were then compared to the map generated using the full dataset.
+\begin{figure}[H]
+	\centering
+%	\includegraphics[width=0.8\textwidth]{}
+	\missingfigure{Individual b-values}
+	\caption{Distortion corrected images at each b-value.}
+	\label{fig:ex_adc_raw_data}	
+\end{figure}
+%\subsubsection{Optimising b-values}
+%
+%As with many quantitative \ac{MRI} techniques, there is a balance with \ac{ADC} mapping between acquisition time and quantitative accuracy. By sampling more b-values, the estimation of \ac{ADC} becomes more accurate however this inherently takes longer. To ascertain the optimum number of b-values to collect and their locations a methodical search was conducted.
+%
+%\ac{ADC} data was collected from two different subjects using 16 b-values, more than would normally be collected, with \ac{ADC} maps being generated using all 16 values. \ac{ADC} maps were then fit for every combination and number of b-values using more than six of the available values. The resulting \ac{ADC} maps were then compared to the map generated using the full dataset.
 \subsubsection{Post Processing}
 
-The average of the three directions at each b-value is calculated.
+The average of the three directions at each b-value and phase encode direction is calculated. \ac{EPI} distortion correction is performed on both ex-vivo and in-vivo data using topup to enable accurate voxel by voxel comparison of \ac{ADC} to other quantitative parameters. The natural logarithm of the distortion corrected signal from each voxel over each b-value is taken and a linear least squares fit performed. This enables a quick estimation of \ac{ADC} and an uncertainty in the fit. 
+
+Using these techniques, the \ac{ADC} of both in-vivo and ex-vivo renal tissue can be calculated, Figure \ref{fig:ex_adc_maps}. Although not implemented here, the large number of low b-values sampled should make estimations of more advance diffusion parameters possible such as fitting the data to an \ac{IVIM} model \cite{le_bihan_separation_1988}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+%		\includegraphics[width=1\textwidth]{}
+		\missingfigure{In-Vivo ADC Map}
+		\caption{}
+		\label{fig:ex_adc_maps_in_vivo}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+%		\includegraphics[width=1\textwidth]{}
+		\missingfigure{Ex-Vivo ADC Map}
+		\caption{}
+		\label{fig:ex_adc_maps_ex_vivo}
+	\end{subfigure}
+	\caption{\ac{ADC} maps acquired of both an in-vivo subject (\subref{fig:ex_adc_maps_in_vivo}) and ex-vivo sample (\subref{fig:ex_adc_maps_ex_vivo}).}
+	\label{fig:ex_adc_maps}
+\end{figure}
+
+
 
 
 \subsection{\acl*{DTI}}
+\subsubsection{Acquisition}
 % Acquisition
-% Distortion Correction
+\ac{ADC} maps provide an understanding as to how readily molecules can diffuse through a tissue, however they do not provide any information as to what directions the molecules are travelling, to measure this, \ac{DTI} is required.
+
+The acquisition scheme used is very similar to that in Section \ref{subsec:ex_adc}, a single shot \ac{SE}-\ac{EPI} scheme with monopolar diffusion gradients. The difference lies in the fact that, rather than acquiring a large range of b-values over three different directions, only a b-0 and one other b-value are acquired over a minimum of six directions although in practice, many more. This is known as a single shell \ac{DTI} scheme. Like the \ac{ADC} sequence, a full dataset is acquired with both opposing phase encode directions to assist with geometric distortion correction. A summary of the sequence parameters is shown in Table \todo{Add table}.
+
+\subsubsection{Post Processing}
+% Eddy
 % Processing (FA and Tractography)
 \begin{figure}[H]
 	\centering
