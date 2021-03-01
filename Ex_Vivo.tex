@@ -285,10 +285,25 @@ Using these techniques, the \ac{ADC} of both in-vivo and ex-vivo renal tissue ca
 % Acquisition
 \ac{ADC} maps provide an understanding as to how readily molecules can diffuse through a tissue, however they do not provide any information as to what directions the molecules are travelling, to measure this, \ac{DTI} is required.
 
-The acquisition scheme used is very similar to that in Section \ref{subsec:ex_adc}, a single shot \ac{SE}-\ac{EPI} scheme with monopolar diffusion gradients. The difference lies in the fact that, rather than acquiring a large range of b-values over three different directions, only a b-0 and one other b-value are acquired over a minimum of six directions although in practice, many more. This is known as a single shell \ac{DTI} scheme. Like the \ac{ADC} sequence, a full dataset is acquired with both opposing phase encode directions to assist with geometric distortion correction. A summary of the sequence parameters is shown in Table \todo{Add table}.
+The acquisition scheme used is very similar to that in Section \ref{subsec:ex_adc}, a single shot \ac{SE}-\ac{EPI} scheme with monopolar diffusion gradients. The difference lies in the fact that, rather than acquiring a large range of b-values over three different directions, only a b-0 and one other b-value are acquired over a minimum of six directions although in practice, many more. This is known as a single shell \ac{DTI} scheme. As the diffusivity in, for example, the positive $x$ direction is the same as the negative $x$ direction most \ac{DTI} schemes acquire a hemisphere of directions, however, to apply additional image deformation correction techniques outlined below, a diffusion vectors were acquired over a full sphere.
+
+Mathematically, \ac{DTI} is estimating the tensor, $\mathscr{D}$ in equation \eqref{eq:ex_diffusion_tensor} where $D_{xx}$, $D_{yy}$ and $D_{zz}$ represent diffusion diffusivity along the $x$, $y$ and $z$ directions in the lab frame and are equivalent to the three directions sampled in Section \ref{subsec:ex_adc}. $D_{yx}$, $D_{zx}$ and $D_{zy}$ represent diffusivity between the principle axis of the lab frame, as $\mathscr{D}$ is symmetric, $D_{yx} \equiv D_{xy}$, $D_{zx} \equiv D_{xz}$ etc, hence \ac{DTI} can be performed by only sampling a hemisphere of diffusion vectors.
+
+\begin{equation}
+	\mathscr{D} = 
+	\begin{bmatrix}
+		D_{xx} & D_{xy} & D_{xz}\\ 
+		D_{yx} & D_{yy} & D_{yz}\\ 
+		D_{zx} & D_{zy} & D_{zz}
+	\end{bmatrix}
+\label{eq:ex_diffusion_tensor}
+\end{equation}
+
+Like the \ac{ADC} sequence, a full dataset is acquired with both opposing phase encode directions to assist with geometric distortion correction. A summary of the sequence parameters is shown in Table \todo{Add table}. 
 
 \subsubsection{Post Processing}
 % Eddy
+The large number of diffusion directions sampled makes additional geometric distortion possible. The rapidly switching fields of the diffusion sequence indue eddy currents in the sample, which in turn induce an opposing magnetic field. This leads to off-resonance distortions in the image. To combat this 
 % Processing (FA and Tractography)
 \begin{figure}[H]
 	\centering
