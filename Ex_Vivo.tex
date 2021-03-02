@@ -285,9 +285,30 @@ Using these techniques, the \ac{ADC} of both in-vivo and ex-vivo renal tissue ca
 % Acquisition
 \ac{ADC} maps provide an understanding as to how readily molecules can diffuse through a tissue, however they do not provide any information as to what directions the molecules are travelling, to measure this, \ac{DTI} is required.
 
-The acquisition scheme used is very similar to that in Section \ref{subsec:ex_adc}, a single shot \ac{SE}-\ac{EPI} scheme with monopolar diffusion gradients. The difference lies in the fact that, rather than acquiring a large range of b-values over three different directions, only a b-0 and one other b-value are acquired over a minimum of six directions although in practice, many more. This is known as a single shell \ac{DTI} scheme. As the diffusivity in, for example, the positive $x$ direction is the same as the negative $x$ direction most \ac{DTI} schemes acquire a hemisphere of directions, however, to apply additional image deformation correction techniques outlined below, a diffusion vectors were acquired over a full sphere.
+The acquisition scheme used is very similar to that in Section \ref{subsec:ex_adc}, a single shot \ac{SE}-\ac{EPI} scheme with monopolar diffusion gradients. The difference lies in the fact that, rather than acquiring a large range of b-values over three different directions, only a b-0 and one other b-value are acquired over a minimum of six directions although in practice, many more. This is known as a single shell \ac{DTI} scheme. As the diffusivity in, for example, the positive $x$ direction is the same as the negative $x$ direction most \ac{DTI} schemes acquire a hemisphere of directions, however, to apply additional image deformation correction techniques outlined below, diffusion vectors were acquired over a full sphere, Figure \ref{fig:ex_dti_vectors}.
 
-Mathematically, \ac{DTI} is estimating the tensor, $\mathscr{D}$ in equation \eqref{eq:ex_diffusion_tensor} where $D_{xx}$, $D_{yy}$ and $D_{zz}$ represent diffusion diffusivity along the $x$, $y$ and $z$ directions in the lab frame and are equivalent to the three directions sampled in Section \ref{subsec:ex_adc}. $D_{yx}$, $D_{zx}$ and $D_{zy}$ represent diffusivity between the principle axis of the lab frame, as $\mathscr{D}$ is symmetric, $D_{yx} \equiv D_{xy}$, $D_{zx} \equiv D_{xz}$ etc, hence \ac{DTI} can be performed by only sampling a hemisphere of diffusion vectors.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		%		\includegraphics[width=1\textwidth]{}
+		\missingfigure{Hemisphere}
+		\caption{}
+		\label{fig:ex_dti_vectors_half}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		%		\includegraphics[width=1\textwidth]{}
+		\missingfigure{Sphere}
+		\caption{}
+		\label{fig:ex_dti_vectors_full}
+	\end{subfigure}
+	\caption{(\subref{fig:ex_dti_vectors_half}) 128 diffusion directions acquired over a hemisphere (\subref{fig:ex_dti_vectors_full}) 128 diffusion directions acquired over a full sphere as used in this chapter.}
+	\label{fig:ex_dti_vectors}
+\end{figure}
+
+Mathematically, \ac{DTI} is estimating the tensor, $\mathscr{D}$ in equation \eqref{eq:ex_diffusion_tensor} where $D_{xx}$, $D_{yy}$ and $D_{zz}$ represent diffusivity along the $x$, $y$ and $z$ directions in the lab frame and are equivalent to the three directions sampled in Section \ref{subsec:ex_adc}. $D_{yx}$, $D_{zx}$ and $D_{zy}$ represent diffusivity between the principle axis of the lab frame, as $\mathscr{D}$ is symmetric, $D_{yx} \equiv D_{xy}$, $D_{zx} \equiv D_{xz}$ etc, hence \ac{DTI} can be performed by only sampling a hemisphere of diffusion vectors.
 
 \begin{equation}
 	\mathscr{D} = 
@@ -303,8 +324,50 @@ Like the \ac{ADC} sequence, a full dataset is acquired with both opposing phase 
 
 \subsubsection{Post Processing}
 % Eddy
-The large number of diffusion directions sampled makes additional geometric distortion possible. The rapidly switching fields of the diffusion sequence indue eddy currents in the sample, which in turn induce an opposing magnetic field. This leads to off-resonance distortions in the image. To combat this 
-% Processing (FA and Tractography)
+The large number of diffusion directions sampled makes additional geometric distortion possible. The rapidly switching fields of the diffusion sequence induce eddy currents in the sample, which in turn induce an opposing magnetic field. This leads to off-resonance distortions in the image. To combat this \ac{FSL}s ``eddy'' can be used \cite{andersson_integrated_2016}. This tool was developed with the brain data from the Human Connectome Project in mind however \cite{andersson_non-parametric_2015}, here is is successfully used to reduce geometric distortions in ex-vivo and in-vivo \ac{DTI} data and subject motion in the in-vivo data.
+
+Once the raw data has been processed with topup and eddy, quantitative maps can be generated. Eigenvalues ($\lambda_1$, $\lambda_2$, $\lambda_3$) and eigenvectors ($\epsilon_1$, $\epsilon_2$, $\epsilon_3$) are calculated for each diffusion tensor, $\mathscr{D}$. \ac{FA} maps can be calculated from equation \eqref{eq:ex_fa}. Here it can be seen that as $\lambda_1 = \lambda_2 = \lambda_3$, as is the case for isotropic diffusion, \ac{FA} tends to 0. An example renal \ac{FA} map is shown in Figure \ref{fig:ex_dti_fa} where bright areas represent areas of higher \ac{FA} and therefore more anisotropic diffusion.
+
+\begin{equation}
+	\textup{FA} = \sqrt{\frac{\left(\lambda_1 - \lambda_2\right)^2 + \left(\lambda_2 - \lambda_3\right)^2 + \left(\lambda_1 - \lambda_3\right)^2}{2\left( \lambda_1^2 + \lambda_2^2 + \lambda_3^2\right)}}
+		\label{eq:ex_fa}
+\end{equation}
+
+\ac{FA} can also be used to create fibre direction maps as shown in Figure \ref{fig:ex_dti_fa_rgb}. Here the colour is determined by the direction of the principal eigenvector, $\epsilon_1$, the primary direction of diffusion and the brightness is determined by \ac{FA}. As the name suggests, these maps provide a visual indication as to the direction diffusion is occurring in a tissue and how strongly it is constrained to that single direction.
+
+The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, often called \ac{MD} in \ac{DTI} literature. This is calculated using equation \eqref{eq:ex_dti_md} and an example is shown in Figure \ref{fig:ex_dti_md}.
+
+\begin{equation}
+	\textup{MD} = \frac{\left( \lambda_1 + \lambda_2 + \lambda_3 \right)}{3}
+	\label{eq:ex_dti_md}
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.31\textwidth}
+		\centering
+			\includegraphics[width=1\textwidth]{Neph/fa_bbody.png}
+		\caption{}
+		\label{fig:ex_dti_fa}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.31\textwidth}
+		\centering
+			\includegraphics[width=1\textwidth]{Neph/fa_rgb.png}
+		\caption{}
+		\label{fig:ex_dti_fa_rgb}
+	\end{subfigure}
+	\hfill	
+	\begin{subfigure}[c]{0.31\textwidth}
+		\centering
+			\includegraphics[width=1\textwidth]{Neph/md_0_004_fire_s0.png}
+		\caption{}
+		\label{fig:ex_dti_md}
+	\end{subfigure}
+	\caption{\ac{FA} (\subref{fig:ex_dti_fa}), fibre direction (\subref{fig:ex_dti_fa_rgb}) and \ac{MD} (\subref{fig:ex_dti_md}) maps generated from the same \ac{DTI} data.}
+	\label{fig:ex_dti_maps}
+\end{figure}
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.9\textwidth]{Other/DTI/img5c.png}
@@ -312,12 +375,6 @@ The large number of diffusion directions sampled makes additional geometric dist
 	\label{fig:ex_dti_tracts}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.55\textwidth]{Other/DTI/dti_FA.png}
-	\caption{An example \ac{FA} map generated using the protocol above.}
-	\label{fig:ex_dti_fa}
-\end{figure}
 
 \subsection{Further Work}
 % Ex-Vivo DTI
