@@ -291,20 +291,18 @@ The acquisition scheme used is very similar to that in Section \ref{subsec:ex_ad
 	\centering
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		%		\includegraphics[width=1\textwidth]{}
-		\missingfigure{Hemisphere}
+		\includegraphics[width=1\textwidth]{Neph/64_dir_hemispherical.pdf}
 		\caption{}
 		\label{fig:ex_dti_vectors_half}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		%		\includegraphics[width=1\textwidth]{}
-		\missingfigure{Sphere}
+		\includegraphics[width=1\textwidth]{Neph/64_dir_spherical.pdf}
 		\caption{}
 		\label{fig:ex_dti_vectors_full}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_dti_vectors_half}) 128 diffusion directions acquired over a hemisphere (\subref{fig:ex_dti_vectors_full}) 128 diffusion directions acquired over a full sphere as used in this chapter.}
+	\caption{(\subref{fig:ex_dti_vectors_half}) 64 diffusion directions acquired over a hemisphere (\subref{fig:ex_dti_vectors_full}) 64 diffusion directions acquired over a full sphere as used in this chapter.}
 	\label{fig:ex_dti_vectors}
 \end{figure}
 
@@ -335,7 +333,7 @@ Once the raw data has been processed with topup and eddy, quantitative maps can 
 
 \ac{FA} can also be used to create fibre direction maps as shown in Figure \ref{fig:ex_dti_fa_rgb}. Here the colour is determined by the direction of the principal eigenvector, $\epsilon_1$, the primary direction of diffusion and the brightness is determined by \ac{FA}. As the name suggests, these maps provide a visual indication as to the direction diffusion is occurring in a tissue and how strongly it is constrained to that single direction.
 
-The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, often called \ac{MD} in \ac{DTI} literature. This is calculated using equation \eqref{eq:ex_dti_md} and an example is shown in Figure \ref{fig:ex_dti_md}.
+The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, often called \ac{MD} in \ac{DTI} literature. This is calculated using equation \eqref{eq:ex_dti_md} and an example is shown in Figure \ref{fig:ex_dti_md}. All three of these voxel based maps were generated using \ac{FSL}.
 
 \begin{equation}
 	\textup{MD} = \frac{\left( \lambda_1 + \lambda_2 + \lambda_3 \right)}{3}
@@ -368,6 +366,31 @@ The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, o
 	\label{fig:ex_dti_maps}
 \end{figure}
 
+An extension of the fibre direction map is tractography, a technique that can remove the restriction of a voxel having a single direction of diffusion. Even at the highest resolutions achievable with \ac{MRI}, the biological structures dictating diffusion are orders of magnitude smaller and as such multiple mechanisms can occur in a single voxel e.g. crossing of neurons or microvascular. In the brain this technique is used to visualise nerve tracts and connectivity within the brain however in the kidneys it can be used to visualise the coherent motion of renal processes. Tractography calculations were performed using Dipy \cite{garyfallidis_dipy_2014} and the resulting tracts were visualised using TrackVis \cite{wang_diffusion_2007}.
+
+To model multiple fibres entering and exiting a voxel, a more sophisticated model than simply looking at the principle eigenvector is required. This takes the form of an \ac{ODF} which can be thought of as the probability a fibre will enter of exit a voxel through a specific solid angle. \acp{ODF} can be visualised as isosurfaces where the surface represent all points of equal probability, example \acp{ODF} are shown in Figure \ref{fig:ex_dti_odf}. Techniques such as Q-ball imaging \cite{descoteaux_regularized_2007, hess_q-ball_2006} and diffusion spectrum imaging \cite{descoteaux_regularized_2007} can be used to estimate the \ac{ODF} however these methods tend to require high b-values and as such a lower \ac{SNR} acquisition making them less suitable to abdominal imaging. Instead a constrained spherical deconvolution model is used \cite{tournier_direct_2004, tournier_robust_2007, tax_recursive_2014}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/csd_odfs.png}
+		\caption{}
+		\label{fig:ex_dti_odfs}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/csd_odf_b0.png}
+		\caption{}
+		\label{fig:ex_dti_odf_b0}
+	\end{subfigure}
+	\caption{The \acp{ODF} for a small number of voxels of renal tissue (\subref{fig:ex_dti_odfs}) and the corresponding b-0 image to help visualise the part of the kidney the data is coming from (\subref{fig:ex_dti_odf_b0}).}
+	\label{fig:ex_dti_odf}
+\end{figure}
+
+The peak values of \acp{ODF} are calculated and used to generate streamlines which represent the tracts of coherent diffusion. The calculation of streamline paths is performed using the \ac{EuDX} method \cite{garyfallidis_towards_2013}. This tractography pipeline and its many hyperparameters are best summarised in code form and as such are included in Appendix \ref{app:tractography_pipeline}.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.9\textwidth]{Other/DTI/img5c.png}
@@ -375,9 +398,15 @@ The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, o
 	\label{fig:ex_dti_tracts}
 \end{figure}
 
+As this tractography protocol was developed from scratch, in-vivo results were compared to those in literature and found to be in agreement \cite{gurses_diffusion_2011, jaimes_diffusion_2014, notohamiprodjo_diffusion_2010}. Additionally, renal features with a known structure can be observed such as the radial structure of the medullary pyramids, Figure \ref{fig:ex_dti_medulla_tracts}.
+% Something about verified in brain?
 
-\subsection{Further Work}
-% Ex-Vivo DTI
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Neph/medullary_tracts_2.png}
+	\caption{The medullary pyramids observed in tractography.}
+	\label{fig:ex_dti_medulla_tracts}	
+\end{figure}
 
 \section{Optimising Tissue Fixation}
 \label{sec:ex_tissue_fixation}
