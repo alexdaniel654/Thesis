@@ -4,7 +4,8 @@ from dipy.tracking.eudx import EuDX
 from dipy.tracking import utils
 from dipy.tracking.streamline import Streamlines
 from dipy.reconst import peaks
-from dipy.reconst.csdeconv import ConstrainedSphericalDeconvModel, recursive_response
+from dipy.reconst.csdeconv import \
+	ConstrainedSphericalDeconvModel, recursive_response
 from dipy.core.gradients import gradient_table_from_bvals_bvecs
 from dipy.io.streamline import save_trk
 

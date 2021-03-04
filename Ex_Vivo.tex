@@ -217,7 +217,7 @@ The diffusion sensitising block of the pulse sequence is time consuming and as s
 
 As the distortions are predominantly in the phase encode direction, by inverting the direction of the phase encode blips, the direction of the distortion can be reversed, Figure \ref{fig:ex_epi_distortion_overlay}. By acquiring images with both phase encode directions the underlying field map can be estimated and used to undistort the data \cite{andersson_how_2003}. This process can be carried out using \ac{FSL} ``topup'' however, as this tool was designed for work in the brain, a custom configuration to perform more iterations of the field estimation algorithm with a greater degree of regularisation is required. 
 
-Although in some cases it is possible ot acquire only the b-0 image in both phase encode directions, calculate the displacement field, then apply this field to other b-values, it was decided that the $\sqrt{2}$ \ac{SNR} increase of acquiring two volumes and averaging them is beneficial. Additionally if, in the case of in-vivo data, there are issues with motion in the b-0 volumes, then another diffusion weighting can be used to estimate the displacement, thus adding inherent redundancy to the pipeline.
+Although in some cases it is possible ot acquire only the b0 image in both phase encode directions, calculate the displacement field, then apply this field to other b-values, it was decided that the $\sqrt{2}$ \ac{SNR} increase of acquiring two volumes and averaging them is beneficial. Additionally if, in the case of in-vivo data, there are issues with motion in the b0 volumes, then another diffusion weighting can be used to estimate the displacement, thus adding inherent redundancy to the pipeline.
 
 \begin{figure}[H]
 	\centering
@@ -234,7 +234,7 @@ Although in some cases it is possible ot acquire only the b-0 image in both phas
 		\caption{}
 		\label{fig:ex_epi_distortion_corrected}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_epi_distortion_overlay}) b-0 images collected with opposing phase encode directions overlay in red and blue. (\subref{fig:ex_epi_distortion_corrected}) A composite image with \ac{EPI} distortions corrected using topup.}
+	\caption{(\subref{fig:ex_epi_distortion_overlay}) b0 images collected with opposing phase encode directions overlay in red and blue. (\subref{fig:ex_epi_distortion_corrected}) A composite image with \ac{EPI} distortions corrected using topup.}
 	\label{fig:ex_epi_distortion}
 \end{figure}
 
@@ -260,16 +260,16 @@ Using these techniques, the \ac{ADC} of both in-vivo and ex-vivo renal tissue ca
 	\centering
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-%		\includegraphics[width=1\textwidth]{}
-		\missingfigure{In-Vivo ADC Map}
+		\includegraphics[width=1\textwidth]{Neph/in_vivo_adc.pdf}% 20190926
+%		\missingfigure{In-Vivo ADC Map}
 		\caption{}
 		\label{fig:ex_adc_maps_in_vivo}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-%		\includegraphics[width=1\textwidth]{}
-		\missingfigure{Ex-Vivo ADC Map}
+		\includegraphics[width=1\textwidth]{Neph/ex_vivo_adc.pdf}% 20190923
+%		\missingfigure{Ex-Vivo ADC Map 20190923}
 		\caption{}
 		\label{fig:ex_adc_maps_ex_vivo}
 	\end{subfigure}
@@ -283,9 +283,9 @@ Using these techniques, the \ac{ADC} of both in-vivo and ex-vivo renal tissue ca
 \subsection{\acl*{DTI}}
 \subsubsection{Acquisition}
 % Acquisition
-\ac{ADC} maps provide an understanding as to how readily molecules can diffuse through a tissue, however they do not provide any information as to what directions the molecules are travelling, to measure this, \ac{DTI} is required.
+\ac{ADC} maps provide an understanding as to how readily molecules can diffuse through a tissue, however they do not provide any information as to what directions the molecules are travelling, to measure this, \ac{DTI} is required. The renal group at \ac{SPMIC} had no existing high resolution in-vivo \ac{DTI} protocol, as such this was specifically developed for this paradigm.
 
-The acquisition scheme used is very similar to that in Section \ref{subsec:ex_adc}, a single shot \ac{SE}-\ac{EPI} scheme with monopolar diffusion gradients. The difference lies in the fact that, rather than acquiring a large range of b-values over three different directions, only a b-0 and one other b-value are acquired over a minimum of six directions although in practice, many more. This is known as a single shell \ac{DTI} scheme. As the diffusivity in, for example, the positive $x$ direction is the same as the negative $x$ direction most \ac{DTI} schemes acquire a hemisphere of directions, however, to apply additional image deformation correction techniques outlined below, diffusion vectors were acquired over a full sphere, Figure \ref{fig:ex_dti_vectors}.
+The acquisition scheme used is very similar to that in Section \ref{subsec:ex_adc}, a single shot \ac{SE}-\ac{EPI} scheme with monopolar diffusion gradients. The difference lies in the fact that, rather than acquiring a large range of b-values over three different directions, only a b0 and one other b-value are acquired over a minimum of six directions although in practice, many more. This is known as a single shell \ac{DTI} scheme. As the diffusivity in, for example, the positive $x$ direction is the same as the negative $x$ direction most \ac{DTI} schemes acquire a hemisphere of directions, however, to apply additional image deformation correction techniques outlined below, diffusion vectors were acquired over a full sphere, Figure \ref{fig:ex_dti_vectors}.
 
 \begin{figure}[H]
 	\centering
@@ -302,7 +302,7 @@ The acquisition scheme used is very similar to that in Section \ref{subsec:ex_ad
 		\caption{}
 		\label{fig:ex_dti_vectors_full}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_dti_vectors_half}) 64 diffusion directions acquired over a hemisphere (\subref{fig:ex_dti_vectors_full}) 64 diffusion directions acquired over a full sphere as used in this chapter.}
+	\caption{(\subref{fig:ex_dti_vectors_half}) 64 diffusion directions acquired over a hemisphere (\subref{fig:ex_dti_vectors_full}) 64 diffusion directions acquired over a full sphere as used in this chapter. b0 is shown in orange with subsequent b-values shown in blue. }
 	\label{fig:ex_dti_vectors}
 \end{figure}
 
@@ -322,9 +322,9 @@ Like the \ac{ADC} sequence, a full dataset is acquired with both opposing phase 
 
 \subsubsection{Post Processing}
 % Eddy
-The large number of diffusion directions sampled makes additional geometric distortion possible. The rapidly switching fields of the diffusion sequence induce eddy currents in the sample, which in turn induce an opposing magnetic field. This leads to off-resonance distortions in the image. To combat this \ac{FSL}s ``eddy'' can be used \cite{andersson_integrated_2016}. This tool was developed with the brain data from the Human Connectome Project in mind however \cite{andersson_non-parametric_2015}, here is is successfully used to reduce geometric distortions in ex-vivo and in-vivo \ac{DTI} data and subject motion in the in-vivo data.
+The large number of diffusion directions sampled makes additional geometric distortion possible. The rapidly switching fields of the diffusion sequence induce eddy currents in the sample, which in turn induce an opposing magnetic field. This leads to off-resonance distortions in the image. To combat this \ac{FSL}s ``eddy'' can be used \cite{andersson_integrated_2016}. This tool was developed with the brain data from the Human Connectome Project in mind however \cite{andersson_non-parametric_2015}, here is is successfully used to reduce geometric distortions in ex-vivo and in-vivo \ac{DTI} data and subject motion in the in-vivo data. The tools performance is optimal when b-vectors are distributed over a full sphere as this results is approximately opposing eddy current distortions and as such, makes estimation of the deformation more accurate.
 
-Once the raw data has been processed with topup and eddy, quantitative maps can be generated. Eigenvalues ($\lambda_1$, $\lambda_2$, $\lambda_3$) and eigenvectors ($\epsilon_1$, $\epsilon_2$, $\epsilon_3$) are calculated for each diffusion tensor, $\mathscr{D}$. \ac{FA} maps can be calculated from equation \eqref{eq:ex_fa}. Here it can be seen that as $\lambda_1 = \lambda_2 = \lambda_3$, as is the case for isotropic diffusion, \ac{FA} tends to 0. An example renal \ac{FA} map is shown in Figure \ref{fig:ex_dti_fa} where bright areas represent areas of higher \ac{FA} and therefore more anisotropic diffusion.
+Once the raw data has been processed with topup and eddy, quantitative maps can be generated. Eigenvalues ($\lambda_1$, $\lambda_2$, $\lambda_3$) and eigenvectors ($\epsilon_1$, $\epsilon_2$, $\epsilon_3$) are calculated for each diffusion tensor, $\mathscr{D}$. \ac{FA} maps can be calculated from equation \eqref{eq:ex_fa}. Here it can be seen that if $\lambda_1 = \lambda_2 = \lambda_3$, as is the case for isotropic diffusion, \ac{FA} tends to 0. An example renal \ac{FA} map is shown in Figure \ref{fig:ex_dti_fa} where bright areas represent areas of higher \ac{FA} and therefore more anisotropic diffusion.
 
 \begin{equation}
 	\textup{FA} = \sqrt{\frac{\left(\lambda_1 - \lambda_2\right)^2 + \left(\lambda_2 - \lambda_3\right)^2 + \left(\lambda_1 - \lambda_3\right)^2}{2\left( \lambda_1^2 + \lambda_2^2 + \lambda_3^2\right)}}
@@ -333,7 +333,7 @@ Once the raw data has been processed with topup and eddy, quantitative maps can 
 
 \ac{FA} can also be used to create fibre direction maps as shown in Figure \ref{fig:ex_dti_fa_rgb}. Here the colour is determined by the direction of the principal eigenvector, $\epsilon_1$, the primary direction of diffusion and the brightness is determined by \ac{FA}. As the name suggests, these maps provide a visual indication as to the direction diffusion is occurring in a tissue and how strongly it is constrained to that single direction.
 
-The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, often called \ac{MD} in \ac{DTI} literature. This is calculated using equation \eqref{eq:ex_dti_md} and an example is shown in Figure \ref{fig:ex_dti_md}. All three of these voxel based maps were generated using \ac{FSL}.
+The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, often called \ac{MD} in \ac{DTI} literature. This is calculated using equation \eqref{eq:ex_dti_md} and an example is shown in Figure \ref{fig:ex_dti_md}. All three of these voxel based maps are generated using \ac{FSL}.
 
 \begin{equation}
 	\textup{MD} = \frac{\left( \lambda_1 + \lambda_2 + \lambda_3 \right)}{3}
@@ -344,31 +344,31 @@ The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, o
 	\centering
 	\begin{subfigure}[c]{0.31\textwidth}
 		\centering
-			\includegraphics[width=1\textwidth]{Neph/fa_bbody.png}
+			\includegraphics[width=1\textwidth]{Neph/in_vivo_fa.png}
 		\caption{}
 		\label{fig:ex_dti_fa}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[c]{0.31\textwidth}
 		\centering
-			\includegraphics[width=1\textwidth]{Neph/fa_rgb.png}
+			\includegraphics[width=1\textwidth]{Neph/in_vivo_fa_rgb.png}
 		\caption{}
 		\label{fig:ex_dti_fa_rgb}
 	\end{subfigure}
 	\hfill	
 	\begin{subfigure}[c]{0.31\textwidth}
 		\centering
-			\includegraphics[width=1\textwidth]{Neph/md_0_004_fire_s0.png}
+			\includegraphics[width=1\textwidth]{Neph/in_vivo_md.png}
 		\caption{}
 		\label{fig:ex_dti_md}
 	\end{subfigure}
-	\caption{\ac{FA} (\subref{fig:ex_dti_fa}), fibre direction (\subref{fig:ex_dti_fa_rgb}) and \ac{MD} (\subref{fig:ex_dti_md}) maps generated from the same \ac{DTI} data.}
+	\caption{\ac{FA} (\subref{fig:ex_dti_fa}), fibre direction (\subref{fig:ex_dti_fa_rgb}) and \ac{MD} (\subref{fig:ex_dti_md}) maps generated from the same in-vivo \ac{DTI} data.}
 	\label{fig:ex_dti_maps}
 \end{figure}
 
-An extension of the fibre direction map is tractography, a technique that can remove the restriction of a voxel having a single direction of diffusion. Even at the highest resolutions achievable with \ac{MRI}, the biological structures dictating diffusion are orders of magnitude smaller and as such multiple mechanisms can occur in a single voxel e.g. crossing of neurons or microvascular. In the brain this technique is used to visualise nerve tracts and connectivity within the brain however in the kidneys it can be used to visualise the coherent motion of renal processes. Tractography calculations were performed using Dipy \cite{garyfallidis_dipy_2014} and the resulting tracts were visualised using TrackVis \cite{wang_diffusion_2007}.
+An extension of the fibre direction map is tractography, a technique that can remove the restriction of a voxel having a single direction of diffusion. Even at the highest resolutions achievable with \ac{MRI}, the biological structures dictating diffusion are orders of magnitude smaller than the resolving power of \ac{MRI} and as such multiple mechanisms can occur in a single voxel e.g. crossing of neurons or microvascular. In the brain this technique is used to visualise nerve tracts and connectivity within the brain however in the kidneys it can be used to visualise the coherent motion of renal processes. Tractography calculations were performed using Dipy \cite{garyfallidis_dipy_2014} and the resulting tracts were visualised using TrackVis \cite{wang_diffusion_2007}.
 
-To model multiple fibres entering and exiting a voxel, a more sophisticated model than simply looking at the principle eigenvector is required. This takes the form of an \ac{ODF} which can be thought of as the probability a fibre will enter of exit a voxel through a specific solid angle. \acp{ODF} can be visualised as isosurfaces where the surface represent all points of equal probability, example \acp{ODF} are shown in Figure \ref{fig:ex_dti_odf}. Techniques such as Q-ball imaging \cite{descoteaux_regularized_2007, hess_q-ball_2006} and diffusion spectrum imaging \cite{descoteaux_regularized_2007} can be used to estimate the \ac{ODF} however these methods tend to require high b-values and as such a lower \ac{SNR} acquisition making them less suitable to abdominal imaging. Instead a constrained spherical deconvolution model is used \cite{tournier_direct_2004, tournier_robust_2007, tax_recursive_2014}.
+To model multiple fibres entering and exiting a voxel, a more sophisticated model than simply looking at the principle eigenvector is required. This takes the form of an \ac{ODF} which can be thought of as the probability a fibre will enter or exit a voxel through a specific solid angle. \acp{ODF} can be visualised as isosurfaces where the surface represent all points of equal probability, example \acp{ODF} are shown in Figure \ref{fig:ex_dti_odf}. Techniques such as Q-ball imaging \cite{descoteaux_regularized_2007, hess_q-ball_2006} and diffusion spectrum imaging \cite{descoteaux_regularized_2007} can be used to estimate the \ac{ODF} however these methods tend to require high b-values and as such a lower \ac{SNR} acquisition making them less suitable to abdominal imaging. Instead a constrained spherical deconvolution model is used \cite{tournier_direct_2004, tournier_robust_2007, tax_recursive_2014}.
 
 \begin{figure}[H]
 	\centering
@@ -385,11 +385,11 @@ To model multiple fibres entering and exiting a voxel, a more sophisticated mode
 		\caption{}
 		\label{fig:ex_dti_odf_b0}
 	\end{subfigure}
-	\caption{The \acp{ODF} for a small number of voxels of renal tissue (\subref{fig:ex_dti_odfs}) and the corresponding b-0 image to help visualise the part of the kidney the data is coming from (\subref{fig:ex_dti_odf_b0}).}
+	\caption{The \acp{ODF} for a small number of voxels of renal tissue (\subref{fig:ex_dti_odfs}) and the corresponding b0 image to help visualise the part of the kidney the data is coming from (\subref{fig:ex_dti_odf_b0}).}
 	\label{fig:ex_dti_odf}
 \end{figure}
 
-The peak values of \acp{ODF} are calculated and used to generate streamlines which represent the tracts of coherent diffusion. The calculation of streamline paths is performed using the \ac{EuDX} method \cite{garyfallidis_towards_2013}. This tractography pipeline and its many hyperparameters are best summarised in code form and as such are included in Appendix \ref{app:tractography_pipeline}.
+The peak values of \acp{ODF} are calculated and used to generate streamlines which represent the tracts of coherent diffusion. The calculation of streamline paths is performed using the \ac{EuDX} method \cite{garyfallidis_towards_2013}. This tractography pipeline and its many hyper-parameters are best summarised in code form and as such are included in Appendix \ref{app:tractography_pipeline}. The results of this processing pipeline are tractograms as shown in Figure \ref{fig:ex_dti_tracts}.
 
 \begin{figure}[H]
 	\centering
@@ -398,16 +398,58 @@ The peak values of \acp{ODF} are calculated and used to generate streamlines whi
 	\label{fig:ex_dti_tracts}
 \end{figure}
 
-As this tractography protocol was developed from scratch, in-vivo results were compared to those in literature and found to be in agreement \cite{gurses_diffusion_2011, jaimes_diffusion_2014, notohamiprodjo_diffusion_2010}. Additionally, renal features with a known structure can be observed such as the radial structure of the medullary pyramids, Figure \ref{fig:ex_dti_medulla_tracts}.
-% Something about verified in brain?
+As this tractography protocol was developed from scratch, both acquisition and the post processing pipeline were verified in the brain. Tractography is a far more mature technique in neuroimaging and as such, verification that the pipeline produces reasonable results on a more familiar anatomy lends confidence to the tractograms produced of the kidneys. The \ac{FOV} of the acquisition was adjusted to cover the whole brain but all other parameters were kept constant. The resulting maps and tractogram were all as expected, an example tractogram of the brain produced using this pipeline is shown in Figure \ref{fig:ex_dti_brain_tracts}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{Neph/medullary_tracts_2.png}
+	\includegraphics[width=0.8\textwidth]{Neph/brain_tracts.png}
+	\caption{A tractogram of the brain produced to verify the \ac{DTI} acquisition and post-processing scheme developed for the kidneys produces expected results within a structure more commonly the subject of tractography.}
+	\label{fig:ex_dti_brain_tracts}	
+\end{figure}
+
+Renal in-vivo results were compared to those in literature and found to be in agreement \cite{gurses_diffusion_2011, jaimes_diffusion_2014, notohamiprodjo_diffusion_2010}. Additionally, renal features with a known structure can be observed in the tractograms such as the radial structure of the medullary pyramids, Figure \ref{fig:ex_dti_medulla_tracts}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Neph/medullary_tracts_2.png} % 20190926
 	\caption{The medullary pyramids observed in tractography.}
 	\label{fig:ex_dti_medulla_tracts}	
 \end{figure}
 
+An area that still needs further development is the ex-vivo \ac{DTI} protocol. There are promising early results however ex-vivo diffusion imaging poses additional difficulties. During the fixation process, methyl bridges cross link with proteins within the tissue are formed within the tissue stiffening it and causing a small amount of shrinkage \cite{thavarajah_chemical_2012}. This combined with the lower temperatures of ex-vivo samples ($\sim$ 20$\degree$C room temperature rather than $\sim$ 37$\degree$C body temperature) leads to a reduced degree of diffusion, seen in Figure \ref{fig:ex_adc_maps}. While this results in a higher \ac{SNR} of diffusion sensitised volumes for a given b-value, the underlying diffusion signal being measured is much smaller i.e. there is less of a difference between b0 and b-600 sec/mm$^2$. 
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.31\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/ex_vivo_fa.png} % 20190923
+		\caption{}
+		\label{fig:ex_ex_dti_fa}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.31\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/ex_vivo_fa_rgb.png} % 20190923
+		\caption{}
+		\label{fig:ex_ex_dti_fa_rgb}
+	\end{subfigure}
+	\hfill	
+	\begin{subfigure}[c]{0.31\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/ex_vivo_md.png} % 20190923
+		\caption{}
+		\label{fig:ex_ex_dti_md}
+	\end{subfigure}
+	\caption{\ac{FA} (\subref{fig:ex_ex_dti_fa}), fibre direction (\subref{fig:ex_ex_dti_fa_rgb}) and \ac{MD} (\subref{fig:ex_ex_dti_md}) maps of an ex-vivo sample.}
+	\label{fig:ex_ex_dti_maps}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth, angle=270]{Neph/ex_vivo_tracts.png} % 20190923
+	\caption{Tractography of an ex-vivo kidney sample.}
+	\label{fig:ex_ex_tracts}	
+\end{figure}
 \section{Optimising Tissue Fixation}
 \label{sec:ex_tissue_fixation}
 % Motivation
