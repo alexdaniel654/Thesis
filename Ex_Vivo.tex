@@ -50,7 +50,51 @@ As one of the aims in this chapter is for the protocol developed to be able to b
 	\label{fig:ex_head_coil}	
 \end{figure}
 
-Sequence development work was performed on formalin fixed porcine samples immersed in \ac{PBS} at room temperature. A more detailed explanation of the sample acquisition and fixation process is provided in Section \ref{sec:ex_tissue_fixation}.
+One of the aims of the ex-vivo protocol is to minimise time outside the body as a confounding factor. This enables a greater degree of flexibility with regards to scan times and even order of scans within the protocol. Tissue degradation occurs relatively quickly after removal from the body and as such the tissue was fixed to minimise this process. Samples were transported in \acf{PBS} then transferred into ten times the samples volume of 10\% \acf{NBF} for twenty four hours. After fixation the samples were washed and rehydrated with \ac{PBS} and remain in this solution while being scanned to minimise susceptibility artefacts that would be too substantial if the sample were scanned either in air or the \ac{NBF}. All samples were scanned at room temperature ($\sim$ 20$\degree$C).
+
+Development work was performed on porcine kidney samples as these are an excellent analogue for human kidneys. Initially, samples were acquired from a local slaughterhouse however these samples were of variable quality. This was largely due to the legislation surrounding animals destined to enter the human food chain. If any part of the animal is to be consumed by humans, the carcase must be thoroughly inspected before any tissue can be released. This causes two problems. As part of the inspection, the kidneys need to be examined for parasites, this is done by making an incision in the organ, however the quality of this incision can vary massively with some samples having a neat 20 mm slice cut into them while others are roughly cut in half. The second issue is cause by the variable time between slaughter and the tissue being released after inspection. No preservation techniques, such as storing the kidneys on ice, are employed during the wait for tissue release and as such, the tissue can begin to degrade in this variable and unknown time period.
+
+These issues meant later samples were procured from University of Nottingham Veterinary Science department. The animals slaughtered here are not destined for human consumption and as such the kidneys can be placed into \ac{PBS} and subsequently \ac{NBF} far quicker, additionally the kidneys do not need to be sliced open for inspection. The difference quality of sampled acquired from the slaughterhouse and Veterinary Science can clearly be seen in Figure \ref{fig:ex_samples}. The collaboration with Veterinary Science also enables the procurement of a more diverse range of samples such as kidneys from pigs of different ages and therefore different degrees of fibrosis or from animals with induced \ac{AKI}.  
+
+% Results
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.9\textwidth}
+		\centering
+		\begin{subfigure}[c]{0.47\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth, angle=180]{neph/meat_kidney}
+			\caption{}
+			\label{fig:ex_samples_meat_kidney}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[c]{0.47\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth, angle=180]{neph/sb_kidney}
+			\caption{}
+			\label{fig:ex_samples_sb_kidney}
+		\end{subfigure}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.9\textwidth}
+		\centering
+		\begin{subfigure}[c]{0.47\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{neph/meat_mri}
+			\caption{}
+			\label{fig:ex_samples_meat_mri}			
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[c]{0.47\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth, angle=270]{neph/sb_mri}
+			\caption{}
+			\label{fig:ex_samples_sb_mri}
+		\end{subfigure}
+	\end{subfigure}
+	\caption{(\subref{fig:ex_samples_meat_kidney}) An example of a sample procured from the slaughterhouse after it has been fixed. The left hand kidney has been sliced in half; the right hand kidney has the incisions from the meat inspector clearly visible. (\subref{fig:ex_samples_sb_kidney}) An example of a sample procured from Veterinary Science post fixing. (\subref{fig:ex_samples_meat_mri}) An example of a \ttwo weighted \ac{FFE} with TE = 40 ms of a kidney procured from the slaughterhouse. (\subref{fig:ex_samples_sb_mri}) An example of a $T_2$ weighted FFE with TE = 40 ms of a kidney procured from Veterinary Science.} 
+	\label{fig:ex_samples}
+\end{figure}
 
 \subsection{Anatomical Scans}
 
@@ -595,52 +639,12 @@ An area that still needs further development is the ex-vivo \ac{DTI} protocol. T
 \end{figure}
 
 \newpage
-\section{Optimising Tissue Fixation}
+\section{Monitoring Changes in MR Parameters Post Fixation}
 \label{sec:ex_tissue_fixation}
 % Motivation
-Development work was performed on porcine kidney samples as these are an excellent analogue for human kidneys. Initially, samples were acquired from a local slaughterhouse however these samples were of variable quality. This was largely due to the legislation surrounding animals destined to enter the human food chain. If any part of the animal is to be consumed by humans, the carcase must be thoroughly inspected before any tissue can be released. This causes two problems. As part of the inspection, the kidneys need to be examined for parasites, this is done by making an incision in the organ, however the quality of this incision can vary massively with some samples having a neat 20 mm slice cut into them while others are roughly cut in half. The second issue is cause by the variable time between slaughter and the tissue being released after inspection. No preservation techniques, such as storing the kidneys on ice, are employed during the wait for tissue release and as such, the tissue can begin to degrade in this variable and unknown time period.
+As outlined already, fixation is a necessity step to ensure a consistent protocol and minimise logistical hurdles in having scanners available at specific times when, by the nature of ex-vivo samples, the acquisition process can be somewhat flexible in timings. The effects of fixation on brain tissue have already been reported \cite{birkl_effects_2016, schmierer_quantitative_2008, shatil_quantitative_2018} however no literature on the effects of fixation of renal tissue is available. Here we characterise the stability of \tone and \ttwostar in renal tissue post fixation to ascertain how stringent the timings of the ex-vivo protocol need to be.
 
-These issues meant later samples were procured from University of Nottingham Veterinary Science department. The animals slaughtered here are not destined for human consumption and as such the kidneys can be placed into \ac{PBS} and subsequently \ac{NBF} far quicker, additionally the kidneys do not need to be sliced open for inspection. The difference quality of sampled acquired from the slaughterhouse and Veterinary Science can clearly be seen in Figure \ref{fig:ex_samples}. The collaboration with Veterinary Science also enables the procurement of a more diverse range of samples such as kidneys from pigs of different ages and therefore different degrees of fibrosis or from animals with induced \ac{AKI}.  
 
-% Results
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.9\textwidth}
-		\centering
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth, angle=180]{neph/meat_kidney}
-			\caption{}
-			\label{fig:ex_samples_meat_kidney}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth, angle=180]{neph/sb_kidney}
-			\caption{}
-			\label{fig:ex_samples_sb_kidney}
-		\end{subfigure}
-	\end{subfigure}
-	\vskip\baselineskip
-	\begin{subfigure}[c]{0.9\textwidth}
-		\centering
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth]{neph/meat_mri}
-			\caption{}
-			\label{fig:ex_samples_meat_mri}			
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth, angle=270]{neph/sb_mri}
-			\caption{}
-			\label{fig:ex_samples_sb_mri}
-		\end{subfigure}
-	\end{subfigure}
-	\caption{(\subref{fig:ex_samples_meat_kidney}) An example of a sample procured from the slaughterhouse after it has been fixed. The left hand kidney has been sliced in half; the right hand kidney has the incisions from the meat inspector clearly visible. (\subref{fig:ex_samples_sb_kidney}) An example of a sample procured from Veterinary Science post fixing. (\subref{fig:ex_samples_meat_mri}) An example of a \ttwo weighted \ac{FFE} with TE = 40 ms of a kidney procured from the slaughterhouse. (\subref{fig:ex_samples_sb_mri}) An example of a $T_2$ weighted FFE with TE = 40 ms of a kidney procured from Veterinary Science.} 
-	\label{fig:ex_samples}
-\end{figure}
 
 \begin{figure}[H]
 	\centering
