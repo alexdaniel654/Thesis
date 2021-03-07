@@ -642,9 +642,9 @@ An area that still needs further development is the ex-vivo \ac{DTI} protocol. T
 \section{Monitoring Changes in MR Parameters Post Fixation}
 \label{sec:ex_tissue_fixation}
 % Motivation
-As outlined already, fixation is a necessity step to ensure a consistent protocol and minimise logistical hurdles in having scanners available at specific times when, by the nature of ex-vivo samples, the acquisition process can be somewhat flexible in timings. The effects of fixation on brain tissue have already been reported \cite{birkl_effects_2016, schmierer_quantitative_2008, shatil_quantitative_2018} however no literature on the effects of fixation of renal tissue is available. Here we characterise the stability of \tone and \ttwostar in renal tissue post fixation to ascertain how stringent the timings of the ex-vivo protocol need to be.
+As outlined already, fixation is a necessity step to ensure a consistent protocol and minimise logistical hurdles in having scanners available at specific times when, by the nature of ex-vivo samples, the acquisition process can be somewhat flexible in timings. The effects of fixation on brain tissue have already been reported \cite{birkl_effects_2016, schmierer_quantitative_2008, shatil_quantitative_2018} however no literature on the effects of fixation of renal tissue is available. Here we characterise the stability of \tone and \ttwostar in renal tissue post fixation to ascertain how precise the timings of the ex-vivo protocol need to be.
 
-
+The initial investigation assessed the long term stability of the kidneys by collecting \tone and \ttwostar maps at both 3T and 7T over a ten week period post fixation, the kidneys were stored in \ac{PBS} for the duration of the experiment. An unfixed kidney was also scanned at 3T. Analysis was performed on the resulting maps by defining a \ac{ROI} for the cortex and medulla then calculating the mean and standard deviation of the voxels within each \ac{ROI}. The variation in \tone and \ttwostar can be seen in Figure \ref{fig:ex_fixation_lts}. Unfortunately due to technical scanner issues, it was not possible to scan the sample at 7T ten weeks post fixation and the quality of the 3T \tone acquisition two weeks post fixation was significantly inferior; as such these data points have been omitted from Figure \ref{fig:ex_fixation_lts}.
 
 \begin{figure}[H]
 	\centering
@@ -681,28 +681,19 @@ As outlined already, fixation is a necessity step to ensure a consistent protoco
 			\label{fig:ex_fixation_t2star_7t_lts}
 		\end{subfigure}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_fixation_t1_3t_lts}) Variation in $T_1$ as a function of time after fixation measured at 3T (\subref{fig:ex_fixation_t2star_3t_lts}) Variation in $T_2^*$ as a function of time after fixation measured at 3T (\subref{fig:ex_fixation_t1_7t_lts}) Variation in $T_1$ as a function of time after fixation measured at 7T (\subref{fig:ex_fixation_t2star_7t_lts})  Variation in $T_2^*$ as a function of time after fixation measured at 7T.}
+	\caption{Variation in \tone (\subref{fig:ex_fixation_t1_3t_lts} \& \subref{fig:ex_fixation_t1_7t_lts}) and \ttwostar (\subref{fig:ex_fixation_t2star_3t_lts} \& \subref{fig:ex_fixation_t2star_7t_lts}) after fixation at 3T (\subref{fig:ex_fixation_t1_3t_lts} \& \subref{fig:ex_fixation_t2star_3t_lts}) and 7T (\subref{fig:ex_fixation_t1_7t_lts} \& \subref{fig:ex_fixation_t2star_7t_lts}).}
 	\label{fig:ex_fixation_lts}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/T1_map_STS.eps}
-		\caption{}
-		\label{fig:ex_fixation_t1map_3t_sts}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/T2star_map_STS.eps}
-		\caption{}
-		\label{fig:ex_fixation_t2starmap_3t_sts}
-	\end{subfigure}
-	\caption{(\subref{fig:ex_fixation_t1map_3t_sts}) An example of the $T_1$ map collected from the short time scale kidney (\subref{fig:ex_fixation_t2starmap_3t_sts}) An example of the $T_2^*$ map collected from the short time scale kidney.}
-	\label{fig:ex_maps_sts}
-\end{figure}
+Unfortunately, due to the different stiffness between the fixed and unfixed kidneys, the same protocol did not deliver usable \ttwostar maps as the unfixed kidney vibrated too much in the \ac{PBS}. This problem could be reduced in future either by use of vibration insulation between the sample and scanner as per Dawe \textit{et al} \cite{dawe_postmortem_nodate} or by embedding the sample in agarose medium as per Kolk \textit{et al} \cite{kolk_imaging_2014}. The largest changes in quantitative parameters occurred between twenty four hours and one week after fixation. After this the general trend is that the \tone of the cortex and medulla converge and the \ttwostar of the medulla remains relatively constant while the \ttwostar of the cortex increases. There are hints that the \ttwostar of the cortex is beginning to plateau by the end of the experiment. This indicates that, left for sufficiently long amounts of time, the tissue will reach a steady state, however in the first week, when the samples have a \tone most similar to that of an unfixed kidney, the quantitative parameters measured will have a dependence on time and as such necessitates a standardisation in the protocol, specifically the time at which the samples are scanned.
+
+It will be possible to scan most human samples within twenty four hours of fixation, as such it is desirable to ascertain how much \tone, \ttwostar and histology change over this period. Scanning was only performed at 3T as more frequent measurements were preferable to measurements at different field strengths. The this reason, the number of inversion and echo times used to generate the maps was reduced to five and six inversion/echo times respectively fit the protocol into one hour. The choice \ac{TI} and \ac{TE} was arrived at empirically by calculating maps with every combination of five/six previously acquired \ac{TI}/\ac{TE} and comparing the results to maps calculated using the full complement of time points. The reduced protocol consisted of acquisitions with \ac{TI} of 400 ms, 500 ms, 750 ms, 900 ms, 1100 ms and 2600 ms and \ac{TE} of 15 ms, 20 ms, 25 ms, 40 ms and 50 ms. The reduction in time points samples resulted in a mean increase in \tone of $21 \pm 12$ ms and \ttwostar of $0.3 \pm 1.2$ ms compared to the fully sampled protocol.
+
+Scanning sessions started at 1.5 hours, 2.5 hours, 4 hours, 5.5 hours, 19 hours and 22 hours after the sample was removed from the \ac{NBF}. Due to the potential for relatively rapid changes in properties, especially \tone, the order in which \ac{TI}/\ac{TE} were collected was randomised rather than ascending/descending order (however this order was kept consistent between scanning sessions). This means any changes in \tone/\ttwostar over the 30/20 minute acquisition period will manifest themselves and non-systematic noise and thus will simply increase the uncertainty in the fit rather than affecting the calculated value.
+
+To investigate changes in histology over the same time period, the other kidney from the animal was biopsied at the start of each scanning session. Mason's trichrome and \ac{H and E} staining was performed on these samples.
+
+Variation in \tone and \ttwostar over the period being scanned is shown in Figure \ref{fig:ex_fixation_sts}. No significant change in either \tone and \ttwostar was observed, the corresponding histology showed no change in the cortex however there was a noticeable inflammatory response in the medulla. This means that the ex-vivo protocol can be performed at any time in the first twenty four hours after fixation and as such makes future experimental logistics simpler.
 
 \begin{figure}[H]
 	\centering
@@ -721,50 +712,8 @@ As outlined already, fixation is a necessity step to ensure a consistent protoco
 		\caption{}
 		\label{fig:ex_fixation_t2star_3t_sts}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_fixation_t1_3t_sts}) Variation in $T_1$ as a function of time after fixation measured at 3T (\subref{fig:ex_fixation_t2star_3t_sts}) Variation in $T_2^*$ as a function of time after fixation measured at 3T.}
+	\caption{Changes in \tone (\subref{fig:ex_fixation_t1_3t_sts}) and \ttwostar (\subref{fig:ex_fixation_t2star_3t_sts}) in the first twenty four hours a sample is stored in \ac{PBS} after being fixed in \ac{NBF}.}
 	\label{fig:ex_fixation_sts}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/MTS_T1_line.eps}
-		\caption{}
-		\label{fig:ex_fixation_t1_3t_mts}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/MTS_T2star_line.eps}
-		\caption{}
-		\label{fig:ex_fixation_t2star_3t_mts}
-	\end{subfigure}
-	\caption{(\subref{fig:ex_fixation_t1_3t_mts}) Variation in $T_1$ as a function of time after fixation measured at 3T (\subref{fig:ex_fixation_t2star_3t_mts}) Variation in $T_2^*$ as a function of time after fixation measured at 3T.}
-	\label{fig:ex_fixation_mts}
-\end{figure}
-\section{Layer Based Analysis of Renal Data}
-\label{sec:ex_layers}
-% Motivation
-% Methods
-% Results
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[height=1\textwidth]{Other/Layers/mri_to_roi_to_surf_Artboard_5.eps}
-		\caption{}
-		\label{fig:ex_layers_brain}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[height=1\textwidth]{Other/Layers/kidney_levelsets-02.eps}
-		\caption{}
-		\label{fig:ex_layers_kidney}
-	\end{subfigure}
-	\caption{(\subref{fig:ex_layers_brain}) A depth mask of the brain. Lighter areas are deeper inside the brain. (\subref{fig:ex_layers_kidney}) A depth mask applied to a quantitative $T_1$ map.}
-	\label{fig:ex_layers_example}
 \end{figure}
 
 \section{Correlating MRI Measures with Histopathology in Aged Kidneys}
@@ -846,6 +795,30 @@ As outlined already, fixation is a necessity step to ensure a consistent protoco
 	\end{subfigure}
 	\caption{(\subref{fig:ex_young_h_and_e}) A sample of renal cortex from a 0.5 year old pig stained with \ac{H and E}. (\subref{fig:ex_old_h_and_e}) A sample of renal cortex from a 2.5 year old pig stained with \ac{H and E}. (\subref{fig:ex_young_trichrome}) A sample of renal cortex from a 0.5 year old pig stained with Masson's trichrome. (\subref{fig:ex_old_trichrome}) A sample of renal cortex from a 2.5 year old pig stained with Masson's trichrome.} 
 	\label{fig:ex_aged_histo}
+\end{figure}
+
+\section{Layer Based Analysis of Renal Data}
+\label{sec:ex_layers}
+% Motivation
+% Methods
+% Results
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[height=1\textwidth]{Other/Layers/mri_to_roi_to_surf_Artboard_5.eps}
+		\caption{}
+		\label{fig:ex_layers_brain}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[height=1\textwidth]{Other/Layers/kidney_levelsets-02.eps}
+		\caption{}
+		\label{fig:ex_layers_kidney}
+	\end{subfigure}
+	\caption{(\subref{fig:ex_layers_brain}) A depth mask of the brain. Lighter areas are deeper inside the brain. (\subref{fig:ex_layers_kidney}) A depth mask applied to a quantitative $T_1$ map.}
+	\label{fig:ex_layers_example}
 \end{figure}
 
 \section{Conclusion}
