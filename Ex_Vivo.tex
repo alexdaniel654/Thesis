@@ -716,9 +716,34 @@ Variation in \tone and \ttwostar over the period being scanned is shown in Figur
 	\label{fig:ex_fixation_sts}
 \end{figure}
 
-\section{Correlating MRI Measures with Histopathology in Aged Kidneys}
-% Method
+\section{Depth Based Analysis of Renal Data}
+\label{sec:ex_layers}
+% Motivation
+% Methods
 % Results
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[height=1\textwidth]{Other/Layers/mri_to_roi_to_surf_Artboard_5.eps}
+		\caption{}
+		\label{fig:ex_layers_brain}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[height=1\textwidth]{Other/Layers/kidney_levelsets-02.eps}
+		\caption{}
+		\label{fig:ex_layers_kidney}
+	\end{subfigure}
+	\caption{(\subref{fig:ex_layers_brain}) A depth mask of the brain. Lighter areas are deeper inside the brain. (\subref{fig:ex_layers_kidney}) A depth mask applied to a quantitative $T_1$ map.}
+	\label{fig:ex_layers_example}
+\end{figure}
+
+\section{Correlating MRI Measures with Histopathology in Kidneys of Differing Ages}
+To verify correlation between \ac{MRI} measurements and histology, kidneys were collected from a 0.5 year old and 2.5 year old pig. These different ages were expected to have differing levels of renal inflammation and fibrosis. \tone and \ttwostar maps were acquired from both samples and cortical biopsied were removed from the same animals for histological analysis. 
+
+Figure \ref{fig:ex_aged_map} shows example \ac{MRI} data collected from these samples and Figure \ref{fig:ex_aged_bar} shows the quantitative differences in \tone and \ttwo between the kidneys. 
 
 \begin{figure}[H]
 	\centering
@@ -735,7 +760,7 @@ Variation in \tone and \ttwostar over the period being scanned is shown in Figur
 		\caption{}
 		\label{fig:ex_aged_t2star_map}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_aged_t1_map}) $T_1$ map of a 0.5 year old pig kidney. (\subref{fig:ex_aged_t2star_map}) $T_1$ map of a 2.5 year old pg kidney.}
+	\caption{(\subref{fig:ex_aged_t1_map}) $T_1$ map of a 0.5 year old pig kidney. (\subref{fig:ex_aged_t2star_map}) $T_1$ map of a 2.5 year old pig kidney.}
 	\label{fig:ex_aged_map}
 \end{figure}
 
@@ -757,6 +782,8 @@ Variation in \tone and \ttwostar over the period being scanned is shown in Figur
 	\caption{(\subref{fig:ex_aged_t1_bar}) The $T_1$ of the renal cortex and medulla of the two samples. (\subref{fig:ex_aged_t2star_bar}) The $T_2^*$ of the renal cortex and medulla of the two samples.}
 	\label{fig:ex_aged_bar}
 \end{figure}
+
+No significant change is observed in the \tone or \ttwostar of the cortex; the medulla of the older kidney does have a degreased \tone. No significant differences were observed in the cortical biopsy samples. This shows agreement between the \ac{MRI} and histology measurements as neither showed any change in the cortex. 
 
 \begin{figure}[H]
 	\centering
@@ -797,29 +824,28 @@ Variation in \tone and \ttwostar over the period being scanned is shown in Figur
 	\label{fig:ex_aged_histo}
 \end{figure}
 
-\section{Layer Based Analysis of Renal Data}
-\label{sec:ex_layers}
-% Motivation
-% Methods
-% Results
+To further investigate how \tone changes with age, kidneys of 1 day old and 4 week old pigs were scanned. Due to their much smaller size, manually segmenting the cortex and medulla of these samples was not possible, as such the depth based analysis outlined in Section \ref{sec:ex_layers} was used. 
+
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[height=1\textwidth]{Other/Layers/mri_to_roi_to_surf_Artboard_5.eps}
-		\caption{}
-		\label{fig:ex_layers_brain}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[height=1\textwidth]{Other/Layers/kidney_levelsets-02.eps}
-		\caption{}
-		\label{fig:ex_layers_kidney}
-	\end{subfigure}
-	\caption{(\subref{fig:ex_layers_brain}) A depth mask of the brain. Lighter areas are deeper inside the brain. (\subref{fig:ex_layers_kidney}) A depth mask applied to a quantitative $T_1$ map.}
-	\label{fig:ex_layers_example}
+	\includegraphics[width=0.8\textwidth]{Neph/aged_kidneys/Neonatal_one_day.pdf}
+	\caption{}
+	\label{fig:ex_neo_layers_one_day}	
 \end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Neph/aged_kidneys/Neonatal_all_ages.pdf}
+	\caption{}
+	\label{fig:ex_neo_layers_all_ages}	
+\end{figure}
+
+% water content
+% 1 day old comma and s-shaped bodies
+% lower glom density
+In future samples from older pigs should be scanned as these will have a greater degree of fibrosis. Procurement of these samples has proved more difficult as it is not common for pigs to be kept to older ages. Biopsy samples should also include medullary tissue for histological analysis as both Figure \ref{fig:ex_fixation_lts} and Figure \ref{fig:ex_aged_bar} indicate that medullary tissue is relatively variable in quantitative \ac{MRI} and as such, being able to correlate this with histology would be insightful.
+
+
 
 \section{Conclusion}
 
