@@ -719,6 +719,39 @@ Variation in \tone and \ttwostar over the period being scanned is shown in Figur
 \section{Depth Based Analysis of Renal Data}
 \label{sec:ex_layers}
 % Motivation
+The vast majority of analysis of quantitative renal \ac{MRI} data is based around defining \ac{ROI} within the kidneys to segment the renal cortex from the medulla and calculate the average of quantitative parameters within these \ac{ROI}. While this method has provided excellent results, it is by no means perfect. The most common method to define these \ac{ROI} is manually drawing voxels that represent each tissue type, this can lead to human bias, even if an anatomical scan is used for the segmentation rather than the quantitative map. Automated methods have been proposed, however, as outlined in Chapter \ref{chap:ML}, these be difficult to generalise.
+
+There is a desire for a more objective and quantitative analysis methodology to complement the quantitative nature of the \ac{MRI} data acquired. To this end, inspiration has been taken from the analysis pipelines used by neuroimagers who can stratify tissue by layers \cite{self_benchmarking_2019, muckli_contextual_2015, waehnert_anatomically_2014, taso_regional_2021}. Although in neuroimaging the layers are designed to mimic the underlying layer based architecture of neuroanatomy, the process of defining equidistant layers from a cortical surface can be applied to the kidneys where renal cortex is found at the surface of the kidney and medulla towards the centre. 
+
+The concept of applying layer based analysis to quantitative renal \ac{MRI} was pioneered by Pruijm and Milani \cite{piskunowicz_new_2015, milani_reduction_2017, pruijm_blood_2017, li_renal_2019} in the context of analysis of \ac{BOLD} $R_2^*$ mapping, where $R_2^*=\sfrac{1}{\ttwostar}$. Their method, known as \ac{TLCO}, uses two user delaminated boundaries, Figure \ref{fig:ex_tlco_bounds}, to calculate twelve equidistant layers between the renal pelvis and cortex, Figure \ref{fig:ex_tlco_layers}. These layers can then be applied to a $R_2^*$ map with the average of each layer calculated. The measurements of $R_2^*$ in each layer can be used to estimate $R_{2\;\textup{outer}}^*$, analogous to cortical $R_2^*$; $R_{2\;\textup{inner}}^*$, corresponding to medullary $R_2^*$ and ``slope'', comparable to  cortico-medullary difference, Figure \ref{fig:ex_tlco_grad}. This technique is applied to a single, coronal oblique, slice.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.23\textwidth}
+		\centering
+		\includegraphics[height=4cm]{Neph/tlco_bounds.png}
+		\caption{}
+		\label{fig:ex_tlco_bounds}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.23\textwidth}
+		\centering
+		\includegraphics[height=4cm]{Neph/tlco_layers.png}
+		\caption{}
+		\label{fig:ex_tlco_layers}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[height=4cm]{Neph/tlco_grad.png}
+		\caption{}
+		\label{fig:ex_tlco_grad}
+	\end{subfigure}
+	\caption{Manually defined paths of the inside (blue) and outside (red) of the kidney, (\subref{fig:ex_tlco_bounds}), are used to generate layers using the \ac{TLCO} technique (\subref{fig:ex_tlco_layers}). Average $R_2^*$ is calculated within each layer and a gradient between outer and inner layers computed (\subref{fig:ex_tlco_grad}). Example images are from Li \textit{et al}, 2019 \cite{li_renal_2019}.}
+	\label{fig:ex_tlco}
+\end{figure}
+
+As part of a consensus survey, the question ``The \ac{TLCO} or onion peel is a preferred analysis method [for renal \ac{BOLD} \ac{MRI}]?'' was recently put to an international panel of 24 leading experts in the field of renal \ac{BOLD} \ac{MRI} \cite{bane_consensus-based_2020}. Only 53\% of respondents agreed with the question. The example reason for disagreeing was a preference for true coronal acquisition rather than coronal oblique. This combined with the limitations of a single slice acquisition have lead to the development of the 3D depth based method presented here.
 % Methods
 % Results
 \begin{figure}[H]
@@ -740,7 +773,11 @@ Variation in \tone and \ttwostar over the period being scanned is shown in Figur
 	\label{fig:ex_layers_example}
 \end{figure}
 
-\section{Correlating MRI Measures with Histopathology in Kidneys of Differing Ages}
+% When can they be applied
+% Couldn't be applied above because cut kidneys
+% Extensions, different layer types, compare to TLCO
+
+\section{Correlating MRI Measures with Histology in Kidneys of Differing Ages}
 To verify correlation between \ac{MRI} measurements and histology, kidneys were collected from a 0.5 year old and 2.5 year old pig. These different ages were expected to have differing levels of renal inflammation and fibrosis. \tone and \ttwostar maps were acquired from both samples and cortical biopsied were removed from the same animals for histological analysis. 
 
 Figure \ref{fig:ex_aged_map} shows example \ac{MRI} data collected from these samples and Figure \ref{fig:ex_aged_bar} shows the quantitative differences in \tone and \ttwo between the kidneys. 
@@ -824,22 +861,36 @@ No significant change is observed in the \tone or \ttwostar of the cortex; the m
 	\label{fig:ex_aged_histo}
 \end{figure}
 
-To further investigate how \tone changes with age, kidneys of 1 day old and 4 week old pigs were scanned and compared to histology. Due to their much smaller size, manually segmenting the cortex and medulla of these samples was not possible, as such the depth based analysis outlined in Section \ref{sec:ex_layers} was employed. 
+To further investigate how \tone changes with age, kidneys of 1 day old and 4 week old pigs were scanned and compared to histology. Due to their much smaller size, manually segmenting the cortex and medulla of these samples was not possible, as such the depth based analysis outlined in Section \ref{sec:ex_layers} was employed with a layer thickness of 0.5 mm. 
 
-Initially an assessment of consistency between kidneys of the same age was performed. \tone maps were of three kidneys from two different animals were generated i.e. both kidneys of one animal and the right kidney of another animal were scanned. In Figure \ref{fig:ex_neo_layers_one_day} excellent agreement between all three kidneys can be seen, with an especially high correlation between kidneys from the same animal. This both gives confidence in the depth based analysis when applied to very small kidneys 
+Initially an assessment of consistency between kidneys of the same age was performed. \tone maps were of three kidneys from two different animals were generated i.e. both kidneys of one animal and the right kidney of another animal were scanned. In Figure \ref{fig:ex_neo_layers_one_day} excellent agreement between all three kidneys can be seen, with an especially high correlation between kidneys from the same animal. This both gives confidence in the depth based analysis when applied to very small kidneys and indicates that there is a low degree of variance in kidneys of this age.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Neph/aged_kidneys/Neonatal_one_day.pdf}
-	\caption{}
+	\caption{Changes in \tone with renal tissue depth in kidneys of one day old pigs. The shaded area is the standard deviation within each 0.5 mm thick layer of tissue.}
 	\label{fig:ex_neo_layers_one_day}	
 \end{figure}
 
+The same depth based analysis was applied to a 4 week old kidney and the 0.5 year and 2.5 year old kidneys analysed above. The changes in \tone with depth are shown in Figure \ref{fig:ex_neo_layers_all_ages} both as absolute tissue depth in mm and relative tissue depth in percent, therefore normalising for kidney size. In this figure it can be observed that the \tone of renal tissues differentiates with age. This is in part likely due to decreasing water content with age ($\sim$85\% in neonatal kidneys, decreasing to $\sim$65-70\% by adulthood) and in part due to the lower glomerular density in younger kidneys.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Neph/aged_kidneys/Neonatal_all_ages.pdf}
-	\caption{}
-	\label{fig:ex_neo_layers_all_ages}	
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/aged_kidneys/Neonatal_all_ages.pdf}
+		\caption{}
+		\label{fig:ex_neo_layers_all_ages_abs}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/aged_kidneys/Neonatal_all_ages_percent.pdf}
+		\caption{}
+		\label{fig:ex_neo_layers_all_ages_per}
+	\end{subfigure}
+	\caption{Changes in \tone with renal depth of pig kidneys of multiple ages. The shaded area is the standard deviation within each 0.5 mm thick layer of tissue. (\subref{fig:ex_neo_layers_all_ages_abs}) shows the absolute depth, (\subref{fig:ex_neo_layers_all_ages_per}) shows the relative depth with 0\% being the surface of the kidney and 100\% being the deepest tissue.}
+	\label{fig:ex_neo_layers_all_ages}
 \end{figure}
 
 % water content
@@ -847,13 +898,11 @@ Initially an assessment of consistency between kidneys of the same age was perfo
 % lower glom density
 In future samples from older pigs should be scanned as these will have a greater degree of fibrosis. Procurement of these samples has proved more difficult as it is not common for pigs to be kept to older ages. Biopsy samples should also include medullary tissue for histological analysis as both Figure \ref{fig:ex_fixation_lts} and Figure \ref{fig:ex_aged_bar} indicate that medullary tissue is relatively variable in quantitative \ac{MRI} and as such, being able to correlate this with histology would be insightful.
 
-
-
 \section{Conclusion}
 
 \section{Acknowledgements}
 
-We are grateful for access to the University of Nottingham's Augusta high performance computing service. We also thank Prof David Gardner of University of Nottingham Veterinary Science for his assistance with sample acquisition, histopathological processing of samples and general renal physiology expertise.
+We are grateful for access to the University of Nottingham's Augusta high performance computing service. We also thank Prof David Gardner of University of Nottingham Veterinary Science for his assistance with sample acquisition, histopathological processing of samples and general renal physiology expertise. Finally we wish to thank Kevin Aquino for his original work developing 3D depth maps in the brain.
 
 \newpage
 \section{References}
