@@ -8,7 +8,7 @@
 \newpage
 \section{Introduction}
 
-A recurring theme in renal \ac{MRI} studies are the limitations imposed by respiratory motion. Sequences must either be optimised and accelerated to fit within a breath-hold, be hugely slowed down through the use of respiratory triggering or accept the motion artefacts that are inevitable during free-breathing acquisition. Additionally the common trade-off in \ac{MRI} between voxel size, \ac{FOV} and acquisition time becomes all the more limiting within the constraints of respirator motion. While these issues are ever-present in day-to-day clinical practice, they also imped progress, and ultimately, clinical adoption, of techniques in the research phases of their development. Often in research, it is desirable to acquire data of higher quality than would be required in clinical practice. This can be to gain a better understanding of the spacial variance within small structures or acquire best case scenario data with many averages/time points to compare to existing, non-imaging, diagnostic techniques.
+A recurring theme in renal \ac{MRI} studies are the limitations imposed by respiratory motion. Sequences must either be optimised and accelerated to fit within a breath-hold, be hugely slowed down through the use of respiratory triggering or accept the motion artefacts that are inevitable during free-breathing acquisition. Additionally the common trade-off in \ac{MRI} between voxel size, \ac{FOV} and acquisition time becomes all the more limiting within the constraints of respirator motion. While these issues are ever-present in day-to-day clinical practice, they also imped progress, and ultimately, clinical adoption, of techniques in the research phases of their development. Often in research, it is desirable to acquire data of higher quality than would be required in clinical practice. This can be to gain a better understanding of the spacial variance within small structures or acquire best case scenario data with many averages or time points to compare to existing, non-imaging diagnostic techniques.
 
 In this chapter, techniques for ex-vivo renal \ac{MRI} are developed. These allow research to be conducted without the limitations imposed by respiratory motion and, in future, could be used in the clinic to assess allograft viability prior to transplant.
 
@@ -28,16 +28,34 @@ Thus far, no work has been found comparing whole organ renal histology to in-viv
 Given the purpose of this paradigm is to compare pre-existing histological analysis with newly developed, but previously documented renal \ac{MRI} protocols, the area that will need the most development is the use of ex-vivo \ac{MRI} to image renal tissue.
 
 \subsection{Assessment of Allograft Viability}
+Availability of transplant kidneys is a major limiting factor in the treatment of many patients with end-stage kidney disease. This results in long times on recipient waiting lists incurring additional risks to the patient from the adverse effects of dialysis upon the body and resulting in high costs to health services. 
+
+Despite the shortage of donor kidneys, a significant proportion of those donated are discarded rather than transplanted. This is due to an understandably cautious approach to acceptance of organs from older donors or those with co-morbidities however these discarded organs will inevitably contain a range of organ qualities, some of which could have been viable grafts. One method of increasing the number of available organs for transplant is reduce the proportion of discarded kidneys while also avoiding transplanting unviable grafts. To try and assess the viability of marginal organs two methods have been developed using data from the United Kingdom and United States transplant registry. These methods both produce a risk index which is designed to give 1 for a healthy 40 year old donor with an index of less than 1 indicating a lower risk donor and an index higher than 1 indicating a higher risk donor. The \ac{UKKDRI} is given by an empirically derived equation based on the risk factors of donor age, history of hypertension, donor weight, days in hospital and the use of adrenaline \cite{watson_simplified_2012} while the \ac{USKDRI} adds an additional ten risk factor to its model \cite{rao_comprehensive_2009}. \ac{ROC} analysis of both methods showed an \ac{AUC} of 0.62 and 0.63 for \ac{UKKDRI} and \ac{USKDRI} respectively, indicating that the models have limited predictive ability. Model accuracy could likely be improved by including measures specific to the kidneys themselves rather than simply demographic and global clinical factors.
+
+Between 2009 and 2013 64.8\% of kidney donations came from deceased donors rather than living donors \cite{burton_causes_2019}. As these donations are unplanned, there is a significant time period between kidney availability and surgery while a recipient is found, during this time tests could be run on the kidney to assess its viability. One such modality for these tests is \ac{MRI}.
+
+By developing a developing a quantitative ex-vivo renal \ac{MRI} protocol, the health of the kidney to be transplanted could be assessed while a recipient is being found. \ac{MRI} is ideally suited due to its non-destructive, whole organ coverage, thus avoiding the sampling bias outlined as an issue with biopsy. The results from the \ac{MRI} exam could be used to improve accuracy of the donor risk index and thus would result in a lower rate of discarded organs and an increase in long term successful grafts. 
+
+In addition to scanning the organ ex-vivo, an in-vivo protocol could be used to assess graft function post transplant. By proactively identifying the onset and progression of graft dysfunction, treatment could be modified to extend the life of the transplant.
+
+%\begin{split}
+%	\textup{UKKDRI} &= \exp{ \left\{  -0.245 \left[\textup{donor age} < 40 \right]}\\
+%	x &= y 
+%%&+ 0.245 \left[\textup{donor age} \geq 60 \right] + 0.265 \left[ \textup{history of hypertension}\right] + \right\}}
+%%	\textup{UKKDRI} = \exp{ \left\{-1 \right\}}
+%	\label{eq:ex_ukkdri}
+%\end{split}
 
 \subsection{Ex-Vivo Protocol Aims}
-To enable research into these topics, a range of ex-vivo acquisition techniques with matched in-vivo counterparts was developed with the following aims.
 
-\begin{itemize}
-	\item Can be run on widely available hospital hardware
-	\item Not take forever
-	\item Not need custom coils etc
-	\item Not uber time dependent i.e. can scan at any time in a 12 hour window
-\end{itemize}
+To enable research into these topics, a range of ex-vivo acquisition techniques with matched in-vivo counterparts was developed. Keeping the motivations outlined above in mind, the following aims and constraints were imposed on the protocol.
+
+\paragraph{Hardware:} Both the in-vivo and ex-vivo protocol should be able to run on readily available hospital hardware. Although some hospitals are linked the research institutions with access to pre-clinical \ac{MRI} facilities, this is not the norm. Therefore the protocol should be implemented on human whole body scanners. Additionally, the use of bespoke \ac{RF} coils should be avoided, while these may deliver superior \ac{SNR} they are not readily available.
+
+\paragraph{Acquisition Time:} Without the limits on acquisition time imposed scanning subjects, total protocol times can easily become very long. While it is commonplace in pre-clinical settings to scan samples for more than a day, this is not practical on a busy human scanner, especially in a hospital environment. As such, the ex-vivo protocol should be limited to five hours and the in-vivo protocol limited to the standard of one hour.
+
+\paragraph{Time Dependence:} Logistics of surgery are complicated with delays and rescheduling of procedures being relatively common occurrences. This combined with the addition of a complicated research protocol has the potential to reduce throughput of samples. To this end, the time dependence of the ex-vivo aspect of the protocol should be minimised so that delays in organ transport or scanner availability do not have a knock on effect on data acquired. In the case of the nephrectomy paradigm, this could be achieved by fixing renal tissue prior to imaging.
+
 
 \section{MRI Protocol Development}
 
@@ -942,7 +960,16 @@ The same depth based analysis was applied to a 4 week old kidney and the 0.5 yea
 % lower glom density
 In future samples from older pigs should be scanned as these will have a greater degree of fibrosis. Procurement of these samples has proved more difficult as it is not common for pigs to be kept to older ages. Biopsy samples should also include medullary tissue for histological analysis as both Figure \ref{fig:ex_fixation_lts} and Figure \ref{fig:ex_aged_bar} indicate that medullary tissue is relatively variable in quantitative \ac{MRI} and as such, being able to correlate this with histology would be insightful.
 
-\section{Conclusion}
+\section{Conclusion of Future Work}
+A paired ex-vivo and in-vivo quantitative renal \ac{MRI} protocol has been developed to assess \tone, \ttwo, \ttwostar, \ac{ADC} and \ac{FA} and tractography in the same organ both inside and outside the body. This protocol can be combined with histological analysis of the samples to link cutting edge \ac{MRI} measures with existing standards for assessment of renal health. Understanding this link will enable \ac{MRI} to augment the current practice of renal biopsys. The highly localised sampling of a biopsy followed by histology can be combined with \acp{MRI} whole organ coverage to give a better indication of the heterogeneity of renal health.
+
+The ex-vivo part of the protocol could also be used in future to assist stratification of donated organs prior to transplant. Organ availability is the limiting factor in renal transplant rate, by increasing confidence in marginal quality organs the time a patient spends on the transplant waiting list could be reduced, reducing risks of complications for the patient due to extended time on dialysis and reduce cost the the health service. The in-vivo protocol could be used to proactively identify dysfunctional grafts and thus modify the course of treatment to extend the life of the transplant.
+
+Further developments in this area will initially focus on validation of the ex-vivo protocol in a single kidney. By the nature of protocol development, not all aspects are developed at the same time. Unfortunately the Coronavirus pandemic of 2020 limited the availability of samples and access to scanners towards the end of protocol development. As such, the compete protocol has not been run on a single sample to collect and overlay all quantitative parameters. The correlation of histology and \ac{MRI} data could also be improved. Currently, the histology and imaging data are not registered and as such voxel by voxel correlations with histology are not possible. Recently developed software packages focusing on the registration of histology and \ac{MRI} data should assist with this aim \cite{huszar_tensor_2019}.
+
+Future developments will also explore the use of \ac{ASL} on perfused ex-vivo organs. Perfusion kidneys while waiting for a recipient to be matched is an area of intense research\todo{add ref}. \ac{ASL} could be used to assess the success of these mechanical perfusion mechanisms and direct improvements in the procedure. Finally, an assessment of glomerular number and density via \ac{MRI} would be an ideal comparison to certain histopathological metrics. While it is not possible to resolve individual glomeruli with the current protocol, other groups have had success applying deep learning and super resolution techniques to enable counting of the glomeruli in a sample \todo{add ref}.
+
+
 
 \section{Acknowledgements}
 
