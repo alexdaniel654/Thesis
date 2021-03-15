@@ -1,47 +1,69 @@
 \chapter{Ex-Vivo Renal MRI}
 \label{chap:ex}
-
+\newpage
 \begin{abstract}
-	This work was presented as a digital poster at the \ac{ISMRM} 27th Annual Meeting 2019 \cite{daniel_effects_2019} and as a poster at \ac{UKKW} 2019 \cite{kazmi_determining_2019}.
+	Despite recent developments in quantitative renal \ac{MRI} the current clinical standard for diagnosis of renal pathologies is limited to biopsy followed by histology, an invasive procedure that is not without risks and highly susceptible to sampling bias. To aid the clinical adoption of renal \ac{MRI} the interplay between the newly developed \ac{MRI} protocols and existing histological pipelines must be better understood.	
+	
+	By scanning subjects who are due to undergo a nephrectomy as part of their standard clinical care, the same kidney can be imaged in-vivo using state of the art protocols prior to the operation. Once the kidney has been removed, it can be imaged ex-vivo in exquisite detail to collect the highest quality of \ac{MRI} data, this can then be correlated to existing histological analysis. These three complimentary streams of data will lead to a better understanding of the \ac{MRI} parameters and lend confidence to quantitative \ac{MRI} in the clinic. In future the ex-vivo \ac{MRI} protocol could also be used to assess the viability of kidney grafts prior to transplant. Here a matched ex-vivo and in-vivo multiparametric renal \ac{MRI} protocol and advance analysis methods are developed.
+	
+	This work was presented at the \ac{ISMRM} 27th Annual Meeting, 2019 \cite{daniel_effects_2019} and \ac{UKKW} 2019 \cite{kazmi_determining_2019-1}. The bespoke analysis pipelines and software developed here were heavily drawn upon in the development of The \ac{UKAT} \cite{nery_ukrin_2020}. This work has also been accepted to be presented at the \ac{ISMRM} 29th Annual Meeting, 2021, \cite{daniel_ukrin_2021}.
 \end{abstract}
 \acresetall
 \newpage
 \section{Introduction}
 
-A recurring theme in renal \ac{MRI} studies are the limitations imposed by respiratory motion. Sequences must either be optimised and accelerated to fit within a breath-hold, be hugely slowed down through the use of respiratory triggering or accept the motion artefacts that are inevitable during free-breathing acquisition. Additionally the common trade-off in \ac{MRI} between voxel size, \ac{FOV} and acquisition time becomes all the more limiting within the constraints of respirator motion. While these issues are ever-present in day-to-day clinical practice, they also imped progress, and ultimately, clinical adoption, of techniques in the research phases of their development. Often in research, it is desirable to acquire data of higher quality than would be required in clinical practice. This can be to gain a better understanding of the spacial variance within small structures or acquire best case scenario data with many averages/time points to compare to existing, non-imaging, diagnostic techniques.
+A recurring theme in renal \ac{MRI} studies is the limitations imposed by respiratory motion. Sequences must either be optimised and accelerated to fit within a breath-hold, be hugely slowed down through the use of respiratory triggering or accept the motion artefacts that are inevitable during free-breathing acquisition. Additionally the common trade-off in \ac{MRI} between voxel size, \ac{FOV} and acquisition time becomes all the more limiting within the constraints of respirator motion. While these issues are ever-present in day-to-day clinical practice, they also imped progress, and ultimately, clinical adoption, of techniques in the research phases of their development. Often in research, it is desirable to acquire data of higher quality than would be required in clinical practice. This can be to gain a better understanding of the spacial variance within small structures or acquire best case scenario data with many averages or time points to compare to existing, non-imaging diagnostic techniques.
 
 In this chapter, techniques for ex-vivo renal \ac{MRI} are developed. These allow research to be conducted without the limitations imposed by respiratory motion and, in future, could be used in the clinic to assess allograft viability prior to transplant.
 
 \subsection{Validation of Multiparametric MRI via a Nephrectomy Model}
 
-Blood and urine tests are commonly used to assess renal health and function however, these are indirect measures and given no indication as the the health of individual kidneys. Consequently, the gold standard in renal diagnostics is a biopsy followed by histological analysis. During a renal biopsy, an area on the patients back is injected with local anaesthetic then, using ultrasound as a guide, a biopsy needle is inserted into the kidney to removing a sample of the tissue. Acquiring the biopsy takes approximately half an hour. The patient is then asked to lie in bed for several hours to minimise the risk of internal bleeding. In approximately 1\% of patients, the bleeding caused will require a blood transfusion and approximately 0.5\% of patients will require embolisation. While these risks are relatively small, the procedure is still an invasive, destructive and time consuming one for the patient thus making it poorly suited for longitudinal monitoring of renal health. Additionally, this method of biopsy is not viable for some patients such as those with coagulopathy or thrombocytopenia due to the increased risk if a hemorrhage occurs or those that are unable to lie prone such as patients who are intubated for respiratory assistance \cite{rathod_safety_2017}. While techniques such as the transjugular renal biopsy have been developed (albeit accidentally after taking a wrong turn at the portal vein while trying to acquire a liver biopsy \cite{mal_transjugular_1990}) to serve these patients, this is a more technically complicated procedure. Finally, the samples acquired via biopsy are very small and thus are often not representative of the entirety of the kidney biopsied, let alone both kidneys.
+Blood and urine tests are commonly used to assess renal health and function however, these are indirect measures and given no indication as the the health of individual kidneys. Consequently, the gold standard in renal diagnostics is a biopsy followed by histological analysis. During a renal biopsy, an area on the patients back is injected with local anaesthetic then, using ultrasound as a guide, a biopsy needle is inserted into the kidney to removing a sample of the tissue. Acquiring the biopsy takes approximately half an hour. After the sample is removed the patient is then asked to lie in bed for several hours to minimise the risk of internal bleeding. In approximately 1\% of patients, the bleeding caused will require a blood transfusion and approximately 0.5\% of patients will require embolisation. While these risks are relatively small, the procedure is still an invasive, destructive and time consuming one for the patient thus making it poorly suited for longitudinal monitoring of renal health. Additionally, this method of biopsy is not viable for some patients such as those with coagulopathy or thrombocytopenia due to the increased risk if a hemorrhage occurs or those that are unable to lie prone such as patients who are intubated for respiratory assistance \cite{rathod_safety_2017}. While techniques such as the transjugular renal biopsy have been developed (albeit accidentally after taking a wrong turn at the portal vein while trying to acquire a liver biopsy \cite{mal_transjugular_1990}) to serve these patients, this is a more technically complicated procedure. Finally, the samples acquired via biopsy are very small and thus are often not representative of the entirety of the kidney biopsied, let alone both kidneys.
 
 These drawbacks have provided the incentive for the development of multiparametric renal \ac{MRI} protocols which could prove to be advantageous for both clinicians and patients. A key aspect in the widespread adoption of \ac{MRI} into renal clinical practice, is a full understanding of the interplay between the current histological pipelines and the newly developed \ac{MRI} measurements. While it is possible to correlate biopsy results with \ac{MRI} findings and gain some information as to how different \ac{MRI} measurements vary with tissue properties, this paradigm still suffers from the small tissue sampling volumes outlined above and the inherent difficulties of in-vivo \ac{MRI} data acquisition \cite{leung_could_2017}. An alternative paradigm is to scan the kidney in-vivo to collect typical renal \ac{MRI} data, scan the organ ex-vivo to acquire exquisite \ac{MRI} data of a far higher quality than would be possible in-vivo, then perform whole organ histology on the tissue. These three streams of complimentary data, all acquired from the same organ, eliminate the large issues with currently implemented paradigms, while still being able to reference the data back to clinically feasible measures.
 
 
 One of the first works correlating multiparametric \ac{MRI} with renal histology was by Inoue \textit{et al}, who found a statistically significant correlation between fibrosis area, as determined from a renal biopsy stained with Masson's trichrome, and \ac{ADC} and \ttwostar in 37 \ac{CKD} patients \cite{inoue_noninvasive_2011}. This was confirmed by Zhao \textit{et al}, who found a strong correlation between \ac{ADC} of both the renal cortex and medulla and histopathological fibrosis score on 25 more \ac{CKD} patients \cite{zhao_assessment_2014}; this study used a more comprehensive histopathology protocol. Feng \textit{et al} also found a correlation between glomerulosclerosis, fibrosis, \ac{FA} and \ac{ADC} in \ac{CKD} subjects \cite{feng_dti_2015}. Friedli \textit{et al} found a significant correlation between cortical-medullary differences in \tone and \ac{ADC} and fibrosis, this was first found in rats, including histology of whole organs rather than just biopsy samples \cite{friedli_new_2016}. The same group then validated this finding in 164 human subjects, correlating with biopsy rather than whole organ \cite{berchtold_validation_2020}.
 
-Outside the renal community, work has been done with registered whole-mount histology and both in-vivo and ex-vivo \ac{MRI}. Jafari \textit{et al} have performed volume matched ex-vivo \ac{QSM} and \ttwostar mapping with whole explant histopathology using the histopathology results to validate predictions of fibrosis using \ac{MRI} \cite{jafari_integrated_2021}. The University of British Columbia group have carried out extensive work correlating histopathology of whole prostatectomy samples with in-vivo \ac{MRI} \cite{sabouri_mr_2017, dhatt_mri_2020}. The same group have also made use of ex-vivo scanning techniques to correlate histopathology with 3T in-vivo data and 7T narrow-bore ex-vivo data \cite{uribe_vivo_2015}. The use of matched histology and \ac{MRI} data is well established in the neuroimaging field \cite{lazari_can_2021} with studies correlating histopathology with diffusion measures \cite{peters_white_2019, moll_multiple_2011, howard_joint_2019, mollink_white_2019}, magnetisation transfer \cite{mottershead_high_2003, seewann_diffusely_2009}, \ac{QSM} \cite{hametner_influence_2018, stuber_myelin_2014} and relaxometry measures \cite{bagnato_untangling_2018, reeves_combined_2016}. Additionally, post processing packages have been developed to enable accurate registration of whole mount histopathology and \ac{MRI} data \cite{huszar_tensor_2019, huszar_automated_2019}.
+Outside the renal community, work has been done with registered whole-mount histology and both in-vivo and ex-vivo \ac{MRI}. Jafari \textit{et al} have performed volume matched ex-vivo \ac{QSM} and \ttwostar mapping with whole explant histopathology in the liver using the histopathology results to validate predictions of fibrosis using \ac{MRI} \cite{jafari_integrated_2021}. The University of British Columbia group have carried out extensive work correlating histopathology of whole prostatectomy samples with in-vivo \ac{MRI} \cite{sabouri_mr_2017, dhatt_mri_2020}. The same group have also made use of ex-vivo scanning techniques to correlate histopathology with 3T in-vivo data and 7T narrow-bore ex-vivo data \cite{uribe_vivo_2015}. The use of matched histology and \ac{MRI} data is well established in the neuroimaging field \cite{lazari_can_2021} with studies correlating histopathology with diffusion measures \cite{peters_white_2019, moll_multiple_2011, howard_joint_2019, mollink_white_2019}, magnetisation transfer \cite{mottershead_high_2003, seewann_diffusely_2009}, \ac{QSM} \cite{hametner_influence_2018, stuber_myelin_2014} and relaxometry measures \cite{bagnato_untangling_2018, reeves_combined_2016}. Additionally, post processing packages have been developed to enable accurate registration of whole mount histopathology and \ac{MRI} data \cite{huszar_tensor_2019, huszar_automated_2019}.
 
 Thus far, no work has been found comparing whole organ renal histology to in-vivo and ex-vivo \ac{MRI} measurements. The ideal paradigm for this work is to scan patients who are undergoing a nephrectomy as part of their standard clinical care. Briefly, this method would involve scanning a subject pre-operation to acquire a multi-parametric quantitative \ac{MRI} dataset. The subject will then have part of their kidney removed, cancerous tissue will be sent for standard lab tests however, non-cancerous tissue will be immersion fixed in formalin. Equivalent scans assessing the same quantitative parameters as were collected in-vivo will be repeated ex-vivo, however these scans will be at a much higher resolution. Finally, the tissue will be sliced for multi-stain histopathology. This pipeline enables the comparison of tried and tested histological staining that clinicians are used to, albeit with larger sample sizes, with in-vivo quantitative \ac{MRI} data; ex-vivo data acts as an intermediary between histology and in-vivo \ac{MRI} data.
 
 Given the purpose of this paradigm is to compare pre-existing histological analysis with newly developed, but previously documented renal \ac{MRI} protocols, the area that will need the most development is the use of ex-vivo \ac{MRI} to image renal tissue.
 
 \subsection{Assessment of Allograft Viability}
+Availability of transplant kidneys is a major limiting factor in the treatment of many patients with end-stage kidney disease. This results in long times on recipient waiting lists incurring additional risks to the patient from the adverse effects of dialysis upon the body and resulting in higher costs to health services. 
+
+Despite the shortage of donor kidneys, a significant proportion of those donated are discarded rather than transplanted. This is due to an understandably cautious approach to acceptance of organs from older donors or those with co-morbidities. However these discarded organs will inevitably contain a range of organ qualities, some of which could have been viable grafts. One method of increasing the number of available organs for transplant is reduce the proportion of discarded kidneys while also avoiding transplanting unviable grafts. To try and assess the viability of marginal organs two methods have been developed using data from the United Kingdom and United States transplant registries. These methods both produce a risk index which is designed to give 1 for a healthy 40 year old donor with an index of less than 1 indicating a lower risk donor and an index higher than 1 indicating a higher risk donor. The \ac{UKKDRI} is given by an empirically derived equation based on the risk factors of donor age, history of hypertension, donor weight, days in hospital and the use of adrenaline \cite{watson_simplified_2012} while the \ac{USKDRI} adds an additional ten risk factor to its model \cite{rao_comprehensive_2009}. \ac{ROC} analysis of both methods showed an \ac{AUC} of 0.62 and 0.63 for \ac{UKKDRI} and \ac{USKDRI} respectively, indicating that the models have limited predictive ability. Model accuracy could likely be improved by including measures specific to the kidneys themselves rather than simply demographic and global clinical factors\question{Better word than global for measures of whole body rather than specific organ?}.
+
+Between 2009 and 2013 64.8\% of kidney donations came from deceased donors rather than living donors \cite{burton_causes_2019}. As these donations are unplanned, there is a significant time period between kidney availability and surgery while a recipient is found, during this time tests could be run on the kidney to assess its viability. One possible modality for such tests is \ac{MRI}.
+
+By developing a developing a quantitative ex-vivo renal \ac{MRI} protocol, the health of the kidney to be transplanted could be assessed while a recipient is being found. \ac{MRI} is ideally suited due to its non-destructive, whole organ coverage, thus avoiding the sampling bias outlined as an issue with biopsy. The results from the \ac{MRI} exam could be used to improve accuracy of the donor risk index and thus would result in a lower rate of discarded organs and an increase in long term successful grafts. 
+
+In addition to scanning the organ ex-vivo, an in-vivo protocol could be used to assess graft function post transplant. By proactively identifying the onset and progression of graft dysfunction, treatment could be modified to extend the life of the transplant.
+
+%\begin{split}
+%	\textup{UKKDRI} &= \exp{ \left\{  -0.245 \left[\textup{donor age} < 40 \right]}\\
+%	x &= y 
+%%&+ 0.245 \left[\textup{donor age} \geq 60 \right] + 0.265 \left[ \textup{history of hypertension}\right] + \right\}}
+%%	\textup{UKKDRI} = \exp{ \left\{-1 \right\}}
+%	\label{eq:ex_ukkdri}
+%\end{split}
 
 \subsection{Ex-Vivo Protocol Aims}
-To enable research into these topics, a range of ex-vivo acquisition techniques with matched in-vivo counterparts was developed with the following aims.
 
-\begin{itemize}
-	\item Can be run on widely available hospital hardware
-	\item Not take forever
-	\item Not need custom coils etc
-	\item Not uber time dependent i.e. can scan at any time in a 12 hour window
-\end{itemize}
+To enable research into these topics, a range of ex-vivo acquisition techniques with matched in-vivo counterparts was developed. Keeping the motivations outlined above in mind, the following aims and constraints were imposed on the protocol.
+
+\paragraph{Hardware:} Both the in-vivo and ex-vivo protocol should be able to run on readily available hospital hardware. Although some hospitals are linked the research institutions with access to pre-clinical \ac{MRI} facilities, this is not the norm. Therefore the protocol should be implemented on human whole body scanners. Additionally, the use of bespoke \ac{RF} coils should be avoided, while these may deliver superior \ac{SNR} they are not readily available.
+
+\paragraph{Acquisition Time:} Without the limits on acquisition time imposed scanning subjects, total protocol times can easily become very long. While it is commonplace in pre-clinical settings to scan samples for more than a day, this is not practical on a busy human scanner, especially in a hospital environment. As such, the ex-vivo protocol should be limited to five hours and the in-vivo protocol limited to the standard of one hour.
+
+\paragraph{Time Dependence:} Logistics of surgery are complicated with delays and rescheduling of procedures being relatively common occurrences. This combined with the addition of a complicated research protocol has the potential to reduce throughput of samples. To this end, the time dependence of the ex-vivo aspect of the protocol should be minimised so that delays in organ transport or scanner availability do not have a knock on effect on data acquired. In the case of the nephrectomy paradigm, this could be achieved by fixing renal tissue prior to imaging.
+
 
 \section{MRI Protocol Development}
 
-As one of the aims in this chapter is for the protocol developed to be able to be performed in a hospital environment, the decision to develop the protocol for use on human scanners rather than pre-clinical scanners was made. Although some hospitals are attached to research institutions with access to pre-clinical \ac{MRI} scanners, this is not the norm. Imaging was performed on a 3T Philips Ingenia system as 3T scanners are available in most European/North American hospitals however some protocols were also developed for a 7T Philips Achieva system to assess the best case scenario ex-vivo images that could be acquired on human scanners, all in-vivo imaging was performed at 3T. All ex-vivo samples were scanned in 32 channel head coils, Figure \ref{fig:ex_head_coil}, as these coils allowed for a whole organ to be imaged while also keeping array elements as close to the signal as possible. In-vivo imaging utilised a 16-channel anterior coil array and 16-channel posterior coil array.
+Imaging was performed on a 3T Philips Ingenia system as 3T scanners are available in most European/North American hospitals however some protocols were also developed for a 7T Philips Achieva system to assess the best case scenario ex-vivo images that could be acquired on human scanners, all in-vivo imaging was performed at 3T. Ex-vivo samples were scanned in 32 channel head coils, Figure \ref{fig:ex_head_coil}, as these coils allowed for a whole organ to be imaged while also keeping array elements as close to the sample as possible. In-vivo imaging utilised a 16-channel anterior coil array and 16-channel posterior coil array.
 
 \begin{figure}[H]
 	\centering
@@ -50,7 +72,51 @@ As one of the aims in this chapter is for the protocol developed to be able to b
 	\label{fig:ex_head_coil}	
 \end{figure}
 
-Sequence development work was performed on formalin fixed porcine samples immersed in \ac{PBS} at room temperature. A more detailed explanation of the sample acquisition and fixation process is provided in Section \ref{sec:ex_tissue_fixation}.
+One of the aims of the ex-vivo protocol is to minimise time outside the body as a confounding factor. This enables a greater degree of flexibility with regards to scan times and order of scans within the protocol. Tissue degradation occurs relatively quickly after removal from the body and as such the tissue was fixed to minimise this process. Samples were transported in \acf{PBS} then transferred into ten times the samples volume of 10\% \acf{NBF} for twenty four hours. After fixation the samples were washed and rehydrated with \ac{PBS} and remain in this solution while being scanned to minimise susceptibility artefacts that would be too substantial if the sample were scanned either in air or the \ac{NBF}. All samples were scanned at room temperature ($\sim$ 20$\degree$C).
+
+Development work was performed on porcine kidney samples as these are an excellent analogue for human kidneys. Initially, samples were acquired from a local slaughterhouse however these samples were of variable quality. This was largely due to the legislation surrounding animals destined to enter the human food chain. If any part of the animal is to be consumed by humans, the carcase must be thoroughly inspected before any tissue can be released. This causes two problems. As part of the inspection, the kidneys need to be examined, this is done by making an incision in the organ, however the quality of this incision can vary massively with some samples having a neat 20 mm slice cut into them while others are roughly cut in half. The second issue is cause by the variable time between slaughter and the tissue being released after inspection. No preservation techniques, such as storing the kidneys on ice, are employed during the wait for tissue release and as such, the tissue can begin to degrade in this variable and unknown time period.
+
+These issues meant later samples were procured from University of Nottingham Veterinary Science department. The animals slaughtered here are not destined for human consumption and as such the kidneys can be placed into \ac{NBF} far quicker, additionally the kidneys do not need to be sliced open for inspection. The differing quality of sampled acquired from the slaughterhouse and Veterinary Science can clearly be seen in Figure \ref{fig:ex_samples}. The collaboration with Veterinary Science also enables the procurement of a more diverse range of samples such as kidneys from pigs of different ages and therefore different degrees of fibrosis or from animals with induced \ac{AKI}.  
+
+% Results
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.9\textwidth}
+		\centering
+		\begin{subfigure}[c]{0.47\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth, angle=180]{neph/meat_kidney}
+			\caption{}
+			\label{fig:ex_samples_meat_kidney}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[c]{0.47\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth, angle=180]{neph/sb_kidney}
+			\caption{}
+			\label{fig:ex_samples_sb_kidney}
+		\end{subfigure}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.9\textwidth}
+		\centering
+		\begin{subfigure}[c]{0.47\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{neph/meat_mri}
+			\caption{}
+			\label{fig:ex_samples_meat_mri}			
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[c]{0.47\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth, angle=270]{neph/sb_mri}
+			\caption{}
+			\label{fig:ex_samples_sb_mri}
+		\end{subfigure}
+	\end{subfigure}
+	\caption{(\subref{fig:ex_samples_meat_kidney}) A sample procured from the slaughterhouse after it has been fixed. The left hand kidney has been sliced in half; the right hand kidney has the incisions from the meat inspector clearly visible. (\subref{fig:ex_samples_sb_kidney}) A sample procured from Veterinary Science post fixation. (\subref{fig:ex_samples_meat_mri}) A \ttwo weighted \ac*{GE} acquisition with TE = 40 ms of a kidney procured from the slaughterhouse. (\subref{fig:ex_samples_sb_mri}) A $T_2$ weighted \acs*{GE} acquisition with TE = 40 ms of a kidney procured from Veterinary Science.} 
+	\label{fig:ex_samples}
+\end{figure}
 
 \subsection{Anatomical Scans}
 
@@ -117,7 +183,7 @@ To make use of the layer based analysis techniques outlined in Section \ref{sec:
 	\label{tab:ex_t1_mapping}
 \end{table}
 
-After a 180$\degree$ inversion, t`he signal sampled at each inversion time is proportional to the modulus of the true longitudinal magnetisation, as such, the true dynamic range of the inversion recovery is not sampled. This factor means there is ambiguity as to the polarity of signals near the null point (zero crossing) and can lead to a decreased accuracy when fitting for \tone as any algorithm is essentially having to fit an extra parameter in the form of the null point. 
+After a 180$\degree$ inversion, the signal sampled at each inversion time is proportional to the modulus of the true longitudinal magnetisation, as such, the true dynamic range of the inversion recovery is not sampled. This factor means there is ambiguity as to the polarity of signals near the null point (zero crossing) and can lead to a decreased accuracy when fitting for \tone as any algorithm is essentially having to fit an extra parameter in the form of the null point. 
 
 If the phase of the signal has been saved, the polarity of the magnitude can be corrected using the methods of Szumowski \textit{et al} \cite{szumowski_signal_2012} thus increasing accuracy by increasing dynamic range and removing ambiguity as to the location of the null point for each voxel. Phase data is only accurate if partial Fourier acquisition acceleration techniques (Section \ref{subsec:theory_partial_fourier}), known as halfscan, are not utilised however, because these acceleration methods result in a decreased \ac{SNR} they would not be used ex-vivo anyway.
 
@@ -135,7 +201,7 @@ Once the data has been polarity corrected, a voxel by voxel, least squares trust
 	\label{eq:ex_t1}
 \end{equation}
 
-Using these techniques, the \tone of ex-vivo samples could be calculated at both 3T and 7T, Figure \ref{fig:ex_t1_maps}. For in-vivo acquisitions, halfscan was used and as such magnitude correction could not be employed. As such, in-vivo data was fit to the modulus of Equation \eqref{eq:ex_t1}.
+Using these techniques, the \tone of ex-vivo samples could be calculated at both 3T and 7T, Figure \ref{fig:ex_t1_maps}. For in-vivo acquisitions, halfscan was used and as such magnitude correction could not be employed, thus in-vivo data was fit to the modulus of Equation \eqref{eq:ex_t1}.
  
 \begin{figure}[H]
 	\centering
@@ -193,7 +259,7 @@ Using these techniques, the \tone of ex-vivo samples could be calculated at both
 	\label{tab:ex_t2_mapping}
 \end{table}
 
-\ttwo maps are generated on a voxel by voxel basis using a least squares trust region reflective methods to fit the data to Equation \eqref{eq:ex_t2} to estimate \ttwo and $M_0$. 
+\ttwo maps are generated on a voxel by voxel basis using a least squares trust region reflective method to fit the data to Equation \eqref{eq:ex_t2} and thus estimate \ttwo and $M_0$. 
 \begin{equation}
 	S(TE) = M_0 \cdot e^{-\sfrac{TE}{\ttwo}}
 	\label{eq:ex_t2}
@@ -298,14 +364,14 @@ Using the acquisition and post processing steps above, \ttwostar maps can be gen
 \subsection{\acl*{ADC} Mapping}
 \label{subsec:ex_adc}
 
-The underlying principles of diffusion imaging are outlined in Section \ref{subsec:theory_diffusion}, here \ac{DWI} is performed using a single shot \ac{SE}-\ac{EPI} sequence over a range of b-values applied in three orthogonal directions. By acquiring diffusion gradients in three different directions and calculating the mean, the effects of diffusion anisotropy can be minimised. The sequence was developed for 3T systems with a schematic of the sequence shown in Figure \ref{fig:ex_adc_psd} and the sequence parameters summarised in Table \ref{tab:ex_adc_mapping}. 
+The underlying principles of diffusion imaging are outlined in Section \ref{subsec:theory_diffusion}, here \ac{DWI} is performed using a single shot \ac{SE}-\ac{EPI} sequence over a range of b-values applied in three orthogonal directions. By acquiring diffusion gradients in three different directions and calculating the mean, the effects of diffusion anisotropy can be minimised. The sequence was developed for 3T systems, sequence parameters are summarised in Table \ref{tab:ex_adc_mapping}. 
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Theory/Diffusion/diffusion_psd_epi.pdf}
-	\caption{A schematic of the \ac{SE}-\ac{EPI} sequence used for \ac{ADC} mapping. This block is repeated multiple times with diffusion gradients applied in different directions and with different strengths.}
-	\label{fig:ex_adc_psd}	
-\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{Theory/Diffusion/diffusion_psd_epi.pdf}
+%	\caption{A schematic of the \ac{SE}-\ac{EPI} sequence used for \ac{ADC} mapping. This block is repeated multiple times with diffusion gradients applied in different directions and with different strengths.}
+%	\label{fig:ex_adc_psd}	
+%\end{figure}
 
 \begin{table}[H]
 	\centering
@@ -337,7 +403,7 @@ The diffusion sensitising block of the pulse sequence is time consuming and as s
 
 As the distortions are predominantly in the phase encode direction, by inverting the direction of the phase encode blips, the direction of the distortion can be reversed, Figure \ref{fig:ex_epi_distortion_overlay}. By acquiring images with both phase encode directions the underlying field map can be estimated and used to undistort the data \cite{andersson_how_2003}. This process can be carried out using \ac{FSL} ``topup'' however, as this tool was designed for work in the brain, a custom configuration to perform more iterations of the field estimation algorithm with a greater degree of regularisation is required. 
 
-Although in some cases it is possible ot acquire only the b0 image in both phase encode directions, calculate the displacement field, then apply this field to other b-values, it was decided that the $\sqrt{2}$ \ac{SNR} increase of acquiring two volumes and averaging them is beneficial. Additionally if, in the case of in-vivo data, there are issues with motion in the b0 volumes, then another diffusion weighting can be used to estimate the displacement, thus adding inherent redundancy to the pipeline.
+Although in some cases it is possible to acquire only the b0 image in both phase encode directions, calculate the displacement field, then apply this field to other b-values, it was decided that the $\sqrt{2}$ \ac{SNR} increase of acquiring two volumes and averaging them is beneficial. Additionally if, in the case of in-vivo data, there are issues with motion in the b0 volumes, then another diffusion weighting can be used to estimate the displacement, thus adding inherent redundancy to the pipeline.
 
 \begin{figure}[H]
 	\centering
@@ -373,7 +439,7 @@ Although in some cases it is possible ot acquire only the b0 image in both phase
 
 The average of the three directions at each b-value and phase encode direction is calculated. \ac{EPI} distortion correction is performed on both ex-vivo and in-vivo data using topup to enable accurate voxel by voxel comparison of \ac{ADC} to other quantitative parameters. The natural logarithm of the distortion corrected signal from each voxel over each b-value is taken and a linear least squares fit performed. This enables a quick estimation of \ac{ADC} and an uncertainty in the fit. 
 
-Using these techniques, the \ac{ADC} of both in-vivo and ex-vivo renal tissue can be calculated, Figure \ref{fig:ex_adc_maps} with no geometric distortions. Although not implemented here, the large number of low b-values sampled should make estimations of more advance diffusion parameters possible such as fitting the data to an \ac{IVIM} model \cite{le_bihan_separation_1988}.
+Using these techniques, the \ac{ADC} of both in-vivo and ex-vivo renal tissue can be calculated, Figure \ref{fig:ex_adc_maps}, with no geometric distortions. Although not implemented here, the large number of low b-values sampled should make estimations of more advance diffusion parameters possible such as fitting the data to an \ac{IVIM} model \cite{le_bihan_separation_1988}.
 
 \begin{figure}[H]
 	\centering
@@ -465,9 +531,9 @@ Like the \ac{ADC} sequence, a full dataset is acquired with both opposing phase 
 	\label{tab:ex_dti_mapping}
 \end{table}
 
-The large number of diffusion directions sampled makes additional geometric distortion possible. The rapidly switching fields of the diffusion sequence induce eddy currents in the sample, which in turn induce an opposing magnetic field. This leads to off-resonance distortions in the image. To combat this \ac{FSL}s ``eddy'' can be used \cite{andersson_integrated_2016}. This tool was developed with the brain data from the Human Connectome Project in mind however \cite{andersson_non-parametric_2015}, here is is successfully used to reduce geometric distortions in ex-vivo and in-vivo \ac{DTI} data and subject motion in the in-vivo data. The tools performance is optimal when b-vectors are distributed over a full sphere as this results is approximately opposing eddy current distortions and as such, makes estimation of the deformation more accurate.
+The large number of diffusion directions sampled makes additional geometric distortion correction possible. The rapidly switching fields of the diffusion sequence induce eddy currents in the sample, which in turn induce an opposing magnetic field. This leads to off-resonance distortions in the image which are different for each b-vector. To combat this \ac{FSL}s ``eddy'' can be used \cite{andersson_integrated_2016}. This tool was developed with the brain data from the Human Connectome Project in mind however \cite{andersson_non-parametric_2015}, here is is successfully used to reduce geometric distortions in ex-vivo and in-vivo \ac{DTI} data and subject motion in the in-vivo data. The tools performance is optimal when b-vectors are distributed over a full sphere as this results is approximately opposing eddy current distortions and as such, makes estimation of the deformation more accurate.
 
-Once the raw data has been processed with topup and eddy, quantitative maps can be generated. Eigenvalues ($\lambda_1$, $\lambda_2$, $\lambda_3$) and eigenvectors ($\epsilon_1$, $\epsilon_2$, $\epsilon_3$) are calculated for each diffusion tensor, $\mathscr{D}$. \ac{FA} maps can be calculated from equation \eqref{eq:ex_fa}. Here it can be seen that if $\lambda_1 = \lambda_2 = \lambda_3$, as is the case for isotropic diffusion, \ac{FA} tends to 0. An example renal \ac{FA} map is shown in Figure \ref{fig:ex_dti_fa} where bright areas represent areas of higher \ac{FA} and therefore more anisotropic diffusion.
+Once the raw data has been processed with topup and eddy, quantitative maps can be generated. Eigenvalues ($\lambda_1$, $\lambda_2$, $\lambda_3$) and eigenvectors ($\epsilon_1$, $\epsilon_2$, $\epsilon_3$) are calculated for each diffusion tensor, $\mathscr{D}$. \ac{FA} maps can be calculated from equation \eqref{eq:ex_fa}. Here it can be seen that if $\lambda_1 = \lambda_2 = \lambda_3$, as is the case for isotropic diffusion, \ac{FA} tends to 0. An example renal \ac{FA} map is shown in Figure \ref{fig:ex_dti_fa} where bright voxels represent areas of higher \ac{FA} and therefore more anisotropic diffusion.
 
 \begin{equation}
 	\textup{FA} = \sqrt{\frac{\left(\lambda_1 - \lambda_2\right)^2 + \left(\lambda_2 - \lambda_3\right)^2 + \left(\lambda_1 - \lambda_3\right)^2}{2\left( \lambda_1^2 + \lambda_2^2 + \lambda_3^2\right)}}
@@ -509,7 +575,7 @@ The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, o
 	\label{fig:ex_dti_maps}
 \end{figure}
 
-An extension of the fibre direction map is tractography, a technique that can remove the simplification that a voxel has a single direction of diffusion. Even at the highest resolutions achievable with \ac{MRI}, the biological structures dictating diffusion are orders of magnitude smaller than the resolving power of \ac{MRI} and as such multiple mechanisms can occur in a single voxel e.g. crossing of neurons or microvascular. In the brain this technique is used to visualise nerve tracts and connectivity within the brain; in the kidneys it can be used to visualise the coherent motion of renal processes. Tractography calculations are performed using the open-source python package Dipy \cite{garyfallidis_dipy_2014} and the resulting tracts were visualised using TrackVis \cite{wang_diffusion_2007}.
+An extension of the fibre direction map is tractography, a technique that can remove the simplification that a voxel has a single direction of diffusion. Even at the highest resolutions achievable with \ac{MRI}, the biological structures dictating diffusion are orders of magnitude smaller than the resolving power of \ac{MRI} and as such multiple mechanisms can occur in a single voxel e.g. crossing of neurons or microvascular. In the brain this technique is used to visualise nerve tracts and connectivity within the brain; in the kidneys it can be used to visualise the coherent motion of renal processes. Tractography calculations are performed using the open-source python package Dipy \cite{garyfallidis_dipy_2014} and the resulting tracts are visualised using TrackVis \cite{wang_diffusion_2007}.
 
 To model multiple fibres entering and exiting a voxel, a more sophisticated model than simply looking at the principle eigenvector is required. This takes the form of an \ac{ODF} which can be thought of as the probability a fibre will enter or exit a voxel through a specific solid angle. \acp{ODF} can be visualised as isosurfaces where the surface represent all points of equal probability, example \acp{ODF} are shown in Figure \ref{fig:ex_dti_odf}. Techniques such as Q-ball imaging \cite{descoteaux_regularized_2007, hess_q-ball_2006} and diffusion spectrum imaging \cite{descoteaux_regularized_2007} can be used to estimate the \ac{ODF} however these methods tend to require high b-values and as such a lower \ac{SNR} acquisition making them less suitable to abdominal imaging. Instead a constrained spherical deconvolution method is used \cite{tournier_direct_2004, tournier_robust_2007, tax_recursive_2014}.
 
@@ -559,7 +625,7 @@ Renal in-vivo results were compared to those in literature and found to be in ag
 	\label{fig:ex_dti_medulla_tracts}	
 \end{figure}
 
-An area that still needs further development is the ex-vivo \ac{DTI} protocol. There are promising early results however ex-vivo diffusion imaging poses additional difficulties. During the fixation process, methyl bridges cross link with proteins within the tissue stiffening it and causing a small amount of shrinkage \cite{thavarajah_chemical_2012}. This combined with the lower temperatures of ex-vivo samples ($\sim$ 20$\degree$C room temperature rather than $\sim$ 37$\degree$C body temperature) leads to a reduced degree of diffusion, seen in Figure \ref{fig:ex_adc_maps}. While this results in a higher \ac{SNR} of diffusion sensitised volumes for a given b-value, the underlying diffusion signal being measured is much smaller i.e. there is less of a difference between b0 and b-600 sec/mm$^2$ and thus the accuracy of the quantitative maps, Figure \ref{fig:ex_ex_dti_maps}, and tractography, Figure \ref{fig:ex_ex_tracts} is reduced.
+An area that still needs further development is the ex-vivo \ac{DTI} protocol. There are promising early results however ex-vivo diffusion imaging poses additional difficulties. During the fixation process, methyl bridges cross link with proteins within the tissue stiffening it and causing a small amount of shrinkage \cite{thavarajah_chemical_2012}. This combined with the lower temperatures of ex-vivo samples ($\sim$ 20$\degree$C room temperature rather than $\sim$ 37$\degree$C body temperature) leads to a reduced degree of diffusion, seen in Figure \ref{fig:ex_adc_maps}. While this results in a higher \ac{SNR} of diffusion sensitised volumes for a given b-value, the underlying diffusion signal being measured is much smaller i.e. there is less of a difference between b0 and b-600 sec/mm$^2$ and thus the accuracy of the quantitative maps, Figure \ref{fig:ex_ex_dti_maps}, and tractography, Figure \ref{fig:ex_ex_tracts}, is reduced.
 
 \begin{figure}[H]
 	\centering
@@ -594,49 +660,117 @@ An area that still needs further development is the ex-vivo \ac{DTI} protocol. T
 	\label{fig:ex_ex_tracts}	
 \end{figure}
 
+\newpage
 
-\section{Optimising Tissue Fixation}
-\label{sec:ex_tissue_fixation}
+\section{Depth Based Analysis of Renal Data}
+\label{sec:ex_layers}
 % Motivation
-% Results
+The vast majority of analysis of quantitative renal \ac{MRI} data is based around defining \ac{ROI} within the kidneys to segment the renal cortex from the medulla and calculate the average of quantitative parameters within these \ac{ROI}. While this method has provided excellent results, it is by no means perfect. The most common method to define these \ac{ROI} is manually drawing voxels that represent each tissue type, this can lead to human bias, even if an anatomical scan is used for the segmentation rather than the quantitative map. Automated methods have been proposed, however, as outlined in Chapter \ref{chap:ML}, these be difficult to generalise.
+
+There is a desire for a more objective and quantitative analysis methodology to complement the quantitative nature of the \ac{MRI} data acquired. To this end, inspiration has been taken from the analysis pipelines used by neuroimagers who can stratify tissue by layers \cite{self_benchmarking_2019, muckli_contextual_2015, waehnert_anatomically_2014, taso_regional_2021}. Although in neuroimaging the layers are designed to mimic the underlying layer based architecture of neuroanatomy, the process of defining equidistant layers from a cortical surface can be applied to the kidneys where renal cortex is found at the surface of the kidney and medulla towards the centre. 
+
+The concept of applying layer based analysis to quantitative renal \ac{MRI} was pioneered by Pruijm and Milani \cite{piskunowicz_new_2015, milani_reduction_2017, pruijm_blood_2017, li_renal_2019} in the context of analysis of \ac{BOLD} $R_2^*$ mapping, where $R_2^*=\sfrac{1}{\ttwostar}$. Their method, known as \ac{TLCO}, uses two user delaminated boundaries, Figure \ref{fig:ex_tlco_bounds}, to calculate twelve equidistant layers between the renal pelvis and cortex, Figure \ref{fig:ex_tlco_layers}. These layers can then be applied to an $R_2^*$ map with the average of each layer calculated. The measurements of $R_2^*$ in each layer can be used to estimate $R_{2\;\textup{outer}}^*$, analogous to cortical $R_2^*$; $R_{2\;\textup{inner}}^*$, corresponding to medullary $R_2^*$ and ``slope'', comparable to  cortico-medullary difference, Figure \ref{fig:ex_tlco_grad}. This technique is applied to a single, coronal oblique, slice.
+
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[c]{0.9\textwidth}
+	\begin{subfigure}[c]{0.23\textwidth}
 		\centering
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth, angle=180]{neph/meat_kidney}
-			\caption{}
-			\label{fig:ex_samples_meat_kidney}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth, angle=180]{neph/sb_kidney}
-			\caption{}
-			\label{fig:ex_samples_sb_kidney}
-		\end{subfigure}
+		\includegraphics[height=4cm]{Neph/tlco_bounds.png}
+		\caption{}
+		\label{fig:ex_tlco_bounds}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.23\textwidth}
+		\centering
+		\includegraphics[height=4cm]{Neph/tlco_layers.png}
+		\caption{}
+		\label{fig:ex_tlco_layers}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[height=4cm]{Neph/tlco_grad.png}
+		\caption{}
+		\label{fig:ex_tlco_grad}
+	\end{subfigure}
+	\caption{Manually defined paths of the inside (blue) and outside (red) of the kidney, (\subref{fig:ex_tlco_bounds}), are used to generate layers using the \ac{TLCO} technique (\subref{fig:ex_tlco_layers}). Average $R_2^*$ is calculated within each layer and a gradient between outer and inner layers computed (\subref{fig:ex_tlco_grad}). Example images are from Li \textit{et al}, 2019 \cite{li_renal_2019}.}
+	\label{fig:ex_tlco}
+\end{figure}
+
+As part of a consensus survey, the question ``The \ac{TLCO} or onion peel is a preferred analysis method [for renal \ac{BOLD} \ac{MRI}]?'' was recently put to an international panel of 24 leading experts in the field of renal \ac{BOLD} \ac{MRI} \cite{bane_consensus-based_2020}. Only 53\% of respondents agreed with the question. The example reason for disagreeing was a preference for true coronal acquisition rather than coronal oblique. This combined with the limitations of a single slice acquisition have lead to the development of the 3D depth based method presented here.
+
+For this analysis method to be applied to quantitative data, a full kidney coverage scan must be acquired, Figure \ref{fig:ex_layers_eg_orig}, this scan can be of any sequence as long as there is sufficient contrast between the kidneys and surrounding tissue, for example in-vivo the the \ttwo weighted \ac{HASTE} scan from Chapter \ref{chap:ML} is ideal. The kidneys are then segmented using this scan to generate a binary mask, Figure \ref{fig:ex_layers_eg_mask}. 
+
+Using a bespoke FreeSurfer \cite{dale_cortical_1999} pipeline, this mask can be converted from the binary voxel based representation into a smooth surface, Figures \ref{fig:ex_layers_eg_surf} and \ref{fig:ex_layers_eg_surf_edge}. This surface is made of a very high resolution triangular mesh, Figure \ref{fig:ex_layers_eg_surf_mesh}, and as such allows layers to be calculated at a higher resolution than the original scan. The distance from the centre of each voxel to the closes point on the mesh is then calculated. The sign of this distance i.e. if the point is inside or outside the tissue, is calculated by taking the dot product of the vector from the voxel to the surface and the vector normal to the surface. If the magnitude of the dot product is positive the voxel is outside the surface, if it is negative, it is inside the surface. This results in a quantitative map of the depth of every voxel in the tissue, Figure \ref{fig:ex_layers_eg_depth}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/layers_orig_v2.png}
+		\caption{}
+		\label{fig:ex_layers_eg_orig}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/layers_mask_v2.png}
+		\caption{}
+		\label{fig:ex_layers_eg_mask}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\scalebox{-1}[1]{\includegraphics[width=1\textwidth]{Neph/layers_surf_v4.png}}
+		\caption{}
+		\label{fig:ex_layers_eg_surf}
 	\end{subfigure}
 	\vskip\baselineskip
-	\begin{subfigure}[c]{0.9\textwidth}
+	\begin{subfigure}[c]{0.32\textwidth}
 		\centering
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth]{neph/meat_mri}
-			\caption{}
-			\label{fig:ex_samples_meat_mri}			
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[c]{0.47\textwidth}
-			\centering
-			\includegraphics[width=0.9\textwidth, angle=270]{neph/sb_mri}
-			\caption{}
-			\label{fig:ex_samples_sb_mri}
-		\end{subfigure}
+		\includegraphics[width=1\textwidth]{Neph/layers_surf_edge_v3.png}
+		\caption{}
+		\label{fig:ex_layers_eg_surf_edge}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_samples_meat_kidney}) An example of a sample procured from the slaughterhouse after it has been fixed. The left hand kidney has been sliced in half; the right hand kidney has the incisions from the meat inspector clearly visible. (\subref{fig:ex_samples_sb_kidney}) An example of a sample procured from Veterinary Science post fixing. (\subref{fig:ex_samples_meat_mri}) An example of a \ttwo weighted \ac{FFE} with TE = 40 ms of a kidney procured from the slaughterhouse. (\subref{fig:ex_samples_sb_mri}) An example of a $T_2$ weighted FFE with TE = 40 ms of a kidney procured from Veterinary Science.} 
-	\label{fig:ex_samples}
+	\hfill
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/layers_surf_mesh_v2.png}
+		\caption{}
+		\label{fig:ex_layers_eg_surf_mesh}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.32\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/layers_depth_v2.png}
+		\caption{}
+		\label{fig:ex_layers_eg_depth}
+	\end{subfigure}
+	\caption{(\subref{fig:ex_layers_eg_orig}) The original \ac{MRI} data with clear contrast between the kidney and surrounding tissue/\ac{PBS}. (\subref{fig:ex_layers_eg_mask}) A binary mask generated from the image data. (\subref{fig:ex_layers_eg_surf}) The surface representation of the binary mask, note this dose not appear blocky as it would if it were simply filled voxels. (\subref{fig:ex_layers_eg_surf_edge}) The green line is the edge of the surface, the blue area is the binary mask, the surface edge is not limited to the voxel grid. (\subref{fig:ex_layers_eg_surf_mesh}) The mesh representation of the surface, coordinates of the vertexes of these polygons are used to calculate the distance from each voxel to the surface. (\subref{fig:ex_layers_eg_depth}) A depth map showing how far each voxel is from the surface of the kidney.}
+	\label{fig:ex_layers_eg}
 \end{figure}
+
+The depth map can be quantised to any desired precision e.g. the nearest 1 mm, resulting in layers of voxels equidistant from the surface of the kidney. Using the embedded affine transform of the quantised depth map, these layers can be transformed into the space of any other scan in the same session. This negates the need for quantitative scans to be modified either in \ac{FOV} to acquire the full kidney, or geometry i.e. the respondents from the survey who don't like acquiring coronal oblique data don't need to. Once the quantised depth map is in the same space as a quantitative map, the average of all voxels in each layer can be calculated.
+
+The 3D nature of this methodology is a major advantage in quantitative renal \ac{MRI} where it is common to acquire multiple slices of data; using this method all voxels in the kidney can be included in calculations rather than just those of the central slice. By decoupling layer definition from quantitative map acquisition, a greater degree of robustness and flexibility is afforded. With \ac{TLCO} a not-quite-coronal oblique $R_2^*$ map will produce differing results to a coronal oblique acquisition whereas our method will apply the same layers to the map regardless of acquisition, thus increasing repeatability. This method was applied to analyse samples in Section \ref{sec:ex_ages}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=0.6\textwidth]{Other/Layers/kidney_levelsets-02.eps}
+	\caption{An example depth map showing the 3D nature of the layers produced using this technique.}
+	\label{fig:ex_layers_kidney}
+\end{figure}
+
+Limitations of this method are the fact it can only be applied to whole kidneys, in the case of scanning biopsy samples or the kidneys in Section \ref{sec:ex_tissue_fixation}, this pipeline would lead to highly inaccurate results. It relies on the surface of the sample also being the surface of the kidney; if this assumption does not hold then voxels that are at the surface of the sample will be incorrectly categorised as superficial renal tissue (generally cortex). The computational resources required to run the pipeline are not insignificant, both FreeSurfer and \textsc{matlab} are dependencies thus limiting the operating systems the pipeline can be run on and making setup more complicated. Additionally processing times are tens of minutes rather than seconds as is the case for \ac{TLCO}.
+
+In future a direct comparison of the depth based method outlined above and \ac{TLCO} should be performed. While the methods are trying to achieve slightly different goals in their definition of layers, a comparison of which produces the most biologically relevant layers could be conducted. The depth based method is a equidistant layering technique, neuroimaging also makes use of equivolume layers \cite{waehnert_anatomically_2014}. These could also be relevant to renal imaging and should be explored in future.
+
+\section{Monitoring Changes in MR Parameters Post Fixation}
+\label{sec:ex_tissue_fixation}
+% Motivation
+As outlined already, fixation is a necessity step to ensure a consistent protocol and minimise logistical hurdles in having scanners available at specific times when, by the nature of ex-vivo samples, the acquisition process can be somewhat flexible in timings. The effects of fixation on brain tissue have already been reported \cite{birkl_effects_2016, schmierer_quantitative_2008, shatil_quantitative_2018} however no literature on the effects of fixation of renal tissue is available. Here we characterise the stability of \tone and \ttwostar in renal tissue post fixation to ascertain how precise the timings of the ex-vivo protocol need to be.
+
+The initial investigation assessed the long term stability of the kidneys by collecting \tone and \ttwostar maps at both 3T and 7T over a ten week period post fixation, the kidneys were stored in \ac{PBS} for the duration of the experiment. An unfixed kidney was also scanned at 3T. Analysis was performed on the resulting maps by defining a \ac{ROI} for the cortex and medulla then calculating the mean and standard deviation of the voxels within each \ac{ROI}. The variation in \tone and \ttwostar can be seen in Figure \ref{fig:ex_fixation_lts}. Unfortunately due to technical scanner issues, it was not possible to scan the sample at 7T ten weeks post fixation and the quality of the 3T \tone acquisition two weeks post fixation was significantly inferior; as such these data points have been omitted from Figure \ref{fig:ex_fixation_lts}.
 
 \begin{figure}[H]
 	\centering
@@ -673,28 +807,19 @@ An area that still needs further development is the ex-vivo \ac{DTI} protocol. T
 			\label{fig:ex_fixation_t2star_7t_lts}
 		\end{subfigure}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_fixation_t1_3t_lts}) Variation in $T_1$ as a function of time after fixation measured at 3T (\subref{fig:ex_fixation_t2star_3t_lts}) Variation in $T_2^*$ as a function of time after fixation measured at 3T (\subref{fig:ex_fixation_t1_7t_lts}) Variation in $T_1$ as a function of time after fixation measured at 7T (\subref{fig:ex_fixation_t2star_7t_lts})  Variation in $T_2^*$ as a function of time after fixation measured at 7T.}
+	\caption{Variation in \tone (\subref{fig:ex_fixation_t1_3t_lts} \& \subref{fig:ex_fixation_t1_7t_lts}) and \ttwostar (\subref{fig:ex_fixation_t2star_3t_lts} \& \subref{fig:ex_fixation_t2star_7t_lts}) after fixation at 3T (\subref{fig:ex_fixation_t1_3t_lts} \& \subref{fig:ex_fixation_t2star_3t_lts}) and 7T (\subref{fig:ex_fixation_t1_7t_lts} \& \subref{fig:ex_fixation_t2star_7t_lts}).}
 	\label{fig:ex_fixation_lts}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/T1_map_STS.eps}
-		\caption{}
-		\label{fig:ex_fixation_t1map_3t_sts}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/T2star_map_STS.eps}
-		\caption{}
-		\label{fig:ex_fixation_t2starmap_3t_sts}
-	\end{subfigure}
-	\caption{(\subref{fig:ex_fixation_t1map_3t_sts}) An example of the $T_1$ map collected from the short time scale kidney (\subref{fig:ex_fixation_t2starmap_3t_sts}) An example of the $T_2^*$ map collected from the short time scale kidney.}
-	\label{fig:ex_maps_sts}
-\end{figure}
+Unfortunately, due to the different stiffness between the fixed and unfixed kidneys, the same protocol did not deliver usable \ttwostar maps as the unfixed kidney vibrated too much in the \ac{PBS}. This problem could be reduced in future either by use of vibration insulation between the sample and scanner as per Dawe \textit{et al} \cite{dawe_postmortem_nodate} or by embedding the sample in agarose medium as per Kolk \textit{et al} \cite{kolk_imaging_2014}. The largest changes in quantitative parameters occurred between twenty four hours and one week after fixation. After this the general trend is that the \tone of the cortex and medulla converge and the \ttwostar of the medulla remains relatively constant while the \ttwostar of the cortex increases. There are hints that the \ttwostar of the cortex is beginning to plateau by the end of the experiment. This indicates that, left for sufficiently long amounts of time, the tissue will reach a steady state, however in the first week, when the samples have a \tone most similar to that of an unfixed kidney, the quantitative parameters measured will have a dependence on time and as such necessitates a standardisation in the protocol, specifically the time at which the samples are scanned.
+
+It will be possible to scan most human samples within twenty four hours of fixation, as such it is desirable to ascertain how much \tone, \ttwostar and histology change over this period. Scanning was only performed at 3T as more frequent measurements were preferable to measurements at different field strengths. For this reason, the number of inversion and echo times used to generate the maps was reduced to five and six inversion/echo times respectively fit the protocol into one hour. The choice \ac{TI} and \ac{TE} was arrived at empirically by calculating maps with every combination of five/six previously acquired \ac{TI}/\ac{TE} and comparing the results to maps calculated using the full complement of time points. The reduced protocol consisted of acquisitions with \ac{TI} of 400 ms, 500 ms, 750 ms, 900 ms, 1100 ms and 2600 ms and \ac{TE} of 15 ms, 20 ms, 25 ms, 40 ms and 50 ms. The reduction in time points sampled resulted in a mean increase in \tone of $21 \pm 12$ ms and \ttwostar of $0.3 \pm 1.2$ ms compared to the fully sampled protocol.
+
+Scanning sessions started at 1.5 hours, 2.5 hours, 4 hours, 5.5 hours, 19 hours and 22 hours after the sample was removed from the \ac{NBF}. Due to the potential for relatively rapid changes in properties, especially \tone, the order in which \ac{TI}/\ac{TE} were collected was randomised rather than ascending/descending order (however this order was kept consistent between scanning sessions). This means any changes in \tone/\ttwostar over the 30/20 minute acquisition period will manifest themselves and non-systematic noise and thus will simply increase the uncertainty in the fit rather than affecting the calculated value.
+
+To investigate changes in histology over the same time period, the other kidney from the animal was biopsied at the start of each scanning session. Mason's trichrome and \ac{H and E} staining was performed on these samples.
+
+Variation in \tone and \ttwostar over the period being scanned is shown in Figure \ref{fig:ex_fixation_sts}. No significant change in either \tone and \ttwostar was observed, the corresponding histology showed no change in the cortex however there was a noticeable inflammatory response in the medulla. This means that the ex-vivo protocol can be performed at any time in the first twenty four hours after fixation and as such makes future experimental logistics simpler.
 
 \begin{figure}[H]
 	\centering
@@ -713,55 +838,15 @@ An area that still needs further development is the ex-vivo \ac{DTI} protocol. T
 		\caption{}
 		\label{fig:ex_fixation_t2star_3t_sts}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_fixation_t1_3t_sts}) Variation in $T_1$ as a function of time after fixation measured at 3T (\subref{fig:ex_fixation_t2star_3t_sts}) Variation in $T_2^*$ as a function of time after fixation measured at 3T.}
+	\caption{Changes in \tone (\subref{fig:ex_fixation_t1_3t_sts}) and \ttwostar (\subref{fig:ex_fixation_t2star_3t_sts}) in the first twenty four hours a sample is stored in \ac{PBS} after being fixed in \ac{NBF}.}
 	\label{fig:ex_fixation_sts}
 \end{figure}
+\todo{stagger slightly so error bars are visible}
+\section{Correlating MRI Measures with Histology in Kidneys of Differing Ages}
+\label{sec:ex_ages}
+To verify correlation between \ac{MRI} measurements and histology, kidneys were collected from a 0.5 year old and 2.5 year old pig. These different ages were expected to have differing levels of renal inflammation and fibrosis. \tone and \ttwostar maps were acquired from both samples and cortical biopsies were removed from the same animals for histological analysis. 
 
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/MTS_T1_line.eps}
-		\caption{}
-		\label{fig:ex_fixation_t1_3t_mts}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/MTS_T2star_line.eps}
-		\caption{}
-		\label{fig:ex_fixation_t2star_3t_mts}
-	\end{subfigure}
-	\caption{(\subref{fig:ex_fixation_t1_3t_mts}) Variation in $T_1$ as a function of time after fixation measured at 3T (\subref{fig:ex_fixation_t2star_3t_mts}) Variation in $T_2^*$ as a function of time after fixation measured at 3T.}
-	\label{fig:ex_fixation_mts}
-\end{figure}
-\section{Layer Based Analysis of Renal Data}
-\label{sec:ex_layers}
-% Motivation
-% Methods
-% Results
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[height=1\textwidth]{Other/Layers/mri_to_roi_to_surf_Artboard_5.eps}
-		\caption{}
-		\label{fig:ex_layers_brain}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[height=1\textwidth]{Other/Layers/kidney_levelsets-02.eps}
-		\caption{}
-		\label{fig:ex_layers_kidney}
-	\end{subfigure}
-	\caption{(\subref{fig:ex_layers_brain}) A depth mask of the brain. Lighter areas are deeper inside the brain. (\subref{fig:ex_layers_kidney}) A depth mask applied to a quantitative $T_1$ map.}
-	\label{fig:ex_layers_example}
-\end{figure}
-
-\section{Correlating MRI Measures with Histopathology in Aged Kidneys}
-% Method
-% Results
+Figure \ref{fig:ex_aged_map} shows example \ac{MRI} data collected from these samples and Figure \ref{fig:ex_aged_bar} shows the quantitative differences in \tone and \ttwo between the kidneys. 
 
 \begin{figure}[H]
 	\centering
@@ -778,7 +863,7 @@ An area that still needs further development is the ex-vivo \ac{DTI} protocol. T
 		\caption{}
 		\label{fig:ex_aged_t2star_map}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_aged_t1_map}) $T_1$ map of a 0.5 year old pig kidney. (\subref{fig:ex_aged_t2star_map}) $T_1$ map of a 2.5 year old pg kidney.}
+	\caption{(\subref{fig:ex_aged_t1_map}) $T_1$ map of a 0.5 year old pig kidney. (\subref{fig:ex_aged_t2star_map}) $T_1$ map of a 2.5 year old pig kidney.}
 	\label{fig:ex_aged_map}
 \end{figure}
 
@@ -800,6 +885,8 @@ An area that still needs further development is the ex-vivo \ac{DTI} protocol. T
 	\caption{(\subref{fig:ex_aged_t1_bar}) The $T_1$ of the renal cortex and medulla of the two samples. (\subref{fig:ex_aged_t2star_bar}) The $T_2^*$ of the renal cortex and medulla of the two samples.}
 	\label{fig:ex_aged_bar}
 \end{figure}
+
+No significant change is observed in the \tone or \ttwostar of the cortex; the medulla of the older kidney does have a degreased \tone. No significant differences were observed in the cortical biopsy samples. This shows agreement between the \ac{MRI} and histology measurements as neither showed any change in the cortex. 
 
 \begin{figure}[H]
 	\centering
@@ -840,11 +927,57 @@ An area that still needs further development is the ex-vivo \ac{DTI} protocol. T
 	\label{fig:ex_aged_histo}
 \end{figure}
 
-\section{Conclusion}
+To further investigate how \tone changes with age, kidneys of 1 day old and 4 week old pigs were scanned and compared to histology. Due to their much smaller size, manually segmenting the cortex and medulla of these samples was not possible, as such the depth based analysis outlined in Section \ref{sec:ex_layers} was employed with a layer thickness of 0.5 mm. 
+
+Initially an assessment of consistency between kidneys of the same age was performed. \tone maps were of three kidneys from two different animals were generated i.e. both kidneys of one animal and the right kidney of another animal were scanned. In Figure \ref{fig:ex_neo_layers_one_day} excellent agreement between all three kidneys can be seen, with an especially high correlation between kidneys from the same animal. This both gives confidence in the depth based analysis when applied to very small kidneys and indicates that there is a low degree of variance in kidneys of this age.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Neph/aged_kidneys/Neonatal_one_day.pdf}
+	\caption{Changes in \tone with renal tissue depth in kidneys of one day old pigs. The shaded area is the standard deviation within each 0.5 mm thick layer of tissue.}
+	\label{fig:ex_neo_layers_one_day}	
+\end{figure}
+
+The same depth based analysis was applied to a 4 week old kidney and the 0.5 year and 2.5 year old kidneys analysed above. The changes in \tone with depth are shown in Figure \ref{fig:ex_neo_layers_all_ages} both as absolute tissue depth in mm and relative tissue depth in percent, therefore normalising for kidney size. In this figure it can be observed that the \tone of renal tissues differentiates with age. This is in part likely due to decreasing water content with age ($\sim$85\% in neonatal kidneys, decreasing to $\sim$65-70\% by adulthood) and in part due to the lower glomerular density in younger kidneys.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/aged_kidneys/Neonatal_all_ages.pdf}
+		\caption{}
+		\label{fig:ex_neo_layers_all_ages_abs}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Neph/aged_kidneys/Neonatal_all_ages_percent.pdf}
+		\caption{}
+		\label{fig:ex_neo_layers_all_ages_per}
+	\end{subfigure}
+	\caption{Changes in \tone with renal depth of pig kidneys of multiple ages. The shaded area is the standard deviation within each 0.5 mm thick layer of tissue. (\subref{fig:ex_neo_layers_all_ages_abs}) shows the absolute depth, (\subref{fig:ex_neo_layers_all_ages_per}) shows the relative depth with 0\% being the surface of the kidney and 100\% being the deepest tissue.}
+	\label{fig:ex_neo_layers_all_ages}
+\end{figure}
+
+% water content
+% 1 day old comma and s-shaped bodies
+% lower glom density
+In future samples from older pigs should be scanned as these will have a greater degree of fibrosis. Procurement of these samples has proved more difficult as it is not common for pigs to be kept to older ages. Biopsy samples should also include medullary tissue for histological analysis as both Figure \ref{fig:ex_fixation_lts} and Figure \ref{fig:ex_aged_bar} indicate that medullary tissue is relatively variable in quantitative \ac{MRI} and as such, being able to correlate this with histology would be insightful.
+
+\section{Conclusion of Future Work}
+A paired ex-vivo and in-vivo quantitative renal \ac{MRI} protocol has been developed to assess \tone, \ttwo, \ttwostar, \ac{ADC} and \ac{FA} and tractography in the same organ both inside and outside the body. This protocol can be combined with histological analysis of the samples to link cutting edge \ac{MRI} measures with existing standards for assessment of renal health. Understanding this link will enable \ac{MRI} to augment the current practice of renal biopsys. The highly localised sampling of a biopsy followed by histology can be combined with \acp{MRI} whole organ coverage to give a better indication of the heterogeneity of renal health.
+
+The ex-vivo part of the protocol could also be used in future to assist stratification of donated organs prior to transplant. Organ availability is the limiting factor in renal transplant rate, by increasing confidence in marginal quality organs the time a patient spends on the transplant waiting list could be reduced, reducing risks of complications for the patient due to extended time on dialysis and reduce cost to the health service. The in-vivo protocol could be used to proactively identify dysfunctional grafts and thus modify the course of treatment to extend the life of the transplant.
+
+Further developments in this area will initially focus on validation of the ex-vivo protocol in a single kidney. By the nature of protocol development, not all aspects are developed at the same time. Unfortunately the Coronavirus pandemic of 2020 limited the availability of samples and access to scanners towards the end of protocol development. As such, the complete protocol has not been run on a single sample to collect and overlay all quantitative parameters. The correlation of histology and \ac{MRI} data could also be improved. Currently, the histology and imaging data are not registered and as such voxel by voxel correlations with histology are not possible. Recently developed software packages focusing on the registration of histology and \ac{MRI} data should assist with this aim \cite{huszar_tensor_2019}.
+
+Future developments will also explore the use of \ac{ASL} on perfused ex-vivo organs. Perfusion of kidneys while waiting for a recipient to be matched is an area of intense research \cite{bellini_cold_2019,moers_value_2010,wight_pulsatile_2003}. \ac{ASL} could be used to assess the success of these mechanical perfusion mechanisms and direct improvements in the procedure. Finally, an assessment of glomerular number and density via \ac{MRI} would be an ideal comparison to certain histopathological metrics. While it is not possible to resolve individual glomeruli with the current protocol, other groups have recently had success applying deep learning and super resolution techniques to enable counting of the glomeruli in a sample at 3T.
+
+
 
 \section{Acknowledgements}
 
-We are grateful for access to the University of Nottingham's Augusta high performance computing service.
+We are grateful for access to the University of Nottingham's Augusta high performance computing service. We also thank Prof David Gardner of University of Nottingham Veterinary Science for his assistance with sample acquisition, histopathological processing of samples and general renal physiology expertise. Finally we wish to thank Kevin Aquino for his work developing 3D depth maps in the brain.
 
 \newpage
 \section{References}

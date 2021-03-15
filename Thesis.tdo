@@ -4,5 +4,14 @@
 \contentsline {todo}{\color@fb@x {}{Plum}{}{Plum!25}{\leavevmode {\color {Plum!25}o}}\ Due to stimulate echoes?}{57}{section*.126}
 \defcounter {refsection}{7}\relax 
 \contentsline {todo}{\color@fb@x {}{Plum}{}{Plum!25}{\leavevmode {\color {Plum!25}o}}\ Would a 2D example of applying a Gaussian blur to an image be helpful here too?}{63}{section*.143}
+<<<<<<< HEAD
 \defcounter {refsection}{3}\relax 
 \contentsline {todo}{Figure: Individual b-values}{179}{figure.caption.38}
+=======
+\defcounter {refsection}{10}\relax 
+\contentsline {todo}{\color@fb@x {}{Plum}{}{Plum!25}{\leavevmode {\color {Plum!25}o}}\ Better word than global for measures of whole body rather than specific organ?}{168}{section*.293}
+\defcounter {refsection}{10}\relax 
+\contentsline {todo}{Figure: Individual b-values}{184}{figure.caption.328}
+\defcounter {refsection}{10}\relax 
+\contentsline {todo}{\color@fb@x {}{black}{}{orange}{\leavevmode {\color {orange}o}}\ stagger slightly so error bars are visible}{201}{section*.355}
+>>>>>>> master
