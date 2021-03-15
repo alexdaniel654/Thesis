@@ -426,8 +426,8 @@ Although in some cases it is possible to acquire only the b0 image in both phase
 
 \begin{figure}[H]
 	\centering
-%	\includegraphics[width=0.8\textwidth]{}
-	\missingfigure{Individual b-values}
+	\includegraphics[width=0.9\textwidth]{Neph/Individual_b_vals.eps}
+%	\missingfigure{Individual b-values}
 	\caption{Distortion corrected images at each b-value.}
 	\label{fig:ex_adc_raw_data}	
 \end{figure}
@@ -577,25 +577,32 @@ The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, o
 
 An extension of the fibre direction map is tractography, a technique that can remove the simplification that a voxel has a single direction of diffusion. Even at the highest resolutions achievable with \ac{MRI}, the biological structures dictating diffusion are orders of magnitude smaller than the resolving power of \ac{MRI} and as such multiple mechanisms can occur in a single voxel e.g. crossing of neurons or microvascular. In the brain this technique is used to visualise nerve tracts and connectivity within the brain; in the kidneys it can be used to visualise the coherent motion of renal processes. Tractography calculations are performed using the open-source python package Dipy \cite{garyfallidis_dipy_2014} and the resulting tracts are visualised using TrackVis \cite{wang_diffusion_2007}.
 
-To model multiple fibres entering and exiting a voxel, a more sophisticated model than simply looking at the principle eigenvector is required. This takes the form of an \ac{ODF} which can be thought of as the probability a fibre will enter or exit a voxel through a specific solid angle. \acp{ODF} can be visualised as isosurfaces where the surface represent all points of equal probability, example \acp{ODF} are shown in Figure \ref{fig:ex_dti_odf}. Techniques such as Q-ball imaging \cite{descoteaux_regularized_2007, hess_q-ball_2006} and diffusion spectrum imaging \cite{descoteaux_regularized_2007} can be used to estimate the \ac{ODF} however these methods tend to require high b-values and as such a lower \ac{SNR} acquisition making them less suitable to abdominal imaging. Instead a constrained spherical deconvolution method is used \cite{tournier_direct_2004, tournier_robust_2007, tax_recursive_2014}.
+To model multiple fibres entering and exiting a voxel, a more sophisticated model than simply looking at the principle eigenvector is required. This takes the form of an \ac{ODF} which can be thought of as the probability a fibre will enter or exit a voxel through a specific solid angle. \acp{ODF} can be visualised as isosurfaces where the surface represent all points of equal probability, example \acp{ODF} are shown in Figure \ref{fig:ex_dti_odfs}. Techniques such as Q-ball imaging \cite{descoteaux_regularized_2007, hess_q-ball_2006} and diffusion spectrum imaging \cite{descoteaux_regularized_2007} can be used to estimate the \ac{ODF} however these methods tend to require high b-values and as such a lower \ac{SNR} acquisition making them less suitable to abdominal imaging. Instead a constrained spherical deconvolution method is used \cite{tournier_direct_2004, tournier_robust_2007, tax_recursive_2014}.
+
+%\begin{figure}[H]
+%	\centering
+%	\begin{subfigure}[c]{0.47\textwidth}
+%		\centering
+%		\includegraphics[width=1\textwidth]{Neph/csd_odfs.png}
+%		\caption{}
+%		\label{fig:ex_dti_odfs}
+%	\end{subfigure}
+%	\hfill
+%	\begin{subfigure}[c]{0.47\textwidth}
+%		\centering
+%		\includegraphics[width=1\textwidth]{Neph/csd_odf_b0.png}
+%		\caption{}
+%		\label{fig:ex_dti_odf_b0}
+%	\end{subfigure}
+%	\caption{The \acp{ODF} for a small number of voxels of renal tissue (\subref{fig:ex_dti_odfs}) and the corresponding b0 image to help visualise the part of the kidney the data is coming from (\subref{fig:ex_dti_odf_b0}).}
+%	\label{fig:ex_dti_odf}
+%\end{figure}
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/csd_odfs.png}
-		\caption{}
-		\label{fig:ex_dti_odfs}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/csd_odf_b0.png}
-		\caption{}
-		\label{fig:ex_dti_odf_b0}
-	\end{subfigure}
-	\caption{The \acp{ODF} for a small number of voxels of renal tissue (\subref{fig:ex_dti_odfs}) and the corresponding b0 image to help visualise the part of the kidney the data is coming from (\subref{fig:ex_dti_odf_b0}).}
-	\label{fig:ex_dti_odf}
+	\includegraphics[width=0.6\textwidth]{Neph/csd_odfs_overlay.png}
+	\caption{The \acp{ODF} for a small number of voxels of renal tissue overlayed on the corresponding b0 image.}
+	\label{fig:ex_dti_odfs}	
 \end{figure}
 
 The peak values of \acp{ODF} are calculated and used to generate streamlines which represent the tracts of coherent diffusion. The calculation of streamline paths is performed using the \ac{EuDX} method \cite{garyfallidis_towards_2013}. This tractography pipeline and its many hyper-parameters are best summarised in code form and as such are included in Appendix \ref{app:tractography_pipeline}. The results of this processing pipeline are tractograms as shown in Figure \ref{fig:ex_dti_tracts}.
@@ -778,14 +785,14 @@ The initial investigation assessed the long term stability of the kidneys by col
 		\centering
 		\begin{subfigure}[c]{0.47\textwidth}
 			\centering
-			\includegraphics[width=1\textwidth]{Neph/T1_3T_crop.eps}
+			\includegraphics[width=1\textwidth]{Neph/T1_3T_crop.pdf}
 			\caption{}
 			\label{fig:ex_fixation_t1_3t_lts}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[c]{0.47\textwidth}
 			\centering
-			\includegraphics[width=1\textwidth]{Neph/T2star_3T_crop.eps}
+			\includegraphics[width=1\textwidth]{Neph/T2star_3T_crop.pdf}
 			\caption{}
 			\label{fig:ex_fixation_t2star_3t_lts}
 		\end{subfigure}
@@ -795,14 +802,14 @@ The initial investigation assessed the long term stability of the kidneys by col
 		\centering
 		\begin{subfigure}[c]{0.47\textwidth}
 			\centering
-			\includegraphics[width=1\textwidth]{Neph/T1_7T_crop.eps}
+			\includegraphics[width=1\textwidth]{Neph/T1_7T_crop.pdf}
 			\caption{}
 			\label{fig:ex_fixation_t1_7t_lts}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[c]{0.47\textwidth}
 			\centering
-			\includegraphics[width=1\textwidth]{Neph/T2star_7T_crop.eps}
+			\includegraphics[width=1\textwidth]{Neph/T2star_7T_crop.pdf}
 			\caption{}
 			\label{fig:ex_fixation_t2star_7t_lts}
 		\end{subfigure}
@@ -826,7 +833,7 @@ Variation in \tone and \ttwostar over the period being scanned is shown in Figur
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
 		%		\missingfigure{T1 vs Times (STS)}
-		\includegraphics[width=1\textwidth]{Neph/STS_T1_line.eps}
+		\includegraphics[width=1\textwidth]{Neph/STS_T1_line.pdf}
 		\caption{}
 		\label{fig:ex_fixation_t1_3t_sts}
 	\end{subfigure}
@@ -834,14 +841,14 @@ Variation in \tone and \ttwostar over the period being scanned is shown in Figur
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
 		%		\missingfigure{T2* vs Times (STS)}
-		\includegraphics[width=1\textwidth]{Neph/STS_T2star_line.eps}
+		\includegraphics[width=1\textwidth]{Neph/STS_T2star_line.pdf}
 		\caption{}
 		\label{fig:ex_fixation_t2star_3t_sts}
 	\end{subfigure}
 	\caption{Changes in \tone (\subref{fig:ex_fixation_t1_3t_sts}) and \ttwostar (\subref{fig:ex_fixation_t2star_3t_sts}) in the first twenty four hours a sample is stored in \ac{PBS} after being fixed in \ac{NBF}.}
 	\label{fig:ex_fixation_sts}
 \end{figure}
-\todo{stagger slightly so error bars are visible}
+
 \section{Correlating MRI Measures with Histology in Kidneys of Differing Ages}
 \label{sec:ex_ages}
 To verify correlation between \ac{MRI} measurements and histology, kidneys were collected from a 0.5 year old and 2.5 year old pig. These different ages were expected to have differing levels of renal inflammation and fibrosis. \tone and \ttwostar maps were acquired from both samples and cortical biopsies were removed from the same animals for histological analysis. 
