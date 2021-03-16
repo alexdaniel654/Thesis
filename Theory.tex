@@ -364,25 +364,33 @@ So far, \ac{NMR} has been applied to measure signals from the entire sample, gai
 
 The key concepts of \ac{MRI} were developed by multiple groups in the 1970s. Lauterbur used magnetic field gradients and a back-projection reconstruction technique to generate 2D images in 1973 \cite{lauterbur_image_1973}. Simultaneously Mansfield was working on ``\ac{NMR} diffraction'' introducing the mathematical framework of reciprocal $k$-space \cite{mansfield_nmr_1973} and later slice selective excitation \cite{garroway_image_1974}. The final key insight was provided by Ernst who published the first Fourier imaging method \cite{kumar_nmr_1975}, this used non-selective excitations and linear gradients to generate 2D Fourier encoded images. These techniques are still the basis of \ac{MRI} today.
 
-The concepts of signal localisation will be introduced through the example of an axial acquisition, Figure \ref{fig:theory_axial_planning}
+The concepts of signal localisation will be introduced through the example of an axial acquisition, Figure \ref{fig:theory_axial_planning}. Throughout this chapter, the brain is used for examples of image formation as this anatomy highlights some of the concepts discussed more clearly. A typical series of equivalent renal scans is shown in Figure \ref{fig:theory_renal_localisers}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/Signal_Localisation/signal_localisation_planning.eps}
 	\caption{Planning used in the signal localisation example.}
 	\label{fig:theory_axial_planning}	
 \end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/Signal_Localisation/renal_localisers.eps}
+	\caption{Typical localisers used to plan further renal scans.}
+	\label{fig:theory_renal_localisers}	
+\end{figure}
 \subsubsection{Gradient Fields}
-Signal localisation makes use of gradient fields. These produce small linear perturbations in $B_0$ and are applied in a combination of the $x$, $y$ and $z$ direction to enable arbitrary gradient directions and result in $B_0$ varying with position, $\mathbf{r}$,
+Signal localisation makes use of gradient fields. These produce small linear perturbations in $B_0$ and are applied in a combination of the $x$, $y$ and $z$ direction to enable arbitrary gradient directions and result in $B_0$ varying with spatial position, $\mathbf{r}$,
 \begin{equation}
 B_z\left( r\right) =\left( B_0 + \mathbf{G \cdot r}\right) \hat{k}.
 \end{equation}
-As such, the resonant frequency of the spins can also be described as a function of position and, because the gradients are not static, time,
+As such, the resonant frequency of the spins can also be described as a function of position and, because the gradients are not static, also in time;
 \begin{equation}
 \omega\left( x, y, z, t \right) = \gamma \left( B_0 + G_x(t)x + G_y(t)y + G_z(t)z \right) 
 \label{eq:theory_localisation_gradients}
 \end{equation}
+
 \subsubsection{Slice Selection}
-The initial step in localisation is to measure the signal from a single, spatially defined, slice. If a gradient is applied along the $z$ direction, $G_z$, the magnetic field experiences by the spins at position $z$ will be
+The initial step in localisation is to measure the signal from a single, spatially defined, slice. If a gradient is applied along the $z$ direction, $G_z$, the magnetic field experienced by the spins at position $z$ will be
 \begin{equation}
 B\left( z\right)  = B_0 + G_zz.
 \end{equation}
@@ -390,7 +398,7 @@ As such, from the simplification of \eqref{eq:theory_localisation_gradients}, th
 \begin{equation}
 \omega\left( z\right)  = \gamma\left( B_0 + G_zz\right).
 \end{equation}
-If a frequency selective \ac{RF} pulse is applied to the sample, it will only excite spins within the corresponding bandwidth and thus only a slice of desired thickness. This slice-selective thickness, $\Delta z$, can be changed by either adjusting $G_z$ or the bandwidth of the excitation pulse, $\Delta \omega$.
+If a frequency selective \ac{RF} pulse is applied to the sample, it will only excite spins within the corresponding bandwidth and thus only a slice of desired thickness. This slice-selective thickness, $\Delta z$, can be changed by either adjusting the amplitude of $G_z$ or the bandwidth of the excitation \ac{RF} pulse, $\Delta \omega$.
 \begin{equation}
 \Delta z = \frac{\Delta \omega}{\gamma G_z}
 \end{equation}
@@ -414,7 +422,7 @@ The gradient applied will result in de-phasing of the spins as in a \ac{GE} sequ
 		\caption{}
 		\label{fig:theory_slice_select_profile}
 	\end{subfigure}
-	\caption{(\subref{fig:theory_slice_select_rephasing}) A truncated sinc pulse of bandwidth $\Delta \omega$ being applied over a slice selective gradient followed by the negative re-phasing gradient lobe. Note that the area under the re-phasing gradient is half of that of the slice selective gradient. (\subref{fig:theory_slice_select_profile}) Example slices of thickness $\Delta z$ being excited by \ac{RF} pulses of bandwidth $\Delta \omega$ showing that excitation pulses of larger bandwidth result in thicker slice profiles.}
+	\caption{(\subref{fig:theory_slice_select_rephasing}) A truncated sinc pulse of bandwidth $\Delta \omega$ is applied at the same time as a slice selective gradient, this is followed by the negative re-phasing gradient lobe. Note that the area under the re-phasing gradient is half that of the slice selective gradient. (\subref{fig:theory_slice_select_profile}) Example slices of thickness $\Delta z$ being excited by \ac{RF} pulses of bandwidth $\Delta \omega$ showing that excitation pulses of larger bandwidth result in thicker slice profiles.}
 	\label{fig:theory_slice_select}
 \end{figure}
 \subsubsection{Phase Encoding}
@@ -422,13 +430,13 @@ The signal has been localised from a full 3D volume to a defined 2D volumetric s
 \begin{equation}
 \omega \left( y\right) = \gamma\left( B_0 + G_yy\right),
 \end{equation}
-and as such accrue a phase shift relative to if no gradient was applied, given by 
+and as such accrue a phase shift, $\phi \left( y \right)$, relative to the situation if no gradient was applied. This is given by 
 \begin{equation}
 \phi\left( y\right)  = \gamma y \int_{0}^{T} G_y\left( t\right) dt.
 \end{equation}
-Acquisitions must be repeated with different amplitudes/durations of $G_y$ to fully sample in the $y$ direction, Figure \ref{fig:theory_signal_loc}.
+Acquisitions must be repeated with different amplitudes/durations of $G_y$ to fully sample the $y$ direction.
 
-Phase aliasing occurs because the whole sample produces signal, whether it is in the \ac{FOV} or not. As there is a finite range of phase values ($0$ to $2\pi$) tissue outside the \ac{FOV} can have the same value as tissue within the \ac{FOV} this results in the two signals becoming indistinguishable and therefore combined in a process known as wrapping. This artefact is illustrated in Figure \ref{fig:theory_wrapping_spins}.
+Phase aliasing occurs because the whole sample produces signal, whether it is in the \ac{FOV} or not. As there is a finite range of phase values ($0$ to $2\pi$) tissue outside the \ac{FOV} can have the same value as tissue within the \ac{FOV} this results in the two signals becoming indistinguishable and therefore combined in a process known as wrapping. This artefact is illustrated in Figure \ref{fig:theory_wrapping_spins} using the brain because its simple oval shape lends itself to a clearer diagram. This artefact is just as prevalent in the body where there is a much larger variance in subject size and thus, in the interest of consistent protocols, larger \ac{FOV} are acquired, slowing acquisition.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.4\textwidth]{Theory/kspace/wrapping_spins.pdf}
@@ -437,12 +445,11 @@ Phase aliasing occurs because the whole sample produces signal, whether it is in
 \end{figure}
 
 \subsubsection{Frequency Encoding}
-Finally, the signal needs to be localised in the $x$ direction. This is achieved using frequency encoding.
-Here the gradient, $G_x$ is applied during the acquisition section of the sequence i.e. when the signal is being sampled. As the gradient is being applied during readout, those spins in the centre of the gradient (at field $B_0$) will be precessing at the Larmor frequency while those in a stronger or weaker field will be precessing faster ro slower respectively. By sampling the signal generated and applying a Fourier transform to separate components of the signal at each frequency, the signal is spatially resolved in all three dimensions. An overview of a basic signal localisation scheme is shown in Figure \ref{fig:theory_signal_loc}.
+Finally, the signal needs to be localised in the $x$ direction. This is achieved using frequency encoding. Here the gradient, $G_x$ is applied during the acquisition section of the sequence i.e. when the signal is being sampled. As the gradient is applied during readout, those spins in the centre of the gradient (at field $B_0$) will precess at the Larmor frequency while those in a stronger or weaker field will precess faster or slower respectively. By sampling the signal generated and applying a Fourier transform to separate components of the signal at each frequency, the signal is spatially resolved in all three dimensions. An overview of a basic signal localisation scheme is shown in Figure \ref{fig:theory_signal_loc}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/Signal_Localisation/signal_localisation_psd.eps}
-	\caption{A basic spacial localisation pulse sequence showing how gradients applied along the $z$, $y$ and $x$ directions can be used to localise the signal in the corresponding dimensions.}
+	\caption{A basic spacial localisation pulse sequence showing how gradients applied along the $z$, $y$ and $x$ directions can be used to localise the signal in the corresponding dimensions. The repetitions with different phase encoding gradient amplitudes are represented by the dotted lines in $G_y$.}
 	\label{fig:theory_signal_loc}	
 \end{figure}
 
@@ -489,19 +496,19 @@ The raw data sampled in $k$-space can be reconstructed to an image via a Fourier
 
 \subsubsection{Coordinate Systems}
 The above example was chosen so that only one gradient is used at once however if the planning of the acquisition is more complicated, the nomencleture can become more confusing, as such, for clarity multiple coordinate systems are often used.
-\paragraph{Scanner Space}
+\paragraph{Scanner Space:}
 This coordinate system has its origin at isocentre of the scanner and is defined in terms of $x$, $y$ and $z$.
-\paragraph{Imaging Space}
+\paragraph{Imaging Space:}
 The coordinates of this system are defined by the directions used in signal localisation, $M$ for the frequency encode direction (also called magnitude), $P$ for the phase encode direction and $S$ for the slice select direction.
-\paragraph{Anatomical Space}
+\paragraph{Anatomical Space:}
 Defined in terms of the subjects orientation in the scanner, this coordinate system has the axis, Right-Left (R-L), Anterior-Posterior (A-P) and Superior-Inferior (S-I).
 
 \subsection{Image Acquisition Acceleration}
-One of the recurring limiting factors in \ac{MRI} is the acquisition time. For neuroimaging applications the relatively slow acquisition of \ac{MRI} limits subject throughput or the number of different measures that can be performed. In abdominal imaging, acquisition times can be even more of a hindrance given many scans are performed while the subject is holding their breadth on expiration. As such, image acquisition acceleration techniques have been developed. These techniques sacrifice a small amount of \ac{SNR} for a decrease in acquisition time.
+One of the recurring limiting factors in \ac{MRI} is the acquisition time. For neuroimaging applications the relatively slow acquisition of \ac{MRI} limits subject throughput or the number of different measures that can be performed. In abdominal imaging, acquisition times can be even more of a hindrance given many scans are performed while the subject is holding their breath on expiration as typically used in this thesis. As such, image acquisition acceleration techniques have been developed. These techniques sacrifice a small amount of \ac{SNR} for a decrease in acquisition time.
 
 \subsubsection{Partial Fourier}
 \label{subsec:theory_partial_fourier}
-Fully sampled $k$-space contains inherent redundancy as it contains its own complex conjugate; the real components of the signal are symmetric while the imaginary components are anti-symmetric. This means that no contrast information is lost if a reduced area of $k$-space is sampled e.g. only sample 66\% of $k$-space. This technique does impact phase information though so should not be used in acquisitions where downstream processing requires accurate phase. Known as partial Fourier or halfscan, this technique results in a decreased \ac{SNR} and can introduces image artefacts as the partial Fourier factor approaches 50\%, however, the acquisition time reduces by approximately the percentage of $k$-space sampled e.g. an acquisition that would take three minutes fully sampled will take two minutes if a partial Fourier factor of 66\% is used. An example of reconstructions of 100\%, 75\% and 51\% of $k$-space are shown in Figure \ref{fig:theory_partial_fourier}
+Fully sampled $k$-space contains inherent redundancy as it contains its own complex conjugate; the real components of the signal are symmetric while the imaginary components are anti-symmetric. This means that no contrast information is lost if a reduced area of $k$-space is sampled e.g. only 66\% of $k$-space is sampled. However, this technique does impact phase information and so should not be used in acquisitions where downstream processing requires accurate phase. Known as partial Fourier or halfscan, this technique results in a decreased \ac{SNR} and can introduces image artefacts as the partial Fourier factor approaches 50\%, however, the acquisition time reduces by approximately the percentage of $k$-space sampled e.g. an acquisition that would take three minutes fully sampled will take two minutes if a partial Fourier factor of 66\% is used. An example of reconstructions of 100\%, 75\% and 51\% of $k$-space are shown in Figure \ref{fig:theory_partial_fourier}
 
 \begin{figure}[h!]
 	\centering
@@ -553,11 +560,11 @@ Fully sampled $k$-space contains inherent redundancy as it contains its own comp
 \subsubsection{\ac*{SENSE}}
 Most modern scanners use different coils for \ac{RF} transmission, and signal receiving. The transmission coil is usually built into the bore of the magnet while the receive coil is placed as close to the source of the signal as possible. These receive coils are usually composed of multiple smaller coils to make an array, each with its own signal sampling hardware. This means that it is possible to record signal from multiple coils simultaneously with different coils supplying data for each line of $k$-space e.g if the array has two coils, one coil will record the odd lines of $k$-space and the other, the even lines, thus resulting in an increase in acquisition speed \cite{pruessmann_sense_1999}. This parallel sampling technique reduces the lines of $k$-space sampled per coil and results in wrapping as seen in Figure \ref{fig:theory_kspace_wrap}, albeit only in the phase direction. To combat this, the spatial sensitivity profile of each element within the array i.e. the area it can measure signal from, is measured. Using this prior knowledge of signal locations, each coil elements data can be unwrapped before the data from all elements is combined into a single volume.
 
-The \ac{SENSE} factor is the degree to which $k$-space is under-sampled and is limited to the number of elements in the receive array. Applying higher \ac{SENSE} factors increases acquisition speeds, however, reduces \ac{SNR}.
+The \ac{SENSE} factor is the degree to which $k$-space is under-sampled and is limited to the number of elements in the receive array. Applying higher \ac{SENSE} factors increases acquisition speeds, however, reduces \ac{SNR}. This is the method implemented on Philips scanners as used in this thesis, different vendors have slightly different methodologies to accelerate imaging by utilising the limited range of elements within an \ac{RF} coil array.
 
 \subsection{Image Acquisition Schemes}
 
-Many different acquisition schemes have been developed for sampling $k$-space. Outlined below are some of the key sequences that form the basis of much of \ac{MRI}.
+Many different acquisition schemes have been developed for sampling $k$-space. Outlined below are some of the key sequences that form the basis of much of \ac{MRI} and are employed in this thesis.
 
 \subsubsection{Spin Warp Imaging}
 
@@ -571,17 +578,17 @@ The simplest uniformly sampled $k$-space trajectory is spin warp imaging. This t
 \end{figure}
 
 \subsubsection{\ac*{EPI}}
-A much faster technique than spin warp imaging is \ac{EPI} \cite{mansfield_nmr_1973}. This technique samples all lines of $k$-space in a single excitation shot with an acquisition time typically less than 100 ms. The \ac{PSD} and $k$-space trajectory for this sequence are shown in Figure \ref{fig:theory_epi}. The sequence begins very similarly to the spin warp sequence with a slice selective excitation and an acquisition of the bottom line of $k$-space, however, instead of a spoiler followed by another excitation as in spin warp imaging, in \ac{EPI} a small positive phase encode gradient `blip' is applied to move up a line in $k$-space, followed by an inversion of the readout gradient polarity. This blip followed by reversed readout is repeated, zig-zagging up $k$-space until the desired $k$-space is sampled.
+A much faster imaging technique is \ac{EPI} \cite{mansfield_nmr_1973}. This technique samples all lines of $k$-space in a single excitation shot with an acquisition time typically less than 100 ms. The \ac{PSD} and $k$-space trajectory for this sequence are shown in Figure \ref{fig:theory_epi}. The sequence begins with a slice selective excitation and an acquisition of the bottom line of $k$-space, however, instead of a spoiler followed by another excitation as in spin warp imaging, in \ac{EPI} a small positive phase encode gradient `blip' is applied to move up a line in $k$-space, followed by an inversion of the readout gradient polarity. This blip followed by reversed readout is repeated, zig-zagging up $k$-space until the desired $k$-space is sampled.
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=1\textwidth]{Theory/EPI/epi.pdf}
 %	\missingfigure{EPI PSD and k-space}
-	\caption{A schematic of the \ac{EPI} pulse sequence and $k$-space trajectory. This diagram is not to scale.}
+	\caption{A schematic of the \ac{GE}-\ac{EPI} pulse sequence and $k$-space trajectory. This diagram is not to scale.}
 	\label{fig:theory_epi}	
 \end{figure}
 
-While this sequence has a very quick acquisition time, it does have drawbacks. The long train of echoes makes \ac{EPI} more sensitive to inhomogeneities in the $B_0$ field caused by different tissue susceptibilities or poor shimming. Eddy currents and imperfections in gradient coils cause small differences in lines collected in the positive and negative direction, leading the a Nyquist ghost artefact. Eddy currents induced by the phase encode blips also cause geometric distortions in the image, Figure \ref{fig:theory_epi_eddy}, however, these can be corrected via post processing if an image with phase encode blips of opposite polarity is collected i.e. collect images sampling $k$-space from both bottom to top and top to bottom.
+While this sequence has a very short acquisition time, it does have drawbacks. The long train of echoes makes \ac{EPI} more sensitive to inhomogeneities in the $B_0$ field caused by different tissue susceptibilities or poor shimming. Eddy currents and imperfections in gradient coils cause small differences in lines collected in the positive and negative direction, leading the a Nyquist ghost artefact. Eddy currents induced by the phase encode blips also cause geometric distortions in the image, Figure \ref{fig:theory_epi_eddy}, however, these can be corrected via post processing if an image with phase encode blips of opposite polarity is collected i.e. collect images sampling $k$-space from both bottom to top and top to bottom.
 
 \begin{figure}[H]
 	\centering
@@ -605,7 +612,7 @@ While this sequence has a very quick acquisition time, it does have drawbacks. T
 		\caption{}
 		\label{fig:theory_epi_blip_corrected}
 	\end{subfigure}
-	\caption{Geometric distortions in \ac{EPI} when phase encode blips are (\subref{fig:theory_epi_blip_l}) positive, (\subref{fig:theory_epi_blip_r}) negative and (\subref{fig:theory_epi_blip_corrected}) corrected via post processing.}
+	\caption{Geometric distortions in a \ac{SE}-\ac{EPI} when phase encode blips are (\subref{fig:theory_epi_blip_l}) positive, (\subref{fig:theory_epi_blip_r}) negative and (\subref{fig:theory_epi_blip_corrected}) corrected via post processing.}
 	\label{fig:theory_epi_eddy}
 \end{figure}
 
@@ -626,12 +633,26 @@ The decrease in acquisition time comes at the expense of \ac{RF} exposure, the l
 \end{figure}
 
 \subsubsection{\ac*{HASTE}}
-The \ac{HASTE} sequence uses a combination of the techniques above. A single excitation is followed by a very long echo train with short echo spacing. This allows a large proportion of $k$-space to be sampled within a single \ac{TR} and thus a whole slice is acquired. To minimise the number of lines of $k$-space acquired and thus the \ac{ETL}, partial Fourier techniques are utilised. The relatively long \ac{TE} required for a \ac{HASTE} sequence means images are normally \ttwo weighted.
+The \ac{HASTE} sequence uses a combination of the techniques above. A single excitation is followed by a very long echo train with short echo spacing. This allows a large proportion of $k$-space to be sampled within a single \ac{TR} and thus a whole slice is acquired. To minimise the number of lines of $k$-space acquired and thus the \ac{ETL}, partial Fourier techniques as outlined in Section \ref{subsec:theory_partial_fourier} are utilised. The relatively long \ac{TE} required for a \ac{HASTE} sequence means images are normally \ttwo weighted. An example \ac{PSD} and $k$-space trajectory for the \ac{HASTE} sequence is shown in Figure \ref{fig:theory_haste_psd}.
 
-The advantage of \ac{HASTE} is its rapid acquisition. It can be used to minimise the effects of motion when scanning uncooperative patients, fetuses or structures the subject has no control over such as the bowel. Alternatively it can be used to capture a large \ac{FOV} in a single breath hold, thus minimising the effects of inconsistent expiration level, as in Chapter \ref{chap:ML}. The very long \ac{ETL} can cause significant blurring of the image, thus reducing its clinical readability.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/HASTE/haste.pdf}
+	\caption{A schematic of the \ac{HASTE} pulse sequence and $k$-space trajectory.}
+	\label{fig:theory_haste_psd}	
+\end{figure}
+
+The advantage of \ac{HASTE} is its rapid acquisition. It can be used to minimise the effects of motion when scanning uncooperative patients, fetuses or structures the subject has no control over such as the bowel. Alternatively it can be used to capture a large \ac{FOV} in a single breath hold, thus minimising the effects of inconsistent expiration level, as in Chapter \ref{chap:ML}. The very long \ac{ETL} can cause significant blurring of the image, thus reducing its clinical readability. An example image is shown in Figure \ref{fig:theory_haste_example}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Theory/HASTE/haste_example.png}
+	\caption{An example image acquired using the \ac{HASTE} readout scheme.}
+	\label{fig:theory_haste_example}
+\end{figure}
 
 \subsubsection{\ac*{TFE}}
-\ac{TFE}, also known as ulatrafast \ac{GE}, is designed to speed up acquisition of \ac{GE} images by reducing the \ac{TR} between excitations. Typical basic \ac{GE} sequences have relatively long \ac{TR} to allow the recovery of longitudinal magnetisation. The flip angle used in the \ac{TFE} sequence is much smaller than the examples explored so far, usually approximately 10$\degree$ thus leaving a large component of the magnetisation in the longitudinal direction while tipping enough magnetisation into the transverse plane to record a signal at an acceptable \ac{SNR}. Between each excitation, the transverse magnetisation is spoiled to ensure the images are only \tone weighted.
+\ac{TFE}, also known as ultrafast gradient echo, is designed to speed up the acquisition of gradient echo images by reducing the \ac{TR} between excitations. Typical basic gradient echo sequences have relatively long \ac{TR} to allow the recovery of longitudinal magnetisation. The flip angle used in the \ac{TFE} sequence is much smaller than the examples explored so far, usually approximately 10$\degree$ thus leaving a large component of the magnetisation in the longitudinal direction while tipping enough magnetisation into the transverse plane to record a signal at an acceptable \ac{SNR}. Between each excitation, the transverse magnetisation is spoiled to ensure the images are only \tone weighted. 
 
 After a train of equally spaced \ac{RF} pulses of flip angle, $\alpha$, and period, \ac{TR}, the longitudinal magnetisation reaches a steady state, $S_{TFE}$, after a sufficient number of pulses. This steady state signal depends on the \tone of the tissue and the \ac{FA} and \ac{TR} of the sequence. Assuming perfect transverse magnetisation spoiling between each \ac{RF} pulse, this equilibrium signal is given by,
 
@@ -651,6 +672,15 @@ Figure \ref{fig:theory_ernst} shows the ratio of the steady state signal to the 
 	\includegraphics[width=0.7\textwidth]{Theory/TFE/ernst.pdf}
 	\caption{The expected steady state signal of a \ac{TFE} pulse sequence and Ernst angle when imaging renal cortex.}
 	\label{fig:theory_ernst}	
+\end{figure}
+
+An example \ac{TFE} pulse sequence is shown in Figure \ref{fig:theory_tfe_psd}. This schematic includes three startup echoes while the longitudinal magnetisation reaches a steady state then sixteen echoes where the signal is sampled to form an image.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Theory/TFE/tfe.pdf}
+	\caption{A schematic of the \ac{TFE} pulse sequence. Startup echoes are highlighted in blue, echoes used in image acquisition are highlighted in red.}
+	\label{fig:theory_tfe_psd}
 \end{figure}
 
 \section{Conclusion}
