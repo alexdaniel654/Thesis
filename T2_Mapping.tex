@@ -8,7 +8,7 @@
 	
 	In the static phantom, the basic spin echo sequence delivered the most accurate quantitative results over the range of \ttwo reported in the kidneys (40 sm - 200 ms), however its sensitivity to flow and wide point spread function limit its use in-vivo. Instead, a gradient spin echo sequence is recommended, with a mean relative error of 15 ± 4 \% over the range of \ttwo reported within the kidneys (40 ms – 200 ms), superior readability due to its smaller point spread function and insensitivity to flow.
 	
-	This work was presented as an aural presentation at the \ac{ISMRM} 28th Annual Meeting (2020) \cite{daniel_comparison_2020}.
+	This work was presented as an oral presentation at the \ac{ISMRM} 28th Annual Meeting (2020) \cite{daniel_comparison_2020}.
 	
 %	\lipsum[1]
 \end{abstract}
@@ -17,38 +17,139 @@
 
 \section{Introduction}
 \label{sec:t2_intro}
+
+\subsection{Motivation}
 Quantitative \ac{MRI} is the process of taking measurements where the voxel values have numerical significance rather than simply representing signal intensity in arbitrary units \cite{tofts_quantitative_2003}. These numerically significant values can take the form of macroscale properties such as rate of oxygen consumption and blood vessel flow rates or microscale properties such as tissue \tone and susceptibility. When interpreted, these values can be used improve diagnosis and treatment of patients.
 
-The kidneys are structurally and functionally complex organs and as such lend themselves to the wide variety of MRI protocols designed to probe different aspects of the tissue and processes carried out within. While high resolution images of the kidneys morphology and basic measures such as \ac{TKV} can be very useful in diagnosing and monitoring disease progression \cite{buchanan_quantitative_2019, chapman_kidney_2012, gong_relationship_2012}, these do not fully leverage the quantitative nature of \ac{MRI}. Measurements of \tone have been shown to correlate well with fibrosis in the myocardium \cite{bull_human_2013, ferreira_t1_2013}, liver \cite{hoad_study_2015, luetkens_quantification_2018} and kidneys \cite{friedli_new_2016} and more generally an increase in \tone is associated with \ac{CKD} \cite{gillis_non-contrast_2016, cox_multiparametric_2017, buchanan_quantitative_2019}. \ac{ASL} techniques can be used to quantify renal perfusion in physiological units (m$\ell$/100g/min) and have been shown to correlate with allograft function post renal transplant in addition to cold ischemia time and the recipients \ac{eGFR} \cite{hueper_functional_2015, artz_arterial_2011, ren_evaluation_2016, niles_longitudinal_2016}. Additionally \ac{ASL} has been used to measure a decrease in perfusion in \ac{CKD} subjects \cite{gillis_non-contrast_2016, rossi_histogram_2012, tan_renal_2014}. These techniques have proved useful when used individually however they can be combined and used in the same scanning session to greater effect as a multiparametric protocol \cite{buchanan_quantitative_2019, cox_multiparametric_2017, eckerbom_multiparametric_2019, schley_multiparametric_2018, hueper_kidney_2016}.
+The kidneys are structurally and functionally complex organs and as such lend themselves to the wide variety of \ac{MRI} protocols designed to probe different aspects of the tissue and processes carried out within, termed multiparametric \ac{MRI}. While high resolution images of the kidneys morphology and basic measures such as \ac{TKV} can be very useful in diagnosing and monitoring disease progression \cite{buchanan_quantitative_2019, chapman_kidney_2012, gong_relationship_2012}, these do not fully leverage the quantitative nature of \ac{MRI}. Measurements of \tone have been shown to correlate well with fibrosis in the myocardium \cite{bull_human_2013, ferreira_t1_2013}, liver \cite{hoad_study_2015, luetkens_quantification_2018} and kidneys \cite{friedli_new_2016} and more generally an increase in \tone is associated with \ac{CKD} \cite{gillis_non-contrast_2016, cox_multiparametric_2017, buchanan_quantitative_2019}. \ac{ASL} techniques can be used to quantify renal perfusion in physiological units (m$\ell$/100g/min) and have been shown to correlate with allograft function post renal transplant in addition to cold ischemia time and the recipients \ac{eGFR} \cite{hueper_functional_2015, artz_arterial_2011, ren_evaluation_2016, niles_longitudinal_2016}. Additionally \ac{ASL} has been used to measure a decrease in perfusion in \ac{CKD} subjects \cite{gillis_non-contrast_2016, rossi_histogram_2012, tan_renal_2014}. These techniques have proved useful when used individually however they can be combined and used in the same scanning session to greater effect as a multiparametric protocol \cite{buchanan_quantitative_2019, cox_multiparametric_2017, eckerbom_multiparametric_2019, schley_multiparametric_2018, hueper_kidney_2016}.
 
-\ttwo mapping has found wide use in cardiac \ac{MRI} for assessment of myocardial edema \cite{gouya_rapidly_2008, giri_t2_2009, nasenstein_cardiac_2014} and iron overload \cite{guo_myocardial_2009, krittayaphong_detection_2017}. It has also effectively been used in the brain to study multiple sclerosis \cite{neema_t1-_2007}, epilepsy \cite{rugg-gunn_whole-brain_2005}, dementia \cite{knight_quantitative_2016} and Parkinson’s disease \cite{vymazal_t1_1999}. Despite these developments elsewhere in the body, \ttwo mapping has had limited uptake in the renal community.
+\ttwo mapping has found wide use in cardiac \ac{MRI} for assessment of myocardial oedema \cite{gouya_rapidly_2008, giri_t2_2009, nasenstein_cardiac_2014} and iron overload \cite{guo_myocardial_2009, krittayaphong_detection_2017}. It has also effectively been used in the brain to study multiple sclerosis \cite{neema_t1-_2007}, epilepsy \cite{rugg-gunn_whole-brain_2005}, dementia \cite{knight_quantitative_2016} and Parkinson’s disease \cite{vymazal_t1_1999}. Despite these developments elsewhere in the body, \ttwo mapping has had limited uptake in the renal community.
 
 Renal \ttwo mapping has seen most research focusing on repeatability measures \cite{de_bazelaire_mr_2004, zhang_reproducibility_2011, li_measuring_2015, de_boer_multiparametric_2020} with clinical uses in the field of assessment of allograft function in mice \cite{hueper_kidney_2016} and humans \cite{mathys_t2_2011, adams_multiparametric_2020}, and has shown potential for early diagnosis of \ac{ADPKD} \cite{franke_magnetic_2017} and assessment of clear cell renal cell carcinoma \cite{adams_use_2019}.
 
-In the existing literature, there is a substantial variation in quoted \ttwo values within the kidneys of healthy volunteers, this is thought to be, in part, due to the differences in \ttwo mapping methodologies. There are currently four main methods that have been utilised in the kidneys, a basic spin echo method, a multi echo-spin echo method, a gradient spin echo method and a \ac{CPMG} \ttwo preparation method. Here each of the four methods is compared in the context of renal \ttwo mapping to ascertain which is most suitable. This is achieved by evaluating each methods quantitative accuracy, image quality, sensitivity to flow in phantoms and suitability for use in-vivo in a cohort of five healthy subjects.
+In the existing literature, there is a substantial variation in quoted \ttwo values within the kidneys of healthy volunteers, Table \todo{add table}, this is thought to be, in part, due to the differences in \ttwo mapping methodologies. There are currently four main \ttwo mapping methods that have been utilised in the kidneys, a basic \ac{SE}-\ac{EPI} method, a \ac{ME-TSE} method, a \ac{GraSE} method and a \ac{CPMG} \ttwo preparation method. 
+
+Here each of the four methods is compared in the context of renal \ttwo mapping to ascertain which is most suitable. This is achieved by evaluating each methods quantitative accuracy, image quality, sensitivity to flow in phantoms and suitability for use in-vivo in a cohort of five healthy subjects.
+
+\subsection{\ttwo Acquisition Schemes}
+The basic principles of \ttwo mapping are outlined in Section \ref{subsec:theory_t2}, a more detailed explanation of the sequences compared in this chapter is given below. 
+
+\subsubsection{Spin Echo-Echo Planar Imaging}
+This technique is the simplest of the four methods consisting of a 90$\degree$ excitation pulse, followed by a 180$\degree$ \ac{RF} pulse \ac{TE}/2 ms later, leading to an echo at \ac{TE}. The 180$\degree$ pulse corrects for components of the signal lost due to static field inhomogeneities, $T_2'$ effects, however does not correct for \ttwo effects. By repeating the sequence multiple times with different \ac{TE}, the \ttwo decay can be sampled. An \ac{EPI} readout is used to sample the signal during the echo. The relatively long \ac{TR} of this scheme means multiple slices can be sampled within a single \ac{TR}. In this case, acquisition of each echo time is divided into two packages with odd numbered slices being sampled in the first \ac{TR} and even numbered slices being sampled in the second \ac{TR}. An overview of the sequence is shown in Figure \ref{fig:t2_se-epi_seq}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_SE_EPI.eps}
+	\caption{A pulse sequence diagram of the \acsu{SE}-\ac{EPI} scheme. Data is collected by repeating the acquisition across repetitions with different echo times.}
+	\label{fig:t2_se-epi_seq}	
+\end{figure}
+
+\newpage
+\subsubsection{Multi-Echo Turbo Spin Echo}
+This sequence comprises a series of 180$\degree$ pulses with an echo forming between each. Unlike in Section \ref{subsubsec:theory_tse}, where multiple lines of $k$-space were collected per excitation, here the same line of $k$-space is collected at different \ac{TE}. This allows the whole \ttwo decay to be sampled in a single echo train. Different echo times are sampled by varying the number and spacing of the 180$\degree$ pulses. By using a multi-slice acquisition, many slices can be acquired per \ac{TR}, meaning that for the small number of slices usually imaged in the body, the number of \ac{TR} is simply the number of lines of $k$-space sampled. The decrease in acquisition time per echo compared to the \ac{SE}-\ac{EPI} sequence means more echoes can be collected per \ttwo map for a given acquisition time. A schematic of the \ac{PSD} can be seen in Figure \ref{fig:t2_me-tse_seq}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_ME_TSE.eps}
+	\caption{A pulse sequence diagram of the \ac{ME-TSE} scheme. Phase encode `blips' are constant per excitation.}
+	\label{fig:t2_me-tse_seq}	
+\end{figure}
+
+\newpage
+\subsubsection{Gradient Spin Echo}
+
+To achieve further acceleration over the \ac{ME-TSE} sequence, a \ac{GraSE} sequence can be used. Here two gradient echoes are collected for every spin echo; the spin echo and gradient echo are used for the acquisition of the centre and periphery of $k$-space respectively. The multiple $k$-space profiles collected per spin echo enables a decrease in the echo spacing of the sequence compared to the \ac{ME-TSE} sequence, decreasing to 5.6 ms and thus thirty echoes are collected per \ttwo map. The first echo of the train has an artificially high signal, however the short echo spacing of this technique means a startup echo can be sacrificed i.e. the first echo is sampled at 11.2 ms rather than 5.6 ms. This leads to a more accurate fit, while also retaining accuracy when measuring short $T_2$ signals that will quickly decay. The \ac{PSD} for the \ac{GraSE} acquisition is shown in Figure \ref{fig:t2_grase_seq}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_GraSE.eps}
+	\caption{A pulse sequence diagram of the \ac{GraSE} scheme.}
+	\label{fig:t2_grase_seq}	
+\end{figure}
+
+\newpage
+\subsubsection{CPMG $T_2$ Preparation}
+
+The \ac{CPMG} \ttwo preparation sequence is considered the `gold standard' in terms of accuracy. As in the other sequences, this sequence begins with a 90$\degree$ excitation pulse to transfer the magnetisation into the transverse plane. Carr and Purcell showed that a series of 180$\degree$ pulses of alternating phase could be used to reduce the effects of molecular diffusion. These molecules diffuse into an area of slightly different magnetic field and thus experience a different Larmor frequency, causing an attenuation in transverse magnetisation above that of \ttwo \cite{carr_effects_1954}. This technique relies on very accurate 180$\degree$ pulses as small imperfections could result in large cumulative errors over the length of the pulse train. Later Meiboom and Gill showed that by delivering the 180$\degree$ pulses 90$\degree$ out of phase to the initial excitation pulse e.g. excite about $x'$ and refocus about $y'$, the undesirable effects of imperfect 180$\degree$ pulses and $B_1$ inhomogeneity could be greatly reduced \cite{meiboom_modified_1958}. The resulting sequence, known as a \acf{CPMG} sequence, can be used to generate robust measurements of \ttwo; by varying the number and temporal spacing, $\tau_{\textup{CPMG}}$, of the 180$\degree$ pulses the degree of \ttwo weighting can me modulated to achieve different \ac{eTE}. Here \ac{EPI} readout scheme is then used to sample the signal. An overview of this sequence is shown in Figure \ref{fig:t2_cpmg_t2prep_seq}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_T2_Prep.eps}
+	\caption{A pulse sequence diagram of the \ac{CPMG} $T_2$ preparation scheme. This example shows four \ac{CPMG} refocusing pulses, to achieve a longer \ac{eTE} the number of refocusing pulses is increased.}
+	\label{fig:t2_cpmg_t2prep_seq}	
+\end{figure}
+
+\subsubsection{Multi-Echo Spin-Echo}
+In addition to the four techniques above, a Multi-Echo Spin-Echo scheme was used to evaluate the quantitative accuracy of the phantom. This scheme is recommenced by \ac{NIST} however is impractical to implement in-vivo due to its very long acquisition time (16 minutes for a single slice). The sequence is similar to the \ac{ME-TSE} sequence, however, with no fast imaging techniques employed, only one line of $k$-space is collected per \ac{TR}. A \ac{PSD} for this scheme is shown in Figure \ref{fig:t2_me-se_seq}.
+
+\begin{figure}[H]
+	\centering
+%	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_T2_Prep.eps}
+	\missingfigure{ME-SE Scheme (ME-TSE PSD with all but the first PE blip removed and one extra echo).}
+	\caption{A pulse sequence diagram of the Multi-Echo Spin-Echo scheme.}
+	\label{fig:t2_me-se_seq}	
+\end{figure}
 
 \newpage
 
 \section{Methods}
 \label{sec:t2_methods}
 
-\subsection{Data Acquisition}
+\subsection{Phantom Data Acquisition}
 \label{subsec:t2_acq_schemes}
 
 All data was acquired on a 3T Philips Ingenia system (Philips Medical Systems, Best, The Netherlands). The 14 element \ttwo array of a QalibreMD System Standard Model 130 contains spheres doped with varying concentrations of \ce{MnCl_2} to modulate \ttwo between 5 ms and 650 ms, Figure \ref{fig:t2_phantom_schematic}. This array was used to compare the accuracy of \ttwo measurements to a known ground truth. Additionally, a square grid etched into the plastic of the phantom was used to assess the degree of image blurring. 
 
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.5\textwidth]{T2_Mapping/Phantom_Example/T2_Spheres.eps}
+%	\caption{A schematic of the $T_2$ spheres in the QalibreMD phantom.}
+%	\label{fig:t2_phantom_schematic}	
+%\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{T2_Mapping/2D_Blur/Plate_3_Grid_crop.pdf}
+%	\caption{A scale drawing of plate three of the QalibreMD system phantom. The grid etched into this plate was used to assess the blurring of each \ttwo mapping sequence.}
+%	\label{fig:t2_blur_grid}	
+%\end{figure}
 \begin{figure}[H]
+\centering
+\begin{subfigure}[c]{0.47\textwidth}
 	\centering
-	\includegraphics[width=0.5\textwidth]{T2_Mapping/Phantom_Example/T2_Spheres.eps}
-	\caption{A schematic of the $T_2$ spheres in the QalibreMD phantom.}
-	\label{fig:t2_phantom_schematic}	
+	\includegraphics[width=1\textwidth]{T2_Mapping/Phantom_Example/T2_Spheres.eps}
+	\caption{}
+	\label{fig:t2_phantom_schematic}
+\end{subfigure}
+\hfill
+\begin{subfigure}[c]{0.47\textwidth}
+	\centering
+	\includegraphics[width=1\textwidth]{T2_Mapping/2D_Blur/Plate_3_Grid_crop.pdf}
+	\caption{}
+	\label{fig:t2_blur_grid}
+\end{subfigure}
+\caption{(\subref{fig:t2_phantom_schematic}) A schematic of the $T_2$ spheres in the QalibreMD phantom showing the 14 element \ttwo array and each of the \ttwo values. (\subref{fig:t2_blur_grid}) A scale drawing of plate three of the QalibreMD system phantom. The grid etched into this plate was used to assess the blurring of each \ttwo mapping sequence.}
+\label{fig:t2_nist_phantom}
 \end{figure}
 
-To investigate the effects of flow upon \ttwo measurements, a Gold Standard Phantoms \ac{QASPER} phantom was used. This allows the \ttwo of the perfusate to be measured at rest and whilst being pumped through the phantom at a range of flow rates. 
+The kidneys are highly perfused organ, as such, the effects of fluid flow through the area being imaged should be evaluated. This was achieved using a Gold Standard Phantoms \ac{QASPER} phantom. This phantom comprises of a \ac{MRI} compatible pump with adjustable, continuous, flow rates from 0 m$\ell$/min to 350 m$\ell$/min. The perfusate exists the pump into a series of simulated arterioles before entering a cylinder of porous media designed to simulate a capillary bed. Having travelled through the porous media, the perfusate exists at the centre of the cylinder and is returned to the pump, Figure \ref{fig:t2_flow_phantom_schematic}. 
 
-Both phantoms were scanned using a 32-channel head coil. All data acquired on human subjects was done with approval of the local ethics committee and the study was conducted in accordance with the Helsinki Declaration. The subjects gave written, informed consent. Humans were scanned using a 16-channel anterior coil array and 16-channel posterior coil array. The study cohort consisted of 5 healthy participants (2 female, 3 male, mean age 31 $\pm$ 8).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{T2_Mapping/Flow/Flow_schematic.eps}
+	%	\missingfigure{Flow phantom schematic}
+	\caption{A schematic of \ac{QASPER} phantom used to quantify the effects of flow upon the \ttwo measurements.}
+	\label{fig:t2_flow_phantom_schematic}	
+\end{figure}
 
-The protocol comprised of a survey, localisers, $B_0$ and $B_1$ mapping, then each of the optimised \ttwo mapping sequences. In-vivo subjects also had \ttwo-weighted and \tone-weighted structural scans to enable segmentation of the whole kidneys, and cortex/medulla respectively \cite{petzold_building_2014, will_automated_2014}, these \ac{ROI} were then used to calculate the mean \ttwo of each tissue type. The basic principles of \ttwo mapping are outlined in Section \ref{subsec:theory_t2}. A summary of the parameters of each \ttwo mapping sequence is shown in Table \ref{tab:t2_sequence_overview}. Each protocol was designed to be between approximately two and three minutes (before respiratory triggering) and keep key parameters such as voxel size and \ac{FOV} constant. More accurate or higher resolution \ttwo mapping may be possible with longer acquisition times, however as the aim is for this sequence to be used as part of a multi-parametric protocol, the time constraints of the whole protocol must be considered. 
+Both the QalibreMD and \ac{QASPER} phantoms were scanned using a 32-channel head coil. 
+
+\subsection{In-Vivo Data Acquisition}
+All data acquired on human subjects was with approval of the local ethics committee and the study was conducted in accordance with the Helsinki Declaration. The subjects gave written, informed consent. Humans were scanned using a 16-channel anterior coil array and 16-channel posterior coil array. The final study cohort consisted of 5 healthy participants (2 female, 3 male, mean age 31 $\pm$ 8).
+
+The protocol comprised of a survey, localisers, $B_0$ and $B_1$ mapping, and each of the optimised \ttwo mapping sequences. In-vivo subjects also had \ttwo-weighted and \tone-weighted structural scans to enable segmentation of the whole kidneys, and cortex/medulla respectively \cite{petzold_building_2014, will_automated_2014}, see Chapter \ref{chap:ML}. These \ac{ROI} were then used to calculate the mean \ttwo of each tissue type. 
+
+\subsection{\ttwo Mapping Protocols}
+A summary of the parameters of each \ttwo mapping sequence is shown in Table \ref{tab:t2_sequence_overview}. In-vivo respirator motion was counteracted via use of respiratory triggering. Each protocol was designed to be  approximately 2-3 minutes (before respiratory triggering) and keep key parameters such as voxel size and \ac{FOV} constant. More accurate or higher resolution \ttwo mapping may be possible with longer acquisition times, however as the aim is for this sequence to be used as part of a multi-parametric protocol, the time constraints of the whole protocol must be considered. 
 
 \begin{table}[H]
 	\centering
@@ -78,53 +179,6 @@ The protocol comprised of a survey, localisers, $B_0$ and $B_1$ mapping, then ea
 	\caption{A summary of the acquisition parameters of each of the \ttwo mapping methods compared.}
 	\label{tab:t2_sequence_overview}
 \end{table}
-
-\newpage
-\subsubsection{Spin Echo-Echo Planar Imaging}
-This technique is the simplest of the four consisting of a 90$\degree$ excitation pulse, followed by a 180$\degree$ \ac{RF} pulse \ac{TE}/2 ms later, leading to an echo at \ac{TE}. The 180$\degree$ pulse corrects for components of the signal lost due to static field inhomogeneities, $T_2'$ effects, however does not correct for \ttwo effects. By repeating the sequence multiple times with different \ac{TE}, the \ttwo decay can be sampled. An \ac{EPI} readout is used to sample the signal during the echo. This sequence suffers from a relatively low \ac{SNR}, hence two signal averages are acquired; this means that only six different echo times can be sampled in the target acquisition time window. An overview of the sequence is shown in Figure \ref{fig:t2_se-epi_seq}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_SE_EPI.eps}
-	\caption{A pulse sequence diagram of the \acsu{SE}-\ac{EPI} scheme.}
-	\label{fig:t2_se-epi_seq}	
-\end{figure}
-
-\newpage
-\subsubsection{Multi-Echo Turbo Spin Echo}
-This sequence also uses a multi-slice spin echo; however the \ac{EPI} readout is substituted for a \ac{TSE} readout. This replaces the singe 180$\degree$ pulse with a train of pulses with an echo forming between each allowing the whole \ttwo decay to be sampled in a single echo train. Different echo times are sampled by varying the number and spacing of the 180$\degree$ pulses. The decrease in acquisition time per echo compared to the \ac{SE}-\ac{EPI} sequence means that ten echoes can be collected per \ttwo map at the minimum possible echo spacing, 13 ms. A schematic of the \ac{PSD} can be seen in Figure \ref{fig:t2_me-tse_seq}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_ME_TSE.eps}
-	\caption{A pulse sequence diagram of the \ac{ME-TSE} scheme.}
-	\label{fig:t2_me-tse_seq}	
-\end{figure}
-
-\newpage
-\subsubsection{Gradient Spin Echo}
-
-To achieve further acceleration over the \ac{ME-TSE} sequence, a \ac{GraSE} sequence can be used. Here two gradient echoes are collected for every spin echo; the spin echo and gradient echo are used for the acquisition of the centre and periphery of $k$-space respectively. The multiple $k$-space profiles collected per spin echo enables a decrease in the echo spacing of the sequence compared to the \ac{ME-TSE} sequence, decreasing to 5.6 ms and thus thirty echoes are collected per \ttwo map. The first echo of the train has an artificially high signal\question{Due to stimulate echoes?}, however the short echo spacing of this technique means a startup echo can be sacrificed i.e. the first echo is sampled at 11.2 ms rather than 5.6 ms. This leads to a more accurate fit, while also retaining accuracy when measuring short $T_2$ signals that will quickly decay. The \ac{PSD} for the \ac{GraSE} acquisition is shown in Figure \ref{fig:t2_grase_seq}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_GraSE.eps}
-	\caption{A pulse sequence diagram of the \ac{GraSE} scheme.}
-	\label{fig:t2_grase_seq}	
-\end{figure}
-
-\newpage
-\subsubsection{CPMG $T_2$ Preparation}
-
-The \ac{CPMG} \ttwo preparation sequence is considered the gold standard in terms of accuracy. As in the other sequences, this sequence begins with a 90$\degree$ excitation pulse to transfer the magnetisation into the transverse plane. Carr and Purcelle showed that a series of 180$\degree$ pulses of alternating phase could be used to reduce the effects of molecular diffusion. These molecused diffuse into an area of slightly different magnetic field and thus experience a different Larmor frequency, causing an attenuation in transverse magnetisation above that of \ttwo \cite{carr_effects_1954}. This technique relies on very accurate 180$\degree$ pulses as small imperfections could result in large cumulative errors over the length of the pulse train. Later Meiboom and Gill showed that by delivering the 180$\degree$ pulses 90$\degree$ out of phase to the initial excitation pulse e.g. excite about $x'$ and refocus about $y'$, the undesirable effects of imperfect 180$\degree$ pulses and $B_1$ inhomogeneity could be greatly reduced \cite{meiboom_modified_1958}. The resulting sequence, known as a \acf{CPMG} sequence, can be used to generate robust measurements of \ttwo; by varying the number and temporal spacing, $\tau_{\textup{CPMG}}$, of the 180$\degree$ pulses the degree of \ttwo weighting can me modulated to achieve different \ac{eTE}. An \ac{EPI} readout scheme is then used to sample the signal. An overview of this sequence is shown in Figure \ref{fig:t2_cpmg_t2prep_seq}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_T2_Prep.eps}
-	\caption{A pulse sequence diagram of the \ac{CPMG} $T_2$ preparation scheme.}
-	\label{fig:t2_cpmg_t2prep_seq}	
-\end{figure}
-
 
 \subsection{Post Processing}
 
@@ -170,15 +224,7 @@ Using the QalibreMD phantom, the quantitative accuracy of each of the sequences 
 \end{figure}
 
 \subsubsection{Effects of Flow}
-The kidneys are highly perfused organ, as such, the effects of fluid flow through the area being imaged should be evaluated. This was achieved using a Gold Standard Phantoms \ac{QASPER} phantom, Figure \ref{fig:t2_flow_phantom_schematic}. This phantom comprises of a \ac{MRI} compatible pump with adjustable, continuous, flow rates from 0 m$\ell$/min to 350 m$\ell$/min. The perfusate exists the pump into a series of simulated arterioles before entering a cylinder of porous media designed to simulate a capillary bed. Having travelled through the porous media, the perfusate exists at the centre of the cylinder and is returned to the pump. The porous media is imaged using each sequence over the full range of flow rates the phantoms pump can deliver. \ttwo maps are calculated and the mean \ttwo calculated to evaluate the robustness of each sequence to variations in perfusion.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{T2_Mapping/Flow/Flow_schematic.eps}
-	%	\missingfigure{Flow phantom schematic}
-	\caption{A schematic of \ac{QASPER} phantom used to quantify the effects of flow upon the \ttwo measurements.}
-	\label{fig:t2_flow_phantom_schematic}	
-\end{figure}
+To investigate the effects of flow upon \ttwo measurements, the \ac{QASPER} phantom was used. The porous media is imaged using each sequence over the full range of flow rates the phantoms pump can deliver. \ttwo maps are calculated and the mean \ttwo calculated to evaluate the robustness of each sequence to variations in perfusion.
 
 \subsubsection{Blurring}
 Unfortunately \ac{MRI} doesn't produce perfect images, every signal is subject to a degree of blurring or spreading out into surrounding voxels. The amount of this blurring is different for each sequence and can dramatically effect the readability of an image and ultimately its clinical utility. In \ac{MRI} the amount and characteristics of the blur is usually spatially invariant, that is to say, if a voxel in the centre of an image is blurred over its five neighbouring voxels in the phase encode direction, a voxel at the edge of the image would also be blurred over its five neighbouring voxels. The degree of blurring produced by each of the sequences outlined in Section \ref{subsec:t2_acq_schemes} will be quantified.
@@ -192,13 +238,6 @@ The observed image, $h$, can be modelled as an ideal, unblurred signal, $f$ dist
 \end{figure}\question{Would a 2D example of applying a Gaussian blur to an image be helpful here too?}
 
 A 3 mm deep, 2 mm thick, grid etched into one of the plastic plates of the QalibreMD phantom, Figure \ref{fig:t2_blur_grid}, was imaged using each of the \ttwo mapping methods with an echo time of 20 ms. A 0.5 mm$^3$ isotropic structural scan was also collected. The thickness of the grid is smaller than the imaging resolution of the \ttwo mapping sequences and the resolution of the structural scan is much greater than the resolution of the \ttwo mapping scans, therefore the structural scan can be seen as an approximation of the ideal image produced by each \ttwo mapping method. This allows a deconvolution of the \ac{PSF} from the \ttwo mapping scans and, by fitting a Gaussian to the line profiles through the centre of the \ac{PSF} in each direction, an estimate the \ac{FWHM} of the \ac{PSF} as shown in Figure \ref{fig:t2_2d_blur}. Quoted values are the maximum \ac{PSF} of each of the two directions as this is the limiting factor in an images readability, for the example in Figure \ref{fig:t2_2d_blur}, the quoted \ac{PSF} would be 9.49 $\pm$ 0.23 mm.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.6\textwidth]{T2_Mapping/2D_Blur/Plate_3_Grid_crop.pdf}
-	\caption{A scale drawing of plate three of the QalibreMD system phantom. The grid etched into this plate was used to assess the blurring of each \ttwo mapping sequence.}
-	\label{fig:t2_blur_grid}	
-\end{figure}
 
 \begin{figure}[H]
 	\centering

@@ -577,6 +577,7 @@ The simplest uniformly sampled $k$-space trajectory is spin warp imaging. This t
 \end{figure}
 
 \subsubsection{\ac*{TSE}}
+\label{subsubsec:theory_tse}
 The \ac{TSE} sequence, also known as \ac{FSE} or \ac{RARE}, is an expansion on the conventional \ac{SE} sequence applying evenly spaced $180\degree${ }\ac{RF} refocusing pulses to generate multiple echo from a single excitation, these echoes are used to record multiple lines of $k$-space. The number of echoes is known as the \ac{ETL}, or `turbo factor' and is the factor by which the scan time is reduced compared to a conventional spin echo sequence and is usually between 2 and 30 per \ac{TR}; the time between echoes is known as the echo spacing and is typically 15 - 25 ms.
 
 Each line of $k$-space is acquired at a different time after excitation, as such, they will have different \ttwo weightings, it is therefore important to ensure the centre of $k$-space is acquired at the desired \ac{TE} as this echo will dominate the image contrast. The time between excitation and the centre of $k$-space is known as the \ac{eTE}.
