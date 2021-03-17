@@ -175,15 +175,16 @@ M_z = M_0 \left[1 - 2\exp\left(-\frac{t}{T_1}\right) \right].
 \end{equation}
 Typically a hyperbolic secant pulse is used for inversion. This pulse is adiabatic and as such a complete inversion is performed provided a minimum $B_1$ amplitude threshold is met. This decouples inversion angle from $B_1$, thus increasing inversion homogeneity within the sample.
 
-To measure \tone, the most standard methods is to repeat an inversion recovery sequence multiple times, with measurements of $M_z$ taken at different times after the 180$\degree$ inversion pulse, the \ac{TI}. The magnetisation must have fully recovered to $M_0$ between each inversion pulse, as such the minimum time between inversions, termed the \ac{TR}, is five times \tone. Curve fitting can then be used to estimate $M_0$ and \tone, Figure \ref{fig:theory_inversion_recovery}.
-This method is expanded upon when it is used in Chapter \ref{chap:ex}.
 \begin{figure}[H]
 	\centering
-%	\includegraphics[width=0.8\textwidth]{}
-	\missingfigure{IR PSD (remember to use sech 180)}
-	\caption{The \ac{RF} pulse train used in an inversion recovery scheme.}
+	\includegraphics[width=0.8\textwidth]{Theory/Inversion_Recovery/ir_psd.eps}
+	\caption{The \ac{RF} pulse train used in an inversion recovery scheme. Here the inversion time is 200 ms however, this can be adjusted to modulate \tone weighting.}
 	\label{fig:theory_inversion_recovery_psd}	
 \end{figure}
+
+To measure \tone, the most standard methods is to repeat an inversion recovery sequence multiple times, with measurements of $M_z$ taken at different times after the 180$\degree$ inversion pulse, the \ac{TI}. The magnetisation must have fully recovered to $M_0$ between each inversion pulse, as such the minimum time between inversions, termed the \ac{TR}, is five times \tone. Curve fitting can then be used to estimate $M_0$ and \tone, Figure \ref{fig:theory_inversion_recovery}.
+This method is expanded upon when it is used in Chapter \ref{chap:ex}.
+
 
 \begin{figure}[H]
 	\centering
@@ -223,7 +224,6 @@ To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogenei
 	\caption{The signal produced in a spin-echo sequence used to measure \ttwo. This sequence has a \ac{TE} of 200 ms.}
 	\label{fig:theory_se_signal}	
 \end{figure}
-\todo{Add TE label}
 
 \begin{figure}[H]
 	\centering
@@ -354,7 +354,6 @@ Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process d
 	\caption{The signal generated from renal cortical and medullary tissues \cite{cox_multiparametric_2017} and difference between signals. This shows that the contrast between the two tissues is optimal if the \acf{TI} is 1500 ms.}
 	\label{fig:theorgy_tissue_contrast}	
 \end{figure}
-\todo{Add example abdo images at different TI/TE}
 
 \newpage
 \section{Forming an Image}
@@ -577,46 +576,6 @@ The simplest uniformly sampled $k$-space trajectory is spin warp imaging. This t
 	\label{fig:theory_spin_warp}	
 \end{figure}
 
-\subsubsection{\ac*{EPI}}
-A much faster imaging technique is \ac{EPI} \cite{mansfield_nmr_1973}. This technique samples all lines of $k$-space in a single excitation shot with an acquisition time typically less than 100 ms. The \ac{PSD} and $k$-space trajectory for this sequence are shown in Figure \ref{fig:theory_epi}. The sequence begins with a slice selective excitation and an acquisition of the bottom line of $k$-space, however, instead of a spoiler followed by another excitation as in spin warp imaging, in \ac{EPI} a small positive phase encode gradient `blip' is applied to move up a line in $k$-space, followed by an inversion of the readout gradient polarity. This blip followed by reversed readout is repeated, zig-zagging up $k$-space until the desired $k$-space is sampled.
-
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=1\textwidth]{Theory/EPI/epi.pdf}
-%	\missingfigure{EPI PSD and k-space}
-	\caption{A schematic of the \ac{GE}-\ac{EPI} pulse sequence and $k$-space trajectory. This diagram is not to scale.}
-	\label{fig:theory_epi}	
-\end{figure}
-
-While this sequence has a very short acquisition time, it does have drawbacks. The long train of echoes makes \ac{EPI} more sensitive to inhomogeneities in the $B_0$ field caused by different tissue susceptibilities or poor shimming. Eddy currents and imperfections in gradient coils cause small differences in lines collected in the positive and negative direction, leading the a Nyquist ghost artefact. Eddy currents induced by the phase encode blips also cause geometric distortions in the image, Figure \ref{fig:theory_epi_eddy}, however, these can be corrected via post processing if an image with phase encode blips of opposite polarity is collected i.e. collect images sampling $k$-space from both bottom to top and top to bottom.
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[c]{0.30\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Theory/EPI/blip_l.png}
-		\caption{}
-		\label{fig:theory_epi_blip_l}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.30\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Theory/EPI/blip_r.png}
-		\caption{}
-		\label{fig:theory_epi_blip_r}
-	\end{subfigure}
-	\hfill	
-	\begin{subfigure}[c]{0.30\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Theory/EPI/blip_corrected.png}
-		\caption{}
-		\label{fig:theory_epi_blip_corrected}
-	\end{subfigure}
-	\caption{Geometric distortions in a \ac{SE}-\ac{EPI} when phase encode blips are (\subref{fig:theory_epi_blip_l}) positive, (\subref{fig:theory_epi_blip_r}) negative and (\subref{fig:theory_epi_blip_corrected}) corrected via post processing.}
-	\label{fig:theory_epi_eddy}
-\end{figure}
-
-
 \subsubsection{\ac*{TSE}}
 The \ac{TSE} sequence, also known as \ac{FSE} or \ac{RARE}, is an expansion on the conventional \ac{SE} sequence applying evenly spaced $180\degree${ }\ac{RF} refocusing pulses to generate multiple echo from a single excitation, these echoes are used to record multiple lines of $k$-space. The number of echoes is known as the \ac{ETL}, or `turbo factor' and is the factor by which the scan time is reduced compared to a conventional spin echo sequence and is usually between 2 and 30 per \ac{TR}; the time between echoes is known as the echo spacing and is typically 15 - 25 ms.
 
@@ -628,12 +587,12 @@ The decrease in acquisition time comes at the expense of \ac{RF} exposure, the l
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/TSE/tse.pdf}
 %	\missingfigure{TSE Sequence}
-	\caption{A schematic of the \ac{TSE} pulse sequence and $k$-space trajectory. The coloured bands on the \ac{PSD} correspond to the colours of the $k$-space trajectories. Not this diagram is not to scale.}
+	\caption{A schematic of the \ac{TSE} pulse sequence and $k$-space trajectory. The coloured bands on the \ac{PSD} correspond to the colours of the $k$-space trajectories. Note this diagram is not to scale.}
 	\label{fig:theory_tse}	
 \end{figure}
 
 \subsubsection{\ac*{HASTE}}
-The \ac{HASTE} sequence uses a combination of the techniques above. A single excitation is followed by a very long echo train with short echo spacing. This allows a large proportion of $k$-space to be sampled within a single \ac{TR} and thus a whole slice is acquired. To minimise the number of lines of $k$-space acquired and thus the \ac{ETL}, partial Fourier techniques as outlined in Section \ref{subsec:theory_partial_fourier} are utilised. The relatively long \ac{TE} required for a \ac{HASTE} sequence means images are normally \ttwo weighted. An example \ac{PSD} and $k$-space trajectory for the \ac{HASTE} sequence is shown in Figure \ref{fig:theory_haste_psd}.
+The \ac{HASTE} sequence uses a combination of the techniques above and can be seen an an extension of the \ac{TSE} sequence. A single excitation is followed by a very long echo train with short echo spacing. This allows a large proportion of $k$-space to be sampled within a single \ac{TR} and thus a whole slice is acquired. To minimise the number of lines of $k$-space acquired and thus the \ac{ETL}, partial Fourier techniques as outlined in Section \ref{subsec:theory_partial_fourier} are utilised. The relatively long \ac{TE} required for a \ac{HASTE} sequence means images are normally \ttwo weighted. An example \ac{PSD} and $k$-space trajectory for the \ac{HASTE} sequence is shown in Figure \ref{fig:theory_haste_psd}.
 
 \begin{figure}[H]
 	\centering
@@ -675,12 +634,57 @@ Figure \ref{fig:theory_ernst} shows the ratio of the steady state signal to the 
 \end{figure}
 
 An example \ac{TFE} pulse sequence is shown in Figure \ref{fig:theory_tfe_psd}. This schematic includes three startup echoes while the longitudinal magnetisation reaches a steady state then sixteen echoes where the signal is sampled to form an image.
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/TFE/tfe.pdf}
 	\caption{A schematic of the \ac{TFE} pulse sequence. Startup echoes are highlighted in blue, echoes used in image acquisition are highlighted in red.}
 	\label{fig:theory_tfe_psd}
+\end{figure}
+An image generated using a \ac{TFE} sequence is shown in Figure \ref{fig:theory_tfe_example}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Theory/TFE/tfe_image.png}
+	\caption{An example of an image acquired using the \ac{TFE} scheme. This image is used as a localiser to plan other scans and as such has a very large \ac{FOV} and therefore some image artefacts can be seen at the periphery of the image.}
+	\label{fig:theory_tfe_example}	
+\end{figure}
+
+\subsubsection{\ac*{EPI}}
+A much faster imaging technique is \ac{EPI} \cite{mansfield_nmr_1973}. This technique samples all lines of $k$-space in a single excitation shot with an acquisition time typically less than 100 ms. The \ac{PSD} and $k$-space trajectory for this sequence are shown in Figure \ref{fig:theory_epi}. The sequence begins with a slice selective excitation and an acquisition of the bottom line of $k$-space, however, instead of a spoiler followed by another excitation as in spin warp imaging, in \ac{EPI} a small positive phase encode gradient `blip' is applied to move up a line in $k$-space, followed by an inversion of the readout gradient polarity. This blip followed by reversed readout is repeated, zig-zagging up $k$-space until the desired $k$-space is sampled.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{Theory/EPI/epi.pdf}
+	%	\missingfigure{EPI PSD and k-space}
+	\caption{A schematic of the \ac{GE}-\ac{EPI} pulse sequence and $k$-space trajectory. This diagram is not to scale.}
+	\label{fig:theory_epi}	
+\end{figure}
+
+While this sequence has a very short acquisition time, it does have drawbacks. The long train of echoes makes \ac{EPI} more sensitive to inhomogeneities in the $B_0$ field caused by different tissue susceptibilities or poor shimming. Eddy currents and imperfections in gradient coils cause small differences in lines collected in the positive and negative direction, leading the a Nyquist ghost artefact. Eddy currents induced by the phase encode blips also cause geometric distortions in the image, Figure \ref{fig:theory_epi_eddy}, however, these can be corrected via post processing if an image with phase encode blips of opposite polarity is collected i.e. collect images sampling $k$-space from both bottom to top and top to bottom.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/EPI/blip_l.png}
+		\caption{}
+		\label{fig:theory_epi_blip_l}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/EPI/blip_r.png}
+		\caption{}
+		\label{fig:theory_epi_blip_r}
+	\end{subfigure}
+	\hfill	
+	\begin{subfigure}[c]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/EPI/blip_corrected.png}
+		\caption{}
+		\label{fig:theory_epi_blip_corrected}
+	\end{subfigure}
+	\caption{Geometric distortions in a \ac{SE}-\ac{EPI} when phase encode blips are (\subref{fig:theory_epi_blip_l}) positive, (\subref{fig:theory_epi_blip_r}) negative and (\subref{fig:theory_epi_blip_corrected}) corrected via post processing.}
+	\label{fig:theory_epi_eddy}
 \end{figure}
 
 \section{Conclusion}
