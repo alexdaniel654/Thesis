@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{gensymb}
 \usepackage{mhchem}
+\usepackage[mathscr]{euscript}
 \usepackage{multirow}
 \usepackage{adjustbox}
 \usepackage[pdftex,dvipsnames]{xcolor}
@@ -27,7 +28,7 @@
 \usepackage[baskerville,vvarbb]{newtxmath}
 \usepackage[cal=boondoxo]{mathalfa}
 \usepackage[left=5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
-\usepackage[backend=biber,style=nature,autocite=superscript,citestyle=numeric-comp,sorting=none, url=false, doi=false, refsection=chapter]{biblatex}
+\usepackage[backend=biber,style=nature,autocite=superscript,citestyle=numeric-comp,sorting=none, maxbibnames=8, url=false, doi=true, isbn=false, eprint=true, refsection=chapter]{biblatex}
 \addbibresource{./References/Renal_Imaging.bib}
 \usepackage[british]{babel}
 \usepackage{listings}
@@ -98,6 +99,7 @@
 	\begin{center}
 		{\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
 	\end{center}
+%	\normalsize
 	\quotation
 	\fi}
 {\if@twocolumn\else\endquotation\fi}
@@ -123,7 +125,7 @@
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \center
  
-\textsc{\LARGE The University of Nottingham}\\[0.5cm]
+\textsc{\LARGE University of Nottingham}\\[0.5cm]
 \textsc{\Large Sir Peter Mansfield Imaging Centre}\\[0.5cm]
 \textsc{\large School of Physics and Astronomy}\\[0.5cm]
 
@@ -135,14 +137,14 @@
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Author:}\\
-Alexander James \textsc{Daniel} MSci
+Alexander James Daniel MSci
 \end{flushleft}
 \end{minipage}
 ~
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
 \emph{Supervisor:} \\
-Prof. Susan \textsc{Francis}
+Prof. Susan Francis
 \end{flushright}
 \end{minipage}\\[4cm]
 {\large \today}\\[2cm]
@@ -208,5 +210,9 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 
 \acresetall
 \include{Conclusion}
+
+\appendix
+\acresetall
+\include{Tractography_Pipeline}
 
 \end{document}

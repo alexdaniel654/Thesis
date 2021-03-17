@@ -54,6 +54,7 @@ sinc = np.sin(t_rf[312:688]*0.5)/t_rf[312:688]
 rf = np.zeros(len(t_rf))
 rf[312:688] = sinc * 2
 axrf.plot(t_rf/2, rf, 'C1')
+axrf.plot([-100, -25], [0, 0], 'C1')
 axrf.set_yticklabels([])
 axrf.set_yticks([-10, 0, 10])
 axrf.set_ylim([-0.3, 1.2])

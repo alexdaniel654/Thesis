@@ -128,7 +128,7 @@ The \ac{CPMG} \ttwo preparation sequence is considered the gold standard in term
 
 \subsection{Post Processing}
 
-All post processing was performed using Python 3.7 making use of the \ac{UKAT} \cite{nery_ukrin_2020}. This open source software is specially designed for quantitative renal \ac{MRI}. All curve fitting uses a least squares trust region reflective method to estimate unknown parameters.
+All post processing was performed using Python 3.7 making use of the \ac{UKAT} \cite{daniel_ukrin_2021, nery_ukrin_2020}. This open source software is specially designed for quantitative renal \ac{MRI}. All curve fitting uses a least squares trust region reflective method to estimate unknown parameters.
 
 \subsubsection{\ttwo Fitting Methods}
 
@@ -216,7 +216,7 @@ Using the \tone-weighted structural scans \ac{ROI} were defined for both the ren
 \section{Results}
 
 \subsection{Fitting Methods}
-
+\label{subsec:t2_fitting_methods_results}
 Each fitting method was tested using data acquired on the QalibreMD phantom and in-vivo. A full breakdown of the accuracy of each fitting method, applied to each sequence, over different ranges of \ttwo can be seen in Table \ref{tab:t2_phantom_fitting_methods} and Figure \ref{fig:t2_in_vivo_fitting_methods}. The designers of the phantom calculate the mean signal from each sphere then fit to a \ttwo decay, resulting in a quicker and more accurate measurement of the homogenous \ttwo of each sphere \cite{mristandards_mristandardsphantomviewer_2020}. Due to the heterogeneity within the kidneys, this method could not be applied in-vivo and as such, the accuracy of the sequences and fitting methods was evaluated by performing a voxel-by-voxel fit, then calculating the mean \ttwo from an \ac{ROI} of each sphere in the resulting map.
 
 \begin{table}[H]
