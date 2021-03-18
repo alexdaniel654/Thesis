@@ -80,7 +80,7 @@ The \ac{CPMG} \ttwo preparation sequence is considered the `gold standard' in te
 \end{figure}
 
 \subsubsection{Multi-Echo Spin-Echo}
-In addition to the four techniques above, a Multi-Echo Spin-Echo scheme was used to evaluate the quantitative accuracy of the phantom. This scheme is recommenced by \ac{NIST} however is impractical to implement in-vivo due to its very long acquisition time (16 minutes for a single slice). The sequence is similar to the \ac{ME-TSE} sequence, however, with no fast imaging techniques employed, only one line of $k$-space is collected per \ac{TR}. A \ac{PSD} for this scheme is shown in Figure \ref{fig:t2_me-se_seq}.
+In addition to the four techniques above, a Multi-Echo Spin-Echo scheme was used to evaluate the quantitative accuracy of the phantom. This scheme is recommenced by \ac{NIST} for use with this phantom to validate scanner hardware. It is however, impractical to implement in-vivo due to its very long acquisition time (16 minutes for a single slice). The sequence is similar to the \ac{ME-TSE} sequence, however, with no fast imaging techniques employed, only one line of $k$-space is collected per \ac{TR}. A \ac{PSD} for this scheme is shown in Figure \ref{fig:t2_me-se_seq}.
 
 \begin{figure}[H]
 	\centering
@@ -96,7 +96,6 @@ In addition to the four techniques above, a Multi-Echo Spin-Echo scheme was used
 \label{sec:t2_methods}
 
 \subsection{Phantom Data Acquisition}
-\label{subsec:t2_acq_schemes}
 
 All data was acquired on a 3T Philips Ingenia system (Philips Medical Systems, Best, The Netherlands). The 14 element \ttwo array of a QalibreMD System Standard Model 130 contains spheres doped with varying concentrations of \ce{MnCl_2} to modulate \ttwo between 5 ms and 650 ms, Figure \ref{fig:t2_phantom_schematic}. This array was used to compare the accuracy of \ttwo measurements to a known ground truth. Additionally, a square grid etched into the plastic of the phantom was used to assess the degree of image blurring. 
 
@@ -149,6 +148,7 @@ All data acquired on human subjects was with approval of the local ethics commit
 The protocol comprised of a survey, localisers, $B_0$ and $B_1$ mapping, and each of the optimised \ttwo mapping sequences. In-vivo subjects also had \ttwo-weighted and \tone-weighted structural scans to enable segmentation of the whole kidneys, and cortex/medulla respectively \cite{petzold_building_2014, will_automated_2014}, see Chapter \ref{chap:ML}. These \ac{ROI} were then used to calculate the mean \ttwo of each tissue type. 
 
 \subsection{\ttwo Mapping Protocols}
+\label{subsec:t2_acq_schemes}
 A summary of the parameters of each \ttwo mapping sequence is shown in Table \ref{tab:t2_sequence_overview}. In-vivo respirator motion was counteracted via use of respiratory triggering. Each protocol was designed to be  approximately 2-3 minutes (before respiratory triggering) and keep key parameters such as voxel size and \ac{FOV} constant. More accurate or higher resolution \ttwo mapping may be possible with longer acquisition times, however as the aim is for this sequence to be used as part of a multi-parametric protocol, the time constraints of the whole protocol must be considered. 
 
 \begin{table}[H]
@@ -196,12 +196,12 @@ If no noise was present in the data and the sample was a single pure substance i
 	S(t) = S_0 \cdot e^{-t/T_2} + \epsilon,
 	\label{eq:t2_noise}
 \end{equation}
-where $\epsilon$ represents thermal noise and a baseline in the signal due to long \ttwo compartments; this fitting method is referred to as ``noise fit''. Another common method of negating the effects of the low \ac{SNR} of later \ac{TE} is to discard data below a threshold, illustrated in Figure \ref{fig:t2_fitting_methods} at 0.2 AU and referred to as ``discard fit''. Finally, a combination of both noise estimation and discarding can be performed (discard and noise fit). All four of these fitting methods will be compared.
+where $\epsilon$ represents thermal noise and a baseline in the signal due to long \ttwo compartments; this fitting method is referred to as ``noise fit''. This method is implemented in the software written by \ac{NIST} and distributed with the QalibreMD phantom. Another common method of negating the effects of the low \ac{SNR} of later \ac{TE} is to discard data below a threshold, illustrated in Figure \ref{fig:t2_fitting_methods} at 0.2 AU and referred to as ``discard fit''. Finally, a combination of both noise estimation and discarding can be performed (discard and noise fit). All four of these fitting methods will be compared.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{T2_Mapping/fitting_methods.pdf}
-	\caption{Each of the four fitting methods being used to estimate \ttwo of the same simulated data.}
+	\caption{Each of the four fitting methods used to estimate \ttwo of simulated data with \ttwo=50 ms and mean \ac{SNR}=23. Simulated data is used here only for illustration, all evaluations of fitting methods were performed on real data collected from the QalibreMD phantom.}
 	\label{fig:t2_fitting_methods}	
 \end{figure}
 
@@ -215,6 +215,7 @@ Using the QalibreMD phantom, the quantitative accuracy of each of the sequences 
 	\textup{MRE} = \frac{1}{N}\sum_{n}^{i=1}\left|  \frac{t_{2\; i}^{\textup{ground truth}} - t_{2\; i}^{\textup{estimate}}}{t_{2\; i}^{\textup{ground truth}}}\right|.
 	\label{eq:t2_mre}
 \end{equation}
+In addition to the four protocols that can be applied in-vivo, the \ac{NIST} recommended ME-SE scheme was also used to validate that the \ttwo values of the phantom used in this study were in agreement with the literature values.
 
 \begin{figure}[H]
 	\centering
@@ -227,7 +228,7 @@ Using the QalibreMD phantom, the quantitative accuracy of each of the sequences 
 To investigate the effects of flow upon \ttwo measurements, the \ac{QASPER} phantom was used. The porous media is imaged using each sequence over the full range of flow rates the phantoms pump can deliver. \ttwo maps are calculated and the mean \ttwo calculated to evaluate the robustness of each sequence to variations in perfusion.
 
 \subsubsection{Blurring}
-Unfortunately \ac{MRI} doesn't produce perfect images, every signal is subject to a degree of blurring or spreading out into surrounding voxels. The amount of this blurring is different for each sequence and can dramatically effect the readability of an image and ultimately its clinical utility. In \ac{MRI} the amount and characteristics of the blur is usually spatially invariant, that is to say, if a voxel in the centre of an image is blurred over its five neighbouring voxels in the phase encode direction, a voxel at the edge of the image would also be blurred over its five neighbouring voxels. The degree of blurring produced by each of the sequences outlined in Section \ref{subsec:t2_acq_schemes} will be quantified.
+The amount of blurring of an image is different for each sequence and can dramatically effect the readability of an image and ultimately its clinical utility. In \ac{MRI} the amount and characteristics of the blur is usually spatially invariant, that is to say, if a voxel in the centre of an image is blurred over its five neighbouring voxels in the phase encode direction, a voxel at the edge of the image would also be blurred over its five neighbouring voxels. The degree of blurring produced by each of the sequences outlined in Section \ref{subsec:t2_acq_schemes} was quantified.
 
 The observed image, $h$, can be modelled as an ideal, unblurred signal, $f$ distorted by a filter, $g$, Figure \ref{fig:t2_1d_blur}. This distorting filter is known as the \ac{PSF} and is the theoretical signal produced when imaging an infinitely small point source object or, in practice, the blurring observed in the imaging system when an object much smaller than the systems resolving power is imaged. In a spatially invariant system, such as \ac{MRI}, the recorded signal is simply a convolution of the true signal and the \ac{PSF} i.e. $f \ast g = h$. By fitting a Gaussian to the \ac{PSF} the degree of blurring in the image can be quantified \cite{chaimow_more_2017, chaimow_more_2017-1}. 
 \begin{figure}[H]
@@ -235,9 +236,9 @@ The observed image, $h$, can be modelled as an ideal, unblurred signal, $f$ dist
 	\includegraphics[width=0.8\textwidth]{T2_Mapping/1D_Blur/1d_conv.eps}
 	\caption{The convolution of the ideal signal, $f$, and the \ac{PSF}, $g$, produces the measured signal, $h$.}
 	\label{fig:t2_1d_blur}	
-\end{figure}\question{Would a 2D example of applying a Gaussian blur to an image be helpful here too?}
+\end{figure}
 
-A 3 mm deep, 2 mm thick, grid etched into one of the plastic plates of the QalibreMD phantom, Figure \ref{fig:t2_blur_grid}, was imaged using each of the \ttwo mapping methods with an echo time of 20 ms. A 0.5 mm$^3$ isotropic structural scan was also collected. The thickness of the grid is smaller than the imaging resolution of the \ttwo mapping sequences and the resolution of the structural scan is much greater than the resolution of the \ttwo mapping scans, therefore the structural scan can be seen as an approximation of the ideal image produced by each \ttwo mapping method. This allows a deconvolution of the \ac{PSF} from the \ttwo mapping scans and, by fitting a Gaussian to the line profiles through the centre of the \ac{PSF} in each direction, an estimate the \ac{FWHM} of the \ac{PSF} as shown in Figure \ref{fig:t2_2d_blur}. Quoted values are the maximum \ac{PSF} of each of the two directions as this is the limiting factor in an images readability, for the example in Figure \ref{fig:t2_2d_blur}, the quoted \ac{PSF} would be 9.49 $\pm$ 0.23 mm.
+A 3 mm deep, 2 mm thick, grid etched into one of the plastic plates of the QalibreMD phantom, Figure \ref{fig:t2_blur_grid}, was imaged using each of the \ttwo mapping methods with an echo time of 20 ms. A 0.5 mm$^3$ isotropic structural scan was also collected. The thickness of the grid is smaller than the imaging resolution of the \ttwo mapping sequences and the resolution of the structural scan is much greater than the resolution of the \ttwo mapping scans, therefore the structural scan can be seen as an approximation of the ideal image produced by each \ttwo mapping method. This allows a deconvolution of the \ac{PSF} from the \ttwo mapping scans and, by fitting a Gaussian to the line profiles through the centre of the \ac{PSF} in each direction, an estimate the \ac{FWHM} of the \ac{PSF} as shown in Figure \ref{fig:t2_2d_blur}. Quoted values are the maximum \ac{PSF} of each of the in-plane two directions as this is the limiting factor in an images readability, for the example in Figure \ref{fig:t2_2d_blur}, the quoted \ac{PSF} would be 9.49 $\pm$ 0.23 mm.
 
 \begin{figure}[H]
 	\centering
