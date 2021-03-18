@@ -314,7 +314,7 @@ Estimation of \ttwostar can be performed via two different methods, fitting to a
 	\label{eq:ex_t2star}
 \end{equation}
 
-The acquisition parameters of the 3T ex-vivo protocol were simulated to compare the two fitting methods using Monte Carlo techniques. The linear fit produces a slightly greater \ac{CoV} than the exponential fit at lower \ttwostar, Figure \ref{fig:ex_t2star_sim_cov}. Additionally, the relative error, defined by Equation \eqref{eq:ex_re}, has a greater magnitude below 20 ms when fitting with the linear fit than the exponential fit, Figure \ref{fig:ex_t2star_sim_mre}. The \ttwostar we expect from the kidneys at 3T is greater than 20 ms so in the interests of computational efficiency, the linear fitting method was used.
+The acquisition parameters of the 3T ex-vivo protocol were simulated to compare the two fitting methods using Monte Carlo techniques. The linear fit produces a slightly greater \ac{CoV} than the exponential fit at lower \ttwostar, Figure \ref{fig:ex_t2star_sim_cov}. Additionally, the relative error, defined by Equation \eqref{eq:ex_re}, has a greater magnitude below 20 ms when fitting with the linear fit than the exponential fit, Figure \ref{fig:ex_t2star_sim_re}. The \ttwostar we expect from the kidneys at 3T is greater than 20 ms so in the interests of computational efficiency, the linear fitting method was used.
 
 \begin{equation}
 	\textup{Relative Error} = \frac{t_{2\; \textup{fit}}^{*} - t_{2\; \textup{simulated}}^{*}}{t_{2\; \textup{simulated}}^{*}}
@@ -334,7 +334,7 @@ The acquisition parameters of the 3T ex-vivo protocol were simulated to compare 
 		\centering
 		\includegraphics[width=1\textwidth]{Neph/t2star_sim_mre.pdf}
 		\caption{}
-		\label{fig:ex_t2star_sim_mre}
+		\label{fig:ex_t2star_sim_re}
 	\end{subfigure}
 	\caption{Simulations to ascertain the accuracy of each \ttwostar fitting algorithm over a range of \ttwostar.}
 	\label{fig:ex_t2star_sim}
