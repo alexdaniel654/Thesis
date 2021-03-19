@@ -76,6 +76,26 @@ axg.set_yticklabels([])
 axg.set_yticks([-1, 0, 1])
 axg.set_ylim([-1.2, 1.2])
 axg.set_ylabel('$G_{diff}$')
+axg.annotate('G', (45, diff_amp), (45, diff_amp/2), 
+             horizontalalignment='center', verticalalignment='center', 
+             arrowprops=dict(arrowstyle='-|>', color='k'))
+axg.annotate('G', (45, 0), (45, diff_amp/2), 
+             horizontalalignment='center', verticalalignment='center', 
+             arrowprops=dict(arrowstyle='-|>', color='k'))
+
+axg.annotate('$\delta$', (50, 0.7), (81, 0.7), 
+             horizontalalignment='center', verticalalignment='center', 
+             arrowprops=dict(arrowstyle='-|>', color='k'))
+axg.annotate('$\delta$', (112, 0.7), (81, 0.7), 
+             horizontalalignment='center', verticalalignment='center', 
+             arrowprops=dict(arrowstyle='-|>', color='k'))
+
+axg.annotate('$\Delta$', (50, -0.3), (94, -0.3), 
+             horizontalalignment='center', verticalalignment='center', 
+             arrowprops=dict(arrowstyle='-|>', color='k'))
+axg.annotate('$\Delta$', (138, -0.3), (94, -0.3), 
+             horizontalalignment='center', verticalalignment='center', 
+             arrowprops=dict(arrowstyle='-|>', color='k'))
 
 t_phase = np.arange(-50, te *2, t_step)
 stationary = np.zeros(len(t_phase))

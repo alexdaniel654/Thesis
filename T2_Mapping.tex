@@ -84,8 +84,8 @@ In addition to the four techniques above, a Multi-Echo Spin-Echo scheme was used
 
 \begin{figure}[H]
 	\centering
-%	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_T2_Prep.eps}
-	\missingfigure{ME-SE Scheme (ME-TSE PSD with all but the first PE blip removed and one extra echo).}
+	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_ME_SE.eps}
+%	\missingfigure{ME-SE Scheme (ME-TSE PSD with all but the first PE blip removed and one extra echo).}
 	\caption{A pulse sequence diagram of the Multi-Echo Spin-Echo scheme.}
 	\label{fig:t2_me-se_seq}	
 \end{figure}
@@ -607,7 +607,7 @@ Five healthy volunteers were imaged using each of the four methods. Example in-v
 	\label{fig:t2_in_vivo_bars}
 \end{figure}
 
-To better explore the variation between subjects, histograms of the \ttwo values of each tissue type were generated for each subject, Figure \ref{fig:t2_in_vivo_joy}.
+To better explore the variation between subjects, histograms of the \ttwo values of each tissue type were generated for each subject, Figure \ref{fig:t2_in_vivo_joy}. A Gaussian was fit to each histogram to calculate the peak and \ac{FWHM} \ttwo for each sequence and tissue type across subjects, Table \ref{tab:t2_hist}.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[c]{0.47\textwidth}
@@ -641,6 +641,23 @@ To better explore the variation between subjects, histograms of the \ttwo values
 	\caption{Histograms of the \ttwo of each tissue type for all subjects and mapping methods.}
 	\label{fig:t2_in_vivo_joy}
 \end{figure}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ll|l|l}
+		Sequence                         & Tissue  & Peak (ms)  & FWHM (ms) \\ \hline
+		\multirow{2}{*}{SE-EPI}          & Cortex  & 74 $\pm$ 4   & 25 $\pm$ 9  \\ \cline{2-4} 
+		& Medulla & 61 $\pm$ 4   & 18 $\pm$ 8  \\ \hline
+		\multirow{2}{*}{ME-TSE}          & Cortex  & 109 $\pm$ 4  & 18 $\pm$ 8  \\ \cline{2-4} 
+		& Medulla & 115 $\pm$ 5  & 19 $\pm$ 4  \\ \hline
+		\multirow{2}{*}{GraSE}           & Cortex  & 112 $\pm$ 5  & 17 $\pm$ 1  \\ \cline{2-4} 
+		& Medulla & 126 $\pm$ 6  & 22 $\pm$ 8  \\ \hline
+		\multirow{2}{*}{CPMG \ttwo Prep} & Cortex  & 109 $\pm$ 5  & 44 $\pm$ 17 \\ \cline{2-4} 
+		& Medulla & 130 $\pm$ 11 & 41 $\pm$ 13
+	\end{tabular}
+	\caption{Peak and \ac{FWHM} of a Gaussian fit to the histogram of each tissue type. Values are expressed as mean and standard deviation across the five subjects.}
+	\label{tab:t2_hist}
+\end{table}
 
 
 \newpage

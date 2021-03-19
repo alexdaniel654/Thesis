@@ -323,11 +323,16 @@ The mathematical framework of this phenomenon is given by the Solomon-Bloemberge
 %	\label{fig:theory_relaxation_b0}	
 %\end{figure}
 
-\subsection{Diffusion Imaging}
+\subsection{Diffusion Weighted Imaging}
 \label{subsec:theory_diffusion}
-Spins have been considered stationary until now, however, in biological tissues, they will typically undergo Brownian motion leading to diffusion. The signal from a sample can be made sensitive to the degree of diffusion taking place using diffusion gradients applied between the excitation and echo. 
+Spins have been considered stationary until now, however, in biological tissues, they will undergo Brownian motion leading to diffusion. The signal from a sample can be made sensitive to the degree of diffusion taking place by using diffusion gradients applied between the excitation and echo. 
 
-Figure \ref{fig:theory_diffusion_psd} shows the phase evolution of two spins, one stationary and the other diffusing along the direction the diffusion gradients are applied. The stationary spin accrues a positive phase shift relative to $\omega_0$ while the first diffusion gradient pulse is applied. The 180$\degree$ \ac{RF} pulse flips the spin system so the positive phase shift becomes a negative phase shift of equal magnitude. The spin then evolves under the same field strength in the second diffusion gradient pulse and as such, the diffusion pulses resulted in no net phase shift. The strength of the magnetic field experience by the diffusion spin is dependent on time, in this example, increasing in strength as time passes. This mean that the rate at which phase shifts are accrued increases over time and therefore the refocussing effects of the second diffusion pulse are reduced. This results in a signal attenuation proportional to the rate at which diffusion is occurring, the strength of the diffusion gradients, the time the diffusion gradients are applied for and the time between the two diffusion pulses. The diffusion gradients can either be bipolar, as seen in Figure \ref{fig:theory_ge_signal} or monopolar if a \ac{SE} sequence is used, Figure \ref{fig:theory_diffusion_psd}.
+Figure \ref{fig:theory_diffusion_psd} shows a \ac{DWI} pulse sequence and the phase evolution of two spins, one stationary and the other diffusing along the direction in which the diffusion gradient is applied. The stationary spin accrues a positive phase shift relative to $\omega_0$ while the first diffusion gradient pulse is applied. The 180$\degree$ \ac{RF} pulse then flips the spin system so the positive phase shift reverses to a negative phase shift of equal magnitude. The spin then evolves under the same field strength in the second diffusion gradient pulse and as such, the diffusion pulses result in no net phase shift. In contrast for the diffusing spin,the strength of the magnetic field experienced is dependent on time, in this example, increasing in strength as time passes. This means that the rate at which phase shifts are accrued increases over time and therefore the refocussing effects of the second diffusion pulse are reduced. This sensitivity of the diffusion sequence to water motion is dependent on the strength of the diffusion gradients, the time the diffusion gradients are applied for and the time between the two diffusion pulses. This is termed the diffusion weighting factor, b, and for a monopolar Stejskal-Tanner sequence is given by \eqref{eq:theory_stejskal_tanner} where b has units of s/mm$^2$, $G$ is the amplitude of the gradient, $\delta$ is the duration of the gradient and $\Delta$ is the time interval \cite{stejskal_spin_1965}. To increase the b-value, either the gradient amplitude, duration of time interval can be increased however it is often preferable to adjust b-values purely by altering the gradient amplitude.
+
+\begin{equation}
+	b=\gamma^2 G^2 \delta^2 \left( \Delta - \sfrac{\delta}{3}\right)
+	\label{eq:theory_stejskal_tanner}
+\end{equation}
 
 \begin{figure}[H]
 	\centering
@@ -341,7 +346,16 @@ The interplay between diffusion gradients and measured signal can be mathematica
 	S\left( b \right) = S_0 \cdot e^{-b \cdot ADC},
 	\label{eq:theory_adc}
 \end{equation}
-where b is the b-value, a quantity which dictates the degree of diffusion weighting and is given in units of sec/mm$^2$ and \ac{ADC} is the \acl{ADC} of the tissue and reflects the degree with which spins can diffuse through a tissue, given in mm$^2$/sec. The b-value can be increased by increasing the gradient strength (this is often limited by scanner hardware), the gradient pulse duration or the spacing between gradient pulses. By repeating the acquisition with different b-values, the signal from each voxel at each b-value can be used to estimate \ac{ADC} (and $S_0$) by fitting the data to Equation \eqref{eq:theory_adc}.
+where b is the b-value, and \acs{ADC} is the \acl{ADC} of the tissue and reflects the degree with which spins can diffuse through a tissue, given in mm$^2$/sec. By repeating the acquisition with different b-values, the signal from each voxel at each b-value can be used to estimate \ac{ADC} (and $S_0$) by fitting the data to Equation \eqref{eq:theory_adc}.
+
+For large b-values, typically greater than 250 s/mm$^2$, diffusion is the primary contributing factor to signal attenuation. For b-values less than 250 s/mm$^2$ an additional mechanism in the form of perfusion, micro-circulation of blood in capillaries, leads to additional signal attenuation. This additional factor can be modelled by \ac{IVIM} model, \eqref{eq:theory_ivim}, where $f$ is the perfusion fraction, the proportion of a voxels volume occupied by capillaries and $D^*$ is the pseudodiffusion coefficient, reflecting the additional de-phasing due to perfusion within capillaries in a voxel \cite{le_bihan_mr_1986,le_bihan_separation_1988}.
+
+\begin{equation}
+	S\left( b \right) = S_0 \left[ f \cdot e^{-b\left(ADC + D^*\right)} + \left( 1 - f\right) \cdot e^{-b \cdot ADC}\right]
+	\label{eq:theory_ivim}
+\end{equation}
+
+By acquiring data at a range of b-values, ensuring that low b-values are well sampled, a voxel by voxel fit can be performed to estimate $f$, $D^*$ and \ac{ADC}.
 
 Not all diffusion is isotropic (occurs to the the same degree in all directions), often the motion of the spins is restricted e.g. within tissue fibres. The amount of restriction is known as the \ac{FA} where 0 represents isotropic diffusion e.g. a large vial of water, and 1 represents diffusion being constrained to a single dimension. By applying the diffusion gradients in different directions (and strengths) the preferred direction of diffusion and fractional anisotropy can be calculated. These techniques are used in Chapter \ref{chap:ex} to study ex-vivo tissue samples.
 
