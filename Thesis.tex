@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{gensymb}
 \usepackage{mhchem}
+\usepackage[mathscr]{euscript}
 \usepackage{multirow}
 \usepackage{adjustbox}
 \usepackage[pdftex,dvipsnames]{xcolor}
@@ -27,7 +28,7 @@
 \usepackage[baskerville,vvarbb]{newtxmath}
 \usepackage[cal=boondoxo]{mathalfa}
 \usepackage[left=5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
-\usepackage[backend=biber,style=nature,autocite=superscript,citestyle=numeric-comp,sorting=none, url=false, doi=false, refsection=chapter]{biblatex}
+\usepackage[backend=biber,style=nature,autocite=superscript,citestyle=numeric-comp,sorting=none, maxbibnames=8, url=false, doi=true, isbn=false, eprint=true, refsection=chapter]{biblatex}
 \addbibresource{./References/Renal_Imaging.bib}
 \usepackage[british]{babel}
 \usepackage{listings}
@@ -49,6 +50,7 @@
 \usepackage{etoolbox}
 \usepackage{tabularx}
 \usepackage{lscape}
+\usepackage{tocbibind}
 \usepackage{epigraph}
 \renewcommand{\epigraphflush}{center}
 \setlength\epigraphwidth{.7\textwidth}
@@ -97,6 +99,7 @@
 	\begin{center}
 		{\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
 	\end{center}
+%	\normalsize
 	\quotation
 	\fi}
 {\if@twocolumn\else\endquotation\fi}
@@ -122,7 +125,7 @@
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \center
  
-\textsc{\LARGE The University of Nottingham}\\[0.5cm]
+\textsc{\LARGE University of Nottingham}\\[0.5cm]
 \textsc{\Large Sir Peter Mansfield Imaging Centre}\\[0.5cm]
 \textsc{\large School of Physics and Astronomy}\\[0.5cm]
 
@@ -134,14 +137,14 @@
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Author:}\\
-Alexander James \textsc{Daniel} MSci
+Alexander James Daniel MSci
 \end{flushleft}
 \end{minipage}
 ~
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
 \emph{Supervisor:} \\
-Prof. Susan \textsc{Francis}
+Prof. Susan Francis
 \end{flushright}
 \end{minipage}\\[4cm]
 {\large \today}\\[2cm]
@@ -157,80 +160,64 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 \vspace*{200px}
 
 \epigraph{\large{It’s very hard to talk quantum using a language originally designed to tell other monkeys where the ripe fruit is.}}{\normalsize{Terry Pratchett, \textit{Night Watch}}}
-%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel dapibus ex, non lobortis sem. Quisque in nunc id justo ultricies tempor vitae nec ante. Pellentesque volutpat, dui sit amet euismod dictum, turpis velit ultrices nisi, vitae porta tortor lacus ut turpis. 
-
 \newpage
+
 %\newgeometry{left=5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 \begin{abstract}
 	\addcontentsline{toc}{chapter}{Abstract}
 	Science will happen, but this bit can be read by muggles on `tinterweb.
 \end{abstract}
 \setcounter{tocdepth}{2}
+
 \tableofcontents
 \listoftodos
+
 \newpage
 
 \include{Acknowledgements}
-
 \newpage
 
 \include{Abbreviations}
-
 \newpage
-
 
 \pagestyle{body}
 \pagenumbering{arabic}
-\acresetall
 \setcounter{page}{1}
 
+\acresetall
 \include{Introduction}
-
 \newpage
 
-\acresetall % Expand all acronyms again
+\acresetall
 \include{Theory}
-
 \newpage
 
 \acresetall
 \include{T2_Mapping}
-
 \newpage
 
 \acresetall
 \include{TRUST}
-
 \newpage
 
 \acresetall
 \include{ML}
-
 \newpage
 
 \acresetall
-\include{Nephrectomy}
-
+\include{Ex_Vivo}
 \newpage
 
 \acresetall
 \include{Conclusion}
 
-%\appendix
-%\input{Publications}
+\appendix
+\acresetall
+\include{T2_Fitting}
 
-%\chapter{Quantitative Phantom Designs}
-%\label{app:phantom_designs}
-%\section{Anisotropic Diffusion Phantom}
-%\label{app:fa_phantom}
-%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}, angle=90]{Files/AM_Designs/50um_Hexagonal.pdf}
-%
-%\section{Fibre Crossing Phantom}
-%\label{app:fiber_crossing_phantom}
-%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}, angle=90]{Files/AM_Designs/Fiber_Cross_Variable.pdf}
-%
-%\section{Flow Phantom}
-%\label{app:flow_phantom}
-%\includepdf[pages=-, pagecommand={\thispagestyle{fancy}}, angle=90]{Files/AM_Designs/Four_Branch.pdf}
+\newpage
+\include{Tractography_Pipeline}
+\acresetall
+
 
 \end{document}

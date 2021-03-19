@@ -58,4 +58,13 @@ ax2.set_ylim([-0.3, 1.2])
 ax2.set_ylabel('RF')
 ax2.set_xlabel('Time ($ms$)')
 
+# ax2.arrow(0, 1, 200, 0, color='k', width=0.01, length_includes_head=True, head_width=0.2, head_length=0.2)
+te_label_height = 1.2
+ax2.annotate('TE', (200, te_label_height), (100, te_label_height), 
+             horizontalalignment='center', verticalalignment='center', 
+             arrowprops=dict(arrowstyle='-|>', color='k'))
+ax2.annotate('TE', (0, te_label_height), (100, te_label_height), 
+             horizontalalignment='center', verticalalignment='center', 
+             arrowprops=dict(arrowstyle='-|>', color='k'))
+
 fig1.savefig('se_signal.eps', bbox_inches='tight', dpi=300)
