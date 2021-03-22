@@ -121,13 +121,18 @@ The protocol for the \ac{TRUST} \ac{MRI} sequence in the brain involves the acqu
 This process is then repeated for another pair of images, with the duration of the \ttwo preparation increased to a larger \ac{eTE}, which applies a \ttwo weighting to the image in addition to the constant weighting caused by the regular \ac{TE}. Three label/control image pairs were acquired at each \ac{eTE} of 1 ms, 40 ms, 80 ms and 160 ms.
 
 The resulting signal in the superior sagittal sinus of the difference between the label and control image, $\Delta S$, is defined by Equation \eqref{eq:TRUST}
-\begin{align}
-\Delta S&=S_{\text{label}}-S_{\text{control}}\nonumber\\
-&=S_{\text{blood label}}-S_{\text{blood control}}\nonumber\\
-&=S_0e^{eTE\left(\sfrac{1}{T_1}-\sfrac{1}{T_2}\right)}
-\label{eq:TRUST}
-\end{align}  
-where $S_0=2e^{-\sfrac{TI}{T_1}-\sfrac{TE}{T_2^*}}$ and; \tone, \ttwo and \ttwostar are the relaxation constants of blood. If it is assumed that \tone of blood is approximately 1624 ms at 3T \cite{lu_determining_2004} then it is possible to fit the collected data to a mono-exponential function and estimate of \ttwo. It is deemed acceptable to use a mean value of \tone as it will always be much greater than the value of \ttwo and thus the possible small changes in blood \tone due to the oxygenation level and haematocrit become negligible when fitting the \ttwo curve.
+\begin{alignat}{2}
+	S_{\text{label}} &=\left(1-2\cdot e^{\sfrac{-\left(TI - eTE\right)}{\tone}}\right) \cdot & &e^{\sfrac{-eTE}{\ttwo}} \cdot e^{\sfrac{-TE}{\ttwostar}} \\
+	S_{\text{control}} &= & &e^{\sfrac{-eTE}{\ttwo}} \cdot e^{\sfrac{-TE}{\ttwostar}} 
+\end{alignat}  
+\begin{alignat}{1}
+	\Delta S&=S_{\text{label}}-S_{\text{control}}\nonumber\\
+	&= 2\cdot e^{\sfrac{-\left(TI - eTE\right)}{\tone}} \cdot e^{\sfrac{-eTE}{\ttwo}} \cdot e^{\sfrac{-TE}{\ttwostar}} \nonumber\\
+	&= 2 \cdot e^{-\sfrac{TI}{T_1}-\sfrac{TE}{T_2^*}} \cdot e^{eTE\left(\sfrac{1}{T_1}-\sfrac{1}{T_2}\right)}\nonumber\\
+	&=S_0 \cdot e^{eTE\left(\sfrac{1}{T_1}-\sfrac{1}{T_2}\right)}
+	\label{eq:TRUST}
+\end{alignat}  
+where $S_0=2 \cdot e^{-\sfrac{TI}{T_1}-\sfrac{TE}{T_2^*}}$ and; \tone, \ttwo and \ttwostar are the relaxation constants of blood \cite{lu_quantitative_2008}. If it is assumed that \tone of blood is approximately 1624 ms at 3T \cite{lu_determining_2004} then it is possible to fit the collected data to a mono-exponential function and estimate of \ttwo. It is deemed acceptable to use a mean value of \tone as it will always be much greater than the value of \ttwo and thus the possible small changes in blood \tone due to the oxygenation level and haematocrit become negligible when fitting the \ttwo curve.
 
 The final step in this procedure is to convert the value of \ttwo into one of venous oxygenation, $Y_v$. The relationship between \ttwo and $Y_v$ is well studied and a simple empirically derived calibration curve can be used for this conversion, Figure \ref{fig:calibration_curve} \cite{gardener_dependence_2010, silvennoinen_comparison_2003, liu_t1_2016}.
 
@@ -170,7 +175,26 @@ The parameters used in the brain \ac{TILT} \ac{TRUST} sequence were as follows: 
 	\label{fig:TRUST_FAIR}
 \end{figure}
 
-The main hurdle to be overcome when moving \ac{TRUST} to the body is the inhomogeneity in the $B_0$ and $B_1$ magnetic fields caused by the far less homogeneous tissue susceptibilities within the body compared to the brain. These inhomogeneities limit the use of \ac{TILT} as the labelling method, instead the \ac{FAIR} labelling scheme was coded and will be used \cite{martirosian_fair_2004}, a diagram of this pulse sequence is shown in Figure \ref{fig:TRUST_FAIR_Seq}. In the \ac{FAIR} labelling scheme a selective hyperbolic secant inversion pulse is applied with slice selective gradients turned on followed by \ttwo preparation and acquisition to generate the first image in the pair, a non-selective inversion pulse is then applied with a lower slice selective gradient followed by \ttwo preparation and then acquisition to generate the second image. An example of the label and control images produced are shown in Figure \ref{fig:RV_labsub}. A schematic of the planning of the selective and non-selective slabs in the brain to study the sagittal sinus and in the body to study the renal vein are shown in Figures \ref{fig:TRUST_Brain_FAIR} and \ref{fig:TRUST_Kidney} respectively. The \ac{FAIR} scheme also has the advantage of being far easier to plan in the body than \ac{TILT}. In the brain having a separate labelling and imaging slice is relatively trivial however the flow of blood in the body is far less ordered and as such, the use of a selective slab within a non-selective slab yields far more user independent results. Movement is a much greater problem in the body. Given the long acquisition time of \ac{TRUST} it is impossible to carry out the scan in a single breath hold and repeated breath holds have the issue of between scan movement. Therefore the sequence was collected respiratory triggered via a respiratory belt applied around the subjects chest. The total scan time is therefore dependent upon respiratory rate. Depending on the subject, a delay can be applied between the respiratory trigger and the labelling pulse to acquire images while the subject has fully exhaled.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Invivo/b0.eps}
+		\caption{$B_0$}
+		\label{fig:trust_in_vivo_map_b0}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{T2_Mapping/Invivo/b1.eps}
+		\caption{$B_1$}
+		\label{fig:trust_in_vivo_map_b1}
+	\end{subfigure}
+	\caption{Example abdominal $B_0$ (\subref{fig:trust_in_vivo_map_b0}) and $B_1$ (\subref{fig:trust_in_vivo_map_b1}) field maps showing the inhomogeneity over the kidneys.}
+	\label{fig:trust_b_maps}
+\end{figure}
+
+The main hurdle to be overcome when moving \ac{TRUST} to the body is the inhomogeneity in the $B_0$ and $B_1$ magnetic fields caused by the far less homogeneous tissue susceptibilities within the body compared to the brain, Figure \ref{fig:trust_b_maps}. These inhomogeneities limit the use of \ac{TILT} as the labelling method, instead the \ac{FAIR} labelling scheme was coded and will be used \cite{martirosian_fair_2004}, a diagram of this pulse sequence is shown in Figure \ref{fig:TRUST_FAIR_Seq}. In the \ac{FAIR} labelling scheme a selective hyperbolic secant inversion pulse is applied with slice selective gradients turned on followed by \ttwo preparation and acquisition to generate the first image in the pair, a non-selective inversion pulse is then applied with a lower slice selective gradient followed by \ttwo preparation and then acquisition to generate the second image. An example of the label and control images produced are shown in Figure \ref{fig:RV_labsub}. A schematic of the planning of the selective and non-selective slabs in the brain to study the sagittal sinus and in the body to study the renal vein are shown in Figures \ref{fig:TRUST_Brain_FAIR} and \ref{fig:TRUST_Kidney} respectively. The \ac{FAIR} scheme also has the advantage of being far easier to plan in the body than \ac{TILT}. In the brain having a separate labelling and imaging slice is relatively trivial however the flow of blood in the body is far less ordered and as such, the use of a selective slab within a non-selective slab yields far more user independent results. Movement is a much greater problem in the body. Given the long acquisition time of \ac{TRUST} it is impossible to carry out the scan in a single breath hold and repeated breath holds have the issue of between scan movement. Therefore the sequence was collected respiratory triggered via a respiratory belt applied around the subjects chest. The total scan time is therefore dependent upon respiratory rate. Depending on the subject, a delay can be applied between the respiratory trigger and the labelling pulse to acquire images while the subject has fully exhaled.
 
 \begin{figure}[H]
 	\centering
@@ -251,12 +275,12 @@ To test if the \ac{FAIR} labelling scheme delivered the same signal decay as the
 \begin{figure}[H]
 	\centering
 	%\missingfigure{T2 curves for TILT and FAIR}
-	\includegraphics[width=0.55\textwidth]{TRUST/TILT_vs_FAIR.eps}
+	\includegraphics[width=0.55\textwidth]{TRUST/T2_brain_tilt_vs_fair_5.eps}
 	\caption{The signal decay within the superior sagittal sinus measured using \ac{TRUST} for the \ac{TILT} and \ac{FAIR} labelling schemes scaled by their initial signal intensities at eTE = 1 ms.}
 	\label{fig:TILT_vs_FAIR}	
 \end{figure}
 
-As can be seen these signals are in excellent agreement with the \ac{TILT} sequence yielding a venous blood \ttwo of $52\pm1$ ms corresponding to a $Y_v$ of \todo{calculate me} and the \ac{FAIR} sequence yielding a venous blood \ttwo of $50\pm2$ ms corresponding to a $Y_v$ of \todo{calculate me}, therefore in agreement within the bounds of error. Having evaluated the accuracy of the \ac{FAIR} scheme to measure $Y_v$ in the superior sagittal sinus it was then be used for the renal \ac{TRUST} measurements.
+As can be seen these signals are in excellent agreement with the \ac{TILT} sequence yielding a venous blood \ttwo of $52\pm1$ ms corresponding to a $Y_v$ of $55\pm1\%$ and the \ac{FAIR} sequence yielding a venous blood \ttwo of $50\pm2$ ms corresponding to a $Y_v$ of $53\pm2\%$, therefore in agreement within the bounds of error. Having evaluated the accuracy of the \ac{FAIR} scheme to measure $Y_v$ in the superior sagittal sinus it was then be used for the renal \ac{TRUST} measurements.
 
 First, the dependence of the signal on \ac{PLD} was measured with scans collected at a range of delays from 400 to 1400 ms for the \ac{FAIR} labelling scheme. The signal from \ac{eTE}=1 ms was then plot against label delay. Figure \ref{fig:Sig_vs_PLD_SS} shows the signal from the sagittal sinus from the brain \ac{FAIR} difference images. The maximum signal is observed with a \ac{PLD} of 800 ms. This value is reached due to the balance between \tone relaxation of the non-selective blood and inflow of unlabelled blood. This maximum in signal agrees with literature using the \ac{TILT} labelling scheme for assessing the sagittal sinus \cite{lu_quantitative_2008}. By carrying out scans with this \ac{PLD} the maximum \ac{SNR} will be achieved. 
 

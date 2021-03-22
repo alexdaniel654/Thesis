@@ -165,11 +165,11 @@ To make use of the layer based analysis techniques outlined in Section \ref{sec:
 		Voxel Size                           & 0.7 x 0.7 x 1.0                                    & 0.6 x 0.6 x 0.6                                    & 3 x 3 x 5                                                          \\ \hline
 		FoV                                  & 160 x 160 x 50                                     & 192 x 170 x 24                                     & 288 x 288 x 25                                                     \\ \hline
 		Acquisition Mode                     & 3D                                                 & 3D                                                 & MS                                                                 \\ \hline
-		TE                                   & 5.1                                                &                                                    & 27                                                                 \\ \hline
-		TR                                   & 11                                                 &                                                    & 5000                                                               \\ \hline
+		TE                                   & 5.1                                                & 3.3                                                & 27                                                                 \\ \hline
+		TR                                   & 11                                                 & 7.2                                                & 5000                                                               \\ \hline
 		TI                                   & 400, 500, 750, 900,   1100, 1300, 1500, 2000, 2600 & 250, 500, 750, 900,   1100, 1300, 1500, 2000, 3000 & 0, 100, 200, 300,   400, 500, 600, 700, 800, 900, 1000, 1100, 1300 \\ \hline
 		Flip Angle                           & 8                                                  & 8                                                  & 90                                                                 \\ \hline
-		Bandwidth                            & 134.4                                              &                                                    & 39.3                                                               \\ \hline
+		Bandwidth                            & 134.4                                              & 240                                                & 39.3                                                               \\ \hline
 		NSA                                  & 1                                                  & 2                                                  & 1                                                                  \\ \hline
 		Fold-over Suppression   Oversampling & 75                                                 & N/A                                                & N/A                                                                \\ \hline
 		Sense                                & 2.5 RL, 1 AP                                       & 2 RL,1.5 AP                                        & 2.3                                                                \\ \hline
@@ -177,7 +177,7 @@ To make use of the layer based analysis techniques outlined in Section \ref{sec:
 		Fast Imaging Mode                    & TFE                                                & TFE                                                & EPI                                                                \\ \hline
 		TFE Factor                           & 64                                                 & 240                                                & N/A                                                                \\ \hline
 		Shot Interval                        & 3000                                               & 8000                                               & N/A                                                                \\ \hline
-		Acquisition Time                     & 1 hr 20 min 20 sec                                 &                                                    & 1 min 10 sec (Trig)                                                \\ \hline
+		Acquisition Time                     & 1 hr 20 min 20 sec                                 & 48 min 55 sec                                      & 1 min 10 sec (Trig)                                                \\ \hline
 	\end{tabularx}
 	\caption{\tone mapping protocols and 3T and 7T.}
 	\label{tab:ex_t1_mapping}
@@ -293,15 +293,15 @@ As outlined in Section \ref{subsec:t2_fitting_methods_results} multiple methods 
 		FoV                                & 160 x 160 x 25  & 145 x 145 x 10                 & 288 x 288 x 25  \\ \hline
 		Acquisition Mode                   & MS              & MS                             & MS              \\ \hline
 		TE                                 & 15:5:50         & 10, 13, 16, 19, 22, 25, 28, 30 & 5:3:38          \\ \hline
-		TR                                 & 697             &                                & 79              \\ \hline
+		TR                                 & 697             & 178 - 463                      & 79              \\ \hline
 		Flip Angle                         & 38              & 38                             & 25              \\ \hline
-		Bandwidth                          & 35 - 56         &                                & 1328.6          \\ \hline
+		Bandwidth                          & 35 - 56         & 35 – 88                        & 1328.6          \\ \hline
 		NSA                                & 1               & 3                              & 1               \\ \hline
 		Fold-over Suppression Oversampling & 75              & N/A                            & 144             \\ \hline
 		Sense                              & 2               & 2                              & 2               \\ \hline
 		Halfscan                           & N/A             & N/A                            & N/A             \\ \hline
 		Fast Imaging Mode                  & None            & None                           & None            \\ \hline
-		Acquisition Time                   & 46 min 25 sec   &                                & 47 sec (3 x BH) \\ \hline
+		Acquisition Time                   & 46 min 25 sec   & 20 min 8 sec                   & 47 sec (3 x BH) \\ \hline
 	\end{tabularx}
 	\caption{Acquisition parameters for \ttwostar mapping sequences at 3T and 7T.}
 	\label{tab:ex_t2star_mapping}
