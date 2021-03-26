@@ -1,7 +1,11 @@
 \chapter*{Abbreviations}
 \addcontentsline{toc}{chapter}{Abbreviations}
-
+\let\oldbaselinestretch=\baselinestretch%
+\renewcommand{\baselinestretch}{1}%
+\large\normalsize
 \begin{acronym}[PRELUDE]
+\setlength{\parskip}{0ex}
+\setlength{\itemsep}{1.25ex}
 \acro{ADC}{Apparent Diffusion Coefficient}
 \acro{ADPKD}{Autosomal Dominant Polycystic Kidney Disease}
 \acro{AKI}{Acute Kidney Injury}
@@ -15,6 +19,7 @@
 \acro{CKD}{Chronic Kidney Disease}
 \acro{CMRO$_2$}{Cerebral Metabolic Rate of Oxygen}
 \acro{CNN}{Convolutional Neural Network}
+\acro{COST}{European Cooperation in Science and Technology}
 \acro{CoV}{Coefficient of Variation}
 \acro{CPMG}{Carr-Purcell-Meiboom-Gill}
 \acro{CSF}{Cerebrospinal Fluid}
@@ -99,3 +104,5 @@
 \acro{vNavs}{Volume Navigators}
 \acro{WET}{Water suppression Enhanced through $T_1$ effects}
 \end{acronym}
+\renewcommand{\baselinestretch}{\oldbaselinestretch}%
+\large\normalsize
