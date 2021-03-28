@@ -359,13 +359,26 @@ By acquiring data at a range of b-values, ensuring that low b-values are well sa
 Not all diffusion is isotropic (occurs to the the same degree in all directions), often the motion of the spins is restricted e.g. within tissue fibres. The amount of restriction is known as the \ac{FA} where 0 represents isotropic diffusion e.g. a large vial of water, and 1 represents diffusion being constrained to a single dimension. By applying the diffusion gradients in different directions (and strengths) the preferred direction of diffusion and fractional anisotropy can be calculated. These techniques are used in Chapter \ref{chap:ex} to study \ac{DTI} in ex-vivo tissue samples.
 
 \subsection{Optimisation of Tissue Contrast}
+\label{subsec:theory_optimising_contrast}
 Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process due to the number of acquisitions required at different time points to sample relaxation curves. Often it is more desirable to acquire a volume at a single inversion/echo time with the intensity difference between tissues of interest maximised. Although the voxel intensities do not directly represent any quantitative underlying physical properties of the tissue, the contrast between tissues is sufficient for diagnosis or further analysis. For example, in Chapter \ref{chap:ML} optimised contrast between organs is used for segmentation of the kidneys.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Theory/Tissue_Contrast/tissue_contrast.eps}
-	\caption{The signal generated from renal cortical and medullary tissues \cite{cox_multiparametric_2017} following an inversion recovery and difference between signals. This shows that the contrast between the two tissues is optimal if the \acf{TI} is 1500 ms.}
-	\label{fig:theorgy_tissue_contrast}	
+	\begin{subfigure}[c]{1\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{Theory/Tissue_Contrast/tissue_contrast_t1.eps}
+		\caption{}
+		\label{fig:theorgy_tissue_contrast_t1}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{1\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{Theory/Tissue_Contrast/tissue_contrast_t2.eps}
+		\caption{}
+		\label{fig:theorgy_tissue_contrast_t2}
+	\end{subfigure}
+	\caption{(\subref{fig:theorgy_tissue_contrast_t1}) The signal generated from renal cortical and medullary tissues \cite{cox_multiparametric_2017} following an inversion recovery and difference between signals. This shows that the contrast between the two tissues is optimal if the \acf{TI} is 1500 ms. (\subref{fig:theorgy_tissue_contrast_t2}) The signal generated from the kidneys, liver and spleen following a spin echo sequence and the difference between the signals.}
+	\label{fig:theorgy_tissue_contrast}
 \end{figure}
 
 \section{Forming an Image}

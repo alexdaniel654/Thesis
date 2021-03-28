@@ -543,8 +543,41 @@ The phantom evaluation of each sequence is summarised in Figure \ref{fig:t2_summ
 \end{figure}
 \subsection{In-Vivo}
 
-Having assessed each of the sequences, five healthy volunteers were then imaged using all four methods. Example in-vivo maps are shown in Figure \ref{fig:t2_in_vivo_maps}. The measured \ttwo using the \ac{SE}-\ac{EPI} method is much lower than that measured using the other three methods. The \ac{GraSE} scheme shows the largest contrast between cortex and medulla while the \ac{CPMG} \ttwo prep suffers from image artefacts with the largest amount of blurring as measured on the phantom.
+Having assessed each of the sequences, five healthy volunteers were then imaged using all four methods. Example in-vivo multi echo data and resulting \ttwo maps are shown in Figures \ref{fig:t2_in_vivo_raw} and \ref{fig:t2_in_vivo_maps} respectively. The measured \ttwo using the \ac{SE}-\ac{EPI} method is much lower than that measured using the other three methods. The \ac{GraSE} scheme shows the largest contrast between cortex and medulla while the \ac{CPMG} \ttwo prep suffers from image artefacts with the largest amount of blurring as measured on the phantom.
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.7\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{T2_Mapping/Invivo/Raw_Data_SE.eps}
+		\caption{\ac{SE}-\ac{EPI}}
+		\label{fig:t2_in_vivo_raw_se}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.7\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{T2_Mapping/Invivo/Raw_Data_ME.eps}
+		\caption{\ac{ME-TSE}}
+		\label{fig:t2_in_vivo_raw_me}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.7\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{T2_Mapping/Invivo/Raw_Data_GraSE.eps}
+		\caption{\ac{GraSE}}
+		\label{fig:t2_in_vivo_raw_grase}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[c]{0.7\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{T2_Mapping/Invivo/Raw_Data_T2_Prep.eps}
+		\caption{\ac{CPMG} \ttwo Prep}
+		\label{fig:t2_in_vivo_raw_t2_prep}
+	\end{subfigure}
+	\caption{Example in-vivo multi echo data using each of the \ttwo mapping sequences.}
+	\label{fig:t2_in_vivo_raw}
+\end{figure}
+	
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[c]{0.47\textwidth}
@@ -590,19 +623,19 @@ Having assessed each of the sequences, five healthy volunteers were then imaged 
 		\label{fig:t2_in_vivo_map_b1}
 	\end{subfigure}
 	\vskip\baselineskip
-\begin{subfigure}[c]{0.47\textwidth}
-	\centering
-	\includegraphics[width=.6\textwidth]{T2_Mapping/Invivo/T1W.png}
-	\caption{\tone-weighted structural}
-	\label{fig:t2_in_vivo_t1w}
-\end{subfigure}
-\hfill
-\begin{subfigure}[c]{0.47\textwidth}
-	\centering
-	\includegraphics[width=.6\textwidth]{T2_Mapping/Invivo/T2W.png}
-	\caption{\ttwo-weighted structural}
-	\label{fig:t2_in_vivo_t2w}
-\end{subfigure}
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{T2_Mapping/Invivo/T1W.png}
+		\caption{\tone-weighted structural}
+		\label{fig:t2_in_vivo_t1w}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{T2_Mapping/Invivo/T2W.png}
+		\caption{\ttwo-weighted structural}
+		\label{fig:t2_in_vivo_t2w}
+	\end{subfigure}
 	\caption{Example in-vivo maps generated using each of the sequences and the associated $B_0$ and $B_1$ maps used for quality control and structural scans used for segmentation.}
 	\label{fig:t2_in_vivo_maps}
 \end{figure}
@@ -728,7 +761,7 @@ All acquisitions presented here were carried out on a Philips system. In future 
 
 \section{Acknowledgements}
 
-We are grateful for access to the University of Nottingham's Augusta high performance computing service.
+I am grateful for access to the University of Nottingham's Augusta high performance computing service.
 
 \newpage
 \section{References}
