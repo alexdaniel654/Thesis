@@ -27,7 +27,28 @@ The kidneys are structurally and functionally complex organs and as such lend th
 
 Renal \ttwo mapping has seen most research focusing on repeatability measures \cite{de_bazelaire_mr_2004, zhang_reproducibility_2011, li_measuring_2015, de_boer_multiparametric_2020} with clinical uses in the field of assessment of allograft function in mice \cite{hueper_kidney_2016} and humans \cite{mathys_t2_2011, adams_multiparametric_2020}, and has shown potential for early diagnosis of \ac{ADPKD} \cite{franke_magnetic_2017} and assessment of clear cell renal cell carcinoma \cite{adams_use_2019}.
 
-In the existing literature, there is a substantial variation in quoted \ttwo values within the kidneys of healthy volunteers, Table \todo{add table}, this is thought to be, in part, due to the differences in \ttwo mapping methodologies. There are currently four main \ttwo mapping methods that have been published in the kidneys: basic \ac{SE}-\ac{EPI}, \ac{ME-TSE}, \ac{GraSE} and \ac{CPMG} \ttwo preparation. 
+In the existing literature, there is a substantial variation in quoted \ttwo values within the kidneys of healthy volunteers, Table \ref{tab:t2_lit_values}, this is thought to be, in part, due to the differences in \ttwo mapping methodologies. There are currently four main \ttwo mapping methods that have been published in the kidneys: basic \ac{SE}-\ac{EPI}, \ac{ME-TSE}, \ac{GraSE} and \ac{CPMG} \ttwo preparation. 
+
+\begin{table}[H]
+	\centering
+	\begin{adjustbox}{width=1.0\textwidth, center}
+	\begin{tabularx}{1.32\textwidth}{XXXXXX}
+		\multicolumn{1}{l|}{Author}                                         & \multicolumn{1}{l|}{Year} & \multicolumn{1}{l|}{Sample Size} & \multicolumn{1}{l|}{Sequence}        & \multicolumn{1}{l|}{Cortex \ttwo (ms)} & Medulla \ttwo (ms) \\ \hline
+		\multicolumn{6}{c}{{\textbf{3T}}}                                                                                                                                                                                                                  \\ \hline
+		\multicolumn{1}{l|}{de Bazelaire \textit{et al} \cite{de_bazelaire_mr_2004}} & \multicolumn{1}{l|}{2004} & \multicolumn{1}{l|}{6}           & \multicolumn{1}{l|}{SE \ttwo prep}   & \multicolumn{1}{l|}{76 $\pm$ 7}        & 81 $\pm$ 8         \\ \hline
+		\multicolumn{1}{l|}{Li \textit{et al} \cite{li_measuring_2015}}              & \multicolumn{1}{l|}{2015} & \multicolumn{1}{l|}{5}           & \multicolumn{1}{l|}{CPMG \ttwo prep} & \multicolumn{1}{l|}{121 $\pm$ 5}       & 138 $\pm$ 7        \\ \hline
+		\multicolumn{1}{l|}{Franke \textit{et al} \cite{franke_magnetic_2017}}       & \multicolumn{1}{l|}{2017} & \multicolumn{1}{l|}{3}           & \multicolumn{1}{l|}{GraSE}           & \multicolumn{1}{l|}{132 $\pm$ 6}       &                    \\ \hline
+		\multicolumn{1}{l|}{Adams \textit{et al} \cite{adams_multiparametric_2020}}  & \multicolumn{1}{l|}{2020} & \multicolumn{1}{l|}{16}          & \multicolumn{1}{l|}{GE \ttwo prep}   & \multicolumn{1}{l|}{78 $\pm$ 4}        & 59 $\pm$ 2         \\ \hline
+		\multicolumn{6}{c}{{ \textbf{1.5T}}}                                                                                                                                                                                                                \\ \hline
+		\multicolumn{1}{l|}{de Bazelaire \textit{et al} \cite{de_bazelaire_mr_2004}} & \multicolumn{1}{l|}{2004} & \multicolumn{1}{l|}{4}           & \multicolumn{1}{l|}{SE \ttwo prep}   & \multicolumn{1}{l|}{87 $\pm$ 4}        & 85 $\pm$ 11        \\ \hline
+		\multicolumn{1}{l|}{Zhang \textit{et al} \cite{zhang_reproducibility_2011}}  & \multicolumn{1}{l|}{2011} & \multicolumn{1}{l|}{4}           & \multicolumn{1}{l|}{2D ME-TSE}       & \multicolumn{1}{l|}{112 $\pm$ 8}       & 137$\pm$ 13        \\ \hline
+		\multicolumn{1}{l|}{Mathys \textit{et al} \cite{mathys_t2_2011}}             & \multicolumn{1}{l|}{2011} & \multicolumn{1}{l|}{6}           & \multicolumn{1}{l|}{ME-SE}           & \multicolumn{1}{l|}{125$\pm$ 7}        &                    \\ \hline
+		\multicolumn{1}{l|}{Siedek \textit{et al} \cite{siedek_magnetic_2020}}       & \multicolumn{1}{l|}{2020} & \multicolumn{1}{l|}{10}          & \multicolumn{1}{l|}{GraSE}           & \multicolumn{1}{l|}{130 $\pm$ 6}       &                   
+	\end{tabularx}
+	\end{adjustbox}
+	\caption{Studies documenting renal \ttwo in healthy volunteers at 3T and 1.5T. This is an updated table from Wolf \textit{et al} \cite{wolf_magnetic_2018}.}
+	\label{tab:t2_lit_values}
+\end{table}
 
 Here each of these four methods are compared in the context of renal \ttwo mapping to ascertain which is most suitable. This is achieved by evaluating each methods quantitative accuracy, image quality, sensitivity to flow in phantoms and suitability for use in-vivo in final evaluation across five healthy subjects.
 
@@ -168,7 +189,7 @@ A summary of the acquisition parameters of each \ttwo mapping sequence is shown 
 		Acquisition Mode                                     & Multi Slice                     & Multi Slice                & Multi Slice        & Multiple 2D         \\ \hline
 		Fast   Imaging Mode                                  & EPI                             & TSE                        & GraSE              & TFEPI               \\ \hline
 		Flip Angle                                           & 90$\degree$                     & 90$\degree$                & 90$\degree$        & 90$\degree$         \\ \hline
-		Bandwidth   (Hz)                                     & 40                              & 180                        & 405                & 113                 \\ \hline
+		Bandwidth   (Hz)                                     & 40 (Phase), 1787 (Freq)         & 180                        & 405 (Phase), 2268 (Freq) & 113 (Phase), 2845 (Freq)\\ \hline
 		SENSE                                                & 2.55                            & 2.55                       & 2.55               & 3                   \\ \hline
 		Halfscan                                             & 0.838                           & No                         & No                 & 0.706               \\ \hline
 		TSE Factor                                           & N/A                             & 10                         & 30                 & N/A                 \\ \hline
@@ -294,7 +315,7 @@ Each fitting method was tested using data acquired on the QalibreMD phantom and 
 		SE-EPI                & 36 $\pm$  34   & 202 $\pm$  437 & 33 $\pm$  34   & 238 $\pm$  463           & \multicolumn{2}{l|}{8 $\pm$  5}     & 32 $\pm$  42    & 22 $\pm$  8    & 31 $\pm$  42             \\ \hline
 		ME-TSE                & 38   $\pm$  31 & 13   $\pm$  16 & 41   $\pm$  35 & 35   $\pm$  36           & \multicolumn{2}{l|}{23   $\pm$  13} & 14   $\pm$  3   & 15   $\pm$  13 & 13   $\pm$  4            \\ \hline
 		GraSE                 & 32 $\pm$  29   & 23 $\pm$  27   & 26 $\pm$  28   & 33 $\pm$  37             & \multicolumn{2}{l|}{15 $\pm$  4}    & 11 $\pm$  5     & 13 $\pm$  4    & 9 $\pm$  7               \\ \hline
-		CPMG   \ttwo Prep        & 18   $\pm$  15 & 30   $\pm$  53 & 20   $\pm$  18 & 28   $\pm$  28           & \multicolumn{2}{l|}{11   $\pm$  1}  & 8   $\pm$  5    & 11   $\pm$  1  & 6   $\pm$  5             \\ \hline
+		CPMG   \ttwo Prep        & 18   $\pm$  15 & 30   $\pm$  53 & 20   $\pm$  18 & 28   $\pm$  28           & \multicolumn{2}{l|}{11   $\pm$  1}  & 8   $\pm$  5    & 11   $\pm$  1  & 6   $\pm$  5             \\ \hline \hline
 		Mean   over sequences & 31   $\pm$  8  & 67   $\pm$  90 & 30   $\pm$  9  & 83   $\pm$  103          & \multicolumn{2}{l|}{14   $\pm$  7}  & 16   $\pm$  11  & 14   $\pm$  36 & 15   $\pm$  11          
 	\end{tabularx}
 	\end{adjustbox}

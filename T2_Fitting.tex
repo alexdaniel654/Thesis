@@ -36,6 +36,20 @@
 	\label{fig:t2_fitting_nist}
 \end{figure}
 
+\begin{table}[H]
+	\centering
+	\begin{adjustbox}{width=1.0\textwidth, center}
+		\begin{tabularx}{1.3\textwidth}{X|X|X|X|X|X|X|X|X|X}
+			\ttwo   Range            & \multicolumn{4}{c|}{MPE   (5 ms – 650 ms) (\%)}                         & \multicolumn{5}{c}{MPE   (40 ms – 200 ms) (\%)}              \\ \hline
+			Fitting   Method      & Basic     & Noise     & Discard   & Discard   and Noise & \multicolumn{2}{l|}{Basic}     & Noise      & Discard   & Discard   and Noise \\ \hline
+			ME-SE                & 36 $\pm$  34   & 202 $\pm$  437 & 33 $\pm$  34   & 238 $\pm$  463           & \multicolumn{2}{l|}{8 $\pm$  5}     & 32 $\pm$  42    & 22 $\pm$  8    & 31 $\pm$  42             \\
+			
+		\end{tabularx}
+	\end{adjustbox}
+	\caption{\ac{MPE} when measuring \ttwo of the QalibreMD phantom over different ranges using the \ac{NIST} recommended Multi Echo-Spin Echo (ME-SE) sequence and  each fitting method. 5 ms – 650 ms is the full range of \ttwo available in the phantom and 40 ms – 200 ms is the range of \ttwo reported in the kidneys.}
+	\label{tab:t2_phantom_fitting_methods_nist}
+\end{table}
+\todo{Fill out real values}
 \section{Renal \ttwo Mapping Protocols}
 \label{app:t2_fitting_renal}
 \subsection{Basic Fit}

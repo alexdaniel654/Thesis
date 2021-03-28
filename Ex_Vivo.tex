@@ -149,7 +149,7 @@ To evaluate the use of the layer based analysis techniques (outlined in Section 
 		TR (ms)                                   & 11                                                 & 7.2                                                & 5000                                                               \\ \hline
 		TI (ms)                                   & 400, 500, 750, 900,   1100, 1300, 1500, 2000, 2600 & 250, 500, 750, 900,   1100, 1300, 1500, 2000, 3000 & 0, 100, 200, 300,   400, 500, 600, 700, 800, 900, 1000, 1100, 1300 \\ \hline
 		Flip Angle ($\degree$)                    & 8                                                  & 8                                                  & 90                                                                 \\ \hline
-		Bandwidth (Hz)                            & 134                                                & 240                                                & 39                                                                 \\ \hline
+		Bandwidth (Hz)                            & 134                                                & 240                                                & 39 (Phase), 2048 (Freq)                                                                \\ \hline
 		NSA                                       & 1                                                  & 2                                                  & 1                                                                  \\ \hline
 		Fold-over Suppression   Oversampling (mm) & 75                                                 & N/A                                                & N/A                                                                \\ \hline
 		Sense                                     & 2.5 RL, 1 AP                                       & 2 RL, 1.5 AP                                        & 2.3                                                                \\ \hline
@@ -198,36 +198,55 @@ Once the data has been polarity corrected, a voxel-by-voxel, least squares trust
 	\label{eq:ex_t1}
 \end{equation}
  
+%\begin{figure}[H]
+%	\centering
+%	\begin{subfigure}[c]{0.47\textwidth}
+%		\centering
+%		\includegraphics[width=1\textwidth]{Neph/T1_map_3T.eps}
+%		\caption{3T \tone}
+%		\label{fig:ex_t1_map_3t}
+%	\end{subfigure}
+%	\hfill
+%	\begin{subfigure}[c]{0.47\textwidth}
+%		\centering
+%		\includegraphics[width=1\textwidth]{Neph/T1_map_7T-01.eps}
+%		\caption{7T \tone}
+%		\label{fig:ex_t1_map_7t}
+%	\end{subfigure}
+%	\vskip\baselineskip
+%		\begin{subfigure}[c]{0.47\textwidth}
+%		\centering
+%		\includegraphics[width=1\textwidth]{Neph/T1_M0_map_3T.eps}
+%		\caption{3T $M_0$}
+%		\label{fig:ex_t1_m0_map_3t}
+%	\end{subfigure}
+%	\hfill
+%	\begin{subfigure}[c]{0.47\textwidth}
+%		\centering
+%		\includegraphics[width=1\textwidth]{Neph/T1_M0_map_7T.eps}
+%		\caption{7T $M_0$}
+%		\label{fig:ex_t1_m0_map_7t}
+%	\end{subfigure}
+%	\caption{Example \tone and $M_0$ maps generated at both 3T and 7T.}
+%	\label{fig:ex_t1_maps}
+%\end{figure}
+
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{Neph/T1_map_3T.eps}
-		\caption{3T \tone}
+		\includegraphics[width=1\textwidth]{Neph/T1_map_comp_3T.eps}
+		\caption{3T}
 		\label{fig:ex_t1_map_3t}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{Neph/T1_map_7T-01.eps}
-		\caption{7T \tone}
+		\includegraphics[width=1\textwidth]{Neph/T1_map_comp_7T.eps}
+		\caption{7T}
 		\label{fig:ex_t1_map_7t}
 	\end{subfigure}
-	\vskip\baselineskip
-		\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/T1_M0_map_3T.eps}
-		\caption{3T $M_0$}
-		\label{fig:ex_t1_m0_map_3t}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[c]{0.47\textwidth}
-		\centering
-		\includegraphics[width=1\textwidth]{Neph/T1_M0_map_7T.eps}
-		\caption{7T $M_0$}
-		\label{fig:ex_t1_m0_map_7t}
-	\end{subfigure}
-	\caption{Example \tone and $M_0$ maps generated at both 3T and 7T.}
+	\caption{Example \tone (i) and $M_0$ (ii) maps generated at both 3T (\subref{fig:ex_t1_map_3t}) and 7T (\subref{fig:ex_t1_map_7t}).}
 	\label{fig:ex_t1_maps}
 \end{figure}
 
@@ -246,7 +265,7 @@ The \ttwo mapping protocol is based on the \ac{GraSE} sequence developed in Chap
 	TE (ms) (Initial: Step: Final)          & 31:15.8:490         & 11:5.6:179          \\ \hline
 	TR (ms)                                 & 3000                & 3000                \\ \hline
 	Flip Angle ($\degree$)                  & 90                  & 90                  \\ \hline
-	Bandwidth (Hz)                          & 118.9               & 427.9               \\ \hline
+	Bandwidth (Hz)                          & 118.9 (Phase), 640 (Freq) & 427.9 (Phase), 2454 (Freq)              \\ \hline
 	NSA                                     & 2                   & 1                   \\ \hline
 	Fold-over Suppression Oversampling (mm) & 75                  & 66                  \\ \hline
 	Sense                                   & 2.55                & 2.55                \\ \hline
@@ -399,7 +418,7 @@ Here \ac{DWI} is performed using a single shot \ac{SE}-\ac{EPI} sequence over a 
 	TR (ms)                                 & 1800                                                                             & 1800                                                                             \\ \hline
 	b-values (s/mm$^2$)                     & 0, 5, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 175,   200, 300, 400, 500, 600 & 0, 5, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 175,   200, 300, 400, 500, 600 \\ \hline
 	Flip Angle ($\degree$)                  & 90                                                                               & 90                                                                               \\ \hline
-	Bandwidth (Hz)                          & 13.2                                                                             & 13.7                                                                             \\ \hline
+	Bandwidth (Hz)                          & 13.2 (Phase), 1332 (Freq)                                                                            & 13.7 (Phase), 1415 (Freq)                                                                            \\ \hline
 	NSA                                     & 1                                                                                & 1                                                                                \\ \hline
 	Fold-over Suppression Oversampling (mm) & 75                                                                               & N/A                                                                              \\ \hline
 	Sense                                   & 2.3                                                                              & 2.3                                                                              \\ \hline
@@ -521,7 +540,7 @@ As for the \ac{ADC} sequence, a full dataset was acquired with both opposing pha
 		b-values (s/mm$^2$)                     & 0, 600              & 0, 600                   \\ \hline
 		Directions                              & 128                 & 64                       \\ \hline
 		Flip Angle ($\degree$)                  & 90                  & 90                       \\ \hline
-		Bandwidth (Hz)                          & 17.1                & 30.5                     \\ \hline
+		Bandwidth (Hz)                          & 17.1 (Phase), 1947 (Freq)               & 30.5 (Phase), 2152 (Freq)                    \\ \hline
 		NSA                                     & 2                   & 1                        \\ \hline
 		Fold-over Suppression Oversampling (mm) & 100                 & N/A                      \\ \hline
 		Sense                                   & 2                   & 2                        \\ \hline
@@ -557,7 +576,7 @@ The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, o
 	\centering
 	\begin{subfigure}[c]{0.31\textwidth}
 		\centering
-			\includegraphics[width=1\textwidth]{Neph/in_vivo_fa.png}
+			\includegraphics[width=1\textwidth]{Neph/in_vivo_fa.eps}
 		\caption{}
 		\label{fig:ex_dti_fa}
 	\end{subfigure}
@@ -571,7 +590,7 @@ The final voxel based map produced using the \ac{DTI} data is an \ac{ADC} map, o
 	\hfill	
 	\begin{subfigure}[c]{0.31\textwidth}
 		\centering
-			\includegraphics[width=1\textwidth]{Neph/in_vivo_md.png}
+			\includegraphics[width=1\textwidth]{Neph/in_vivo_md.eps}
 		\caption{}
 		\label{fig:ex_dti_md}
 	\end{subfigure}
