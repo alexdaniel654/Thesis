@@ -32,7 +32,7 @@
 		\caption{}
 		\label{fig:t2_fitting_nist_re_kidney}
 	\end{subfigure}
-	\caption{}
+	\caption{\ttwo measured using the \ac{NIST} recommended Multi Echo-Spin Echo (ME-SE) protocol, fit using each of the four fitting methods compared. (\subref{fig:t2_fitting_nist_cor}) The full range of \ttwo spheres is shown on logarithmic axis with the range of \ttwo reported in the kidneys shaded in red (\subref{fig:t2_fitting_nist_cor_kidney}) The spheres with \ttwo in the range of the kidneys are shown on linear axis. (\subref{fig:t2_fitting_nist_re}) and (\subref{fig:t2_fitting_nist_re_kidney}) show the relative error of each sphere for the full and renal range of spheres respectively.}
 	\label{fig:t2_fitting_nist}
 \end{figure}
 
@@ -40,16 +40,16 @@
 	\centering
 	\begin{adjustbox}{width=1.0\textwidth, center}
 		\begin{tabularx}{1.3\textwidth}{X|X|X|X|X|X|X|X|X|X}
-			\ttwo   Range            & \multicolumn{4}{c|}{MPE   (5 ms – 650 ms) (\%)}                         & \multicolumn{5}{c}{MPE   (40 ms – 200 ms) (\%)}              \\ \hline
-			Fitting   Method      & Basic     & Noise     & Discard   & Discard   and Noise & \multicolumn{2}{l|}{Basic}     & Noise      & Discard   & Discard   and Noise \\ \hline
-			ME-SE                & 36 $\pm$  34   & 202 $\pm$  437 & 33 $\pm$  34   & 238 $\pm$  463           & \multicolumn{2}{l|}{8 $\pm$  5}     & 32 $\pm$  42    & 22 $\pm$  8    & 31 $\pm$  42             \\
+			\ttwo   Range    & \multicolumn{4}{c|}{MPE   (5 ms – 650 ms) (\%)}        & \multicolumn{5}{c}{MPE   (40 ms – 200 ms) (\%)}                           \\ \hline
+			Fitting   Method & Basic     & Noise     & Discard    & Discard and Noise & \multicolumn{2}{l|}{Basic}     & Noise     & Discard  & Discard and Noise \\ \hline
+			ME-SE            & 5 $\pm$ 7 & 9 $\pm$ 9 & 9 $\pm$ 10 & 21 $\pm$ 26       & \multicolumn{2}{l|}{6 $\pm$ 3} & 6 $\pm$ 3 & 6 $\pm$ 3 & 8 $\pm$ 1        \\
 			
 		\end{tabularx}
 	\end{adjustbox}
-	\caption{\ac{MPE} when measuring \ttwo of the QalibreMD phantom over different ranges using the \ac{NIST} recommended Multi Echo-Spin Echo (ME-SE) sequence and  each fitting method. 5 ms – 650 ms is the full range of \ttwo available in the phantom and 40 ms – 200 ms is the range of \ttwo reported in the kidneys.}
+	\caption{\ac{MPE} when measuring \ttwo of the QalibreMD phantom over different ranges using the \ac{NIST} recommended ME-SE protocol and  each fitting method. 5 ms – 650 ms is the full range of \ttwo available in the phantom and 40 ms – 200 ms is the range of \ttwo reported in the kidneys.}
 	\label{tab:t2_phantom_fitting_methods_nist}
 \end{table}
-\todo{Fill out real values}
+
 \section{Renal \ttwo Mapping Protocols}
 \label{app:t2_fitting_renal}
 \subsection{Basic Fit}
@@ -82,7 +82,7 @@
 		\caption{}
 		\label{fig:t2_fitting_basic_re_kidney}
 	\end{subfigure}
-	\caption{}
+	\caption{\ttwo measured using each acquisition method and basic fitting compared to the reference \ttwo from literature. (\subref{fig:t2_fitting_basic_cor}) The full range of \ttwo spheres is shown on logarithmic axis with the range of \ttwo reported in the kidneys shaded in red (\subref{fig:t2_fitting_basic_cor_kidney}) The spheres with \ttwo in the range of the kidneys are shown on linear axis. (\subref{fig:t2_fitting_basic_re}) and (\subref{fig:t2_fitting_basic_re_kidney}) show the relative error of each sphere for the full and renal range of spheres respectively.}
 	\label{fig:t2_fitting_basic}
 \end{figure}
 
@@ -116,7 +116,7 @@
 		\caption{}
 		\label{fig:t2_fitting_noise_re_kidney}
 	\end{subfigure}
-	\caption{}
+	\caption{\ttwo measured using each acquisition method and noise fitting compared to the reference \ttwo from literature. (\subref{fig:t2_fitting_noise_cor}) The full range of \ttwo spheres is shown on logarithmic axis with the range of \ttwo reported in the kidneys shaded in red (\subref{fig:t2_fitting_noise_cor_kidney}) The spheres with \ttwo in the range of the kidneys are shown on linear axis. (\subref{fig:t2_fitting_noise_re}) and (\subref{fig:t2_fitting_noise_re_kidney}) show the relative error of each sphere for the full and renal range of spheres respectively.}
 	\label{fig:t2_fitting_noise}
 \end{figure}
 
@@ -150,7 +150,7 @@
 		\caption{}
 		\label{fig:t2_fitting_discard_re_kidney}
 	\end{subfigure}
-	\caption{}
+	\caption{\ttwo measured using each acquisition method and discard fitting compared to the reference \ttwo from literature. (\subref{fig:t2_fitting_discard_cor}) The full range of \ttwo spheres is shown on logarithmic axis with the range of \ttwo reported in the kidneys shaded in red (\subref{fig:t2_fitting_discard_cor_kidney}) The spheres with \ttwo in the range of the kidneys are shown on linear axis. (\subref{fig:t2_fitting_discard_re}) and (\subref{fig:t2_fitting_discard_re_kidney}) show the relative error of each sphere for the full and renal range of spheres respectively.}
 	\label{fig:t2_fitting_discard}
 \end{figure}
 
@@ -184,6 +184,6 @@
 		\caption{}
 		\label{fig:t2_fitting_noise_discard_re_kidney}
 	\end{subfigure}
-	\caption{}
+	\caption{\ttwo measured using each acquisition method and noise and discard fitting compared to the reference \ttwo from literature. (\subref{fig:t2_fitting_noise_discard_cor}) The full range of \ttwo spheres is shown on logarithmic axis with the range of \ttwo reported in the kidneys shaded in red (\subref{fig:t2_fitting_noise_discard_cor_kidney}) The spheres with \ttwo in the range of the kidneys are shown on linear axis. (\subref{fig:t2_fitting_noise_discard_re}) and (\subref{fig:t2_fitting_noise_discard_re_kidney}) show the relative error of each sphere for the full and renal range of spheres respectively.}
 	\label{fig:t2_fitting_noise_discard}
 \end{figure}
