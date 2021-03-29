@@ -135,7 +135,7 @@ In addition to displacing the spins, the $B_1$ field also induces phase coherenc
 		\caption{Rotating Frame}
 		\label{fig:theory_rotating_frame}
 	\end{subfigure}
-	\caption{The laboratory frame of reference shows the procession of the spin about $B_0$ while in the rotating frame, the spin simply rotates about the $x'$-axis}
+	\caption{The laboratory frame of reference shows the precession of the spin about $B_0$ while in the rotating frame, the spin simply rotates about the $x'$-axis.}
 	\label{fig:theory_reference_frames}
 \end{figure}
 
@@ -354,13 +354,13 @@ For large b-values, typically greater than 250 s/mm$^2$, diffusion is the primar
 	\label{eq:theory_ivim}
 \end{equation}
 
-By acquiring data at a range of b-values, ensuring that low b-values are well sampled, a voxel by voxel fit can be performed to estimate $f$, $D$ and $D^*$.
+By acquiring data at a range of b-values, ensuring that low b-values are well sampled, a voxel-by-voxel fit can be performed to estimate $f$, $D$ and $D^*$.
 
 Not all diffusion is isotropic (occurs to the the same degree in all directions), often the motion of the spins is restricted e.g. within tissue fibres. The amount of restriction is known as the \ac{FA} where 0 represents isotropic diffusion e.g. a large vial of water, and 1 represents diffusion being constrained to a single dimension. By applying the diffusion gradients in different directions (and strengths) the preferred direction of diffusion and fractional anisotropy can be calculated. These techniques are used in Chapter \ref{chap:ex} to study \ac{DTI} in ex-vivo tissue samples.
 
 \subsection{Optimisation of Tissue Contrast}
 \label{subsec:theory_optimising_contrast}
-Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process due to the number of acquisitions required at different time points to sample relaxation curves. Often it is more desirable to acquire a volume at a single inversion/echo time with the intensity difference between tissues of interest maximised. Although the voxel intensities do not directly represent any quantitative underlying physical properties of the tissue, the contrast between tissues is sufficient for diagnosis or further analysis. For example, in Chapter \ref{chap:ML} optimised contrast between organs is used for segmentation of the kidneys.
+Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process due to the number of acquisitions required at different time points to sample relaxation curves. Often it is more desirable to acquire a volume at a single inversion/echo time with the intensity difference between tissues of interest maximised. Although the voxel intensities do not directly represent any quantitative underlying physical properties of the tissue, the contrast between tissues is sufficient for diagnosis or further analysis. For example, in Chapter \ref{chap:ML} optimised contrast between organs is used for segmentation of the kidneys. Figure \ref{theorgy_tissue_contrast} shows how the acquisition parameters of a \tone-weighted and \ttwo-weighted scheme can be optimised to produce the maximum signal difference, or contrast, between tissues.
 
 \begin{figure}[H]
 	\centering
@@ -488,7 +488,7 @@ k_y &=& \gamma G_y t_y
 
 When recording \ac{MRI} data, the continuous signal must be discretised. The higher the sampling frequency i.e. the closer together in $k$-space the samples are, $\Delta k$, the wider the \ac{FOV} and the further out from the origin of $k$-space is samples, the higher resolution the image will be. Examples of $k$-space sampling patterns and their corresponding image are shown in Figure \ref{fig:theory_kspace}.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[c]{0.8\textwidth}
 		\centering
@@ -532,7 +532,7 @@ One of the recurring limiting factors in \ac{MRI} is the acquisition time. For n
 
 \subsubsection{Partial Fourier}
 \label{subsec:theory_partial_fourier}
-Fully sampled $k$-space contains inherent redundancy as it contains its own complex conjugate; the real components of the signal are symmetric while the imaginary components are anti-symmetric. This means that theoretically no contrast information is lost if a reduced area of $k$-space is sampled e.g. only 66\% of $k$-space is sampled. However, this technique does impact phase information and so should not be used in acquisitions where downstream processing requires accurate phase. Known as partial Fourier or halfscan, this technique results in a decreased \ac{SNR} and can introduces image artefacts as the partial Fourier factor approaches 50\%, however, the acquisition time reduces by approximately the percentage of $k$-space sampled e.g. an acquisition that would take three minutes fully sampled will take two minutes if a partial Fourier factor of 66\% is used. An example of reconstructions of 100\%, 75\% and 51\% of $k$-space are shown in Figure \ref{fig:theory_partial_fourier}
+Fully sampled $k$-space contains inherent redundancy as it contains its own complex conjugate; the real components of the signal are symmetric while the imaginary components are anti-symmetric. This means that theoretically no contrast information is lost if a reduced area of $k$-space is sampled e.g. only 66~\% of $k$-space is sampled. However, this technique does impact phase information and so should not be used in acquisitions where downstream processing requires accurate phase. Known as partial Fourier or halfscan, this technique results in a decreased \ac{SNR} and can introduces image artefacts as the partial Fourier factor approaches 50~\%, however, the acquisition time reduces by approximately the percentage of $k$-space sampled e.g. an acquisition that would take three minutes fully sampled will take two minutes if a partial Fourier factor of 66~\% is used. An example of reconstructions of 100~\%, 75~\% and 51~\% of $k$-space are shown in Figure \ref{fig:theory_partial_fourier}
 
 \begin{figure}[h!]
 	\centering
@@ -577,7 +577,7 @@ Fully sampled $k$-space contains inherent redundancy as it contains its own comp
 		\caption{}
 		\label{fig:theory_partial_fourier_51_image}
 	\end{subfigure}
-	\caption{Full, (\subref{fig:theory_partial_fourier_full_k}), 75\%, (\subref{fig:theory_partial_fourier_75_k}), and 51\%, (\subref{fig:theory_partial_fourier_51_k}), $k$-space sampling and their corresponding reconstructions in image space, (\subref{fig:theory_partial_fourier_full_image}), (\subref{fig:theory_partial_fourier_75_image}) and (\subref{fig:theory_partial_fourier_51_image}) respectively.}
+	\caption{Full, (\subref{fig:theory_partial_fourier_full_k}), 75~\%, (\subref{fig:theory_partial_fourier_75_k}), and 51~\%, (\subref{fig:theory_partial_fourier_51_k}), $k$-space sampling and their corresponding reconstructions in image space, (\subref{fig:theory_partial_fourier_full_image}), (\subref{fig:theory_partial_fourier_75_image}) and (\subref{fig:theory_partial_fourier_51_image}) respectively.}
 	\label{fig:theory_partial_fourier}
 \end{figure}
 
@@ -603,7 +603,7 @@ The simplest uniformly sampled $k$-space trajectory is spin warp imaging. This t
 
 \subsubsection{\ac*{TSE}}
 \label{subsubsec:theory_tse}
-The \ac{TSE} sequence, also known as \ac{FSE} or \ac{RARE}, is an expansion on the conventional \ac{SE} sequence applying evenly spaced $180\degree${ }\ac{RF} refocusing pulses to generate multiple echoes from a single excitation, these echoes are used to record multiple lines of $k$-space. The number of echoes is known as the \ac{ETL}, or `turbo factor' and is the factor by which the scan time is reduced compared to a conventional spin echo sequence, and this is anywhere between 2 and 30 per \ac{TR}; the time between echoes is known as the echo spacing and is typically of 15 - 25 ms.
+The \ac{TSE} sequence, also known as \ac{FSE} or \ac{RARE}, is an expansion on the conventional \ac{SE} sequence applying evenly spaced $180\degree${ }\ac{RF} refocusing pulses to generate multiple echoes from a single excitation, these echoes are used to record multiple lines of $k$-space. The number of echoes is known as the \ac{ETL}, or `turbo factor' and is the factor by which the scan time is reduced compared to a conventional spin echo sequence, and this is anywhere between 2 and 30 per \ac{TR}; the time between echoes is known as the echo spacing and is typically of 15 - 25 ms. A schematic of the \ac{TSE} sequence is shown in Figure \ref{fig:theory_tse}.
 
 Each line of $k$-space is acquired at a different time after excitation, as such the lines will have different \ttwo weightings, it is therefore important to ensure the centre of $k$-space is acquired at the desired \ac{TE} as this echo will dominate the image contrast. The time between excitation and the centre of $k$-space is known as the \ac{eTE}.
 
@@ -618,7 +618,7 @@ The decrease in acquisition time comes at the expense of \ac{RF} exposure, the l
 \end{figure}
 
 \subsubsection{\ac*{HASTE}}
-The \ac{HASTE} sequence uses a combination of the techniques above and can be seen as an extension of the \ac{TSE} sequence. A single excitation is followed by a very long echo train with short echo spacing. This allows a large proportion of $k$-space to be sampled within a single \ac{TR} and thus a whole slice is acquired. To minimise the number of lines of $k$-space acquired and thus the \ac{ETL}, partial Fourier techniques as outlined in Section \ref{subsec:theory_partial_fourier} can be utilised. The relatively long \ac{TE} required for a \ac{HASTE} sequence means images are normally \ttwo weighted. An example \ac{PSD} and $k$-space trajectory for the \ac{HASTE} sequence is shown in Figure \ref{fig:theory_haste_psd}.
+The \ac{HASTE} sequence uses a combination of the techniques above and can be seen as an extension of the \ac{TSE} sequence. A single excitation is followed by a very long echo train with short echo spacing. This allows a large proportion of $k$-space to be sampled within a single \ac{TR} and thus a whole slice is acquired. To minimise the number of lines of $k$-space acquired and thus the \ac{ETL}, partial Fourier techniques as outlined in Section \ref{subsec:theory_partial_fourier} can be utilised. The relatively long \ac{TE} required for a \ac{HASTE} sequence means images are normally \ttwo-weighted. An example \ac{PSD} and $k$-space trajectory for the \ac{HASTE} sequence is shown in Figure \ref{fig:theory_haste_psd}.
 
 \begin{figure}[H]
 	\centering
@@ -637,7 +637,7 @@ The advantage of \ac{HASTE} is its rapid acquisition. It can be used to minimise
 \end{figure}
 
 \subsubsection{\ac*{TFE}}
-\ac{TFE}, also known as ultrafast gradient echo, is designed to speed up the acquisition of gradient echo images by reducing the \ac{TR} between excitations. Typical basic gradient echo sequences have relatively long \ac{TR} to allow the recovery of longitudinal magnetisation. The flip angle used in the \ac{TFE} sequence is much smaller than the examples explored so far, usually approximately 10$\degree$ thus leaving a large component of the magnetisation in the longitudinal direction while tipping enough magnetisation into the transverse plane to record a signal at an acceptable \ac{SNR}. Between each excitation, the transverse magnetisation is spoiled to ensure the images are only \tone weighted. 
+\ac{TFE}, also known as ultrafast gradient echo, is designed to speed up the acquisition of gradient echo images by reducing the \ac{TR} between excitations. Typical basic gradient echo sequences have relatively long \ac{TR} to allow the recovery of longitudinal magnetisation. The flip angle used in the \ac{TFE} sequence is much smaller than the examples explored so far, usually approximately 10$\degree$ thus leaving a large component of the magnetisation in the longitudinal direction while tipping enough magnetisation into the transverse plane to record a signal at an acceptable \ac{SNR}. Between each excitation, the transverse magnetisation is spoiled to ensure the images are only \tone-weighted. 
 
 After a train of equally spaced \ac{RF} pulses of flip angle, $\alpha$, and period, \ac{TR}, the longitudinal magnetisation reaches a steady state, $S_{TFE}$, after a sufficient number of pulses. This steady state signal depends on the \tone of the tissue and the \ac{FA} and \ac{TR} of the sequence. Assuming perfect transverse magnetisation spoiling between each \ac{RF} pulse, this equilibrium signal is given by,
 
