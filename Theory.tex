@@ -267,11 +267,11 @@ Echoes can be generated via another mechanism, the \ac{GE}. In addition to the h
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/GE/ge_signal.eps}
-	\caption{A schematic of a basic \acf{GE} sequence with \ac{TE} 200 ms.}
+	\caption{A schematic of a basic \acf{GE} sequence with \ac{TE} 200~ms.}
 	\label{fig:theory_ge_signal}	
 \end{figure}
 
-In reality, the gradients cannot switch polarity instantaneously due to the inductance of the gradient coils and characteristics of the amplifiers used to generate the gradients. This phenomenon leads to the gradient waveform being trapezoidal, however, to aid clarity in schematics within this chapter, an idealised gradient waveform has been shown. This characteristic of a gradient is known as the slew rate and is defined as the peak gradient amplitude upon the rise time, Figure \ref{fig:theory_slew}, and for modern \ac{MRI} scanners is of the order of 200 T/m/s.
+In reality, the gradients cannot switch polarity instantaneously due to the inductance of the gradient coils and characteristics of the amplifiers used to generate the gradients. This phenomenon leads to the gradient waveform being trapezoidal, however, to aid clarity in schematics within this chapter, an idealised gradient waveform has been shown. This characteristic of a gradient is known as the slew rate and is defined as the peak gradient amplitude upon the rise time, Figure \ref{fig:theory_slew}, and for modern \ac{MRI} scanners is of the order of 200~T/m/s.
 
 \begin{figure}[H]
 	\centering
@@ -414,7 +414,7 @@ B_z\left( r\right) =\left( B_0 + \mathbf{G \cdot r}\right) \hat{k}.
 \end{equation}
 As such, the resonant frequency of the spins can also be described as a function of position and, because the gradients are not static, also in time;
 \begin{equation}
-\omega\left( x, y, z, t \right) = \gamma \left( B_0 + G_x(t)x + G_y(t)y + G_z(t)z \right) 
+\omega\left( x, y, z, t \right) = \gamma \left( B_0 + G_x(t)x + G_y(t)y + G_z(t)z \right). 
 \label{eq:theory_localisation_gradients}
 \end{equation}
 
@@ -537,7 +537,7 @@ One of the recurring limiting factors in \ac{MRI} is the acquisition time. For n
 
 \subsubsection{Partial Fourier}
 \label{subsec:theory_partial_fourier}
-Fully sampled $k$-space contains inherent redundancy as it contains its own complex conjugate; the real components of the signal are symmetric while the imaginary components are anti-symmetric. This means that theoretically no contrast information is lost if a reduced area of $k$-space is sampled e.g. only 66~\% of $k$-space is sampled. However, this technique does impact phase information and so should not be used in acquisitions where downstream processing requires accurate phase. Known as partial Fourier or halfscan, this technique results in a decreased \ac{SNR} and can introduces image artefacts as the partial Fourier factor approaches 50~\%, however, the acquisition time reduces by approximately the percentage of $k$-space sampled e.g. an acquisition that would take three minutes fully sampled will take two minutes if a partial Fourier factor of 66~\% is used. An example of reconstructions of 100~\%, 75~\% and 51~\% of $k$-space are shown in Figure \ref{fig:theory_partial_fourier}
+Fully sampled $k$-space contains inherent redundancy as it contains its own complex conjugate; the real components of the signal are symmetric while the imaginary components are anti-symmetric. This means that theoretically no contrast information is lost if a reduced area of $k$-space is sampled e.g. only 66~\% of $k$-space is sampled. However, this technique does impact phase information and so should not be used in acquisitions where downstream processing requires accurate phase. Known as partial Fourier or halfscan, this technique results in a decreased \ac{SNR} and can introduces image artefacts as the partial Fourier factor approaches 50~\%, however, the acquisition time reduces by approximately the percentage of $k$-space sampled e.g. an acquisition that would take three minutes fully sampled will take two minutes if a partial Fourier factor of 66~\% is used. An example of reconstructions of 100~\%, 75~\% and 51~\% of $k$-space are shown in Figure \ref{fig:theory_partial_fourier}.
 
 \begin{figure}[h!]
 	\centering
@@ -690,7 +690,7 @@ A much faster imaging technique is \ac{EPI} \cite{mansfield_nmr_1973}. This tech
 	\label{fig:theory_epi}	
 \end{figure}
 
-While this sequence has a very short acquisition time, it does have drawbacks. The long train of echoes makes \ac{EPI} more sensitive to inhomogeneities in the $B_0$ field caused by different tissue susceptibilities or poor shimming. Eddy currents and imperfections in gradient coils cause small differences in lines collected in the positive and negative direction, leading to a Nyquist ghost artefact. Eddy currents induced by the phase encode blips also cause geometric distortions in the image, Figure \ref{fig:theory_epi_eddy}, however, these can be corrected via post processing if an image with phase encode blips of opposite polarity is collected i.e. collect images sampling $k$-space from both bottom to top and top to bottom. This is outlined further in Chapter \ref{chap:ex}
+While this sequence has a very short acquisition time, it does have drawbacks. The long train of echoes makes \ac{EPI} more sensitive to inhomogeneities in the $B_0$ field caused by different tissue susceptibilities or poor shimming. Eddy currents and imperfections in gradient coils cause small differences in lines collected in the positive and negative direction, leading to a Nyquist ghost artefact. Eddy currents induced by the phase encode blips also cause geometric distortions in the image, Figure \ref{fig:theory_epi_eddy}, however, these can be corrected via post processing if an image with phase encode blips of opposite polarity is collected i.e. collect images sampling $k$-space from both bottom to top and top to bottom. This is outlined further in Chapter \ref{chap:ex}.
 
 \begin{figure}[H]
 	\centering
