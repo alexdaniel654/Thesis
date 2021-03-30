@@ -2,11 +2,12 @@
 \label{chap:Theory}
 \newpage
 \begin{abstract}
-	This chapter outlines the theoretical framework behind \ac*{NMR} and \ac*{MRI}. Beginning with an overview of nuclear spin and resonance, the origin of the signal measured in \ac{NMR} is explained. The processes responsible for variations within signals such as relaxation mechanisms are then outlined and the techniques used to measure these different signals described. Finally, an overview of the process by which the signals can be used to form images is given, covering concepts such as spacial localisation, image acquisition schemes and acceleration methods.
+	This chapter outlines the theoretical framework behind \ac{NMR} and \ac{MRI}. Beginning with an overview of nuclear spin and resonance, the origin of the signal measured in \ac{NMR} is explained. The processes responsible for variations within signals such as relaxation mechanisms are then outlined and the techniques used to measure these different signals described. Finally, an overview of the process by which the signals can be used to form images is given, covering concepts such as spacial localisation, image acquisition schemes and acceleration methods.
 	%\lipsum[1]
 \end{abstract}
 \newpage
 
+\acresetall
 \section{Source of the NMR Signal}
 \label{sec:theory_source_of_nmr}
 
@@ -26,7 +27,7 @@ where $\hbar$ is the reduced Plank's constant, $\sfrac{h}{2\pi}$. As the nucleus
 \bm{\mu}=\gamma \mathbf{J}
 \label{eq:theory_magnetic_moment}
 \end{equation}
-where $\gamma$ is the gyromagnetic ration for the nucleus, a constant which depends on the charge and mass of the nucleus. Table \ref{tab:theory_isotope_spin_gmr} shows the gyromagnetic ratio ($\gamma$) and nuclear spin ($I$) of common \ac{NMR} sensitive isotopes \cite{harris_nmr_1976, bernstein_handbook_2004, westbrook_mri_2015}. Due to its high gyromagnetic ratio, compared to other nuclei used for \ac{NMR}, and relative abundance in the body, \ce{^{1}H}, a single proton, is most commonly used for \ac{MRI}.
+where $\gamma$ is the gyromagnetic ratio for the nucleus, a constant which depends on the charge and mass of the nucleus. Table \ref{tab:theory_isotope_spin_gmr} shows the gyromagnetic ratio ($\gamma$) and nuclear spin ($I$) of common \ac{NMR} sensitive isotopes \cite{harris_nmr_1976, bernstein_handbook_2004, westbrook_mri_2015}. Due to its high gyromagnetic ratio, compared to other nuclei used for \ac{NMR}, and relative abundance in the body, \ce{^{1}H}, a single proton, is most commonly used for \ac{MRI}.
 
 \begin{table}[H]
 	\centering
@@ -67,7 +68,7 @@ For an ensemble of spins in an external magnetic field, there will be an imbalan
 \frac{N_{\uparrow}}{N_{\downarrow}} = \exp \left(\frac{\Delta E}{k_B T}\right),
 \label{eq:theory_boltzman}
 \end{equation}
-where $N_{\downarrow}$ and $N_{\uparrow}$ are the the number of spins aligned with and against $B_0$ respectively, $k_B$ is Boltzmann's constant and $T$ is the temperature of the system. This means that for a sample of biological tissue at body temperature in a 3T magnetic field, the population difference is very small at approximately three parts per million. Although this measurable proportion is very small, it can be detected due to the high density of protons in the tissue. The signal can be increased by the application of a stronger main magnetic field, $B_0$, Figure \ref{fig:theory_precession}.
+where $N_{\downarrow}$ and $N_{\uparrow}$ are the number of spins aligned with and against $B_0$ respectively, $k_B$ is Boltzmann's constant and $T$ is the temperature of the system. This means that for a sample of biological tissue at body temperature in a 3T magnetic field, the population difference is very small at approximately three parts per million. Although this measurable proportion is very small, it can be detected due to the high density of protons in the tissue. The signal can be increased by the application of a stronger main magnetic field, $B_0$, Figure \ref{fig:theory_precession}.
 
 \begin{figure}[H]
 	\centering
@@ -113,7 +114,7 @@ Nuclei with a positive gyromagnetic ratio precess clockwise, whereas nuclei (and
 
 \subsection{Resonance}
 
-Resonance is the process of energy transfer into a system by the application of energy at the natural frequency of the system. In the case of \ac{NMR} this is the application of an \ac{RF} pulse, also known as $B_1$ field, near the Larmor frequency. Before the \ac{RF} pulse is applied, the spins are at equilibrium, aligned with $B_0$. Upon application of a $B_1$ field close to the Larmor frequency of the target nucleus and perpendicular to $B_0$, the spins aligned with $B_0$ will be displaced from equilibrium and thus precession is induced. The longer the $B_1$ field is applied, the more the net magnetisation vector is displaced, or tipped, away from $B_0$, this allows arbitrary flip angles, $\alpha$, to be achieved, \eqref{eq:theory_flip_angle}. 
+Resonance is the process of energy transfer into a system by the application of energy at the natural frequency of the system. In the case of \ac{NMR} this is the application of a \ac{RF} pulse, also known as the $B_1$ field, near the Larmor frequency. Before the \ac{RF} pulse is applied, the spins are at equilibrium, aligned with $B_0$. Upon application of a $B_1$ field close to the Larmor frequency of the target nucleus and perpendicular to $B_0$, the spins aligned with $B_0$ will be displaced from equilibrium and thus precession is induced. The longer the $B_1$ field is applied, the more the net magnetisation vector is displaced, or tipped, away from $B_0$, this allows arbitrary flip angles, $\alpha$, to be achieved, \eqref{eq:theory_flip_angle}. 
 \begin{equation}
 \alpha = \int_{0}^{T} \gamma B_1\left(t\right) dt
 \label{eq:theory_flip_angle}
@@ -167,6 +168,7 @@ M_z = M_0 \left[1 - \exp\left(-\frac{t}{T_1}\right) \right] + M_z\left( 0 \right
 \end{equation}
 where $M_z\left( 0 \right)$ is the magnetisation at time $t=0$.
 
+\newpage
 The gold standard method for quantification of \tone is the inversion recovery pulse sequence, Figure \ref{fig:theory_inversion_recovery_psd}, in which a 180\degree{ }pulse is used to fully invert the magnetisation, such that $M_z(0) = -M_0$ and as such \eqref{eq:theory_bloch_longitudinal_mz} reduces to,
 \begin{equation}
 M_z = M_0 \left[1 - 2\exp\left(-\frac{t}{T_1}\right) \right].
@@ -181,7 +183,7 @@ Typically a hyperbolic secant pulse is used for inversion. This pulse is adiabat
 	\label{fig:theory_inversion_recovery_psd}	
 \end{figure}
 
-To measure \tone, the most standard methods is to repeat an inversion recovery sequence multiple times, with measurements of $M_z$ taken at different times after the 180$\degree$ inversion pulse, the \ac{TI}. The magnetisation must have fully recovered to $M_0$ between each inversion pulse, as such the minimum time between inversions, termed the \ac{TR}, is five times \tone. Curve fitting can then be used to estimate $M_0$ and \tone, Figure \ref{fig:theory_inversion_recovery}.
+To measure \tone, the most standard method is to repeat an inversion recovery sequence multiple times, with measurements of $M_z$ taken at different times after the 180$\degree$ inversion pulse, the \ac{TI}. The magnetisation must have fully recovered to $M_0$ between each inversion pulse, as such the minimum time between inversions, termed the \ac{TR}, is five times \tone. Curve fitting can then be used to estimate $M_0$ and \tone, Figure \ref{fig:theory_inversion_recovery}.
 This method is expanded upon when it is used in Chapter \ref{chap:ex}.
 
 
@@ -193,8 +195,9 @@ This method is expanded upon when it is used in Chapter \ref{chap:ex}.
 \end{figure}
 \subsection{Transverse Relaxation (\ttwo and \ttwostar)}
 \label{subsec:theory_t2}
-Upon the application of a 90$\degree$ \ac{RF} pulse, the net magnetisation vector is tipped in the $y'$ direction resulting in phase coherence and creating transverse magnetisation, $M_{x'y'}$. The spins then precess about the $z$-axis at their Larmor frequency, dictated by the magnetic field they are in. This magnetic field is not perfectly homogenous over the whole ensemble though, random dipole-dipole interaction with neighbouring spins produce short-lived fluctuations in the local magnetic field and thus the Larmor frequency of each spin varies. As the spins precess at different frequencies, they de-phase, resulting in the transverse magnetisation decaying to zero as phase coherence is lost. This mechanism is driven by energy transfer between the spins within the system and is termed, the spin-spin relaxation. The rate at which this loss of phase coherence due to spin-spin interactions occurs is characterised by the time constant \ttwo.
+Upon the application of a 90$\degree$ \ac{RF} pulse, the net magnetisation vector is tipped in the $y'$ direction resulting in phase coherence and creating transverse magnetisation, $M_{x'y'}$. The spins then precess about the $z$-axis at their Larmor frequency, dictated by the magnetic field they are in. This magnetic field is not perfectly homogeneous over the whole ensemble though, random dipole-dipole interaction with neighbouring spins produce short-lived fluctuations in the local magnetic field and thus the Larmor frequency of each spin varies. As the spins precess at different frequencies, they de-phase, resulting in the transverse magnetisation decaying to zero as phase coherence is lost. This mechanism is driven by energy transfer between the spins within the system and is termed, the spin-spin relaxation. The rate at which this loss of phase coherence due to spin-spin interactions occurs is characterised by the time constant \ttwo.
 
+\newpage
 The local magnetic field is not just influenced by spin-spin interactions. Local inhomogeneities in the static $B_0$ field can be caused by susceptibility differences within the sample and hardware imperfections. These $B_0$  inhomogeneities result in additional perturbation to the local magnetic field and therefore additional de-phasing of the system. The rate at which this de-phasing due to static $B_0$ inhomogeneities occurs is characterised by the time constant $T_2'$. The net measured decay in transverse magnetisation is therefore dictated by \ttwostar, which is related to \ttwo and $T_2'$ by
 \begin{equation}
 \frac{1}{T_2^*} = \frac{1}{T_2} + \frac{1}{T_2'}.
@@ -212,7 +215,7 @@ M_{xy}\left(t\right) = M_{xy}\left(0\right)\exp\left(-\frac{t}{T_2}\right),
 \end{equation}
 It should be noted that \eqref{eq:theory_bloch_transverse_mxy} is an idealised equation and thus does not include static field inhomogeneities that contribute to $T_2'$ and thus the magnetisation of a real signal will decay with \ttwostar.
 
-After a 90$\degree$ \ac{RF} pulse the envelope of the signal will decay with \ttwostar, known as an \ac{FID}. As such, by measuring the amplitude of the signal at different time points, $t$, the decay can be sampled and fit to estimate \ttwostar.
+After a 90$\degree$ \ac{RF} pulse the envelope of the signal will decay with \ttwostar, known as a \ac{FID}. As such, by measuring the amplitude of the signal at different time points, $t$, the decay can be sampled and fit to estimate \ttwostar.
 
 \subsubsection{Spin Echoes}
 To measure \ttwo, rather than \ttwostar, the effects of static $B_0$ inhomogeneities that lead to $T_2'$ must be negated. Because the processes driving the de-phasing that leads to $T_2'$ are constant over time, the refocussing effects of a \ac{SE} sequence, outlined in Figure \ref{fig:theory_se_signal}, can be utilised to reform this de-phasing component. In a \ac{SE} sequence, an initial 90$\degree$ excitation pulse shifts $M$ into the transverse plane and induces phase coherence, Figure \ref{fig:theory_se_spins_t0}. $T_2^*$ effects will then cause some spins to precess quickly and others more slowly and thus de-phase with $T_2^*$, Figure \ref{fig:theory_se_spins_t_te_by_2}. At time, \ac{TE}/2, later a 180$\degree$ pulse is used to flip the spin ensemble, reversing the phase shift meaning those spins that have accrued the largest positive phase shift will now have the largest negative phase shift and vice versa, Figure \ref{fig:theory_se_spins_t_te_by_2_inverted}. Because the $B_0$ inhomogeneities that lead to $T_2'$ are static, they will still be acting to the same degree on each spin. This leads to an echo forming at $t =$ \ac{TE} as those spins with the highest Larmor frequency, and largest negative phase shift, refocus or ``catch up'' with those spins with a lower Larmor frequency, Figure \ref{fig:theory_se_spins_t_te}. The processes leading to \ttwo are not constant over time and as such are not refocussed by the 180$\degree$ pulse, hence the echo in Figure \ref{fig:theory_se_spins_t_te} is not perfectly refocussed and the signal will be attenuated at a rate dictated by \ttwo.
@@ -259,7 +262,7 @@ By repeating this sequence over a range of echo times the \ttwo curve can be sam
 
 \subsubsection{Gradient Echoes}
 \label{subsubsec:theory_ge}
-Echoes can be generated via another mechanism, the \ac{GE}. In addition to the homogenous $B_0$ field and \ac{RF} fields encountered thus far, \ac{MRI} scanners can produce additional fields known as gradients. These switchable fields can induce linearly varying spatially dependent magnetic fields to perturb $B_0$. They are used for image formation, explained in Section \ref{sec:theory_forming_an_image} but can also be used to form an echo. The \ac{GE} pulse sequence uses a single 90\degree{ }\ac{RF} excitation pulse to tip the net magnetisation vector into the transverse plane. A gradient is then applied to the sample causing areas of higher field to de-phase quickly whereas areas with a relatively lower field will de-phase slower. At time \ac{TE}/2 the polarity of the gradient is reversed thus causing the spins to refocus and an echo to be formed at time \ac{TE}. An overview of the sequence is shown in Figure \ref{fig:theory_ge_signal}. 
+Echoes can be generated via another mechanism, the \ac{GE}. In addition to the homogeneous $B_0$ field and \ac{RF} fields encountered thus far, \ac{MRI} scanners can produce additional fields known as gradients. These switchable fields can induce linearly varying spatially dependent magnetic fields to perturb $B_0$. They are used for image formation, explained in Section \ref{sec:theory_forming_an_image}, but can also be used to form an echo. The \ac{GE} pulse sequence uses a single 90\degree{ }\ac{RF} excitation pulse to tip the net magnetisation vector into the transverse plane. A gradient is then applied to the sample causing areas of higher field to de-phase quickly whereas areas with a relatively lower field will de-phase slower. At time \ac{TE}/2 the polarity of the gradient is reversed thus causing the spins to refocus and an echo to be formed at time \ac{TE}. An overview of the sequence is shown in Figure \ref{fig:theory_ge_signal}. 
 
 \begin{figure}[H]
 	\centering
@@ -298,8 +301,9 @@ producing the field shown in Figure \ref{fig:theory_magic_angle}. Here it can be
 
 Molecules can move in three different ways, translation, vibration and rotation. Translation has little effect on \ac{NMR} signals as it is usually omnidirectional. Vibrational oscillations are at a much higher frequency than \ac{NMR} phenomenon and as such do not affect the \ac{MRI} signal. Rotations can be at similar frequencies to \ac{MRI} and as such, influence \tone and \ttwo due to dipole-dipole interactions.
 
-Each molecule in a sample will have a characteristic correlation time, $\tau_c$, the time it takes the molecule to rotate by one radian. The correlation time is effected by how tightly bound the molecules are and their mass, light freely bound molecules like water in liquid form will have a short correlation time while heavy tightly bound molecules such as those found in bone, will have a longer correlation time. If a molecule is tumbling at a rate similar to the Larmor frequency, it will cause energy transfer to be more efficient, thus reducing \tone. As the tumbling rate slows, the properties of the dipole become more similar to those of a static field, this means that nearby dipoles will experience magnetic fields perpetuated about $B_0$ and as such \ttwo will decrease.
+Each molecule in a sample will have a characteristic correlation time, $\tau_c$, the time it takes the molecule to rotate by one radian. The correlation time is effected by how tightly bound the molecules are and their mass, light freely bound molecules like water in liquid form will have a short correlation time while heavy tightly bound molecules such as those found in bone, will have a longer correlation time. If a molecule is tumbling at a rate similar to the Larmor frequency, it will cause energy transfer to be more efficient, thus reducing \tone. As the tumbling rate slows, the properties of the dipole become more similar to those of a static field, this means that nearby dipoles will experience magnetic fields perturbed about $B_0$ and as such \ttwo will decrease.
 
+\newpage
 The mathematical framework of this phenomenon is given by the Solomon-Bloembergen equations \cite{solomon_relaxation_1955} (Equations \eqref{eq:theory_SB_t1} and \eqref{eq:theory_SB_t2}). These equations predict \tone and \ttwo dependence on correlation time, Figure \ref{fig:theory_relaxation_correlation}, where it can be observed that \tone is lowest when the frequency of the molecular tumbling is similar to the Larmor frequency (labelled as $\tau_0$ where $\tau_0=\sfrac{1}{\omega_0}$) and that \ttwo decreases as correlation time increases. Tissues with a range of tumbling rates are highlighted in Figure \ref{fig:theory_relaxation_correlation}; the molecules in \ac{CSF} are weakly bound as they are in the liquid phase, whereas solid tissues such as bone are tightly bound. Renal tissue is expected to have a similar tumbling rate to muscle and cysts a similar tumbling rate to \ac{CSF}.
 
 \begin{eqnarray}
@@ -326,7 +330,7 @@ The mathematical framework of this phenomenon is given by the Solomon-Bloemberge
 \label{subsec:theory_diffusion}
 Spins have been considered stationary until Section \ref{subsec:theory_dipole_dipole_interactions}. In biological tissues, they will undergo Brownian motion leading to diffusion. The signal from a sample can be made sensitive to the degree of diffusion taking place by using diffusion gradients applied between the excitation and echo. 
 
-Figure \ref{fig:theory_diffusion_psd} shows a \ac{DWI} pulse sequence and the phase evolution of two spins, one stationary and the other diffusing along the direction in which the diffusion gradient is applied. The stationary spin accrues a positive phase shift relative to $\omega_0$ while the first diffusion gradient pulse is applied. The 180$\degree$ \ac{RF} pulse then flips the spin system so the positive phase shift reverses to a negative phase shift of equal magnitude. The spin then evolves under the same field strength in the second diffusion gradient pulse and as such, the diffusion pulses result in no net phase shift. In contrast, for the diffusing spin,the strength of the magnetic field experienced is dependent on time, in this example, increasing in strength as time passes. This means that the rate at which phase shifts are accrued increases over time and therefore the refocussing effects of the second diffusion pulse are reduced. This sensitivity of the diffusion sequence to water motion is dependent on the strength of the diffusion gradients, the time the diffusion gradients are applied for and the time between the two diffusion pulses. This is termed the diffusion weighting factor, b, and for a monopolar Stejskal-Tanner sequence is given by \eqref{eq:theory_stejskal_tanner} where b has units of s/mm$^2$, $G$ is the amplitude of the gradient, $\delta$ is the duration of the gradient and $\Delta$ is the time interval \cite{stejskal_spin_1965}. To increase the b-value, either the gradient amplitude or duration of time interval can be increased, however it is often preferable to adjust b-values purely by altering the gradient amplitude to keep the diffusion time constant.
+Figure \ref{fig:theory_diffusion_psd} shows a \ac{DWI} pulse sequence and the phase evolution of two spins, one stationary and the other diffusing along the direction in which the diffusion gradient is applied. The stationary spin accrues a positive phase shift relative to $\omega_0$ while the first diffusion gradient pulse is applied. The 180$\degree$ \ac{RF} pulse then flips the spin system so the positive phase shift reverses to a negative phase shift of equal magnitude. The spin then evolves under the same field strength in the second diffusion gradient pulse and as such, the diffusion pulses result in no net phase shift. In contrast, for the diffusing spin, the strength of the magnetic field experienced is dependent on time, in this example, increasing in strength as time passes. This means that the rate at which phase shifts are accrued increases over time and therefore the refocussing effects of the second diffusion pulse are reduced. This sensitivity of the diffusion sequence to water motion is dependent on the strength of the diffusion gradients, the time the diffusion gradients are applied for and the time between the two diffusion pulses. This is termed the diffusion weighting factor, b, and for a monopolar Stejskal-Tanner sequence is given by \eqref{eq:theory_stejskal_tanner} where b has units of s/mm$^2$, $G$ is the amplitude of the gradient, $\delta$ is the duration of the gradient and $\Delta$ is the time interval \cite{stejskal_spin_1965}. To increase the b-value, either the gradient amplitude or duration of time interval can be increased, however it is often preferable to adjust b-values purely by altering the gradient amplitude to keep the diffusion time constant.
 
 \begin{equation}
 	b=\gamma^2 G^2 \delta^2 \left( \Delta - \sfrac{\delta}{3}\right)
@@ -360,7 +364,7 @@ Not all diffusion is isotropic (occurs to the the same degree in all directions)
 
 \subsection{Optimisation of Tissue Contrast}
 \label{subsec:theory_optimising_contrast}
-Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process due to the number of acquisitions required at different time points to sample relaxation curves. Often it is more desirable to acquire a volume at a single inversion/echo time with the intensity difference between tissues of interest maximised. Although the voxel intensities do not directly represent any quantitative underlying physical properties of the tissue, the contrast between tissues is sufficient for diagnosis or further analysis. For example, in Chapter \ref{chap:ML} optimised contrast between organs is used for segmentation of the kidneys. Figure \ref{theorgy_tissue_contrast} shows how the acquisition parameters of a \tone-weighted and \ttwo-weighted scheme can be optimised to produce the maximum signal difference, or contrast, between tissues.
+Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process due to the number of acquisitions required at different time points to sample relaxation curves. Often it is more desirable to acquire a volume at a single inversion/echo time with the intensity difference between tissues of interest maximised. Although the voxel intensities do not directly represent any quantitative underlying physical properties of the tissue, the contrast between tissues is sufficient for diagnosis or further analysis. For example, in Chapter \ref{chap:ML} optimised contrast between organs is used for segmentation of the kidneys. Figure \ref{fig:theory_tissue_contrast} shows how the acquisition parameters of a \tone-weighted and \ttwo-weighted scheme can be optimised to produce the maximum signal difference, or contrast, between tissues.
 
 \begin{figure}[H]
 	\centering
@@ -368,19 +372,20 @@ Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process d
 		\centering
 		\includegraphics[width=0.8\textwidth]{Theory/Tissue_Contrast/tissue_contrast_t1.eps}
 		\caption{}
-		\label{fig:theorgy_tissue_contrast_t1}
+		\label{fig:theory_tissue_contrast_t1}
 	\end{subfigure}
 	\vskip\baselineskip
 	\begin{subfigure}[c]{1\textwidth}
 		\centering
 		\includegraphics[width=0.8\textwidth]{Theory/Tissue_Contrast/tissue_contrast_t2.eps}
 		\caption{}
-		\label{fig:theorgy_tissue_contrast_t2}
+		\label{fig:theory_tissue_contrast_t2}
 	\end{subfigure}
-	\caption{(\subref{fig:theorgy_tissue_contrast_t1}) The signal generated from renal cortical and medullary tissues \cite{cox_multiparametric_2017} following an inversion recovery and difference between signals. This shows that the contrast between the two tissues is optimal if the \acf{TI} is 1500 ms. (\subref{fig:theorgy_tissue_contrast_t2}) The signal generated from the kidneys, liver and spleen following a spin echo sequence and the difference between the signals.}
-	\label{fig:theorgy_tissue_contrast}
+	\caption{(\subref{fig:theory_tissue_contrast_t1}) The signal generated from renal cortical and medullary tissues \cite{cox_multiparametric_2017} following an inversion recovery and difference between signals. This shows that the contrast between the two tissues is optimal if the \acf{TI} is 1500 ms. (\subref{fig:theory_tissue_contrast_t2}) The signal generated from the kidneys, liver and spleen following a spin echo sequence and the difference between the signals.}
+	\label{fig:theory_tissue_contrast}
 \end{figure}
 
+\newpage
 \section{Forming an Image}
 \label{sec:theory_forming_an_image}
 \subsection{Signal Localisation}
@@ -486,7 +491,7 @@ k_y &=& \gamma G_y t_y
 \label{eq:theory_k_space_y}
 \end{eqnarray}
 
-When recording \ac{MRI} data, the continuous signal must be discretised. The higher the sampling frequency i.e. the closer together in $k$-space the samples are, $\Delta k$, the wider the \ac{FOV} and the further out from the origin of $k$-space is samples, the higher resolution the image will be. Examples of $k$-space sampling patterns and their corresponding image are shown in Figure \ref{fig:theory_kspace}.
+When recording \ac{MRI} data, the continuous signal must be discretised. The higher the sampling frequency i.e. the closer together in $k$-space the samples are, $\Delta k$, the wider the \ac{FOV} and the further out from the origin of $k$-space is sampled, the higher resolution the image will be. Examples of $k$-space sampling patterns and their corresponding image are shown in Figure \ref{fig:theory_kspace}.
 
 \begin{figure}[H]
 	\centering
@@ -510,7 +515,7 @@ When recording \ac{MRI} data, the continuous signal must be discretised. The hig
 		\caption{}
 		\label{fig:theory_kspace_wrap}
 	\end{subfigure}
-	\caption{(\subref{fig:theory_kspace_full}) Fully samples $k$-space and the corresponding image. (\subref{fig:theory_kspace_centre}) Centre sampling of $k$-space produces a lower resolution image. (\subref{fig:theory_kspace_wrap}) Sampling with a larger $\Delta k$ resulting in a decreased \ac{FOV} and aliasing.}
+	\caption{(\subref{fig:theory_kspace_full}) Fully sampled $k$-space and the corresponding image. (\subref{fig:theory_kspace_centre}) Centre sampling of $k$-space produces a lower resolution image. (\subref{fig:theory_kspace_wrap}) Sampling with a larger $\Delta k$ resulting in a decreased \ac{FOV} and aliasing.}
 	\label{fig:theory_kspace}
 \end{figure}
 
@@ -685,7 +690,7 @@ A much faster imaging technique is \ac{EPI} \cite{mansfield_nmr_1973}. This tech
 	\label{fig:theory_epi}	
 \end{figure}
 
-While this sequence has a very short acquisition time, it does have drawbacks. The long train of echoes makes \ac{EPI} more sensitive to inhomogeneities in the $B_0$ field caused by different tissue susceptibilities or poor shimming. Eddy currents and imperfections in gradient coils cause small differences in lines collected in the positive and negative direction, leading the a Nyquist ghost artefact. Eddy currents induced by the phase encode blips also cause geometric distortions in the image, Figure \ref{fig:theory_epi_eddy}, however, these can be corrected via post processing if an image with phase encode blips of opposite polarity is collected i.e. collect images sampling $k$-space from both bottom to top and top to bottom. This is outlined further in Chapter \ref{chap:ex}
+While this sequence has a very short acquisition time, it does have drawbacks. The long train of echoes makes \ac{EPI} more sensitive to inhomogeneities in the $B_0$ field caused by different tissue susceptibilities or poor shimming. Eddy currents and imperfections in gradient coils cause small differences in lines collected in the positive and negative direction, leading to a Nyquist ghost artefact. Eddy currents induced by the phase encode blips also cause geometric distortions in the image, Figure \ref{fig:theory_epi_eddy}, however, these can be corrected via post processing if an image with phase encode blips of opposite polarity is collected i.e. collect images sampling $k$-space from both bottom to top and top to bottom. This is outlined further in Chapter \ref{chap:ex}
 
 \begin{figure}[H]
 	\centering

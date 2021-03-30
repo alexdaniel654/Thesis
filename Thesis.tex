@@ -68,8 +68,7 @@
 
 % Include only certain chapters for drafts 
 % \includeonly{Abstract, Acknowledgements, Abbreviations, Introduction, Theory, T2_Mapping, TRUST, Conclusion, T2_Fitting, Tractography_Pipeline} 
-%\includeonly{Ex_Vivo, Tractography_Pipeline}
-%\includeonly{Acknowledgements, Conclusion} 
+
 % Define page styles
 \renewcommand{\chaptermark}[1]{\markboth{}{}}
 
@@ -95,18 +94,17 @@
     \newpage}
 \makeatletter
 
-\renewenvironment{abstract}{
-	\if@twocolumn
-	\section*{\abstractname}
-	\else
-	\small
+\renewenvironment{abstract}
+{\small
 	\begin{center}
-		{\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
+		\bfseries \abstractname\vspace{-.5em}\vspace{0pt}
 	\end{center}
-%	\normalsize
-	\quotation
-	\fi}
-{\if@twocolumn\else\endquotation\fi}
+	\list{}{
+		\setlength{\leftmargin}{.5cm}%
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
 
 \makeatother
 \pagenumbering{roman}
@@ -167,9 +165,9 @@ Thesis submitted to the University of Nottingham for the degree of Doctor of Phi
 \newpage
 
 %\newgeometry{left=5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
-\begin{abstract}
-	\input{Abstract}
-\end{abstract}
+
+\input{Abstract}
+
 \acresetall
 \setcounter{tocdepth}{2}
 
