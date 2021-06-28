@@ -249,7 +249,7 @@ The training data comprised 25 \acp{HC} (9 female, 16 male) with a mean age of 2
 		\textbf{Training CKD} & 5                           & 25                          & 325                          & 0/5                & 69 $\pm$ 3        & 274 $\pm$ 56          
 	\end{tabularx}
 	\end{adjustbox}
-	\caption{Characteristics of datasets used for training and validation of the 2D U-Net model \ac{CNN}.}
+	\caption{Characteristics of datasets used for training and testing of the 2D U-Net model \ac{CNN}.}
 	\label{tab:ml_datasets}
 \end{table}
 \begin{figure}[H]
@@ -519,7 +519,7 @@ Another common segmentation task in renal imaging is generating an \ac{ROI} for 
 
 A 2D \ac{CNN} has been shown to successfully segment the kidneys of both \ac{HC} and \ac{CKD} subjects from \ttwo-weighted \ac{HASTE} data delivering a mean Dice score of 0.93~$\pm$~0.01 leading to a mean volume of 1.2~$\pm$~16.2~m$\ell$ less than the manually segmented \ac{TKV} and mean surface distance of 0.65~$\pm$~0.21~mm. The \ac{CNN} produced higher than human precision, with a \ac{CoV} and \ac{ICC} of 1.5~$\pm$~0.5~\% and 0.993 respectively. The accuracy of the network could be further increased via the acquisition of more training data, something that the renal group at \ac{SPMIC} are actively pursuing. 
 
-The methods developed here can easily be deployed via the self contained, easy to use \ac{GUI}, thus moving renal segmentation from a 15 to 30 minute skilled task, to a 10 second task for anyone, on any computer. Additionally, this executable can be called form a terminal, making it suitable for use in scripting applications and pipelines.
+The methods developed here can easily be deployed via the self contained, easy to use \ac{GUI}, thus moving renal segmentation from a 15 to 30 minute skilled task, to a 10 second task for anyone, on any computer. Additionally, this executable can be called from a terminal, making it suitable for use in scripting applications and pipelines.
 
 Future development will focus on exploring different network architectures, use of additional contrasts and expanding the tool to produce masks of both the cortex and medulla.
 
