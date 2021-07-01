@@ -498,6 +498,8 @@ k_y &=& \gamma G_y t_y
 
 When recording \ac{MRI} data, the continuous signal must be discretised. The higher the sampling frequency i.e. the closer together in $k$-space the samples are, $\Delta k$, the wider the \ac{FOV} and the further out from the origin of $k$-space is sampled, the higher resolution the image will be. Examples of $k$-space sampling patterns and their corresponding image are shown in Figure \ref{fig:theory_kspace}.
 
+
+
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[c]{0.8\textwidth}
@@ -526,7 +528,26 @@ When recording \ac{MRI} data, the continuous signal must be discretised. The hig
 
 \subsubsection{From $k$-space to Image Space}
 
-The raw data sampled in $k$-space can be reconstructed to an image via a Fourier transform. When the quadrature data undergoes a 2D Fourier transform, it produces a complex image composed of a real and imaginary part. These constituent parts of the image can be converted into magnitude and phase images with the magnitude representing the spin density.
+The raw data sampled in $k$-space can be reconstructed to an image via a Fourier transform. When the quadrature data undergoes a 2D Fourier transform, it produces a complex image composed of a real and imaginary part. These constituent parts of the image can be converted into magnitude and phase images with the magnitude representing the spin density, example magnitude and phase images are shown in Figure \ref{fig:theory_mag_phase}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/Mag_Phase/mag.pdf}
+		\caption{}
+		\label{fig:theory_mag_phase_mag}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[c]{0.47\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth]{Theory/Mag_Phase/phase.pdf}
+		\caption{}
+		\label{fig:theory_mag_phase_phase}
+	\end{subfigure}
+	\caption{Example magnitude (\subref{fig:theory_mag_phase_mag}) and phase (\subref{fig:theory_mag_phase_phase}) images. Note the phase data is limited to values between $-\pi$ and $\pi$ and as such, phase wrapping can be observed.}
+	\label{fig:theory_mag_phase}
+\end{figure}
 
 \subsubsection{Coordinate Systems}
 The above example was chosen so that only one gradient is used at once however if the planning of the acquisition is more complicated, the nomencleture can become more confusing, as such, for clarity multiple coordinate systems are often used.
