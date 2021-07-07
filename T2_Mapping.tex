@@ -53,8 +53,22 @@ In the existing literature, there is a substantial variation in quoted \ttwo val
 \newpage
 Here each of these four methods are compared in the context of renal \ttwo mapping to ascertain which is most suitable. This is achieved by evaluating each methods quantitative accuracy, image quality, sensitivity to flow in phantoms and suitability for use in-vivo in final evaluation across five healthy subjects.
 
+\subsection{Common Sources of Error in \ttwo Mapping Sequences}
+The basic principles of \ttwo mapping are outlined in Section \ref{subsec:theory_t2}, these principles can be achieved using multiple methods, described in Section \ref{subsec:t2_acquisition_schemes}, however many of these methods have similar sources of error leading to inaccuracies in measured \ttwo. 
+
+\subsubsection{Diffusion}
+
+\subsubsection{Outflow}
+
+\subsubsection{RF Pulse Imperfections}
+
+\subsubsection{$B_0$ Inhomogeneities}
+
+\subsubsection{Slice Profiles}
+
 \subsection{\ttwo Acquisition Schemes}
-The basic principles of \ttwo mapping are outlined in Section \ref{subsec:theory_t2}, a more detailed explanation of the sequences compared in this chapter is given below. 
+\label{subsec:t2_acquisition_schemes}
+Below the four methods to be compared in the context of renal imaging are outlined.
 
 \subsubsection{Spin Echo-Echo Planar Imaging}
 The \acf{SE}-\acf{EPI} technique is the simplest of the four methods, and so achievable on any \ac{MRI} scanner, and consists of a 90$\degree$ excitation pulse, followed by a 180$\degree$ \ac{RF} pulse \ac{TE}/2 ms later, leading to an echo at \ac{TE}. The 180$\degree$ pulse corrects for components of the signal lost due to static field inhomogeneities, $T_2'$ effects, however does not correct for \ttwo effects. By repeating the sequence multiple times with a different \ac{TE}, the \ttwo decay can be sampled. An \ac{EPI} readout is used to sample the signal during the echo. The relatively long \ac{TR} of this scheme means multiple slices can be sampled within a single \ac{TR}. In this case, the acquisition of each echo time is divided into two packages with odd numbered slices being sampled in the first \ac{TR} and even numbered slices being sampled in the second \ac{TR} to avoid contamination across slices due to the width of the 180$\degree$ refocussing pulse. An overview of the sequence is shown in Figure \ref{fig:t2_se-epi_seq}.
