@@ -64,10 +64,20 @@ In multi-slice imaging, acquisition quicker than the limits imposed by \tone rel
 
 \subsubsection{RF Pulse Imperfections}
 
-Some \ttwo mapping schemes involve long trains of successive  \ac{RF} pulses 
-Pulse profiles can also be affected by $B_0$ inhomogeneities.
+Some \ttwo mapping schemes involve long trains of successive  \ac{RF} pulses. These pulses need to be very accurate to ensure that the spin ensemble is evolving as expected however this is not possible for multiple reasons, including but not limited to, pulse profile imperfections \cite{majumdar_errors_1986}, $B_0$ inhomogeneities \cite{majumdar_errors_1986-1} and slice profile imperfections \cite{crawley_errors_1987}.
 
-\subsubsection{Slice Profiles}
+Upon the application of an imperfect 180$\degree$ refocusing pulse, the ensemble can be decomposed into three components, a transverse component that rephrases i.e. the desired behaviour, a transverse component that continues to de-phase and a longitudinal component with the proportion of the initial magnetisation in each component being dependent on the accuracy of the refocusing pulse. This splitting of magnetisation results in a reduced intensity echo. 
+
+As subsequent refocusing pulses are applied, each of the split components can further split into three components resulting in large numbers of potential phase evolutions. Some of the possible phase evolutions will not form an echo between every refocusing pulse and as such the point at which the additional signal due to alternative paths will occur in the echo train is difficult to predict. Echoes that have followed more complex phase evolutions are known as stimulated echoes. 
+
+The many potential paths a spin ensemble can take can be represented using \acp{EPG}, an example of which is shown  for four refocusing pulses in Figure \ref{fig:t2_epg}. If all refocusing pulses were perfect, the magnetisation would remain on the red path forming an echo every time the path crosses the $x$-axis (blue circles). If imperfect refocusing pulses are applied, the magnetisation splits at the first refocusing pulse where a component follows the initial red path, another component continues to de-phase in the transverse plane (green) and another component is shifted to the longitudinal plane (blue) and undergoes \tone relaxation. The example alternative path shown in blue does not contribute to the first echo but does contribute to the intensity of the second echo, the green path first contributes to the intensity of the third echo.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{T2_Mapping/EPG/EPG-01.eps}
+	\caption{The \ac{EPG} produced from four successive imperfect refocussing pulses. The simple path shown in red produces an echo every time it crosses the $x$-axis while the more complicated paths shown in blue and green only contribute to the intensity of the second and third echoes respectively.}
+	\label{fig:t2_epg}	
+\end{figure}
 
 \subsection{\ttwo Acquisition Schemes}
 \label{subsec:t2_acquisition_schemes}
