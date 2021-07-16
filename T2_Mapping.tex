@@ -313,7 +313,7 @@ Using the \tone-weighted structural scans \ac{ROI} were defined for both the ren
 \subsection{Verification of Phantom Accuracy}
 To ascertain the accuracy of the scanner and QalibreMD phantom, the \ac{NIST} recommended ME-SE protocol was first performed. This verifies that the phantom has been manufactured correctly, that the scanner produces acceptable results when running a standardised protocol and provides context to the accuracies of the in-vivo sequences i.e. understanding how much accuracy has been sacrificed to make the protocol practical for renal imaging. Fitting is shown using the basic fit as this resulted in the closest fit to literature values, however all fitting methods were evaluated, with results included in Appendix \ref{app:t2_fitting_nist}. The only noteworthy variances between fitting methods was observed for the spheres of very short \ttwo.
 
-When comparing the \ttwo calculated to the literature values supplied with the phantom, Figure \ref{fig:t2_nist}, the \ac{MPE} over the full range of spheres was $-5~\pm~7~\%$, and over the range of \ttwo expected in the kidneys was $-6~\pm~3~\%$. 
+When comparing the \ttwo calculated to the literature values supplied with the phantom, Figure \ref{fig:t2_nist}, the \ac{MPE} over the full range of spheres was $-5~\pm~7~\%$, and over the range of \ttwo expected in the kidneys was $-6~\pm~3~\%$ where values are expressed as mean percentage error over the range of spheres $\pm$ the standard deviation in percentage error over the range of spheres. 
 
 \begin{figure}[H]
 	\centering
@@ -511,7 +511,7 @@ To assess the sensitivity of each of the \ttwo mapping schemes to flow, the simu
 		\caption{}
 		\label{fig:t2_flow_percent}
 	\end{subfigure}
-	\caption{The effects of flow on measurements of \ttwo using each method. Points have been slightly staggered on the $x$-axis to aide the visibility of error bars. (\subref{fig:t2_flow_abs}) Absolute measured \ttwo. (\subref{fig:t2_flow_percent}) Change in \ttwo as a percentage of \ttwo measured at rest for each sequence.}
+	\caption{The effects of flow on measurements of \ttwo using each method. Points have been slightly staggered on the $x$-axis to aide the visibility of error bars. (\subref{fig:t2_flow_abs}) Absolute measured \ttwo. (\subref{fig:t2_flow_percent}) Change in \ttwo as a percentage of \ttwo measured at rest for each sequence. Error bars are derived from the standard deviation within the \ac{ROI}.}
 	\label{fig:t2_flow}
 \end{figure}
 
@@ -520,7 +520,7 @@ The flow rate is measured at the pump, therefore the perfusate will not be trave
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{T2_Mapping/Flow/flow_adc.pdf}
-	\caption{Changes in ADC as the rate at which perfusate is pumped through the simulated capillary bed is increased.}
+	\caption{Changes in ADC as the rate at which perfusate is pumped through the simulated capillary bed is increased. Error bars are derived from the standard deviation within the \ac{ROI}.}
 	\label{fig:t2_flow_adc}	
 \end{figure} 
 
@@ -537,7 +537,7 @@ Each sequence was slightly modified to contain an acquisition with a \ac{TE} of 
 		GraSE                & 4.26   $\pm$ 0.12    \\ \hline
 		CPMG   \ttwo Prep    & 6.48   $\pm$ 0.33                    
 	\end{tabular}
-	\caption{The \ac{FWHM} of the estimated \ac{PSF} for each acquisition method.}
+	\caption{The \ac{FWHM} of the estimated \ac{PSF} for each acquisition method. Uncertainty is calculated from the confidence in the Gaussian fit.}
 	\label{tab:t2_phantom_blur}
 \end{table}
 
@@ -709,7 +709,7 @@ Having assessed each of the sequences, five healthy volunteers were then imaged 
 		\caption{}
 		\label{fig:t2_in_vivo_cov_bar}
 	\end{subfigure}
-	\caption{(\subref{fig:t2_in_vivo_t2_bar}) Mean cortical and medullary \ttwo values across five subjects measured using each sequence. (\subref{fig:t2_in_vivo_cov_bar}) The \ac{CoV} between subjects for each sequence.}
+	\caption{(\subref{fig:t2_in_vivo_t2_bar}) Mean cortical and medullary \ttwo values across five subjects measured using each sequence. Error bars are the standard deviation across subjects. (\subref{fig:t2_in_vivo_cov_bar}) The \ac{CoV} between subjects for each sequence.}
 	\label{fig:t2_in_vivo_bars}
 \end{figure}
 
@@ -791,7 +791,7 @@ Table \ref{tab:t2_results_summary} compares the quantitative accuracy, image qua
 	\begin{adjustbox}{width=1.0\textwidth, center}
 		\begin{tabularx}{1.6\textwidth}{X|X|X|X|X|X|X|X}
 			Sequence        & Acquisition Time  \scriptsize{(before~respiratory compensation)} & MPE  (5~ms~-~650~ms) (\%) & MPE  (40~ms~-~200~ms) (\%) & FWHM (mm)       & Sensitivity to Flow & In-Vivo CoV (cortex/ medulla) (\%) & In-Vivo Comments                                                        \\ \hline
-			SE-EPI          & 3 min 0 sec                                                      & 36 $\pm$ 34               & 8 $\pm$ 5                  & 4.80 $\pm$ 0.18 & 0.65 $\pm$  0.08    & 7.17/13.57                        & \begin{tabular}[c]{@{}l@{}}Inaccurate\\ Sensitive to $B_1$ \\and diffusion\end{tabular} \\ \hline
+			SE-EPI          & 1 min 45 sec                                                      & 36 $\pm$ 34               & 8 $\pm$ 5                  & 4.80 $\pm$ 0.18 & 0.65 $\pm$  0.08    & 7.17/13.57                        & \begin{tabular}[c]{@{}l@{}}Inaccurate\\ Sensitive to $B_1$ \\and diffusion\end{tabular} \\ \hline
 			ME-TSE          & 1 min 57 sec                                                     & 38 $\pm$ 31               & 23 $\pm$ 13                & 4.20 $\pm$ 0.14 & 0.81 $\pm$ 0.12     & 3.73/5.04                         & Reduced corticomedullary contrast                                       \\ \hline
 			GraSE           & 2 min 6 sec                                                      & 32 $\pm$ 29               & 15 $\pm$ 4                 & 4.26 $\pm$ 0.12 & 0.95 $\pm$ 0.06     & 3.86/5.73                         & High SAR                                                                \\ \hline
 			CPMG $T_2$ Prep & 2 min 23 sec                                                     & 18 $\pm$ 15               & 11 $\pm$ 1                 & 6.48 $\pm$ 0.33 & 0.90 $\pm$ 0.11     & 8.08/8.62                         & Large degree of image artefacts                                  
