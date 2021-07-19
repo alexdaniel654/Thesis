@@ -84,11 +84,11 @@ These issues meant later samples were procured from University of Nottingham Vet
 		\caption{}
 		\label{fig:ex_samples_sb}
 	\end{subfigure}
-	\caption{(i) Kidneys acquired from: (\subref{fig:ex_samples_meat}) the slaughterhouse after fixation. The left hand kidney has been sliced in half; the right hand kidney has the incisions from the meat inspector clearly visible, (\subref{fig:ex_samples_sb}) a sample procured from Veterinary Science after fixation. (ii) Associated \ttwo-weighted \ac*{GE} acquisition with TE = 40 ms.}
+	\caption{(i) Kidneys acquired from: (\subref{fig:ex_samples_meat}) the slaughterhouse after fixation. The left hand kidney has been sliced in half; the right hand kidney has the incisions from the meat inspector clearly visible, (\subref{fig:ex_samples_sb}) a sample procured from Veterinary Science after fixation. (ii) Associated \ttwo-weighted \ac*{GE} acquisition with TE~=~40~ms.}
 	\label{fig:ex_samples}
 \end{figure}
 
-Imaging was performed on a 3T Philips Ingenia system and some protocols were also developed for a 7T Philips Achieva system to assess the best case scenario ex-vivo images that could be acquired on human \ac{MRI} scanners. Ex-vivo samples were scanned in 32 channel head coils, Figure \ref{fig:ex_head_coil}, as these coils allowed for a whole organ to be imaged while also keeping array elements as close to the sample as possible. All in-vivo renal \ac{MRI} was performed at 3T and utilised a 16-channel anterior coil array and 16-channel posterior coil array.
+Imaging was performed on a 3T Philips Ingenia system and some protocols were also developed for a 7T Philips Achieva system to assess the best case scenario ex-vivo images that could be acquired on human \ac{MRI} scanners. Ex-vivo samples were scanned in 32-channel head coils, Figure \ref{fig:ex_head_coil}, as these coils allowed for a whole organ to be imaged while also keeping array elements as close to the sample as possible. All in-vivo renal \ac{MRI} was performed at 3T and utilised a 16-channel anterior coil array and 16-channel posterior coil array.
 
 \begin{figure}[H]
 	\centering
@@ -103,7 +103,7 @@ One of the aims of the ex-vivo protocol is to minimise time outside of the body 
 The following sections outline the ex-vivo scan protocols set up.
 \subsection{Anatomical Scans}
 \label{subsec:ex_anatomical_scans}
-To evaluate the use of the layer based analysis techniques (outlined in Section \ref{sec:ex_layers}) and calculate \ac{TKV} a high resolution, whole kidney coverage anatomical scan is required to segment the kidney from surrounding tissue/\ac{PBS}. The ex-vivo protocol is outlined in Table \ref{tab:ex_anatomical}; this scan was also used to plan subsequent ex-vivo scans. In-vivo, the \ttwo-weighted \ac{HASTE} structural scan from Chapter \ref{chap:ML} is used.
+To evaluate the use of the layer based analysis techniques (outlined in Section \ref{sec:ex_layers}) and calculate \ac{TKV} a high resolution, whole kidney coverage anatomical scan is required to segment the kidney from surrounding tissue/\ac{PBS}. The ex-vivo protocol is outlined in Table \ref{tab:ex_anatomical}; this scan was also used to plan subsequent ex-vivo scans. In-vivo, the \mbox{\ttwo-weighted} \ac{HASTE} structural scan from Chapter \ref{chap:ML} is used.
 
 \begin{table}[H]
 	\centering
@@ -351,7 +351,7 @@ Estimation of \ttwostar can be performed via two different methods, fitting to a
 	\label{eq:ex_t2star}
 \end{equation}
 
-The acquisition parameters of the 3T ex-vivo protocol were simulated to compare the two fitting methods using Monte Carlo techniques. The linear fit produces a slightly greater \ac{CoV} than the exponential fit at lower \ttwostar, Figure \ref{fig:ex_t2star_sim_cov}. Additionally, the relative error, defined by Equation \eqref{eq:ex_re}, has a greater magnitude below 20 ms when fitting with the linear fit than the exponential fit, Figure \ref{fig:ex_t2star_sim_re}. Since the \ttwostar expected from the kidneys at 3T is greater than 20 ms, in the interests of computational efficiency, the linear fitting method was used.
+The acquisition parameters of the 3T ex-vivo protocol were simulated to compare the two fitting methods using Monte Carlo techniques. The linear fit produces a slightly greater \ac{CoV} than the exponential fit at lower \ttwostar, Figure \ref{fig:ex_t2star_sim_cov}. Additionally, the relative error, defined by Equation \eqref{eq:ex_re}, has a greater magnitude below 20~ms when fitting with the linear fit than the exponential fit, Figure \ref{fig:ex_t2star_sim_re}. Since the \ttwostar expected from the kidneys at 3T is greater than 20~ms, in the interests of computational efficiency, the linear fitting method was used.
 
 \begin{equation}
 	\textup{Relative Error} = \frac{t_{2\; \textup{fit}}^{*} - t_{2\; \textup{simulated}}^{*}}{t_{2\; \textup{simulated}}^{*}}
@@ -432,7 +432,7 @@ Here \ac{DWI} is performed using a single shot \ac{SE}-\ac{EPI} sequence over a 
 
 The diffusion sensitising block of the pulse sequence is time consuming and as such necessitates the use of fast imaging techniques, \ac{EPI} is the simplest to implement however is not without drawbacks. It suffers from geometric distortions in the phase encode direction, due to inhomogeneities in the $B_0$ field caused by susceptibility differences. These geometric distortions can be problematic as the ability to correlate, on a voxel-by-voxel basis, parameters acquired with different sequences is at the core of multiparametric \ac{MRI}. As the distortions are predominantly in the phase encode direction, by inverting the direction of the phase encode blips, the direction of the distortion can be reversed, Figure \ref{fig:ex_epi_distortion_overlay}. By acquiring images with both phase encode directions the underlying field map can be estimated and used to undistort the data \cite{andersson_how_2003}. This process can be carried out using \ac{FSL} ``topup'' however, as this tool was designed for work in the brain, a custom configuration to perform more iterations of the field estimation algorithm with a greater degree of regularisation was required. 
 
-Although in some cases it is possible to acquire only the b = 0 s/mm$^2$ image in both phase encode directions to calculate the displacement field, then apply this field to other b-values, it was decided that the $\sqrt{2}$ \ac{SNR} increase of acquiring two volumes and averaging them is beneficial. Additionally if, in the case of in-vivo data, there are issues with motion in the b = 0 s/mm$^2$ volumes, then another diffusion weighting can be used to estimate the displacement, thus adding inherent redundancy to the pipeline. This process is shown in Figure \ref{fig:ex_epi_distortion} and resulting distortion corrected images in Figure \ref{fig:ex_adc_raw_data}.
+Although in some cases it is possible to acquire only the b~=~0~s/mm$^2$ image in both phase encode directions to calculate the displacement field, then apply this field to other b-values, it was decided that the $\sqrt{2}$ \ac{SNR} increase of acquiring two volumes and averaging them is beneficial. Additionally if, in the case of in-vivo data, there are issues with motion in the b~=~0~s/mm$^2$ volumes, then another diffusion weighting can be used to estimate the displacement, thus adding inherent redundancy to the pipeline. This process is shown in Figure \ref{fig:ex_epi_distortion} and resulting distortion corrected images in Figure \ref{fig:ex_adc_raw_data}.
 
 \begin{figure}[H]
 	\centering
@@ -449,14 +449,13 @@ Although in some cases it is possible to acquire only the b = 0 s/mm$^2$ image i
 		\caption{}
 		\label{fig:ex_epi_distortion_corrected}
 	\end{subfigure}
-	\caption{(\subref{fig:ex_epi_distortion_overlay}) b = 0 s/mm$^2$ images collected with opposing phase encode directions overlaid in red and blue. (\subref{fig:ex_epi_distortion_corrected}) A composite image with \ac{EPI} distortions corrected using topup.}
+	\caption{(\subref{fig:ex_epi_distortion_overlay}) b~=~0~s/mm$^2$ images collected with opposing phase encode directions overlaid in red and blue. (\subref{fig:ex_epi_distortion_corrected}) A composite image with \ac{EPI} distortions corrected using topup.}
 	\label{fig:ex_epi_distortion}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{Neph/Individual_b_vals.eps}
-%	\missingfigure{Individual b-values}
 	\caption{Distortion corrected images at each b-value.}
 	\label{fig:ex_adc_raw_data}	
 \end{figure}
@@ -470,7 +469,6 @@ Using these techniques, the \ac{ADC} of both ex-vivo and in-vivo renal tissue ca
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
 		\includegraphics[width=0.9\textwidth]{Neph/ex_vivo_adc.pdf}% 20190923
-		%		\missingfigure{Ex-Vivo ADC Map 20190923}
 		\caption{}
 		\label{fig:ex_adc_maps_ex_vivo}
 	\end{subfigure}
@@ -478,7 +476,6 @@ Using these techniques, the \ac{ADC} of both ex-vivo and in-vivo renal tissue ca
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
 		\includegraphics[width=0.9\textwidth]{Neph/in_vivo_adc.pdf}% 20190926
-		%		\missingfigure{In-Vivo ADC Map}
 		\caption{}
 		\label{fig:ex_adc_maps_in_vivo}
 	\end{subfigure}
@@ -490,7 +487,7 @@ Using these techniques, the \ac{ADC} of both ex-vivo and in-vivo renal tissue ca
 
 \ac{ADC} maps provide an understanding as to how readily molecules can diffuse through a tissue, however they do not provide any information as to the directions molecules are travelling which can be directed by tissue structure. To measure this, \ac{DTI} is used. The renal group at \ac{SPMIC} had no existing high resolution in-vivo (or ex-vivo) \ac{DTI} protocol, as such this was specifically developed here.
 
-The acquisition scheme uses a single shot \ac{SE}-\ac{EPI} scheme with monopolar diffusion gradients as in Section \ref{subsec:ex_adc}. The difference in \ac{DTI} lies in the fact that, rather than acquiring a large range of b-values over three different directions, only a single b = 0 s/mm$^2$ and one other b-value are acquired over a minimum of six directions, although in practice many more. This is known as a single shell \ac{DTI} scheme. As the diffusivity in, for example, the positive $x$ direction is the same as the negative $x$ direction most \ac{DTI} schemes acquire a hemisphere of directions. However, to apply additional image deformation correction techniques outlined below, diffusion vectors were acquired over a full sphere, Figure \ref{fig:ex_dti_vectors}.
+The acquisition scheme uses a single shot \ac{SE}-\ac{EPI} scheme with monopolar diffusion gradients as in Section \ref{subsec:ex_adc}. The difference in \ac{DTI} lies in the fact that, rather than acquiring a large range of b-values over three different directions, only a single b~=~0~s/mm$^2$ and one other b-value are acquired over a minimum of six directions, although in practice many more. This is known as a single shell \ac{DTI} scheme. As the diffusivity in, for example, the positive $x$ direction is the same as the negative $x$ direction most \ac{DTI} schemes acquire a hemisphere of directions. However, to apply additional image deformation correction techniques outlined below, diffusion vectors were acquired over a full sphere, Figure \ref{fig:ex_dti_vectors}.
 
 \begin{figure}[H]
 	\centering
@@ -791,7 +788,7 @@ The initial investigation assessed the long term stability of the kidneys by col
 
 Figure \ref{fig:ex_fixation_lts} shows the largest changes in quantitative parameters occurred between twenty four hours and one week after fixation. After this the general trend is that the \tone of the cortex and medulla converge. The \ttwostar of the medulla remains relatively constant while the \ttwostar of the cortex increases and begins to plateau by 10 weeks. One possible mechanism dictating the trend in \ttwostar is the very slow washout of excess formalin. Formalin has a different magnetic susceptibility to \ac{PBS} and renal tissue and as such, causes \ttwostar to decrease. As the excess formalin washes out, the additional de-phasing caused by susceptibility differences decreases and thus \ttwostar increases. The rebound in \ttwostar after fixation and washing has been reported in other tissues \cite{shepherd_aldehyde_2009,thelwall_effects_2006}. When comparing the \ttwostar measured after fixation to in-vivo measurements at 3T \cite{cox_multiparametric_2017} it can be seen that upon fixation the medulla shortens by a smaller proportion than the cortex and as such increases less during the washout phase. In the first week, when the samples have a \tone most similar to that of an unfixed kidney, the quantitative parameters measured will have a dependence on time and as such this necessitates a standardisation in the protocol, specifically the time at which the samples are scanned.
 
-Since it is possible to scan most human samples within twenty four hours of fixation, it was desirable to ascertain how much \tone, \ttwostar and histology change over this period. For this, scanning was only performed at 3T as more frequent measurements were preferable to measurements at different field strengths. For this reason, the number of inversion/echo times collected was reduced to five/six inversion/echo times respectively to fit the protocol into one hour. The choice of \ac{TI} and \ac{TE} was arrived at empirically by calculating maps with every combination of five/six previously acquired \ac{TI}/\ac{TE} and comparing the resultant maps with those calculated using the full complement of inversion and echo times. The reduced protocol consisted of acquisitions with \tone mapping using \acp{TI} of 400 ms, 500 ms, 750 ms, 900 ms, 1100 ms and 2600 ms and \ttwostar mapping using \acp{TE} of 15 ms, 20 ms, 25 ms, 40 ms and 50 ms. The reduction in time points sampled resulted in a mean increase in \tone of $21~\pm~12$~ms and \ttwostar of $0.3 \pm 1.2$~ms compared to the fully sampled protocol.
+Since it is possible to scan most human samples within twenty four hours of fixation, it was desirable to ascertain how much \tone, \ttwostar and histology change over this period. For this, scanning was only performed at 3T as more frequent measurements were preferable to measurements at different field strengths. For this reason, the number of inversion/echo times collected was reduced to five/six inversion/echo times respectively to fit the protocol into one hour. The choice of \ac{TI} and \ac{TE} was arrived at empirically by calculating maps with every combination of five/six previously acquired \ac{TI}/\ac{TE} and comparing the resultant maps with those calculated using the full complement of inversion and echo times. The reduced protocol consisted of acquisitions with \tone mapping using \acp{TI} of 400~ms, 500~ms, 750~ms, 900~ms, 1100~ms and 2600~ms and \ttwostar mapping using \acp{TE} of 15~ms, 20~ms, 25~ms, 40~ms and 50~ms. The reduction in time points sampled resulted in a mean increase in \tone of $21~\pm~12$~ms and \ttwostar of $0.3 \pm 1.2$~ms compared to the fully sampled protocol.
 
 Scanning sessions commenced at 1.5~hours, 2.5~hours, 4~hours, 5.5~hours, 19~hours and 22~hours after the sample was removed from the \ac{NBF}. Due to the potential for relatively rapid changes in properties, especially \tone, the order in which \ac{TI}/\ac{TE} were collected was randomised rather than ascending/descending order (however this order was kept consistent between scanning sessions). Thus any changes in \tone/\ttwostar over the 30/20~minute acquisition period will manifest themselves as non-systematic noise and thus will simply increase the uncertainty in the fit rather than affecting the calculated value.
 
@@ -885,14 +882,14 @@ No significant change is observed in the \tone or \ttwostar of the cortex; the m
 	\label{fig:ex_aged_histo}
 \end{figure}
 
-To further investigate how \tone changes with age, kidneys of 1 day old and 4 week old pigs were scanned and compared to histology. Due to their much smaller size, manually segmenting the cortex and medulla of these samples was not possible, as such the depth based analysis outlined in Section \ref{sec:ex_layers} was employed with a layer thickness of 0.5 mm. 
+To further investigate how \tone changes with age, kidneys of 1 day old and 4 week old pigs were scanned and compared to histology. Due to their much smaller size, manually segmenting the cortex and medulla of these samples was not possible, as such the depth based analysis outlined in Section \ref{sec:ex_layers} was employed with a layer thickness of 0.5~mm. 
 
 Initially an assessment of consistency between kidneys of the same age was performed. \tone maps of three kidneys from two different animals were generated i.e. both kidneys of one animal and the right kidney of another animal were scanned. In Figure \ref{fig:ex_neo_layers_one_day} excellent agreement between all three kidneys can be seen, with an especially high correlation between kidneys from the same animal. This both gives confidence in the depth based analysis when applied to very small kidneys and indicates that there is a low degree of variance in kidneys of this age.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Neph/aged_kidneys/Neonatal_one_day.pdf}
-	\caption{Changes in \tone with renal tissue depth in kidneys of one day old pigs. The shaded area is the standard deviation within each 0.5 mm thick layer of tissue.}
+	\caption{Changes in \tone with renal tissue depth in kidneys of one day old pigs. The shaded area is the standard deviation within each 0.5~mm thick layer of tissue.}
 	\label{fig:ex_neo_layers_one_day}	
 \end{figure}
 
@@ -929,7 +926,7 @@ Further developments were planned in this area but unfortunately the \textsc{cov
 
 The effects of temperature upon the quantitative measures of ex-vivo tissue has not been controlled or investigated here. All samples were scanned at room temperature of approximately 20$\degree$C however, in clinical settings kidneys are stored at approximately 0$\degree$C and in the body, the kidneys will be at approximately 37$\degree$C. Temperature has been shown to have a marked affect on quantitative \ac{MRI} measurements \cite{keenan_multi-site_2016,birkl_effects_2016} and as such, given the large range of temperatures samples are likely to be scanned at, these effects should be investigated in the kidneys. 
 
-Another area of further development is the ex-vivo \ac{DTI} protocol. There are promising early results, however ex-vivo diffusion imaging poses additional difficulties. During the fixation process, methyl bridges cross link with proteins within the tissue stiffening it and causing a small amount of shrinkage \cite{thavarajah_chemical_2012}. This combined with the lower temperatures of ex-vivo samples leads to a reduced degree of diffusion, seen in Figure \ref{fig:ex_adc_maps}. While this results in a higher \ac{SNR} of diffusion sensitised volumes for a given b-value, the underlying diffusion signal being measured is much lower i.e. there is less of a difference between b = 0 s/mm$^2$ and b = 600 sec/mm$^2$ and thus the accuracy of the quantitative maps, Figure \ref{fig:ex_ex_dti_maps}, and tractography, Figure \ref{fig:ex_ex_tracts}, is reduced.
+Another area of further development is the ex-vivo \ac{DTI} protocol. There are promising early results, however ex-vivo diffusion imaging poses additional difficulties. During the fixation process, methyl bridges cross link with proteins within the tissue stiffening it and causing a small amount of shrinkage \cite{thavarajah_chemical_2012}. This combined with the lower temperatures of ex-vivo samples leads to a reduced degree of diffusion, seen in Figure \ref{fig:ex_adc_maps}. While this results in a higher \ac{SNR} of diffusion sensitised volumes for a given b-value, the underlying diffusion signal being measured is much lower i.e. there is less of a difference between b~=~0~s/mm$^2$ and b~=~600~sec/mm$^2$ and thus the accuracy of the quantitative maps, Figure \ref{fig:ex_ex_dti_maps}, and tractography, Figure \ref{fig:ex_ex_tracts}, is reduced.
 
 \begin{figure}[H]
 	\centering
@@ -966,12 +963,11 @@ Another area of further development is the ex-vivo \ac{DTI} protocol. There are 
 
 The ex-vivo protocol presented here could also be used in future to assist stratification of donated organs prior to transplant by scanning organs on cold storage. Organ availability is the limiting factor in renal transplant rate, by increasing confidence in marginal quality organs the time a patient spends on the transplant waiting list could be reduced, reducing risks of complications for the patient due to extended time on dialysis and reduce cost to the health service. This would first require the validation of the effect of temperature on relaxometry measures and the linked histology on discarded organs prior to implementation. The in-vivo protocol could be used to proactively identify dysfunctional grafts and thus modify the course of treatment to extend the life of the transplant.
 
-Further developments will explore the use of perfusion while storing kidneys waiting for a recipient to be matched. The current clinical standard in the UK is to store transplant organs in a preservation solution on ice however, reperfusing the kidneys while they are stored is an area of intense research \cite{bellini_cold_2019,moers_value_2010,wight_pulsatile_2003}. Using the quantitative ex-vivo protocol developed here, the two storage methods could be compared. Additionally, the kidneys could undergo perfusion while in the scanner, this would enable the use of \ac{ASL} to assess ex-vivo renal perfusion. %Future developments will also explore the use of \ac{ASL} on reperfused ex-vivo organs. Reperfusion of the kidney while waiting for a recipient to be matched is an area of intense research \cite{bellini_cold_2019,moers_value_2010,wight_pulsatile_2003}. \ac{ASL} could be used to assess the success of these mechanical perfusion mechanisms and direct improvements in the procedure. 
+Further developments will explore the use of perfusion while storing kidneys waiting for a recipient to be matched. The current clinical standard in the UK is to store transplant organs in a preservation solution on ice however, reperfusing the kidneys while they are stored is an area of intense research \cite{bellini_cold_2019,moers_value_2010,wight_pulsatile_2003}. Using the quantitative ex-vivo protocol developed here, the two storage methods could be compared. Additionally, the kidneys could undergo perfusion while in the scanner, this would enable the use of \ac{ASL} to assess ex-vivo renal perfusion. 
 
 Finally \ac{MRI} techniques such as high resolution \ttwostar weighted imaging for the an assessment of glomerular number and density would be an ideal comparison to certain histopathological metrics. While it is not possible to resolve individual glomeruli with the current protocol, other groups in Australia have recently had success applying deep learning and super resolution techniques to enable counting of the glomeruli in a sample at 3T from high resolution \ttwostar weighted data.
 
-
-
+\newpage
 \section{Acknowledgements}
 
 I am grateful for access to the University of Nottingham's Augusta high performance computing service. I would also like to thank Prof David Gardner of University of Nottingham Veterinary Science for his assistance with sample acquisition, histopathological processing of samples and general renal physiology expertise. Finally I wish to thank Dr Kevin Aquino for his work in developing 3D depth maps for layer analysis in the brain.

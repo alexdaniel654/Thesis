@@ -282,7 +282,7 @@ In reality, the gradients cannot switch polarity instantaneously due to the indu
 
 \subsection{Dipole-Dipole Interactions}
 \label{subsec:theory_dipole_dipole_interactions}
-As outlined in \ref{subsec:theory_t1} and \ref{subsec:theory_t2}, dipole-dipole interactions are a primary contributing factor to \tone and \ttwo times. The factors that dictate the strength of these interactions are the types of spin involved, the distance between them, the angle between the line joining them and the $B_0$ field and their motion. The strength of the interaction depends on the gyromagnetic ratio of the spins involved. The magnitude of an electrons gyromagnetic ratio is much greater than that of a proton (-28025 MHzT$^{-1}$ and 43 MHzT$^{-1}$ respectively \cite{mohr_codata_2016}) and as such proton-electron interactions are much stronger than proton-proton interactions. The strength of the interaction is inversely proportional to the sixth power of distance (seen in Equations \eqref{eq:theory_SB_t1} and \eqref{eq:theory_SB_t2}) and thus means that dipole-dipole interactions are only effective over a very short range. As such, the majority of interactions are intramolecular rather than intermolecular.
+As outlined in \ref{subsec:theory_t1} and \ref{subsec:theory_t2}, dipole-dipole interactions are a primary contributing factor to \tone and \ttwo times. The factors that dictate the strength of these interactions are the types of spin involved, the distance between them, the angle between the line joining them and the $B_0$ field and their motion. The strength of the interaction depends on the gyromagnetic ratio of the spins involved. The magnitude of an electrons gyromagnetic ratio is much greater than that of a proton (-28025~MHzT$^{-1}$ and 43~MHzT$^{-1}$ respectively \cite{mohr_codata_2016}) and as such proton-electron interactions are much stronger than proton-proton interactions. The strength of the interaction is inversely proportional to the sixth power of distance (seen in Equations \eqref{eq:theory_SB_t1} and \eqref{eq:theory_SB_t2}) and thus means that dipole-dipole interactions are only effective over a very short range. As such, the majority of interactions are intramolecular rather than intermolecular.
 
 The $z$ component of a magnetic field produced by a dipole, $\bm{\mu}$, is given by Equation \ref{eq:theory_dipole_z},
 \begin{equation}
@@ -351,7 +351,7 @@ The interplay between diffusion gradients and measured signal can be mathematica
 \end{equation}
 where b is the b-value, and \acsu{ADC} is the \acl{ADC} of the tissue and reflects the degree with which spins can diffuse through a tissue, given in mm$^2$/sec. By repeating the acquisition with different b-values, the signal from each voxel at each b-value can be used to estimate \ac{ADC} (and $S_0$) by fitting the data to Equation \eqref{eq:theory_adc}.
 
-For large b-values, typically greater than 250 s/mm$^2$, diffusion is the primary contributing factor to signal attenuation. For b-values less than 250 s/mm$^2$ an additional mechanism in the form of perfusion, micro-circulation of blood in capillaries, leads to additional signal attenuation. This additional factor can be modelled by the \ac{IVIM} model, \eqref{eq:theory_ivim}, where $f$ is the perfusion fraction, the proportion of a voxels volume occupied by capillaries, $D$ is the tissues diffusion coefficient and $D^*$ is the pseudodiffusion coefficient, reflecting the additional de-phasing due to perfusion within capillaries in a voxel \cite{le_bihan_mr_1986,le_bihan_separation_1988}.
+For large b-values, typically greater than 250~s/mm$^2$, diffusion is the primary contributing factor to signal attenuation. For b-values less than 250~s/mm$^2$ an additional mechanism in the form of perfusion, micro-circulation of blood in capillaries, leads to additional signal attenuation. This additional factor can be modelled by the \ac{IVIM} model, \eqref{eq:theory_ivim}, where $f$ is the perfusion fraction, the proportion of a voxels volume occupied by capillaries, $D$ is the tissues diffusion coefficient and $D^*$ is the pseudodiffusion coefficient, reflecting the additional de-phasing due to perfusion within capillaries in a voxel \cite{le_bihan_mr_1986,le_bihan_separation_1988}.
 
 \begin{equation}
 	S\left( b \right) = S_0 \left[ f \cdot e^{-b\left(D + D^*\right)} + \left( 1 - f\right) \cdot e^{-b \cdot D}\right]
@@ -381,7 +381,7 @@ Quantitative mapping of \tone, \ttwo and \ttwostar can often be a slow process d
 		\caption{}
 		\label{fig:theory_tissue_contrast_t2}
 	\end{subfigure}
-	\caption{(\subref{fig:theory_tissue_contrast_t1}) The signal generated from renal cortical and medullary tissues \cite{cox_multiparametric_2017} following an inversion recovery and difference between signals. This shows that the contrast between the two tissues is optimal if the \acf{TI} is 1500 ms. (\subref{fig:theory_tissue_contrast_t2}) The signal generated from the kidneys, liver and spleen following a spin echo sequence and the difference between the signals.}
+	\caption{(\subref{fig:theory_tissue_contrast_t1}) The signal generated from renal cortical and medullary tissues \cite{cox_multiparametric_2017} following an inversion recovery and difference between signals. This shows that the contrast between the two tissues is optimal if the \acf{TI} is 1500~ms. (\subref{fig:theory_tissue_contrast_t2}) The signal generated from the kidneys, liver and spleen following a spin echo sequence and the difference between the signals.}
 	\label{fig:theory_tissue_contrast}
 \end{figure}
 
@@ -682,7 +682,7 @@ The angle that produces the maximum signal, known as the Ernst angle, $\alpha_E$
 	\alpha_E = \arccos \left[ \exp \left( -\frac{TR}{T_1}\right)\right].
 	\label{eq:theory_ernst}
 \end{equation}
-Figure \ref{fig:theory_ernst} shows the ratio of the steady state signal to the fully recovered, 90$\degree${ } excitation signal of renal cortex (\tone of 1376 ms) for a range of flip angles and \ac{TR}. Additionally the Ernst angle is shown. 
+Figure \ref{fig:theory_ernst} shows the ratio of the steady state signal to the fully recovered, 90$\degree${ } excitation signal of renal cortex (\tone of 1376~ms) for a range of flip angles and \ac{TR}. Additionally the Ernst angle is shown. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{Theory/TFE/ernst.pdf}
@@ -707,7 +707,7 @@ An image generated using a \ac{TFE} sequence is shown in Figure \ref{fig:theory_
 \end{figure}
 
 \subsubsection{\ac*{EPI}}
-A much faster imaging technique is \ac{EPI} \cite{mansfield_nmr_1973}. This technique samples all lines of $k$-space in a single excitation shot with an acquisition time typically less than 100 ms. The \ac{PSD} and $k$-space trajectory for this sequence are shown in Figure \ref{fig:theory_epi}. The sequence begins with a slice selective excitation and an acquisition of the bottom line of $k$-space, however, instead of a spoiler followed by another excitation as in spin warp imaging, in \ac{EPI} a small positive phase encode gradient `blip' is applied to move up a line in $k$-space, followed by an inversion of the readout gradient polarity. This blip followed by reversed readout is repeated, zig-zagging up $k$-space until the desired $k$-space is sampled.
+A much faster imaging technique is \ac{EPI} \cite{mansfield_nmr_1973}. This technique samples all lines of $k$-space in a single excitation shot with an acquisition time typically less than 100~ms. The \ac{PSD} and $k$-space trajectory for this sequence are shown in Figure \ref{fig:theory_epi}. The sequence begins with a slice selective excitation and an acquisition of the bottom line of $k$-space, however, instead of a spoiler followed by another excitation as in spin warp imaging, in \ac{EPI} a small positive phase encode gradient `blip' is applied to move up a line in $k$-space, followed by an inversion of the readout gradient polarity. This blip followed by reversed readout is repeated, zig-zagging up $k$-space until the desired $k$-space is sampled.
 
 \begin{figure}[H]
 	\centering
