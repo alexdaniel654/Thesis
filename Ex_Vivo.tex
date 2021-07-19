@@ -131,7 +131,6 @@ To evaluate the use of the layer based analysis techniques (outlined in Section 
 \end{table}
 
 \subsection{Longitudinal \tone Mapping}
-% Acquisition
 \tone mapping protocols were developed for both 3T and 7T systems using an ultrafast gradient echo inversion recovery scheme. The basics of this sequence and \tone mapping are outlined in Section \ref{subsec:theory_t1}. The sequence parameters for 3T and 7T are shown in Table \ref{tab:ex_t1_mapping}. An example of the acquisitions at each \ac{TI} is shown in Figure \ref{fig:ex_ir_data}.
 
 \begin{table}[H]
@@ -194,39 +193,6 @@ Once the data has been polarity corrected, a voxel-by-voxel, least squares trust
 	S(TI) = M_0\left(1-2 \cdot e^{-\sfrac{TI}{\tone}}\right)
 	\label{eq:ex_t1}
 \end{equation}
- 
-%\begin{figure}[H]
-%	\centering
-%	\begin{subfigure}[c]{0.47\textwidth}
-%		\centering
-%		\includegraphics[width=1\textwidth]{Neph/T1_map_3T.eps}
-%		\caption{3T \tone}
-%		\label{fig:ex_t1_map_3t}
-%	\end{subfigure}
-%	\hfill
-%	\begin{subfigure}[c]{0.47\textwidth}
-%		\centering
-%		\includegraphics[width=1\textwidth]{Neph/T1_map_7T-01.eps}
-%		\caption{7T \tone}
-%		\label{fig:ex_t1_map_7t}
-%	\end{subfigure}
-%	\vskip\baselineskip
-%		\begin{subfigure}[c]{0.47\textwidth}
-%		\centering
-%		\includegraphics[width=1\textwidth]{Neph/T1_M0_map_3T.eps}
-%		\caption{3T $M_0$}
-%		\label{fig:ex_t1_m0_map_3t}
-%	\end{subfigure}
-%	\hfill
-%	\begin{subfigure}[c]{0.47\textwidth}
-%		\centering
-%		\includegraphics[width=1\textwidth]{Neph/T1_M0_map_7T.eps}
-%		\caption{7T $M_0$}
-%		\label{fig:ex_t1_m0_map_7t}
-%	\end{subfigure}
-%	\caption{Example \tone and $M_0$ maps generated at both 3T and 7T.}
-%	\label{fig:ex_t1_maps}
-%\end{figure}
 
 \begin{figure}[H]
 	\centering
@@ -637,7 +603,6 @@ As this tractography protocol was developed from source for renal measures, both
 
 \section{Depth Based Analysis of Renal Data}
 \label{sec:ex_layers}
-% Motivation
 \subsection{Motivation}
 The vast majority of analysis of quantitative renal \ac{MRI} data is based around defining Regions of Interest (\acsu{ROI}) within the kidneys to segment the renal cortex from the medulla and calculate the average of quantitative parameters within these \ac{ROI}. While this method has provided excellent results, it is by no means perfect. The most common method to define these \ac{ROI} is the manual drawing of voxels that represent each tissue type, this can lead to human bias, even if an anatomical scan is used for the segmentation rather than the quantitative map. Automated methods have been proposed, however, as outlined in Chapter \ref{chap:ML}, these can be difficult to generalise.
 
@@ -800,7 +765,6 @@ Variation in \tone and \ttwostar over the 24 hour period is shown in Figure \ref
 	\centering
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		%		\missingfigure{T1 vs Times (STS)}
 		\includegraphics[width=1\textwidth]{Neph/STS_T1_line.pdf}
 		\caption{}
 		\label{fig:ex_fixation_t1_3t_sts}
@@ -808,7 +772,6 @@ Variation in \tone and \ttwostar over the 24 hour period is shown in Figure \ref
 	\hfill
 	\begin{subfigure}[c]{0.47\textwidth}
 		\centering
-		%		\missingfigure{T2* vs Times (STS)}
 		\includegraphics[width=1\textwidth]{Neph/STS_T2star_line.pdf}
 		\caption{}
 		\label{fig:ex_fixation_t2star_3t_sts}
@@ -914,9 +877,6 @@ The same depth based analysis was applied to a 4 week old kidney and the 0.5 yea
 	\label{fig:ex_neo_layers_all_ages}
 \end{figure}
 
-% water content
-% 1 day old comma and s-shaped bodies
-% lower glom density
 In future, it would be advantageous to scan samples from older pigs as these will have a greater degree of fibrosis. However, it is not common for pigs to be kept to older ages and so this limits the possibility of highly fibrotic porcine kidneys. Biopsy samples should also include medullary tissue for histological analysis as both Figure \ref{fig:ex_fixation_lts} and Figure \ref{fig:ex_aged_bar} indicate that medullary tissue is relatively variable in quantitative \ac{MRI} and as such, being able to correlate this with histology would be insightful.
 
 \section{Conclusion and Future Work}

@@ -3,7 +3,6 @@
 \newpage
 \begin{abstract}
 	This chapter outlines the theoretical framework behind \ac{NMR} and \ac{MRI}. Beginning with an overview of nuclear spin and resonance, the origin of the signal measured in \ac{NMR} is explained. The processes responsible for variations within signals such as relaxation mechanisms are then outlined and the techniques used to measure these different signals described. Finally, an overview of the process by which the signals can be used to form images is given, covering concepts such as spacial localisation, image acquisition schemes and acceleration methods.
-	%\lipsum[1]
 \end{abstract}
 \newpage
 
@@ -14,8 +13,6 @@
 \subsection{Nuclear Spin}
 \label{subsec:theory_nuclear_spin}
 The \ac{NMR} signal arises from the interaction between the atomic nucleus and an external magnetic field. These atomic nuclei possess intrinsic properties of, mass ($m$), charge ($q$) and spin ($I$). Spin is a quantum mechanical property and as such, can only take values of half integers or integers. Nuclear spin is dictated by the sum of the constituent particles of the nucleus, protons and neutrons, each of which posses their own spin of either $\sfrac{1}{2}$ or $-\sfrac{1}{2}$ respectively. This means pairs of nucleons with opposite spin can cancel out leaving the nucleus with zero net spin, this happens when the nuclei contains an even number of protons and neutrons. If the nuclei contains an odd number of both protons and neutrons, it will have a positive integer nuclear spin whereas if the nuclei has an odd number of protons or neutrons, it will have a half integer spin. 
-
-%\subsection{Nuclear Magnetisation}
 
 The spin angular momentum, $\mathbf{J}$ of a nucleus of spin $I$ is given by
 \begin{equation}
@@ -90,10 +87,6 @@ where $N_{\downarrow}$ and $N_{\uparrow}$ are the number of spins aligned with a
 \end{figure}
 
 \subsection{Precession}
-%The nuclear magnetic moment always has a transverse component as from equations \eqref{eq:theory_angular_momentum}, \eqref{eq:theory_magnetic_moment} and \eqref{eq:theory_longitudinal_magnetic_moment} we can see $\left| \bm{\mu} \right| > \mu_z$, and therefore the magnetic moment cannot exactly align along the $z$-axis. This misalignment between $\bm{\mu}$ and $B_0$ causes $\bm{\mu}$ to precess around $B_0$ at an angular frequency $\omega_0$, known as the Larmor frequency and is given by,
-%\begin{equation}
-%\omega_0=\gamma B_0.
-%\end{equation}
 
 Classically, if a magnetic moment, $\bm{\mu}$, is placed into an external magnetic field, $\mathbf{B}$, it will experience a torque, $\tau$, proportional to the change in angular momentum and thus induce a rotation.
 \begin{equation}
@@ -186,13 +179,13 @@ Typically a hyperbolic secant pulse is used for inversion. This pulse is adiabat
 To measure \tone, the most standard method is to repeat an inversion recovery sequence multiple times, with measurements of $M_z$ taken at different times after the 180$\degree$ inversion pulse, the \ac{TI}. The magnetisation must have fully recovered to $M_0$ between each inversion pulse, as such the minimum time between inversions, termed the \ac{TR}, is five times \tone. Curve fitting can then be used to estimate $M_0$ and \tone, Figure \ref{fig:theory_inversion_recovery}.
 This method is expanded upon when it is used in Chapter \ref{chap:ex}.
 
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/Inversion_Recovery/ir.eps}
 	\caption{The longitudinal magnetisation for a sample of \tone = 1000 ms in an inversion recovery experiment. The experiment was repeated with inversion times from 250 ms to 3000 ms in 250 ms steps.}
 	\label{fig:theory_inversion_recovery}	
 \end{figure}
+
 \subsection{Transverse Relaxation (\ttwo and \ttwostar)}
 \label{subsec:theory_t2}
 Upon the application of a 90$\degree$ $x'$ \ac{RF} pulse, the net magnetisation vector is tipped in the $y'$ direction resulting in phase coherence and creating transverse magnetisation, $M_{x'y'}$. The spins then precess about the $z$-axis at their Larmor frequency, dictated by the magnetic field they are in. This magnetic field is not perfectly homogeneous over the whole ensemble though, random dipole-dipole interaction with neighbouring spins produce short-lived fluctuations in the local magnetic field and thus the Larmor frequency of each spin varies. As the spins precess at different frequencies, they de-phase, resulting in the transverse magnetisation decaying to zero as phase coherence is lost. This mechanism is driven by energy transfer between the spins within the system and is termed, the spin-spin relaxation. The rate at which this loss of phase coherence due to spin-spin interactions occurs is characterised by the time constant \ttwo.
@@ -291,7 +284,6 @@ The $z$ component of a magnetic field produced by a dipole, $\bm{\mu}$, is given
 \end{equation}
 producing the field shown in Figure \ref{fig:theory_magic_angle}. Here it can be seen that at a certain angle, the magnetic field is zero, this occurs when $\left( 3\cos^2\theta -1\right) = 0$ and equates to an angle of approximately $54.7\degree$. This angle is known as the magic angle. If the dipoles are orientated at approximately the magic angle to the $B_0$ field, their \ttwo will be increased.
 
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Theory/Correlation_Time/magic_angle.pdf}
@@ -318,13 +310,6 @@ The mathematical framework of this phenomenon is given by the Solomon-Bloemberge
 	\caption{\tone and \ttwo dependence on molecular correlation time as predicted by the Solomon-Bloembergen equations. Tissues with a range of correlation times are highlighted.}
 	\label{fig:theory_relaxation_correlation}	
 \end{figure}
-
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=0.7\textwidth]{Theory/Correlation_Time/relaxation_b0.pdf}
-%	\caption{}
-%	\label{fig:theory_relaxation_b0}	
-%\end{figure}
 
 \subsection{Diffusion Weighted Imaging}
 \label{subsec:theory_diffusion}
@@ -454,6 +439,7 @@ The gradient applied will result in de-phasing of the spins as in a \ac{GE} sequ
 	\caption{(\subref{fig:theory_slice_select_rephasing}) A truncated sinc pulse of bandwidth $\Delta \omega$ is applied at the same time as a slice selective gradient, this is followed by the negative re-phasing gradient lobe. Note that the area under the re-phasing gradient is half that of the slice selective gradient. (\subref{fig:theory_slice_select_profile}) Example slices of thickness $\Delta z$ being excited by \ac{RF} pulses of bandwidth $\Delta \omega$, showing that excitation pulses with larger bandwidth result in thicker slice profiles.}
 	\label{fig:theory_slice_select}
 \end{figure}
+
 \subsubsection{Phase Encoding}
 So far, the signal has been localised from a full 3D volume to a defined 2D volumetric slice. To localise the signal in the next dimension, phase encoding is used. This technique uses a gradient in the $y$ direction applied for time $T$. For the duration of $G_y$ the spins precess with a frequency according to their position in the $y$ direction
 \begin{equation}
@@ -497,8 +483,6 @@ k_y &=& \gamma G_y t_y
 \end{eqnarray}
 
 When recording \ac{MRI} data, the continuous signal must be discretised. The higher the sampling frequency i.e. the closer together in $k$-space the samples are, $\Delta k$, the wider the \ac{FOV} and the further out from the origin of $k$-space is sampled, the higher resolution the image will be. Examples of $k$-space sampling patterns and their corresponding image are shown in Figure \ref{fig:theory_kspace}.
-
-
 
 \begin{figure}[H]
 	\centering
@@ -643,7 +627,6 @@ The decrease in acquisition time comes at the expense of \ac{RF} exposure, the l
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Theory/TSE/tse.pdf}
-%	\missingfigure{TSE Sequence}
 	\caption{A schematic of the \ac{TSE} pulse sequence and $k$-space trajectory. The coloured bands on the \ac{PSD} correspond to the colours of the $k$-space trajectories. Note this diagram is not to scale.}
 	\label{fig:theory_tse}	
 \end{figure}
@@ -712,14 +695,11 @@ A much faster imaging technique is \ac{EPI} \cite{mansfield_nmr_1973}. This tech
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{Theory/EPI/epi.pdf}
-	%	\missingfigure{EPI PSD and k-space}
 	\caption{A schematic of the \ac{GE}-\ac{EPI} pulse sequence and $k$-space trajectory. This diagram is not to scale.}
 	\label{fig:theory_epi}	
 \end{figure}
 
 While this sequence has a very short acquisition time, it does have drawbacks. Imperfections in gradient coils and eddy currents can cause small differences in lines collected in the positive and negative direction, leading to a Nyquist ghost artefact. Additionally geometric distortions are induced in the image due to inhomogeneities in the $B_0$ field and a poor bandwidth in the phase encode direction \cite{andersson_how_2003}, these distortions are seen in Figures \ref{fig:theory_epi_blip_l} and \ref{fig:theory_epi_blip_r}. Common sources of $B_0$ imperfections include differences in tissue susceptibility, poor shimming and eddy currents induced by diffusion sensitising gradients. Multiple post-processing techniques have been developed with the aim of correcting these distortions by either using quantitative $B_0$ maps or collecting data with phase encode blips in both directions i.e. collect images sampling $k$-space from both bottom to top and top to bottom. The latter of these techniques is used to correct the image in Figure \ref{fig:theory_epi_blip_corrected} and is outlined further in Chapter \ref{chap:ex}.
-
-%The long train of echoes makes \ac{EPI} more sensitive to inhomogeneities in the $B_0$ field caused by different tissue susceptibilities or poor shimming.  Eddy currents induced by the phase encode blips also cause geometric distortions in the image, Figure \ref{fig:theory_epi_eddy}, however, these can be corrected via post processing if an image with phase encode blips of opposite polarity is collected i.e. collect images sampling $k$-space from both bottom to top and top to bottom. This is outlined further in Chapter \ref{chap:ex}.
 
 \begin{figure}[H]
 	\centering

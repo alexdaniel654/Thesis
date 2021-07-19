@@ -9,8 +9,6 @@
 	In the \ac{NIST} phantom, the basic spin echo sequence delivered the most accurate quantitative results over the range of \ttwo reported in the kidneys (40 sm - 200 ms), however its sensitivity to flow and wide point spread function limit its use in-vivo. Instead, a gradient spin echo sequence is recommended, with a mean relative error of 15 $\pm$ 4~\% over the range of \ttwo reported within the kidneys (40 ms – 200 ms), superior readability due to its smaller point spread function and insensitivity to flow.
 	
 	\textit{This work was presented as an oral presentation at the \ac{ISMRM} 28th Annual Meeting (2020) \cite{daniel_comparison_2020}.}
-	
-%	\lipsum[1]
 \end{abstract}
 \newpage
 \acresetall
@@ -136,7 +134,6 @@ In addition to the four techniques above which can be applied in the required ti
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{T2_Mapping/Pulse_Diagrams/T2_ME_SE.eps}
-%	\missingfigure{ME-SE Scheme (ME-TSE PSD with all but the first PE blip removed and one extra echo).}
 	\caption{A pulse sequence diagram of the Multi-Echo Spin-Echo scheme.}
 	\label{fig:t2_me-se_seq}	
 \end{figure}
@@ -382,7 +379,6 @@ Each fitting method was tested using data acquired on the QalibreMD phantom and 
 	\caption{(\subref{fig:t2_in_vivo_fitting_methods_basic}-\subref{fig:t2_in_vivo_fitting_methods_noise_discard}) \ttwo maps generated using each of the fitting methods for the \ac{GraSE} sequence and (\subref{fig:t2_in_vivo_fitting_methods_hist}) histograms of \ttwo values within the renal cortex, renal medulla, liver and spleen. The reduction in longer \ttwo values when fit with a noise term observed in the phantom can be seen here in the large decrease in \ttwo of the kidneys, while the spleen and liver only decrease a small amount. Discarding has relatively little effect on the kidneys but does slightly increase the variance in \ttwo within each \ac{ROI}.}
 	\label{fig:t2_in_vivo_fitting_methods}
 \end{figure}
-
 
 The noise fit results in an increase in accuracy compared to the basic fit when measuring the \ttwo of the shortest \ttwo spheres, especially for sequences with a short echo spacing where the majority of echoes in the signal are after the sphere has fully relaxed back to its baseline noise level. This increase in accuracy for short \ttwo is at the expense of the accuracy of the long \ttwo spheres. The combination of decreased dynamic range and an extra parameter to optimise resulted in an inaccurate characterisation of these spheres, especially of the \ac{SE}-\ac{EPI} sequence due to the short final echo time and thus lower dynamic range. This can be observed in Figure \ref{fig:t2_in_vivo_fitting_methods_hist} where the variance in \ttwo within the liver is decreased when using the noise fit compared to the basic fit, however the variance of the longer \ttwo values in the kidneys has increased. In the range of \ttwo reported in the kidney, the noise fit increased the average error over the four sequences. 
 
@@ -752,7 +748,6 @@ To better explore the variation between subjects, histograms of the \ttwo values
 	\caption{Peak and \ac{FWHM} of a Gaussian fit to the histogram of each tissue type. Values are expressed as mean and standard deviation across the five subjects.}
 	\label{tab:t2_hist}
 \end{table}
-
 
 \newpage
 
