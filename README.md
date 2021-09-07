@@ -19,7 +19,7 @@ If you're at the point you want to look at the LaTeX "code" someone else wrote f
 
 Probably the most useful bit of code here are the pulse sequence diagrams in the theory chapter. These were all programmed up in Python. Again, there's not a huge amount of consistency between scripts, in hindsight I should have made a little Python package for drawing the diagrams but didn't have time when I was writing. The code should still be useful and make a good starting point for anyone else to adapt into their own PSDs though. Most of them are located [here](https://github.com/alexdaniel654/Thesis/tree/master/Images/Theory).
 
-![Spin warp imaging pulse sequence and k-space](Images\Theory\spin_warp\spin_warp.png "Spin warp imaging")
+![Spin warp imaging pulse sequence and k-space](Images/Theory/spin_warp/spin_warp.png "Spin warp imaging")
 
 
 If you have any questions about the thesis, figures or LaTeX feel free to [drop me an email](mailto:alexander.daniel@nottingham.ac.uk).
